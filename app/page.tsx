@@ -21,7 +21,14 @@ import {
   MINERAL_RESOURCES_DATA,
   PETROLEUM_DATA,
 } from "./slidesData";
-import { HeroHubVisual, RoyalTransmissionVisual } from "./slideVisuals";
+import {
+  HeroHubVisual,
+  DigitalGridWaveVisual,
+  GeneralAffairsBgVisual,
+  MineralResourcesBgVisual,
+  PetroleumBgVisual,
+  RoyalTransmissionVisual,
+} from "./slideVisuals";
 import {
   ChevronLeft,
   ChevronRight,
@@ -236,6 +243,10 @@ export default function PresentationPage() {
               <div className="blob b2" />
             </div>
 
+            <div className="pl">
+              <DigitalGridWaveVisual />
+            </div>
+
             <div className="hero-grid">
               <div className="t-left">
                 <div
@@ -342,6 +353,11 @@ export default function PresentationPage() {
             <div className="bgfx">
               <div className="dots" />
               <div className="blob b1" />
+              <div className="blob b2" />
+            </div>
+
+            <div className="pl">
+              <GeneralAffairsBgVisual />
             </div>
 
             <div className="head">
@@ -848,6 +864,11 @@ export default function PresentationPage() {
             <div className="bgfx">
               <div className="dots" />
               <div className="blob b1" />
+              <div className="blob b2" />
+            </div>
+
+            <div className="pl">
+              <MineralResourcesBgVisual />
             </div>
 
             <div className="head">
@@ -1289,6 +1310,11 @@ export default function PresentationPage() {
             <div className="bgfx">
               <div className="dots" />
               <div className="blob b1" />
+              <div className="blob b2" />
+            </div>
+
+            <div className="pl">
+              <PetroleumBgVisual />
             </div>
 
             <div className="head">
