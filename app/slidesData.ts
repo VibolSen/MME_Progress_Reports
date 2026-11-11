@@ -413,10 +413,8 @@ export const PETROLEUM_DATA = {
           "ស្នើសុំពិនិត្យ ទទួល និងដំណើរការឯកសារស្នើសុំនិងការបន្តសុពលភាពវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាព សម្រាប់ស្ថានីយប្រេងឥន្ធនៈ ឬស្ថានីយឧស្ម័នឥន្ធនៈ (75%)",
         badgeEn: "75% Complete",
         badgeKm: "75%",
-        notesEn:
-          "Internal processing workflow at 75% completion for fuel and LPG station certificate renewals.",
-        notesKm:
-          "វឌ្ឍភាពសម្រេចបាន 75% សម្រាប់ប្រព័ន្ធប្រើប្រាស់ផ្ទៃក្នុងក្រសួង។",
+        notesEn: "",
+        notesKm: "",
       },
       {
         num: "02",
@@ -427,22 +425,21 @@ export const PETROLEUM_DATA = {
         badgeEn: "Ready · Pending Review",
         badgeKm: "បានរៀបចំរួចរាល់",
         notesEn:
-          "Setup completed — awaiting further review by the Ministry working group for refinement.",
+          "Setup completed (awaiting further review by the Ministry working group for refinement).",
         notesKm:
           "បានរៀបចំរួចរាល់ (រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមដើម្បីកែសម្រួល)។",
       },
       {
         num: "03",
-        titleEn:
-          "Technical Safety Certificate for Stations — Provincial On-Site Inspection Testing",
+        titleEn: "Technical Safety Certificate Application for Stations",
         titleKm:
-          "ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ (តេស្តដល់ជំហានមន្ទីរចុះពិនិត្យទីតាំង)",
+          "ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ",
         badgeEn: "Nov 10, 2026 · 2:30 PM",
         badgeKm: "១០ វិច្ឆិកា ២០២៦ · 2:30 PM",
         notesEn:
-          "On Nov 10, 2026 at 2:30 PM, continued pilot testing with the Department and Provincial Department up to the Provincial On-Site Inspection step, with refinements requested on the data entry form.",
+          "(On Nov 10, 2026 at 2:30 PM, continued pilot testing with the Department and Provincial Department up to the Provincial On-Site Inspection step, and requested refinements on several items in the data entry screen.)",
         notesKm:
-          "កាលពីថ្ងៃទី១០ ខែវិច្ឆិកា ឆ្នាំ២០២៦ ម៉ោង 2:30 PM បានបន្តតេស្តសាកល្បងជាមួយនាយកដ្ឋាន និងមន្ទីរខេត្ត ដល់ជំហានមន្ទីរចុះពិនិត្យទីតាំង ហើយបានស្នើសុំកែសម្រួលលើចំណុចមួយចំនួនក្នុងផ្ទាំងបញ្ចូលព័ត៌មាន។",
+          "(កាលពីថ្ងៃទី១០ ខែវិច្ឆិកា ឆ្នាំ២០២៦ ម៉ោង 2:30 PM បានបន្តតេស្តសាកល្បងជាមួយនាយកដ្ឋាន និងមន្ទីរខេត្ត ដល់ជំហានមន្ទីរចុះពិនិត្យទីតាំង ហើយបានស្នើសុំកែសម្រួលលើចំណុចមួយចំនួនក្នុងផ្ទាំងបញ្ចូលព័ត៌មាន)",
       },
       {
         num: "04",
@@ -452,10 +449,8 @@ export const PETROLEUM_DATA = {
           "មុខងារ Offline (ឧ. អោយ Save ទិន្នន័យ Auto ករណីដាច់ Internet) (5%)",
         badgeEn: "5% In Progress",
         badgeKm: "5%",
-        notesEn:
-          "Offline capability (5%) to automatically save inspection and application data when internet connectivity drops.",
-        notesKm:
-          "មុខងារ Offline (ឧ. អោយ Save ទិន្នន័យ Auto ករណីដាច់ Internet) សម្រេចបាន 5%។",
+        notesEn: "",
+        notesKm: "",
       },
     ],
   },

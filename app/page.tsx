@@ -1640,7 +1640,7 @@ export default function PresentationPage() {
                 className="data-col a"
                 style={{ "--d": 2.5 } as React.CSSProperties}
               >
-                <div className="comp-cards-grid">
+                <div className="comp-cards-grid dense">
                   {/* Top-Left Card: I. Web Portal សម្រាប់អ្នកស្នើសុំ */}
                   <div className="comp-data-card">
                     <div className="comp-data-head">
@@ -1655,30 +1655,34 @@ export default function PresentationPage() {
                       </span>
                     </div>
                     <div className="data-items-stack">
-                      {PETROLEUM_DATA.applicantPortal.services.map((srv) => (
-                        <div key={`pet-app-${srv.num}`} className="data-item">
-                          <div className="data-item-left">
-                            <span className="data-code">{srv.num}</span>
-                            <div className="data-text">
-                              <h4>
-                                {lang === "km" ? srv.titleKm : srv.titleEn}
-                              </h4>
-                              <p>{lang === "km" ? srv.notesKm : srv.notesEn}</p>
+                      {PETROLEUM_DATA.applicantPortal.services.map((srv) => {
+                        const noteText =
+                          lang === "km" ? srv.notesKm : srv.notesEn;
+                        return (
+                          <div key={`pet-app-${srv.num}`} className="data-item">
+                            <div className="data-item-left">
+                              <span className="data-code">{srv.num}</span>
+                              <div className="data-text">
+                                <h4>
+                                  {lang === "km" ? srv.titleKm : srv.titleEn}
+                                </h4>
+                                {noteText ? <p>{noteText}</p> : null}
+                              </div>
                             </div>
+                            <span
+                              className={`data-badge ${
+                                srv.num === "03" ? "pri" : "grn"
+                              }`}
+                            >
+                              {srv.num === "03"
+                                ? "90%"
+                                : lang === "km"
+                                  ? "រួចរាល់"
+                                  : "Ready"}
+                            </span>
                           </div>
-                          <span
-                            className={`data-badge ${
-                              srv.num === "03" ? "pri" : "grn"
-                            }`}
-                          >
-                            {srv.num === "03"
-                              ? "90%"
-                              : lang === "km"
-                                ? "រួចរាល់"
-                                : "Ready"}
-                          </span>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -1715,6 +1719,8 @@ export default function PresentationPage() {
                                   ? "តេស្តខេត្ត"
                                   : "Tested"
                                 : "5%";
+                        const noteText =
+                          lang === "km" ? srv.notesKm : srv.notesEn;
                         return (
                           <div key={`pet-int-${srv.num}`} className="data-item">
                             <div className="data-item-left">
@@ -1723,9 +1729,7 @@ export default function PresentationPage() {
                                 <h4>
                                   {lang === "km" ? srv.titleKm : srv.titleEn}
                                 </h4>
-                                <p>
-                                  {lang === "km" ? srv.notesKm : srv.notesEn}
-                                </p>
+                                {noteText ? <p>{noteText}</p> : null}
                               </div>
                             </div>
                             <span className={`data-badge ${badgeClass}`}>
