@@ -6,7 +6,13 @@
 
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useSyncExternalStore,
+} from "react";
 import Image from "next/image";
 import {
   Language,
@@ -38,68 +44,59 @@ import {
 const TOTAL_SLIDES = 5;
 
 export default function PresentationPage() {
-  const [currentSlide, setCurrentSlide] = useState<number>(() => {
-    if (typeof window !== "undefined") {
-      const hash = window.location.hash.replace("#", "");
-      const slideNum = parseInt(hash, 10);
-      if (!isNaN(slideNum) && slideNum >= 1 && slideNum <= TOTAL_SLIDES) {
-        return slideNum - 1;
-      }
-    }
-    return 0;
-  });
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   // LIGHT THEME & ENGLISH LANGUAGE ARE DEFAULT
   const [theme, setTheme] = useState<"dark" | "light">("light");
   const [lang, setLang] = useState<Language>("en");
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      return Boolean(document.fullscreenElement);
-    }
-    return false;
-  });
   const [langDropdownOpen, setLangDropdownOpen] = useState<boolean>(false);
 
-  // Dynamic scale calculation for 1920x1080 stage
-  const [scale, setScale] = useState<number>(() => {
-    if (typeof window !== "undefined") {
+  // Hydration-safe fullscreen state via useSyncExternalStore
+  const isFullscreen = useSyncExternalStore(
+    useCallback((onStoreChange: () => void) => {
+      document.addEventListener("fullscreenchange", onStoreChange);
+      return () =>
+        document.removeEventListener("fullscreenchange", onStoreChange);
+    }, []),
+    () => Boolean(document.fullscreenElement),
+    () => false
+  );
+
+  // Hydration-safe dynamic scale calculation for 1920x1080 stage
+  const scale = useSyncExternalStore(
+    useCallback((onStoreChange: () => void) => {
+      window.addEventListener("resize", onStoreChange);
+      document.addEventListener("fullscreenchange", onStoreChange);
+      return () => {
+        window.removeEventListener("resize", onStoreChange);
+        document.removeEventListener("fullscreenchange", onStoreChange);
+      };
+    }, []),
+    () => {
       const w = window.innerWidth;
       const h = window.innerHeight - 76;
       const s = Math.min(w / 1920, h / 1080);
       return s > 0 ? s : 1;
-    }
-    return 1;
-  });
-
-  const fit = useCallback(() => {
-    if (typeof window === "undefined") return;
-    const isFS = Boolean(document.fullscreenElement);
-    setIsFullscreen(isFS);
-    const w = window.innerWidth;
-    const h = window.innerHeight - 76;
-    const s = Math.min(w / 1920, h / 1080);
-    setScale(s > 0 ? s : 1);
-  }, []);
+    },
+    () => 1
+  );
 
   useEffect(() => {
-    window.addEventListener("resize", fit);
-    document.addEventListener("fullscreenchange", fit);
-
-    const handleHashChange = () => {
+    const syncFromHash = () => {
       const hash = window.location.hash.replace("#", "");
       const slideNum = parseInt(hash, 10);
       if (!isNaN(slideNum) && slideNum >= 1 && slideNum <= TOTAL_SLIDES) {
         setCurrentSlide(slideNum - 1);
       }
     };
-    window.addEventListener("hashchange", handleHashChange);
+    const timer = window.setTimeout(syncFromHash, 0);
+    window.addEventListener("hashchange", syncFromHash);
 
     return () => {
-      window.removeEventListener("resize", fit);
-      document.removeEventListener("fullscreenchange", fit);
-      window.removeEventListener("hashchange", handleHashChange);
+      window.clearTimeout(timer);
+      window.removeEventListener("hashchange", syncFromHash);
     };
-  }, [fit]);
+  }, []);
 
   const goToSlide = useCallback((index: number) => {
     if (index >= 0 && index < TOTAL_SLIDES) {
