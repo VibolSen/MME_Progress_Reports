@@ -1705,17 +1705,13 @@ body {
 }
 
 .qrbox {
-  width: 240px;
-  height: 240px;
-  border-radius: 28px;
-  background: var(--panel);
-  backdrop-filter: blur(20px);
-  padding: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--card-border);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
 }
 
 @keyframes pldash {

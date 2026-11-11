@@ -1876,10 +1876,10 @@ export default function PresentationPage() {
               >
                 <div className="qrbox">
                   <Image
-                    src="/logo/logo tab.svg"
-                    alt="QR Emblem"
-                    width={160}
-                    height={160}
+                    src="/logo/mme-logo.png"
+                    alt="Ministry of Mines and Energy (MME) Logo"
+                    width={280}
+                    height={280}
                     className="object-contain"
                   />
                 </div>
