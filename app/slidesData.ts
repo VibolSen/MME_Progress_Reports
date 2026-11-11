@@ -1,4 +1,10 @@
-export type Language = 'en' | 'km';
+/**
+ * Author: Antigravity AI Agent
+ * Date: 2026-11-11
+ * Task: Sync Presentation Data with Updated data.md Across All 3 General Departments
+ */
+
+export type Language = "en" | "km";
 
 export interface SlideItem {
   id: number;
@@ -21,88 +27,102 @@ export const PRESENTATION_META = {
   companyKm: "ក្រុមហ៊ុន អូន ផៅវ័រ ថេកណឡជី (OONE Power Technology Co., Ltd)",
   dateEn: "November 2026",
   dateKm: "ខែវិច្ឆិកា ឆ្នាំ២០២៦",
-  taglineEn: "Comprehensive digital progress, pending milestones, challenges, and completion roadmap.",
-  taglineKm: "ទិដ្ឋភាពរួមនៃវឌ្ឍភាពការងារ បញ្ជីការងារនៅសេសសល់ បញ្ហាប្រឈម និងផែនការបញ្ចប់គម្រោង។",
+  taglineEn:
+    "Comprehensive progress report across the General Department of General Affairs, General Department of Mineral Resources, and General Department of Petroleum.",
+  taglineKm:
+    "របាយការណ៍វឌ្ឍភាពការងារនៃអគ្គនាយកដ្ឋានកិច្ចការទូទៅ អគ្គនាយកដ្ឋានធនធានរ៉ែ និងអគ្គនាយកដ្ឋានប្រេងកាត។",
 };
 
 export const AGENDA_ITEMS = [
   {
     num: "01",
-    key: "progress",
-    titleEn: "Progress & Pending",
-    titleKm: "វឌ្ឍភាព និងការងារដែលនៅសេសសល់",
-    descEn: "Detailed review of 5 key project components, current completion rates, active systems, and pending inter-ministerial items for the General Department.",
-    descKm: "ការពិនិត្យលម្អិតលើសមាសភាគទាំង ៥ នៃគម្រោង អត្រាវឌ្ឍភាព ប្រព័ន្ធដែលកំពុងដំណើរការ និងការងាររង់ចាំការសម្រេចជាមួយក្រសួងសម្រាប់នាយកដ្ឋានទូទៅ។",
-    tagEn: "5 Components · Status Breakdown",
-    tagKm: "សមាសភាគទាំង ៥ · ស្ថានភាពជាក់ស្តែង",
+    key: "gdga",
+    titleEn: "General Dept. of General Affairs",
+    titleKm: "អគ្គនាយកដ្ឋានកិច្ចការទូទៅ (គម្រោងទី១)",
+    descEn:
+      "Progress across 5 core components: Meeting Room (100% Live), Mission Request (65%), Secretariat Documents (60%), Maintenance/Supply/Assets/Budget (10% studied), and Payroll (Pending study).",
+    descKm:
+      "វឌ្ឍភាពគម្រោងទី១ លើសមាសភាគទាំង ៥៖ សេវាបន្ទប់ប្រជុំ (100%) ស្នើសុំបេសកកម្ម (65%) ឯកសារអគ្គលេខាធិការដ្ឋាន (60%) ថែទាំ/ផ្គត់ផ្គង់/ទ្រព្យសម្បត្តិ/ផែនការថវិកា (10%) និងប្រាក់បៀវត្ស។",
+    tagEn: "Project 1 · 5 Components",
+    tagKm: "គម្រោងទី១ · សមាសភាគទាំង ៥",
   },
   {
     num: "02",
-    key: "challenges",
-    titleEn: "Challenges & Suggestions",
-    titleKm: "បញ្ហាប្រឈម និងសំណូមពរ",
-    descEn: "Key operational and inter-ministerial hurdles encountered during requirement gathering, payroll workflows, and proposed mitigation strategies.",
-    descKm: "បញ្ហាប្រឈមក្នុងដំណើរការសិក្សាតម្រូវការ ការសម្របសម្រួលប្រព័ន្ធប្រាក់បៀវត្ស និងសំណូមពរដំណោះស្រាយដើម្បីជំរុញការអនុវត្ត។",
-    tagEn: "Root Causes · Action Plan",
-    tagKm: "មូលហេតុចម្បង · វិធានការដោះស្រាយ",
+    key: "gdmr",
+    titleEn: "General Dept. of Mineral Resources",
+    titleKm: "អគ្គនាយកដ្ឋានធនធានរ៉ែ (គម្រោងទី២)",
+    descEn:
+      "Digital public service system for the mining sector: Applicant Web Portal (3 services ready) and Internal Back-Office Web Portal (3 services ready) for open-pit mines and quarries.",
+    descKm:
+      "គម្រោងទី២៖ ប្រព័ន្ធផ្ដល់សេវាសាធារណៈឌីជីថលលើវិស័យរ៉ែ រួមមាន Web Portal សម្រាប់អ្នកស្នើសុំ (៣ សេវា រួចរាល់) និង Web Portal សម្រាប់ការងារផ្ទៃក្នុង (៣ សេវា រួចរាល់)។",
+    tagEn: "Project 2 · 3 Mining Services",
+    tagKm: "គម្រោងទី២ · សេវាវិស័យរ៉ែទាំង ៣",
   },
   {
     num: "03",
-    key: "completion",
-    titleEn: "Expected Completion",
-    titleKm: "ការរំពឹងទុកនៃការបញ្ចប់គម្រោង",
-    descEn: "Phased delivery timeline, transition targets from study to rollout, and roadmap for onboarding the remaining 2 departments.",
-    descKm: "កាលវិភាគនៃការប្រគល់ការងារតាមដំណាក់កាល ផែនការដាក់ឱ្យប្រើប្រាស់ និងផែនការត្រៀមទទួលយកទិន្នន័យនាយកដ្ឋានទាំង ២ បន្ថែម។",
-    tagEn: "Milestones · Delivery Roadmap",
-    tagKm: "ដំណាក់កាលគន្លឹះ · ផែនការបញ្ចប់",
+    key: "gdp",
+    titleEn: "General Dept. of Petroleum & Challenges",
+    titleKm: "អគ្គនាយកដ្ឋានប្រេងកាត និងចំណុចប្រឈម",
+    descEn:
+      "Applicant Portal (2 ready, 1 at 90%), Internal Portal (75%, Ready, Provincial Inspection testing on Nov 10 2026, & Offline Auto-Save 5%), plus key challenges & timeline.",
+    descKm:
+      "Web Portal អ្នកស្នើសុំ (រួចរាល់ ២ និង 90% ១) Web Portal ផ្ទៃក្នុងក្រសួង (75%, រួចរាល់, តេស្តជំហានមន្ទីរចុះពិនិត្យទីតាំង ១០ វិច្ឆិកា ២០២៦, Offline 5%) និងចំណុចប្រឈម។",
+    tagEn: "Petroleum Portals · Challenges",
+    tagKm: "វិស័យប្រេងកាត · ចំណុចប្រឈម",
   },
 ];
 
 export const DEPARTMENTS = [
   {
     id: "dep1",
-    nameEn: "General Department",
-    nameKm: "នាយកដ្ឋានទូទៅ",
+    nameEn: "General Department of General Affairs",
+    nameKm: "អគ្គនាយកដ្ឋានកិច្ចការទូទៅ",
     status: "active",
-    statusEn: "Data Available · Active",
-    statusKm: "មានទិន្នន័យ · កំពុងដំណើរការ",
-    badgeEn: "Focus of this presentation",
-    badgeKm: "ចំណុចស្នូលនៃបទបង្ហាញនេះ",
+    statusEn: "Project 1 · 5 Components",
+    statusKm: "គម្រោងទី១ · ៥ សមាសភាគ",
+    badgeEn: "100% Live to 10% Studied",
+    badgeKm: "ដំណើរការ 100% ដល់សិក្សា 10%",
     componentsCount: 5,
     liveServicesCount: 1,
     inProgressCount: 4,
-    descriptionEn: "Core administrative, supply, state assets, planning, and secretariat systems.",
-    descriptionKm: "ប្រព័ន្ធរដ្ឋបាលស្នូល ការផ្គត់ផ្គង់ ទ្រព្យសម្បត្តិរដ្ឋ ផែនការ និងការងារអគ្គលេខាធិការដ្ឋាន។",
+    descriptionEn:
+      "Component 1 (Maintenance 10%, Supply 10%, Meeting Room 100%), Component 2 (Mission 65%, Payroll Pending), Component 3 (State Assets 10%), Component 4 (Planning & Budget 10%), and Component 5 (Secretariat 60%).",
+    descriptionKm:
+      "សមាសភាគទី១ (ថែទាំ 10%, ផ្គត់ផ្គង់ 10%, បន្ទប់ប្រជុំ 100%), សមាសភាគទី២ (បេសកកម្ម 65%, ប្រាក់បៀវត្ស រង់ចាំសិក្សាបន្ថែម), សមាសភាគទី៣ (ទ្រព្យសម្បត្តិរដ្ឋ 10%), សមាសភាគទី៤ (ផែនការ និងថវិកា 10%), និងសមាសភាគទី៥ (អគ្គលេខាធិការដ្ឋាន 60%)។",
   },
   {
     id: "dep2",
-    nameEn: "Department 2 (Upcoming)",
-    nameKm: "នាយកដ្ឋានទី ២ (ដំណាក់កាលបន្ទាប់)",
-    status: "pending",
-    statusEn: "Awaiting Data Development",
-    statusKm: "រង់ចាំការរៀបចំទិន្នន័យបន្ថែម",
-    badgeEn: "To be integrated next",
-    badgeKm: "នឹងត្រូវបញ្ចូលក្នុងជំហានបន្ទាប់",
-    componentsCount: 0,
-    liveServicesCount: 0,
-    inProgressCount: 0,
-    descriptionEn: "Development and scope definition currently in pipeline with the technical committee.",
-    descriptionKm: "ការកំណត់វិសាលភាព និងការប្រមូលទិន្នន័យកំពុងស្ថិតក្នុងការសម្របសម្រួលជាមួយគណៈកម្មការបច្ចេកទេស។",
+    nameEn: "General Department of Mineral Resources",
+    nameKm: "អគ្គនាយកដ្ឋានធនធានរ៉ែ",
+    status: "active",
+    statusEn: "Project 2 · 3 Services Ready",
+    statusKm: "គម្រោងទី២ · ៣ សេវា រួចរាល់",
+    badgeEn: "Applicant & Internal Portals Ready",
+    badgeKm: "Web Portal ទាំង ២ រៀបចំរួចរាល់",
+    componentsCount: 2,
+    liveServicesCount: 3,
+    inProgressCount: 2,
+    descriptionEn:
+      "Digital public service system for the mining sector: Applicant Web Portal (3 services ready) and Internal Web Portal (3 services ready). Services 2 & 3 configured following Service 1 template, awaiting Ministry review.",
+    descriptionKm:
+      "ប្រព័ន្ធផ្ដល់សេវាសាធារណៈឌីជីថលលើវិស័យរ៉ែ៖ Web Portal សម្រាប់អ្នកស្នើសុំ (៣ សេវា រួចរាល់) និង Web Portal សម្រាប់ការងារផ្ទៃក្នុង (៣ សេវា រួចរាល់)។ សេវាទី២ និងទី៣ រៀបចំតាមលំនាំសេវាទី១ រង់ចាំក្រសួងពិនិត្យបន្ថែម។",
   },
   {
     id: "dep3",
-    nameEn: "Department 3 (Upcoming)",
-    nameKm: "នាយកដ្ឋានទី ៣ (ដំណាក់កាលបន្ទាប់)",
-    status: "pending",
-    statusEn: "Awaiting Data Development",
-    statusKm: "រង់ចាំការរៀបចំទិន្នន័យបន្ថែម",
-    badgeEn: "To be integrated next",
-    badgeKm: "នឹងត្រូវបញ្ចូលក្នុងជំហានបន្ទាប់",
-    componentsCount: 0,
-    liveServicesCount: 0,
-    inProgressCount: 0,
-    descriptionEn: "System scoping and requirement gathering to commence following General Department milestones.",
-    descriptionKm: "ការសិក្សាតម្រូវការប្រព័ន្ធនឹងចាប់ផ្តើមបន្ទាប់ពីសម្រេចបាននូវដំណាក់កាលគន្លឹះនៃនាយកដ្ឋានទូទៅ។",
+    nameEn: "General Department of Petroleum",
+    nameKm: "អគ្គនាយកដ្ឋានប្រេងកាត",
+    status: "active",
+    statusEn: "Applicant & Internal Portals",
+    statusKm: "Web Portal អ្នកស្នើសុំ និងផ្ទៃក្នុង",
+    badgeEn: "Up to 90% & Joint Provincial Testing",
+    badgeKm: "រហូតដល់ 90% និងតេស្តជាមួយមន្ទីរខេត្ត",
+    componentsCount: 2,
+    liveServicesCount: 3,
+    inProgressCount: 4,
+    descriptionEn:
+      "Applicant Web Portal (2 services ready awaiting review, 1 station safety certificate at 90%) & Internal Ministry Portal (75%, Ready, Provincial inspection step tested Nov 10 2026, and Offline Auto-Save at 5%).",
+    descriptionKm:
+      "Web Portal អ្នកស្នើសុំ (២ សេវារួចរាល់រង់ចាំពិនិត្យ និង ១ សេវា 90%) និង Web Portal ផ្ទៃក្នុងក្រសួង (75%, រួចរាល់, តេស្តដល់ជំហានមន្ទីរចុះពិនិត្យទីតាំងថ្ងៃទី១០ វិច្ឆិកា ២០២៦ និងមុខងារ Offline 5%)។",
   },
 ];
 
@@ -110,220 +130,379 @@ export const COMPONENTS_DATA = [
   {
     id: "c1",
     num: "1.1",
-    titleEn: "Component 1: Operational Support & Facilities",
-    titleKm: "សមាសភាគទី១៖ ការងារប្រតិបត្តិការ ការផ្គត់ផ្គង់ និងសេវាកម្ម",
+    titleEn: "Component 1: Maintenance, Supply & Meeting Room",
+    titleKm: "សមាសភាគទី១៖ ការងារថែទាំ ផ្គត់ផ្គង់ និងសេវាបន្ទប់ប្រជុំ",
     overallProgress: 40,
     subtasks: [
       {
         id: "1.1.1",
-        titleEn: "Maintenance & Repair Work",
-        titleKm: "ការងារថែទាំ និងជួសជុល",
+        titleEn: "1.1.1 Maintenance & Repair Work (10%)",
+        titleKm: "1.1.1 ការងារថែទាំ និងជួសជុល (10%)",
         status: "study",
         progress: 10,
-        statusEn: "User Requirements Studied",
-        statusKm: "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់",
-        notesEn: "Requirements gathered from departmental technicians; ready for workflow configuration.",
-        notesKm: "បានប្រមូលតម្រូវការពីមន្ត្រីបច្ចេកទេសរួចរាល់ ត្រៀមរៀបចំការកំណត់ដំណើរការលើប្រព័ន្ធ។",
+        statusEn: "User Requirements Studied (10%)",
+        statusKm: "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)",
+        notesEn:
+          "Studied user requirements (10%) with departmental staff for maintenance and repair workflows.",
+        notesKm: "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%) សម្រាប់ការងារថែទាំ និងជួសជុល។",
       },
       {
         id: "1.1.2",
-        titleEn: "Supply & Procurement Work",
-        titleKm: "ការងារផ្គត់ផ្គង់",
+        titleEn: "1.1.2 Supply Work (10%)",
+        titleKm: "1.1.2 ការងារផ្គត់ផ្គង់ (10%)",
         status: "study",
         progress: 10,
-        statusEn: "User Requirements Studied",
-        statusKm: "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់",
-        notesEn: "Inventory and requisitions user flow mapped; awaiting master item catalog.",
-        notesKm: "បានកំណត់លំហូរការងារស្នើសុំសម្ភារ និងស្តុក ត្រៀមរៀបចំតារាងទិន្នន័យសម្ភារមេ។",
+        statusEn: "User Requirements Studied (10%)",
+        statusKm: "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)",
+        notesEn:
+          "Studied user requirements (10%) for supply and requisition operations.",
+        notesKm: "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%) សម្រាប់ការងារផ្គត់ផ្គង់។",
       },
       {
         id: "1.1.3",
-        titleEn: "Meeting Room Booking Service",
-        titleKm: "សេវាបន្ទប់ប្រជុំ",
+        titleEn: "1.1.3 Meeting Room Service (100%)",
+        titleKm: "1.1.3 សេវាបន្ទប់ប្រជុំ (100%)",
         status: "live",
         progress: 100,
-        statusEn: "Officially Launched (Live)",
-        statusKm: "បានដាក់ដំណើរការជាផ្លូវការ (១០០%)",
-        notesEn: "Fully functional, calendar integration operational, deployed to all users.",
-        notesKm: "ដំណើរការពេញលេញ ភ្ជាប់ជាមួយប្រតិទិនស្វ័យប្រវត្តិ និងដាក់ឱ្យមន្ត្រីប្រើប្រាស់ផ្លូវការ។",
+        statusEn: "Officially Launched (100%)",
+        statusKm: "បានដាក់ដំណើរការជាផ្លូវការ (100%)",
+        notesEn:
+          "Officially launched (100%) and actively operating across the General Department.",
+        notesKm: "បានដាក់ដំណើរការជាផ្លូវការ (100%) ជូនមន្ត្រីប្រើប្រាស់។",
       },
     ],
   },
   {
     id: "c2",
     num: "1.2",
-    titleEn: "Component 2: HR & Mission Management",
-    titleKm: "សមាសភាគទី២៖ ការគ្រប់គ្រងបេសកកម្ម និងធនធានមនុស្ស",
-    overallProgress: 35,
+    titleEn: "Component 2: Mission Request & Payroll Processing",
+    titleKm: "សមាសភាគទី២៖ ការស្នើសុំបេសកកម្ម និងដំណើរការប្រាក់បៀវត្ស",
+    overallProgress: 65,
     subtasks: [
       {
         id: "1.2.1",
-        titleEn: "Mission Request Workflow",
-        titleKm: "ការស្នើសុំបេសកកម្ម",
+        titleEn: "1.2.1 Mission Request (65%)",
+        titleKm: "1.2.1 ការស្នើសុំបេសកកម្ម (65%)",
         status: "ready",
         progress: 65,
-        statusEn: "System Setup Completed",
-        statusKm: "ការរៀបចំប្រព័ន្ធរួចរាល់ (៦៥%)",
-        notesEn: "Approval forms and electronic signature chains structured; preparing for final user acceptance.",
-        notesKm: "ទម្រង់បែបបទស្នើសុំ និងខ្សែសង្វាក់អនុម័តបានរៀបចំរួចរាល់ កំពុងត្រៀមធ្វើតេស្តសាកល្បងចុងក្រោយ។",
+        statusEn: "System Setup Ready (65%)",
+        statusKm: "ការរៀបចំប្រព័ន្ធរួចរាល់ (65%)",
+        notesEn:
+          "System setup is completed and ready at 65% for digital mission request workflows.",
+        notesKm: "ការរៀបចំប្រព័ន្ធរួចរាល់ (65%) សម្រាប់ការស្នើសុំបេសកកម្ម។",
       },
       {
         id: "1.2.2",
-        titleEn: "Payroll Processing System",
-        titleKm: "ដំណើរការប្រាក់បៀវត្ស",
+        titleEn: "1.2.2 Payroll Processing (Pending Study)",
+        titleKm: "1.2.2 ដំណើរការប្រាក់បៀវត្ស (រង់ចាំការសិក្សាបន្ថែម)",
         status: "pending",
-        progress: 5,
-        statusEn: "Pending Further Study with Ministry",
-        statusKm: "រង់ចាំការសិក្សាជាមួយក្រសួងបន្ថែម (Pending)",
-        notesEn: "Requires formal inter-ministerial coordination regarding salary formula, tax, and banking integration.",
-        notesKm: "ទាមទារការសិក្សាលម្អិត និងសម្របសម្រួលជាមួយក្រសួងពាក់ព័ន្ធលើរូបមន្តប្រាក់បៀវត្ស ពន្ធ និងប្រព័ន្ធធនាគារ។",
+        progress: 0,
+        statusEn: "Awaiting Further Study with Ministry",
+        statusKm: "រង់ចាំការសិក្សាជាមួយក្រសួងបន្ថែម",
+        notesEn:
+          "Awaiting further technical study and coordination with the Ministry.",
+        notesKm: "រង់ចាំការសិក្សាជាមួយក្រសួងបន្ថែមលើដំណើរការប្រាក់បៀវត្ស។",
       },
     ],
   },
   {
     id: "c3",
     num: "1.3",
-    titleEn: "Component 3: State Asset Management",
+    titleEn: "Component 3: State Asset Management System",
     titleKm: "សមាសភាគទី៣៖ ប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ",
     overallProgress: 10,
     subtasks: [
       {
         id: "1.3.1",
-        titleEn: "State Asset Management System",
-        titleKm: "ប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ",
+        titleEn: "State Asset Management System (10%)",
+        titleKm: "ប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ (10%)",
         status: "study",
         progress: 10,
-        statusEn: "User Requirements Studied",
-        statusKm: "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (១០%)",
-        notesEn: "Asset categorization, barcode/QR tagging structure, and lifecycle tracking requirements surveyed.",
-        notesKm: "បានសិក្សាពីចំណាត់ថ្នាក់ទ្រព្យសម្បត្តិ រចនាសម្ព័ន្ធបាកូដ/QR កូដ និងការគ្រប់គ្រងវដ្តជីវិតទ្រព្យ។",
+        statusEn: "User Requirements Studied (10%)",
+        statusKm: "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)",
+        notesEn:
+          "User requirements studied (10%) for the State Asset Management System.",
+        notesKm:
+          "ប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)។",
       },
     ],
   },
   {
     id: "c4",
     num: "1.4",
-    titleEn: "Component 4: Planning, Budgeting, & Evaluation",
-    titleKm: "សមាសភាគទី៤៖ ផែនការ ថវិកា និងការតាមដានត្រួតពិនិត្យ",
+    titleEn:
+      "Component 4: Planning, Budget, Implementation, Monitoring & Evaluation",
+    titleKm:
+      "សមាសភាគទី៤៖ ប្រព័ន្ធគ្រប់គ្រងផែនការ ថវិកា និងការអនុវត្ត ព្រមទាំងតាមដាន ត្រួតពិនិត្យ និងវាយតម្លៃ",
     overallProgress: 10,
     subtasks: [
       {
         id: "1.4.1",
-        titleEn: "Planning, Budget, Implementation, Monitoring & Evaluation",
-        titleKm: "ប្រព័ន្ធគ្រប់គ្រងផែនការ ថវិកា និងការអនុវត្ត ព្រមទាំងតាមដាន ត្រួតពិនិត្យ និងវាយតម្លៃ",
+        titleEn:
+          "Planning, Budget, Implementation, Monitoring & Evaluation System (10%)",
+        titleKm:
+          "ប្រព័ន្ធគ្រប់គ្រងផែនការ ថវិកា និងការអនុវត្ត ព្រមទាំងតាមដាន ត្រួតពិនិត្យ និងវាយតម្លៃ (10%)",
         status: "study",
         progress: 10,
-        statusEn: "User Requirements Studied",
-        statusKm: "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (១០%)",
-        notesEn: "Strategic action plans, budget ledger interfaces, and KPI tracking frameworks defined.",
-        notesKm: "បានកំណត់ក្របខ័ណ្ឌផែនការសកម្មភាពយុទ្ធសាស្ត្រ ចំណុចប្រទាក់គណនេយ្យថវិកា និងសូចនាករសំខាន់ៗ (KPIs)។",
+        statusEn: "User Requirements Studied (10%)",
+        statusKm: "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)",
+        notesEn:
+          "User requirements studied (10%) for planning, budgeting, implementation, monitoring, and evaluation.",
+        notesKm:
+          "ប្រព័ន្ធគ្រប់គ្រងផែនការ ថវិកា និងការអនុវត្ត ព្រមទាំងតាមដាន ត្រួតពិនិត្យ និងវាយតម្លៃ បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)។",
       },
     ],
   },
   {
     id: "c5",
     num: "1.5",
-    titleEn: "Component 5: General Secretariat Document Management",
-    titleKm: "សមាសភាគទី៥៖ ការគ្រប់គ្រងឯកសារសម្រាប់អគ្គលេខាធិការដ្ឋាន",
+    titleEn: "Component 5 (60%): For General Secretariat",
+    titleKm: "សមាសភាគទី៥ (60%) សម្រាប់អគ្គលេខាធិការដ្ឋាន",
     overallProgress: 60,
     subtasks: [
       {
         id: "1.5.1",
-        titleEn: "Inbound / Outbound & Chronological Document Management",
-        titleKm: "ការគ្រប់គ្រងឯកសារចូល/ចេញ និងឯកសារកាលប្បវត្តិ",
+        titleEn: "1.5.1 Inbound/Outbound & Chronological Documents",
+        titleKm: "1.5.1 ការគ្រប់គ្រងឯកសារចូល/ចេញ និងឯកសារកាលប្បវត្តិ",
         status: "ready",
         progress: 60,
         statusEn: "System Setup Ready",
         statusKm: "ការរៀបចំប្រព័ន្ធរួចរាល់",
-        notesEn: "Electronic dispatch registry, numbering engine, and chronological archiving configured.",
-        notesKm: "សៀវភៅបញ្ជីឯកសារចេញ-ចូលតាមប្រព័ន្ធអេឡិចត្រូនិក ការបង្កើតលេខកូដស្វ័យប្រវត្តិ និងការតម្កល់ទុកតាមកាលបរិច្ឆេទបានរៀបចំរួចរាល់។",
+        notesEn:
+          "System setup ready for inbound/outbound and chronological document management.",
+        notesKm:
+          "ការគ្រប់គ្រងឯកសារចូល/ចេញ និងឯកសារកាលប្បវត្តិ៖ ការរៀបចំប្រព័ន្ធរួចរាល់។",
       },
       {
         id: "1.5.2",
-        titleEn: "Internal Document Storage & Management",
-        titleKm: "ការផ្ទុក និងគ្រប់គ្រងឯកសារផ្ទៃក្នុង (Upload & Manage)",
+        titleEn: "1.5.2 Upload and Manage Internal Documents",
+        titleKm:
+          "1.5.2 ការផ្ទុក និងគ្រប់គ្រងឯកសារផ្ទៃក្នុង (Upload and Manage Internal Documents)",
         status: "ready",
         progress: 60,
         statusEn: "System Setup Ready",
         statusKm: "ការរៀបចំប្រព័ន្ធរួចរាល់",
-        notesEn: "Encrypted file repository, role-based access control, and folder structures prepared.",
-        notesKm: "ប្រព័ន្ធរក្សាទុកឯកសារប្រកបដោយសុវត្ថិភាពខ្ពស់ ការកំណត់សិទ្ធិចូលមើលតាមតួនាទី និងរចនាសម្ព័ន្ធថតឯកសារបានរៀបចំរួចរាល់។",
+        notesEn:
+          "System setup ready for uploading and managing internal documents.",
+        notesKm:
+          "ការផ្ទុក និងគ្រប់គ្រងឯកសារផ្ទៃក្នុង (Upload and Manage Internal Documents)៖ ការរៀបចំប្រព័ន្ធរួចរាល់។",
       },
       {
         id: "1.5.3",
-        titleEn: "Document Verification System",
-        titleKm: "ការផ្ទៀងផ្ទាត់ឯកសារ",
+        titleEn: "1.5.3 Document Verification",
+        titleKm: "1.5.3 ការផ្ទៀងផ្ទាត់ឯកសារ",
         status: "ready",
         progress: 60,
         statusEn: "System Setup Ready",
         statusKm: "ការរៀបចំប្រព័ន្ធរួចរាល់",
-        notesEn: "QR code digital certificate verification, tamper detection, and authenticity confirmation ready.",
-        notesKm: "ប្រព័ន្ធផ្ទៀងផ្ទាត់ភាពត្រឹមត្រូវនៃឯកសារតាម QR Code និងការបញ្ជាក់សុពលភាពឌីជីថលបានរៀបចំរួចរាល់។",
+        notesEn:
+          "System setup ready for official document verification.",
+        notesKm: "ការផ្ទៀងផ្ទាត់ឯកសារ៖ ការរៀបចំប្រព័ន្ធរួចរាល់។",
       },
     ],
   },
 ];
 
+export const MINERAL_RESOURCES_DATA = {
+  deptTitleEn: "General Department of Mineral Resources",
+  deptTitleKm: "អគ្គនាយកដ្ឋានធនធានរ៉ែ",
+  projectTitleEn:
+    "Project 2: Digital Public Service System for the Mining Sector",
+  projectTitleKm:
+    "គម្រោងទី២៖ ការងាររៀបចំប្រព័ន្ធផ្ដល់សេវាសាធារណៈឌីជីថលលើវិស័យរ៉ែ",
+  applicantPortalTitleEn: "I. Web Portal for Applicants — Ready (3 Services)",
+  applicantPortalTitleKm:
+    "I. Web Portal សម្រាប់អ្នកស្នើសុំ បានរៀបចំរួចរាល់ ដែលមានចំនួន 3 សេវា",
+  internalPortalTitleEn:
+    "II. Web Portal for Internal Operations — Ready (3 Services)",
+  internalPortalTitleKm:
+    "II. Web Portal សម្រាប់ការងារផ្ទៃក្នុង បានរៀបចំរួចរាល់ ដែលមានចំនួន 3 សេវា",
+  services: [
+    {
+      num: "01",
+      titleEn:
+        "Open-Pit Mine & Quarry License: Construction Stone, Gypsum & Similar Resources (≤ 10 Ha)",
+      titleKm:
+        "ស្នើសុំអាជ្ញាបណ្ណអណ្តូងរ៉ែបើក និងការដ្ឋានវាយថ្ម សម្រាប់ធ្វើអាជីវកម្មថ្មសំណង់ ម្នាងសិលា និងធនធានរ៉ែផ្សេងទៀត ដែលមានលក្ខណៈប្រហាក់ប្រហែល មានទំហំមិនលើសពី ១០ហិកតា",
+      statusEn: "Applicant & Internal Portals Ready",
+      statusKm: "Web Portal អ្នកស្នើសុំ និងផ្ទៃក្នុង រៀបចំរួចរាល់",
+    },
+    {
+      num: "02",
+      titleEn:
+        "Open-Pit Mine & Quarry License: Exploration of Construction Stone, Gypsum & Similar Resources",
+      titleKm:
+        "ស្នើសុំអាជ្ញាបណ្ណអណ្តូងរ៉ែបើក និងការដ្ឋានវាយថ្ម សម្រាប់គោលបំណងអនុវត្តការងារស្វែងរុករកថ្មសំណង់ ម្នាងសិលា និងធនធានរ៉ែផ្សេងទៀត ដែលមានលក្ខណៈប្រហាក់ប្រហែល",
+      statusEn: "Built on Service 1 Template · Pending Review",
+      statusKm: "រៀបចំតាមលំនាំសេវាទី១ · រង់ចាំក្រសួងពិនិត្យបន្ថែម",
+    },
+    {
+      num: "03",
+      titleEn:
+        "Open-Pit Mine & Quarry License: Extraction of Earthfill, Laterite & Clay (≤ 10 Ha)",
+      titleKm:
+        "ស្នើសុំអាជ្ញាបណ្ណអណ្តូងរ៉ែបើក និងការដ្ឋានវាយថ្ម សម្រាប់ធ្វើអាជីវកម្មអាចម៍ដី ឡាតេរីត ដីឥដ្ឋ មានទំហំមិនលើសពី ១០ហិកតា",
+      statusEn: "Built on Service 1 Template · Pending Review",
+      statusKm: "រៀបចំតាមលំនាំសេវាទី១ · រង់ចាំក្រសួងពិនិត្យបន្ថែម",
+    },
+  ],
+  noteTitleEn: "III. Important Note / Remark",
+  noteTitleKm: "III. ចំណាំសម្គាល់",
+  noteTextEn:
+    "For Services 2 and 3, the working team configured the system following the template of Service 1, awaiting further review from the Ministry working group to refine according to actual practice.",
+  noteTextKm:
+    "សម្រាប់ការរៀបចំសេវាទី2 និងទី3 ក្រុមការងារបានរៀបចំតាមលំនាំសេវាទី1 រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមដើម្បីកែសម្រួលតាមការអនុវត្តជាក់ស្ដែង។",
+};
+
+export const PETROLEUM_DATA = {
+  deptTitleEn: "General Department of Petroleum",
+  deptTitleKm: "អគ្គនាយកដ្ឋានប្រេងកាត",
+  applicantPortal: {
+    titleEn: "I. Web Portal for Applicants",
+    titleKm: "I. Web Portal សម្រាប់អ្នកស្នើសុំ",
+    services: [
+      {
+        num: "01",
+        titleEn:
+          "Review, Reception & Processing of Application and Renewal of Technical Safety Certificate for Fuel or LPG Stations",
+        titleKm:
+          "ស្នើសុំពិនិត្យ ទទួល និងដំណើរការឯកសារស្នើសុំនិងការបន្តសុពលភាពវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាព សម្រាប់ស្ថានីយប្រេងឥន្ធនៈ ឬស្ថានីយឧស្ម័នឥន្ធនៈ",
+        badgeEn: "Ready · Pending Review",
+        badgeKm: "បានរៀបចំរួចរាល់",
+        notesEn:
+          "Setup completed — awaiting further review by the Ministry working group for refinement.",
+        notesKm:
+          "បានរៀបចំរួចរាល់ (រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមដើម្បីកែសម្រួល)។",
+      },
+      {
+        num: "02",
+        titleEn:
+          "Technical Safety Certificate & Commercial License for Petroleum and/or LPG Packaging Operations (by Annual Capacity)",
+        titleKm:
+          "ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាព និងអាជ្ញាបណ្ណពាណិជ្ជកម្ម សម្រាប់សកម្មភាពវេចខ្ចប់ផលិតផលប្រេងកាត និងឬឧស្ម័នឥន្ធនៈ ដែលមានសមត្ថភាពវេចខ្ចប់សរុបក្នុងមួយឆ្នាំ",
+        badgeEn: "Ready · Pending Review",
+        badgeKm: "បានរៀបចំរួចរាល់",
+        notesEn:
+          "Setup completed — awaiting further review by the Ministry working group for refinement.",
+        notesKm:
+          "បានរៀបចំរួចរាល់ (រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមដើម្បីកែសម្រួល)។",
+      },
+      {
+        num: "03",
+        titleEn: "Technical Safety Certificate Application for Stations (90%)",
+        titleKm:
+          "ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ (90%)",
+        badgeEn: "90% · Nov 10 Refinement",
+        badgeKm: "90% · កែសម្រួលបន្ថែម",
+        notesEn:
+          "90% complete — additional refinements requested during the meeting on November 10, 2026 at 2:30 PM.",
+        notesKm:
+          "(90%) មានការស្នើសុំកែសម្រួលបន្ថែមក្នុងអង្គប្រជុំកាលពីថ្ងៃទី១០ ខែវិច្ឆិកា ឆ្នាំ២០២៦ ម៉ោង 2:30 PM។",
+      },
+    ],
+  },
+  internalPortal: {
+    titleEn: "II. Web Portal for Internal Ministry Use",
+    titleKm: "II. Web Portal សម្រាប់ប្រើប្រាស់ផ្ទៃក្នុងក្រសួង",
+    services: [
+      {
+        num: "01",
+        titleEn:
+          "Review, Reception & Processing of Application and Renewal of Technical Safety Certificate for Fuel or LPG Stations (75%)",
+        titleKm:
+          "ស្នើសុំពិនិត្យ ទទួល និងដំណើរការឯកសារស្នើសុំនិងការបន្តសុពលភាពវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាព សម្រាប់ស្ថានីយប្រេងឥន្ធនៈ ឬស្ថានីយឧស្ម័នឥន្ធនៈ (75%)",
+        badgeEn: "75% Complete",
+        badgeKm: "75%",
+        notesEn:
+          "Internal processing workflow at 75% completion for fuel and LPG station certificate renewals.",
+        notesKm:
+          "វឌ្ឍភាពសម្រេចបាន 75% សម្រាប់ប្រព័ន្ធប្រើប្រាស់ផ្ទៃក្នុងក្រសួង។",
+      },
+      {
+        num: "02",
+        titleEn:
+          "Technical Safety Certificate & Commercial License for Petroleum and/or LPG Packaging Operations (by Annual Capacity)",
+        titleKm:
+          "ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាព និងអាជ្ញាបណ្ណពាណិជ្ជកម្ម សម្រាប់សកម្មភាពវេចខ្ចប់ផលិតផលប្រេងកាត និងឬឧស្ម័នឥន្ធនៈ ដែលមានសមត្ថភាពវេចខ្ចប់សរុបក្នុងមួយឆ្នាំ",
+        badgeEn: "Ready · Pending Review",
+        badgeKm: "បានរៀបចំរួចរាល់",
+        notesEn:
+          "Setup completed — awaiting further review by the Ministry working group for refinement.",
+        notesKm:
+          "បានរៀបចំរួចរាល់ (រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមដើម្បីកែសម្រួល)។",
+      },
+      {
+        num: "03",
+        titleEn:
+          "Technical Safety Certificate for Stations — Provincial On-Site Inspection Testing",
+        titleKm:
+          "ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ (តេស្តដល់ជំហានមន្ទីរចុះពិនិត្យទីតាំង)",
+        badgeEn: "Nov 10, 2026 · 2:30 PM",
+        badgeKm: "១០ វិច្ឆិកា ២០២៦ · 2:30 PM",
+        notesEn:
+          "On Nov 10, 2026 at 2:30 PM, continued pilot testing with the Department and Provincial Department up to the Provincial On-Site Inspection step, with refinements requested on the data entry form.",
+        notesKm:
+          "កាលពីថ្ងៃទី១០ ខែវិច្ឆិកា ឆ្នាំ២០២៦ ម៉ោង 2:30 PM បានបន្តតេស្តសាកល្បងជាមួយនាយកដ្ឋាន និងមន្ទីរខេត្ត ដល់ជំហានមន្ទីរចុះពិនិត្យទីតាំង ហើយបានស្នើសុំកែសម្រួលលើចំណុចមួយចំនួនក្នុងផ្ទាំងបញ្ចូលព័ត៌មាន។",
+      },
+      {
+        num: "04",
+        titleEn:
+          "Offline Mode Function (e.g., Auto-Save Data When Internet Disconnects) (5%)",
+        titleKm:
+          "មុខងារ Offline (ឧ. អោយ Save ទិន្នន័យ Auto ករណីដាច់ Internet) (5%)",
+        badgeEn: "5% In Progress",
+        badgeKm: "5%",
+        notesEn:
+          "Offline capability (5%) to automatically save inspection and application data when internet connectivity drops.",
+        notesKm:
+          "មុខងារ Offline (ឧ. អោយ Save ទិន្នន័យ Auto ករណីដាច់ Internet) សម្រេចបាន 5%។",
+      },
+    ],
+  },
+};
+
 export const PENDING_ITEMS_SUMMARY = [
   {
     id: "p1",
-    component: "1.2.2",
-    titleEn: "Payroll Joint Study with Ministry",
-    titleKm: "ការសិក្សាសម្របសម្រួលប្រព័ន្ធប្រាក់បៀវត្សជាមួយក្រសួង",
-    impactEn: "High / Strategic",
-    impactKm: "កម្រិតខ្ពស់ / យុទ្ធសាស្ត្រ",
-    statusEn: "Pending Inter-Ministerial Review",
-    statusKm: "រង់ចាំការសម្រេចពីក្រសួង",
-    detailEn: "Awaiting formal working sessions with the Ministry of Economy and Finance / civil service focal points to harmonize salary rules, allowances, and banking feeds.",
-    detailKm: "រង់ចាំការបើកកិច្ចប្រជុំបច្ចេកទេសផ្លូវការជាមួយក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ / ក្រសួងមុខងារសាធារណៈ ដើម្បីឯកភាពលើរូបមន្តប្រាក់បៀវត្ស ប្រាក់ឧបត្ថម្ភ និងការទូទាត់តាមធនាគារ។",
+    component: "GDP · Petroleum",
+    titleEn: "Provincial On-Site Inspection Form Alignment",
+    titleKm: "ការកែសម្រួលផ្ទាំងបញ្ចូលព័ត៌មាននៅជំហានមន្ទីរចុះពិនិត្យទីតាំង",
+    impactEn: "High Priority",
+    impactKm: "អាទិភាពខ្ពស់",
+    statusEn: "Requested Nov 10, 2026 (2:30 PM)",
+    statusKm: "ស្នើសុំថ្ងៃទី១០ វិច្ឆិកា ២០២៦",
+    detailEn:
+      "For Station Technical Safety Certificates (Services 1 & 3), the data entry form at the Provincial Department On-Site Inspection step is requested to match the official inspection minutes.",
+    detailKm:
+      "សម្រាប់សេវាវិញ្ញាបនបត្របច្ចេកទេសសុវត្ថិភាពស្ថានីយ ផ្ទាំងបញ្ចូលព័ត៌មាននៅជំហានមន្ទីរចុះពិនិត្យទីតាំង ស្នើសុំឱ្យបង្ហាញដូចកំណត់ហេតុ។",
   },
   {
     id: "p2",
-    component: "1.3 & 1.4",
-    titleEn: "Asset & Budget Requirement Sign-offs",
-    titleKm: "ការចុះហត្ថលេខាឯកភាពលើតម្រូវការទ្រព្យសម្បត្តិរដ្ឋ និងថវិកា",
-    impactEn: "Medium / Operational",
-    impactKm: "កម្រិតមធ្យម / ប្រតិបត្តិការ",
-    statusEn: "Under Department Review (10%)",
-    statusKm: "កំពុងរង់ចាំការត្រួតពិនិត្យពីនាយកដ្ឋាន (១០%)",
-    detailEn: "User requirement study reports submitted for State Asset Management (1.3) and Budget Planning (1.4); awaiting official sign-off to proceed to software build.",
-    detailKm: "របាយការណ៍សិក្សាតម្រូវការអ្នកប្រើប្រាស់សម្រាប់ប្រព័ន្ធទ្រព្យសម្បត្តិរដ្ឋ (១.៣) និងប្រព័ន្ធផែនការថវិកា (១.៤) ត្រូវបានបញ្ជូនរួចហើយ រង់ចាំការឯកភាពជាផ្លូវការដើម្បីបន្តទៅការសរសេរកូដ។",
+    component: "GDMR · Mining",
+    titleEn: "Ministry Review of Mining Services 2 & 3",
+    titleKm: "ការពិនិត្យបន្ថែមលើសេវាវិស័យរ៉ែទី២ និងទី៣",
+    impactEn: "Pending Review",
+    impactKm: "រង់ចាំការពិនិត្យបន្ថែម",
+    statusEn: "Built on Service 1 Template",
+    statusKm: "រៀបចំតាមលំនាំសេវាទី១",
+    detailEn:
+      "Services 2 & 3 (Exploration & Earthfill/Laterite/Clay ≤ 10 Ha) are configured following Service 1's pattern and await Ministry working group review to refine per actual practice.",
+    detailKm:
+      "សម្រាប់ការរៀបចំសេវាទី2 និងទី3 ក្រុមការងារបានរៀបចំតាមលំនាំសេវាទី1 រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមដើម្បីកែសម្រួលតាមការអនុវត្តជាក់ស្ដែង។",
   },
   {
     id: "p3",
-    component: "1.2.1",
-    titleEn: "Mission Request Workflow UAT & Launch",
-    titleKm: "ការធ្វើតេស្តសាកល្បង (UAT) និងដាក់ឱ្យដំណើរការស្នើសុំបេសកកម្ម",
-    impactEn: "Quick Win (65% Done)",
-    impactKm: "ជោគជ័យរហ័ស (សម្រេចបាន ៦៥%)",
-    statusEn: "Final Configuration & UAT",
-    statusKm: "ការកំណត់ចុងក្រោយ និងត្រៀម UAT",
-    detailEn: "System setup is 65% ready. Remaining 35% includes user acceptance testing (UAT) and deployment to department staff.",
-    detailKm: "ការរៀបចំប្រព័ន្ធសម្រេចបាន ៦៥%។ ការងារ ៣៥% ដែលនៅសល់គឺការធ្វើតេស្តជាមួយអ្នកប្រើប្រាស់ជាក់ស្តែង (UAT) និងការដាក់ឱ្យដំណើរការជាផ្លូវការ។",
-  },
-  {
-    id: "p4",
-    component: "1.5",
-    titleEn: "General Secretariat Document Pilot Rollout",
-    titleKm: "ការដាក់ឱ្យសាកល្បងប្រព័ន្ធឯកសារអគ្គលេខាធិការដ្ឋាន",
-    impactEn: "High Progress (60% Done)",
-    impactKm: "វឌ្ឍភាពខ្ពស់ (សម្រេចបាន ៦០%)",
-    statusEn: "Testing & User Training Preparation",
-    statusKm: "ការធ្វើតេស្ត និងការត្រៀមបណ្តុះបណ្តាល",
-    detailEn: "Document dispatch, internal storage, and verification setup are ready. Remaining work is pilot testing and staff onboarding.",
-    detailKm: "ម៉ូឌុលឯកសារចូល-ចេញ ការផ្ទុកឯកសារ និងការផ្ទៀងផ្ទាត់បានរៀបចំរួចរាល់។ ការងារបន្ទាប់គឺការដាក់សាកល្បងផ្ទៃក្នុង និងបណ្តុះបណ្តាលបុគ្គលិក។",
-  },
-  {
-    id: "p5",
-    component: "Dep 2 & 3",
-    titleEn: "Departments 2 & 3 Data Intake",
-    titleKm: "ការប្រមូល និងបញ្ចូលទិន្នន័យនាយកដ្ឋានទី ២ និងទី ៣",
-    impactEn: "Expansion Pipeline",
-    impactKm: "ផែនការពង្រីកវិសាលភាព",
-    statusEn: "Awaiting Department Data",
-    statusKm: "រង់ចាំទិន្នន័យពីនាយកដ្ឋាន",
-    detailEn: "Platform architecture is modular and fully prepared to ingest scope and progress data for the 2 remaining departments as soon as provided.",
-    detailKm: "ស្ថាបត្យកម្មប្រព័ន្ធត្រូវបានរៀបចំឡើងយ៉ាងមានភាពបត់បែន និងត្រៀមខ្លួនជាស្រេចក្នុងការបញ្ចូលទិន្នន័យនាយកដ្ឋានទាំង ២ បន្ថែមភ្លាមៗពេលទទួលបាន។",
+    component: "GDGA · General Affairs",
+    titleEn: "Payroll Joint Study & 10% Requirement Modules",
+    titleKm: "ការសិក្សាប្រាក់បៀវត្សបន្ថែម និងម៉ូឌុលសិក្សា 10%",
+    impactEn: "Ministry Coordination",
+    impactKm: "ការសម្របសម្រួលជាមួយក្រសួង",
+    statusEn: "Pending Study & Development",
+    statusKm: "រង់ចាំការសិក្សាបន្ថែម",
+    detailEn:
+      "Payroll Processing (1.2.2) awaits further study with the Ministry; Maintenance (1.1.1), Supply (1.1.2), State Assets (1.3), and Planning/Budget (1.4) are at 10% user requirement study.",
+    detailKm:
+      "ដំណើរការប្រាក់បៀវត្ស (1.2.2) រង់ចាំការសិក្សាជាមួយក្រសួងបន្ថែម ខណៈការងារថែទាំ ផ្គត់ផ្គង់ ទ្រព្យសម្បត្តិរដ្ឋ និងផែនការថវិកា បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)។",
   },
 ];
 
@@ -331,38 +510,51 @@ export const CHALLENGES_DATA = [
   {
     id: "ch1",
     num: "01",
-    categoryEn: "Inter-Ministerial Coordination",
-    categoryKm: "ការសម្របសម្រួលអន្តរក្រសួង",
-    titleEn: "External Regulatory Alignment for Payroll",
-    titleKm: "ការស្របតាមបទប្បញ្ញត្តិ និងគោលការណ៍សម្រាប់ប្រព័ន្ធប្រាក់បៀវត្ស",
-    problemEn: "Payroll automation involves external guidelines from MEF and public administration standards that cannot be finalized solely at the departmental level.",
-    problemKm: "ស្វ័យប្រវត្តិកម្មប្រាក់បៀវត្សពាក់ព័ន្ធនឹងគោលការណ៍ណែនាំខាងក្រៅពីក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ និងក្រសួងមុខងារសាធារណៈ ដែលមិនអាចសម្រេចបានតែត្រឹមនាយកដ្ឋាននោះឡើយ។",
-    solutionEn: "Establish a joint inter-departmental and inter-ministerial task force meeting to approve the standardized payroll schema.",
-    solutionKm: "ស្នើបង្កើតក្រុមការងារបច្ចេកទេសរួមដើម្បីជួបប្រជុំ និងឯកភាពជាផ្លូវការលើទម្រង់ និងលក្ខខណ្ឌនៃប្រព័ន្ធប្រាក់បៀវត្ស។",
+    categoryEn: "General Dept. of Petroleum (ចំណុចប្រឈម)",
+    categoryKm: "អគ្គនាយកដ្ឋានប្រេងកាត (ចំណុចប្រឈម)",
+    titleEn: "Station Safety Certificate & Renewal Form Layout",
+    titleKm:
+      "វិញ្ញាបនបត្របច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ និងការបន្តសុពលភាព",
+    problemEn:
+      "1. Technical Safety Certificate for Stations (90%) and 2. Renewal/Processing of Technical Safety Certificates for Fuel or LPG Stations (75%): During the Nov 10, 2026 (2:30 PM) test with the Department and Provincial Department, adjustments were requested at the Provincial On-Site Inspection step.",
+    problemKm:
+      "១. ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ និង ២. ស្នើសុំពិនិត្យ ទទួល និងដំណើរការឯកសារស្នើសុំនិងការបន្តសុពលភាពសម្រាប់ស្ថានីយប្រេងឥន្ធនៈ ឬឧស្ម័នឥន្ធនៈ៖ មានសំណើកែសម្រួលពេលតេស្តជាមួយនាយកដ្ឋាន និងមន្ទីរខេត្ត (១០ វិច្ឆិកា ២០២៦ ម៉ោង 2:30 PM)។",
+    solutionEn:
+      "Update the data entry screen at the Provincial Department On-Site Inspection step so that it displays matching the official inspection minutes (បង្ហាញដូចកំណត់ហេតុ), and continue Offline Auto-Save (5%).",
+    solutionKm:
+      "កែសម្រួលផ្ទាំងបញ្ចូលព័ត៌មាននៅជំហាន មន្ទីរចុះពិនិត្យទីតាំង ស្នើសុំឱ្យបង្ហាញដូចកំណត់ហេតុ និងបន្តអភិវឌ្ឍមុខងារ Offline Save Auto (5%)។",
   },
   {
     id: "ch2",
     num: "02",
-    categoryEn: "Requirement Validation Speed",
-    categoryKm: "ល្បឿននៃការផ្ទៀងផ្ទាត់តម្រូវការ",
-    titleEn: "Operational Team Availability for Requirements Sign-off",
-    titleKm: "ពេលវេលារបស់ក្រុមការងារប្រតិបត្តិការសម្រាប់ការផ្ទៀងផ្ទាត់តម្រូវការ",
-    problemEn: "State Asset Management (1.3) and Planning/Budgeting (1.4) remain at 10% study stage due to overlapping operational duties of key ministry focal persons.",
-    problemKm: "ប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ (១.៣) និងប្រព័ន្ធផែនការថវិកា (១.៤) នៅស្ថិតក្នុងដំណាក់កាលសិក្សា ១០% ដោយសារមន្ត្រីជំនាញជាប់រវល់នឹងភារកិច្ចស្នូលប្រចាំថ្ងៃ។",
-    solutionEn: "Schedule dedicated weekly 2-hour review sessions with clear sign-off checklists to advance modules from 10% to 50%+ rapidly.",
-    solutionKm: "រៀបចំកាលវិភាគប្រជុំត្រួតពិនិត្យ ២ ម៉ោងក្នុងមួយសប្តាហ៍ជាមួយបញ្ជីផ្ទៀងផ្ទាត់ច្បាស់លាស់ ដើម្បីជំរុញម៉ូឌុលពី ១០% ទៅលើសពី ៥០% ឱ្យបានឆាប់រហ័ស។",
+    categoryEn: "General Dept. of Mineral Resources (ចំណាំសម្គាល់)",
+    categoryKm: "អគ្គនាយកដ្ឋានធនធានរ៉ែ (ចំណាំសម្គាល់)",
+    titleEn: "Refinement of Mining Services 2 & 3 Workflows",
+    titleKm: "ការពិនិត្យ និងកែសម្រួលសេវាវិស័យរ៉ែទី២ និងទី៣ តាមការអនុវត្តជាក់ស្ដែង",
+    problemEn:
+      "Both Applicant and Internal Web Portals for all 3 Mining Services are ready. However, Services 2 (Exploration) and 3 (Earthfill, Laterite, Clay ≤ 10 Ha) were configured following Service 1's workflow pattern.",
+    problemKm:
+      "Web Portal សម្រាប់អ្នកស្នើសុំ និងការងារផ្ទៃក្នុងទាំង ៣ សេវាបានរៀបចំរួចរាល់ ប៉ុន្តែសេវាទី២ និងទី៣ ត្រូវបានរៀបចំតាមលំនាំសេវាទី១។",
+    solutionEn:
+      "Coordinate with the Ministry working group to review Services 2 and 3 and adjust the workflows according to actual operational practice.",
+    solutionKm:
+      "រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមលើសេវាទី២ និងទី៣ ដើម្បីកែសម្រួលតាមការអនុវត្តជាក់ស្ដែង។",
   },
   {
     id: "ch3",
     num: "03",
-    categoryEn: "Multi-Department Scope Intake",
-    categoryKm: "ការគ្រប់គ្រងវិសាលភាពពហុនាយកដ្ឋាន",
-    titleEn: "Phased Data Collection Across Departments",
-    titleKm: "ការប្រមូលទិន្នន័យតាមដំណាក់កាលនៃនាយកដ្ឋាននីមួយៗ",
-    problemEn: "With 2 departments currently in data preparation, cross-departmental standards (such as user roles, document schemas, and org charts) need early unification.",
-    problemKm: "ដោយសារនាយកដ្ឋានចំនួន ២ ទៀតកំពុងរៀបចំទិន្នន័យ បទដ្ឋានទូទៅ (ដូចជាសិទ្ធិប្រើប្រាស់ ទម្រង់ឯកសារ និងរចនាសម្ព័ន្ធ) ត្រូវតែមានការឯកភាពគ្នាតាំងពីដំបូង។",
-    solutionEn: "Implement a unified OONE core architectural framework that allows Department 1 to launch immediately while keeping pluggable slots ready for Departments 2 & 3.",
-    solutionKm: "អនុវត្តស្ថាបត្យកម្មស្នូល OONE ដែលអនុញ្ញាតឱ្យនាយកដ្ឋានទូទៅដំណើរការមុន ខណៈដែលបានត្រៀមទម្រង់រួចរាល់សម្រាប់ភ្ជាប់នាយកដ្ឋានទី ២ និងទី ៣ យ៉ាងងាយស្រួល។",
+    categoryEn: "General Dept. of General Affairs (សំណូមពរ)",
+    categoryKm: "អគ្គនាយកដ្ឋានកិច្ចការទូទៅ (សំណូមពរ)",
+    titleEn: "Payroll Study & Requirement Sign-offs (10% Modules)",
+    titleKm: "ការសិក្សាប្រព័ន្ធប្រាក់បៀវត្សបន្ថែម និងការពន្លឿនម៉ូឌុល 10%",
+    problemEn:
+      "Payroll Processing (1.2.2) is awaiting further study with the Ministry, while Maintenance (1.1.1), Supply (1.1.2), State Assets (1.3), and Planning/Budget/M&E (1.4) are at 10% user requirements study.",
+    problemKm:
+      "ដំណើរការប្រាក់បៀវត្ស (1.2.2) រង់ចាំការសិក្សាជាមួយក្រសួងបន្ថែម ខណៈការងារថែទាំ (1.1.1) ផ្គត់ផ្គង់ (1.1.2) ទ្រព្យសម្បត្តិរដ្ឋ (1.3) និងផែនការថវិកា (1.4) ស្ថិតនៅ 10%។",
+    solutionEn:
+      "Conduct further study sessions with the Ministry for Payroll (1.2.2) and finalize requirement sign-offs to advance the 10% modules alongside Mission (65%) and Secretariat (60%).",
+    solutionKm:
+      "រៀបចំកិច្ចប្រជុំសិក្សាបន្ថែមជាមួយក្រសួងលើប្រព័ន្ធប្រាក់បៀវត្ស និងជំរុញការអភិវឌ្ឍម៉ូឌុលដែលបានសិក្សាតម្រូវការ 10% រួមជាមួយបេសកកម្ម (65%) និងអគ្គលេខាធិការដ្ឋាន (60%)។",
   },
 ];
 
@@ -370,78 +562,77 @@ export const TIMELINE_MILESTONES = [
   {
     phase: "Phase 1",
     phaseKm: "ដំណាក់កាលទី ១",
-    timeframeEn: "Q3 - Q4 2026 (Completed / Active)",
-    timeframeKm: "ត្រីមាសទី ៣ - ទី ៤ ឆ្នាំ២០២៦ (សម្រេចបាន)",
+    timeframeEn: "Completed & Live Systems",
+    timeframeKm: "ប្រព័ន្ធដាក់ដំណើរការ និងរៀបចំរួចរាល់",
     status: "done",
-    titleEn: "Foundational Services & Quick Wins",
-    titleKm: "ការកសាងប្រព័ន្ធគ្រឹះ និងសេវាអាទិភាព",
+    titleEn: "Launched Services & Portal Readiness",
+    titleKm: "សេវាដាក់ដំណើរការផ្លូវការ និងការរៀបចំ Web Portal",
     bulletsEn: [
-      "Meeting Room Booking officially launched (100% Live)",
-      "General Secretariat Document Management setup ready (60%)",
-      "User requirement studies completed for Maintenance, Supply, Assets, & Planning (10%)",
+      "GDGA: Meeting Room Service officially launched (100% Live)",
+      "GDMR: Applicant & Internal Web Portals ready for all 3 Mining Services",
+      "GDP: Applicant & Internal Portals ready for Services 1 & 2 (Packaging & Renewals)",
     ],
     bulletsKm: [
-      "សេវាបន្ទប់ប្រជុំដាក់ឱ្យដំណើរការជាផ្លូវការ (១០០% Live)",
-      "ប្រព័ន្ធគ្រប់គ្រងឯកសារអគ្គលេខាធិការដ្ឋានរៀបចំរួចរាល់ (៦០%)",
-      "សិក្សាតម្រូវការអ្នកប្រើប្រាស់រួចរាល់លើការថែទាំ ផ្គត់ផ្គង់ ទ្រព្យសម្បត្តិ និងផែនការ (១០%)",
+      "កិច្ចការទូទៅ៖ សេវាបន្ទប់ប្រជុំបានដាក់ដំណើរការជាផ្លូវការ (100%)",
+      "ធនធានរ៉ែ៖ Web Portal អ្នកស្នើសុំ និងផ្ទៃក្នុង រៀបចំរួចរាល់ទាំង ៣ សេវា",
+      "ប្រេងកាត៖ Web Portal សេវាទី១ និងទី២ បានរៀបចំរួចរាល់",
     ],
   },
   {
     phase: "Phase 2",
     phaseKm: "ដំណាក់កាលទី ២",
-    timeframeEn: "Q4 2026 - Q1 2027 (Current Focus)",
-    timeframeKm: "ត្រីមាសទី ៤ ឆ្នាំ២០២៦ - ត្រីមាសទី ១ ឆ្នាំ២០២៧",
+    timeframeEn: "Active Testing & Refinements (Nov 2026)",
+    timeframeKm: "ការតេស្តសាកល្បង និងកែសម្រួលបន្ថែម (វិច្ឆិកា ២០២៦)",
     status: "current",
-    titleEn: "Mission Rollout & Core Build",
-    titleKm: "ការដាក់ឱ្យប្រើប្រាស់បេសកកម្ម និងការអភិវឌ្ឍស្នូល",
+    titleEn: "Provincial Inspection Refinements & 60–90% Modules",
+    titleKm: "ការកែសម្រួលតាមមន្ទីរខេត្ត និងម៉ូឌុលសម្រេចបាន 60%–90%",
     bulletsEn: [
-      "Finalize Mission Request UAT and launch to 100%",
-      "Complete user requirement sign-offs for Assets & Planning modules",
-      "Commence data intake workshops for Department 2 and Department 3",
+      "GDP: Refine Station Certificate (90% / 75%) Provincial Inspection form per Nov 10 meeting",
+      "GDGA: Complete Mission Request (65%) and General Secretariat Document System (60%)",
+      "GDMR: Ministry working group review of Mining Services 2 & 3",
     ],
     bulletsKm: [
-      "បញ្ចប់ការធ្វើតេស្ត UAT និងដាក់ឱ្យប្រើប្រាស់ប្រព័ន្ធស្នើសុំបេសកកម្ម (១០០%)",
-      "បញ្ចប់ការចុះហត្ថលេខាឯកភាពលើតម្រូវការប្រព័ន្ធទ្រព្យសម្បត្តិ និងផែនការ",
-      "ចាប់ផ្តើមសិក្ខាសាលាប្រមូលទិន្នន័យសម្រាប់នាយកដ្ឋានទី ២ និងទី ៣",
+      "ប្រេងកាត៖ កែសម្រួលផ្ទាំងជំហានមន្ទីរចុះពិនិត្យទីតាំងឱ្យដូចកំណត់ហេតុ (សេវា 90% & 75%)",
+      "កិច្ចការទូទៅ៖ បញ្ចប់ការស្នើសុំបេសកកម្ម (65%) និងឯកសារអគ្គលេខាធិការដ្ឋាន (60%)",
+      "ធនធានរ៉ែ៖ ក្រុមការងារក្រសួងពិនិត្យបន្ថែមលើសេវាទី២ និងទី៣",
     ],
   },
   {
     phase: "Phase 3",
     phaseKm: "ដំណាក់កាលទី ៣",
-    timeframeEn: "Q1 - Q2 2027 (Upcoming)",
-    timeframeKm: "ត្រីមាសទី ១ - ទី ២ ឆ្នាំ២០២៧",
+    timeframeEn: "Core System Build (10% & 5% Modules)",
+    timeframeKm: "ការអភិវឌ្ឍម៉ូឌុល 10% និងមុខងារ Offline 5%",
     status: "upcoming",
-    titleEn: "Inter-Ministerial Payroll & Departmental Expansion",
-    titleKm: "ការតភ្ជាប់ប្រាក់បៀវត្ស និងការពង្រីកទៅនាយកដ្ឋានផ្សេងទៀត",
+    titleEn: "Offline Auto-Save & Administrative Modules",
+    titleKm: "មុខងារ Offline Auto-Save និងម៉ូឌុលរដ្ឋបាល",
     bulletsEn: [
-      "Execute joint inter-ministerial study for Payroll Processing integration",
-      "Deploy State Asset and Budget Planning modules into pilot testing",
-      "Integrate Department 2 and Department 3 progress tracking into MME Portal",
+      "GDP: Develop Offline Auto-Save functionality (currently 5%) for field inspections",
+      "GDGA: Build Maintenance (10%), Supply (10%), State Assets (10%) & Planning/Budget (10%)",
+      "GDGA: Conduct further Payroll Processing (1.2.2) study with the Ministry",
     ],
     bulletsKm: [
-      "អនុវត្តការតភ្ជាប់ប្រព័ន្ធប្រាក់បៀវត្សជាមួយក្រសួងពាក់ព័ន្ធ",
-      "ដាក់សាកល្បងប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ និងផែនការថវិកា",
-      "បញ្ចូលការតាមដានវឌ្ឍភាពនាយកដ្ឋានទី ២ និងទី ៣ ទៅក្នុងប្រព័ន្ធរួម",
+      "ប្រេងកាត៖ អភិវឌ្ឍមុខងារ Offline Save ទិន្នន័យ Auto ករណីដាច់ Internet (5%)",
+      "កិច្ចការទូទៅ៖ អភិវឌ្ឍការងារថែទាំ (10%) ផ្គត់ផ្គង់ (10%) ទ្រព្យសម្បត្តិរដ្ឋ (10%) និងផែនការថវិកា (10%)",
+      "កិច្ចការទូទៅ៖ សិក្សាបន្ថែមជាមួយក្រសួងលើដំណើរការប្រាក់បៀវត្ស (1.2.2)",
     ],
   },
   {
     phase: "Phase 4",
     phaseKm: "ដំណាក់កាលទី ៤",
-    timeframeEn: "Q2 - Q3 2027 (Final Delivery)",
-    timeframeKm: "ត្រីមាសទី ២ - ទី ៣ ឆ្នាំ២០២៧ (ការប្រគល់គម្រោង)",
+    timeframeEn: "Full Deployment & Handover",
+    timeframeKm: "ការដាក់ឱ្យដំណើរការពេញលេញទាំង ៣ អគ្គនាយកដ្ឋាន",
     status: "upcoming",
-    titleEn: "Full MME Digital Integration & Handover",
-    titleKm: "ការធ្វើសមាហរណកម្មពេញលេញ និងការប្រគល់ប្រព័ន្ធ",
+    titleEn: "Full MME Digital Commissioning",
+    titleKm: "ការដាក់ឱ្យប្រើប្រាស់ផ្លូវការនៅគ្រប់អគ្គនាយកដ្ឋានទាំង ៣",
     bulletsEn: [
-      "Unified MME digital portal operational across all 3 departments",
-      "Comprehensive training, operational manuals, and knowledge transfer",
-      "Continuous optimization, SLA support, and official system commissioning",
+      "Official launch of all GDGA, GDMR, and GDP digital public & internal portals",
+      "End-to-end training for Ministry and Provincial Department officers",
+      "Ongoing technical support, SLA monitoring, and system handover",
     ],
     bulletsKm: [
-      "ច្រកចេញចូលឌីជីថលរួម MME ដំណើរការពេញលេញលើនាយកដ្ឋានទាំង ៣",
-      "ការបណ្តុះបណ្តាលទូលំទូលាយ ការផ្ទេរចំណេះដឹង និងសៀវភៅណែនាំបច្ចេកទេស",
-      "ការគាំទ្របច្ចេកទេស SLA និងការប្រគល់-ទទួលគម្រោងជាផ្លូវការ",
+      "ដាក់ឱ្យដំណើរការផ្លូវការនូវគ្រប់ប្រព័ន្ធនៃអគ្គនាយកដ្ឋានទាំង ៣",
+      "បណ្តុះបណ្តាលមន្ត្រីជំនាញថ្នាក់ក្រសួង និងមន្ទីររ៉ែនិងថាមពលខេត្ត",
+      "ការគាំទ្របច្ចេកទេស និងការប្រគល់-ទទួលប្រព័ន្ធពេញលេញ",
     ],
   },
 ];
-

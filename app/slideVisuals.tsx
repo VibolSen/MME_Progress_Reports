@@ -1,7 +1,7 @@
 /**
  * Author: Antigravity AI Agent
  * Date: 2026-11-11
- * Task: TASK-003: Fancy Slide Deck Visuals & Animations
+ * Task: Sync Slide Visuals with Updated data.md Across All 3 General Departments
  */
 
 "use client";
@@ -19,6 +19,10 @@ import {
   Workflow,
   Check,
   ArrowUpRight,
+  Globe,
+  AlertTriangle,
+  WifiOff,
+  ClipboardCheck,
 } from "lucide-react";
 
 interface VisualProps {
@@ -45,16 +49,12 @@ export function HeroHubVisual() {
 }
 
 /**
- * Slide 3 Visual: Interactive Multi-Department Network Radar Map
+ * Slide 3 Visual: Interactive Multi-Department Network Radar Map (All 3 General Departments Active)
  */
 export function DepartmentNetworkMap({ lang }: VisualProps) {
   return (
     <div className="visual-inner-fill">
-      <svg
-        viewBox="0 0 760 460"
-        className="vp-svg"
-        fill="none"
-      >
+      <svg viewBox="0 0 760 460" className="vp-svg" fill="none">
         {/* Radar Rings */}
         <circle
           cx="380"
@@ -73,42 +73,42 @@ export function DepartmentNetworkMap({ lang }: VisualProps) {
           strokeWidth="1.5"
           strokeDasharray="6 6"
         />
-        <circle
-          cx="380"
-          cy="230"
-          r="58"
-          fill="var(--glow)"
-        />
+        <circle cx="380" cy="230" r="58" fill="var(--glow)" />
 
         {/* Connection Lines */}
         <path
-          d="M 380 230 L 165 120"
+          d="M 380 230 L 165 115"
           stroke="var(--grn)"
           strokeWidth="3"
           strokeDasharray="6 6"
         />
         <path
-          d="M 380 230 L 595 120"
-          stroke="var(--amb)"
-          strokeWidth="2.5"
-          strokeDasharray="5 5"
+          d="M 380 230 L 595 115"
+          stroke="var(--pri)"
+          strokeWidth="3"
+          strokeDasharray="6 6"
         />
         <path
           d="M 380 230 L 380 390"
           stroke="var(--cy)"
-          strokeWidth="2.5"
-          strokeDasharray="5 5"
+          strokeWidth="3"
+          strokeDasharray="6 6"
         />
 
         {/* Center Node: MME Core Platform */}
         <g transform="translate(380, 230)">
-          <circle r="44" fill="var(--pri)" />
-          <circle r="52" stroke="var(--pri)" strokeWidth="2" strokeOpacity="0.4" />
+          <circle r="46" fill="var(--pri)" />
+          <circle
+            r="54"
+            stroke="var(--pri)"
+            strokeWidth="2"
+            strokeOpacity="0.4"
+          />
           <text
             y="-6"
             textAnchor="middle"
             fill="#FFFFFF"
-            fontSize="13"
+            fontSize="14"
             fontWeight="800"
           >
             MME HUB
@@ -117,127 +117,130 @@ export function DepartmentNetworkMap({ lang }: VisualProps) {
             y="12"
             textAnchor="middle"
             fill="#E0E7FF"
-            fontSize="10"
+            fontSize="11"
             fontWeight="600"
           >
-            Core Platform
+            3 General Depts
           </text>
         </g>
 
-        {/* Node 1: General Department (Active) */}
-        <g transform="translate(165, 120)">
+        {/* Node 1: General Department of General Affairs */}
+        <g transform="translate(165, 115)">
           <rect
-            x="-125"
+            x="-145"
             y="-52"
-            width="250"
+            width="290"
             height="104"
             rx="18"
             fill="var(--panel2)"
             stroke="var(--grn)"
             strokeWidth="2.5"
           />
-          <circle cx="-95" cy="-22" r="7" fill="var(--grn)" />
+          <circle cx="-118" cy="-22" r="7" fill="var(--grn)" />
           <text
-            x="-80"
+            x="-103"
             y="-18"
             fill="var(--grn)"
-            fontSize="11"
+            fontSize="12"
             fontWeight="800"
           >
-            ACTIVE · 100% DATA READY
+            PROJECT 1 · 5 COMPONENTS
           </text>
           <text
-            x="-95"
+            x="-118"
             y="8"
             fill="var(--tx)"
             fontSize="15"
             fontWeight="700"
           >
-            {lang === "km" ? "នាយកដ្ឋានទូទៅ" : "General Department"}
+            {lang === "km"
+              ? "អគ្គនាយកដ្ឋានកិច្ចការទូទៅ"
+              : "General Dept. of General Affairs"}
           </text>
-          <text
-            x="-95"
-            y="30"
-            fill="var(--mu)"
-            fontSize="12"
-          >
-            {lang === "km" ? "៥ សមាសភាគបានសិក្សាពេញលេញ" : "5 Core Components Studied"}
+          <text x="-118" y="30" fill="var(--mu)" fontSize="12.5">
+            {lang === "km"
+              ? "បន្ទប់ប្រជុំ 100% · បេសកកម្ម 65% · ឯកសារ 60%"
+              : "Room 100% · Mission 65% · Docs 60%"}
           </text>
         </g>
 
-        {/* Node 2: Department 2 (Pipeline) */}
-        <g transform="translate(595, 120)">
+        {/* Node 2: General Department of Mineral Resources */}
+        <g transform="translate(595, 115)">
           <rect
-            x="-125"
+            x="-145"
             y="-52"
-            width="250"
+            width="290"
             height="104"
             rx="18"
             fill="var(--panel2)"
-            stroke="var(--amb)"
-            strokeWidth="2"
-            strokeDasharray="6 4"
+            stroke="var(--pri)"
+            strokeWidth="2.5"
           />
-          <circle cx="-95" cy="-22" r="7" fill="var(--amb)" />
+          <circle cx="-118" cy="-22" r="7" fill="var(--pri)" />
           <text
-            x="-80"
+            x="-103"
             y="-18"
-            fill="var(--amb)"
-            fontSize="11"
+            fill="var(--pri)"
+            fontSize="12"
             fontWeight="800"
           >
-            IN PIPELINE · PHASE 2
+            PROJECT 2 · 3 SERVICES READY
           </text>
           <text
-            x="-95"
+            x="-118"
             y="8"
             fill="var(--tx)"
             fontSize="15"
             fontWeight="700"
           >
-            {lang === "km" ? "នាយកដ្ឋានទី ២" : "Department 2"}
+            {lang === "km"
+              ? "អគ្គនាយកដ្ឋានធនធានរ៉ែ"
+              : "General Dept. of Mineral Resources"}
           </text>
-          <text
-            x="-95"
-            y="30"
-            fill="var(--mu)"
-            fontSize="12"
-          >
-            {lang === "km" ? "កំពុងរៀបចំប្រមូលទិន្នន័យ" : "Preparing Data Intake"}
+          <text x="-118" y="30" fill="var(--mu)" fontSize="12.5">
+            {lang === "km"
+              ? "Web Portal អ្នកស្នើសុំ & ផ្ទៃក្នុង (៣ សេវា)"
+              : "Applicant & Internal Portals (3 Services)"}
           </text>
         </g>
 
-        {/* Node 3: Department 3 (Pipeline) */}
+        {/* Node 3: General Department of Petroleum */}
         <g transform="translate(380, 390)">
           <rect
-            x="-135"
-            y="-44"
-            width="270"
-            height="88"
+            x="-170"
+            y="-48"
+            width="340"
+            height="96"
             rx="18"
             fill="var(--panel2)"
             stroke="var(--cy)"
-            strokeWidth="2"
-            strokeDasharray="6 4"
+            strokeWidth="2.5"
           />
-          <circle cx="-105" cy="-14" r="7" fill="var(--cy)" />
+          <circle cx="-142" cy="-18" r="7" fill="var(--cy)" />
           <text
-            x="-90"
-            y="-10"
+            x="-127"
+            y="-14"
             fill="var(--cy)"
-            fontSize="11"
+            fontSize="12"
             fontWeight="800"
           >
-            UPCOMING · PHASE 3
+            APPLICANT & INTERNAL PORTALS · UP TO 90%
           </text>
           <text
-            x="-105"
-            y="16"
+            x="-142"
+            y="12"
             fill="var(--tx)"
             fontSize="15"
             fontWeight="700"
           >
-            {lang === "km" ? "នាយកដ្ឋានទី ៣ (ត្រៀមបន្ត)" : "Department 3 (Upcoming)"}
+            {lang === "km"
+              ? "អគ្គនាយកដ្ឋានប្រេងកាត"
+              : "General Dept. of Petroleum"}
+          </text>
+          <text x="-142" y="33" fill="var(--mu)" fontSize="12.5">
+            {lang === "km"
+              ? "៣ សេវាសុវត្ថិភាពស្ថានីយ & មុខងារ Offline (5%)"
+              : "3 Safety Services (90%/75%/Ready) & Offline (5%)"}
           </text>
         </g>
       </svg>
@@ -246,7 +249,7 @@ export function DepartmentNetworkMap({ lang }: VisualProps) {
 }
 
 /**
- * Slide 4 Visual: Meeting Room & Facilities Mockup Display
+ * Slide 4 Visual: Component 1 (1.1.1 Maintenance 10%, 1.1.2 Supply 10%, 1.1.3 Meeting Room 100%)
  */
 export function MeetingRoomVisual({ lang }: VisualProps) {
   return (
@@ -259,89 +262,89 @@ export function MeetingRoomVisual({ lang }: VisualProps) {
           <div>
             <h4>
               {lang === "km"
-                ? "ប្រព័ន្ធកក់បន្ទប់ប្រជុំ MME (១០០% Live)"
-                : "Meeting Room Booking System (100% Live)"}
+                ? "1.1.3 សេវាបន្ទប់ប្រជុំ (បានដាក់ដំណើរការជាផ្លូវការ 100%)"
+                : "1.1.3 Meeting Room Service (Officially Launched 100%)"}
             </h4>
             <p>
               {lang === "km"
-                ? "ដាក់ឱ្យដំណើរការជាផ្លូវការ និងភ្ជាប់ប្រតិទិនរដ្ឋបាលស្វ័យប្រវត្តិ"
-                : "Officially launched & synced with ministerial calendars"}
+                ? "ដំណើរការពេញលេញ 100% នៅក្នុងអគ្គនាយកដ្ឋានកិច្ចការទូទៅ"
+                : "100% officially launched and active in production"}
             </p>
           </div>
         </div>
-        <span className="chip grn">LIVE 100%</span>
+        <span className="chip grn">100% LIVE</span>
       </div>
 
       <div className="vs-grid-2">
         <div className="vs-subcard">
           <div className="vs-subcard-top">
-            <span className="vs-code pri">ROOM A-01 · VIP</span>
+            <span className="vs-code amb">1.1.1 MAINTENANCE</span>
+            <span className="vs-status amb">10% Studied</span>
+          </div>
+          <h5>
+            {lang === "km"
+              ? "ការងារថែទាំ និងជួសជុល (10%)"
+              : "Maintenance & Repair Work (10%)"}
+          </h5>
+          <p>
+            {lang === "km"
+              ? "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)"
+              : "User requirements studied (10%)"}
+          </p>
+        </div>
+
+        <div className="vs-subcard">
+          <div className="vs-subcard-top">
+            <span className="vs-code amb">1.1.2 SUPPLY</span>
+            <span className="vs-status amb">10% Studied</span>
+          </div>
+          <h5>
+            {lang === "km"
+              ? "ការងារផ្គត់ផ្គង់ (10%)"
+              : "Supply & Procurement Work (10%)"}
+          </h5>
+          <p>
+            {lang === "km"
+              ? "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)"
+              : "User requirements studied (10%)"}
+          </p>
+        </div>
+      </div>
+
+      <div className="vs-grid-2">
+        <div className="vs-subcard">
+          <div className="vs-subcard-top">
+            <span className="vs-code grn">1.1.3 MEETING ROOM</span>
             <span className="vs-status grn">
-              <Check size={12} /> Active
+              <Check size={12} /> 100% Live
             </span>
           </div>
           <h5>
             {lang === "km"
-              ? "សាលប្រជុំធំថ្នាក់ដឹកនាំ (VIP Hall)"
-              : "Executive Leadership Hall"}
+              ? "សេវាបន្ទប់ប្រជុំផ្លូវការ"
+              : "Official Meeting Room Service"}
           </h5>
           <p>
             {lang === "km"
-              ? "ចំណុះ ៥០ នាក់ · បំពាក់ប្រព័ន្ធ Smart Conferencing"
-              : "Capacity: 50 pax · Smart Conferencing Ready"}
+              ? "បានដាក់ដំណើរការជាផ្លូវការ (100%)"
+              : "Officially launched and active (100%)"}
           </p>
         </div>
 
         <div className="vs-subcard">
           <div className="vs-subcard-top">
-            <span className="vs-code cy">ROOM B-02 · TECH</span>
-            <span className="vs-status cy">Available</span>
+            <span className="vs-code pri">COMPONENT 1</span>
+            <span className="vs-status pri">3 Sub-systems</span>
           </div>
           <h5>
             {lang === "km"
-              ? "បន្ទប់ប្រជុំបច្ចេកទេសអន្តរនាយកដ្ឋាន"
-              : "Inter-Department Technical Room"}
+              ? "សង្ខេបសមាសភាគទី១"
+              : "Component 1 Summary"}
           </h5>
           <p>
             {lang === "km"
-              ? "ចំណុះ ២០ នាក់ · កក់ភ្លាមៗតាមទូរស័ព្ទដៃ និងកុំព្យូទ័រ"
-              : "Capacity: 20 pax · Instant Web & Mobile Booking"}
-          </p>
-        </div>
-      </div>
-
-      <div className="vs-grid-2">
-        <div className="vs-subcard">
-          <div className="vs-subcard-top">
-            <span className="vs-code amb">MODULE 1.1.1</span>
-            <span className="vs-status amb">Policy Setup</span>
-          </div>
-          <h5>
-            {lang === "km"
-              ? "ការស្នើសុំសម្ភារៈផ្គត់ផ្គង់រដ្ឋបាល"
-              : "Office Supply Requisition"}
-          </h5>
-          <p>
-            {lang === "km"
-              ? "សិក្សាលំហូរការងាររួចរាល់ · រង់ចាំគោលការណ៍អនុម័តរួម"
-              : "Workflow studied · Awaiting standard policy approval"}
-          </p>
-        </div>
-
-        <div className="vs-subcard">
-          <div className="vs-subcard-top">
-            <span className="vs-code grn">DASHBOARD</span>
-            <span className="vs-status grn">Real-Time</span>
-          </div>
-          <h5>
-            {lang === "km"
-              ? "របាយការណ៍តាមដានការប្រើប្រាស់បន្ទប់ប្រជុំ"
-              : "Room Utilization Analytics"}
-          </h5>
-          <p>
-            {lang === "km"
-              ? "កាត់បន្ថយការជាន់ម៉ោងប្រជុំ និងបង្កើនប្រសិទ្ធភាពការងារ"
-              : "Eliminates scheduling conflicts across departments"}
+              ? "ដាក់ដំណើរការផ្លូវការ ១ សេវា (100%) និងសិក្សាតម្រូវការ ២ មុខងារ (10%)"
+              : "1 service officially live (100%) & 2 modules studied (10%)"}
           </p>
         </div>
       </div>
@@ -350,17 +353,17 @@ export function MeetingRoomVisual({ lang }: VisualProps) {
         <span className="vs-bottom-left">
           <CheckCircle2 size={18} className="vp-icon-grn" />
           {lang === "km"
-            ? "មន្ត្រីគ្រប់នាយកដ្ឋានអាចចូលប្រើប្រាស់ប្រព័ន្ធកក់បន្ទប់ប្រជុំបានភ្លាមៗ"
-            : "All departmental staff have active access to the room booking portal"}
+            ? "អគ្គនាយកដ្ឋានកិច្ចការទូទៅ · វឌ្ឍភាពគម្រោងទី១ (សមាសភាគទី១)"
+            : "General Department of General Affairs · Project 1 (Component 1)"}
         </span>
-        <span className="vs-mono-badge grn">PRODUCTION READY</span>
+        <span className="vs-mono-badge grn">100% / 10% / 10%</span>
       </div>
     </div>
   );
 }
 
 /**
- * Slide 5 Visual: Mission Request & Payroll Inter-Ministerial Flow
+ * Slide 5 Visual: Component 2 (1.2.1 Mission Request 65% & 1.2.2 Payroll Pending Study)
  */
 export function MissionPayrollFlow({ lang }: VisualProps) {
   return (
@@ -371,9 +374,23 @@ export function MissionPayrollFlow({ lang }: VisualProps) {
           <div className="vs-col-head">
             <span className="chip pri">
               <Workflow size={14} />
-              {lang === "km" ? "១.២.១ លំហូរបេសកកម្ម" : "1.2.1 Mission Flow"}
+              {lang === "km" ? "1.2.1 ការស្នើសុំបេសកកម្ម" : "1.2.1 Mission Request"}
             </span>
             <span className="vs-mono-badge pri">65% READY</span>
+          </div>
+
+          <div className="vs-progress-box">
+            <div className="vs-progress-head">
+              <span>
+                {lang === "km"
+                  ? "ការរៀបចំប្រព័ន្ធរួចរាល់"
+                  : "System Setup Completed"}
+              </span>
+              <b>65%</b>
+            </div>
+            <div className="vs-progress-bar">
+              <div className="vs-progress-fill" style={{ width: "65%" }} />
+            </div>
           </div>
 
           <div className="vs-step-list">
@@ -382,13 +399,13 @@ export function MissionPayrollFlow({ lang }: VisualProps) {
               <div>
                 <h6>
                   {lang === "km"
-                    ? "បង្កើតសំណើបេសកកម្មឌីជីថល"
+                    ? "ការស្នើសុំបេសកកម្មឌីជីថល"
                     : "Digital Mission Request"}
                 </h6>
                 <p>
                   {lang === "km"
-                    ? "បញ្ចូលគោលដៅ សមាជិក និងកាលបរិច្ឆេទ"
-                    : "Enter destination, members & schedule"}
+                    ? "ការរៀបចំប្រព័ន្ធរួចរាល់ (65%)"
+                    : "System setup completed at 65%"}
                 </p>
               </div>
             </div>
@@ -398,43 +415,29 @@ export function MissionPayrollFlow({ lang }: VisualProps) {
               <div>
                 <h6>
                   {lang === "km"
-                    ? "ការពិនិត្យ និងចុះហត្ថលេខាអេឡិចត្រូនិក"
-                    : "Multi-Level E-Signature"}
+                    ? "លំហូរការអនុម័ត និងត្រួតពិនិត្យ"
+                    : "Approval & Review Workflow"}
                 </h6>
                 <p>
                   {lang === "km"
-                    ? "អនុម័តតាមឋានានុក្រមឌីជីថលរហ័ស"
-                    : "Fast hierarchical digital approval"}
-                </p>
-              </div>
-            </div>
-
-            <div className="vs-step-item">
-              <span className="vs-step-num pri">03</span>
-              <div>
-                <h6>
-                  {lang === "km"
-                    ? "គណនាប្រាក់ឧបត្ថម្ភបេសកកម្មស្វ័យប្រវត្តិ"
-                    : "Allowance Calculation"}
-                </h6>
-                <p>
-                  {lang === "km"
-                    ? "ផ្ទៀងផ្ទាត់តាមអត្រាកំណត់របស់ក្រសួង"
-                    : "Auto-calculated per ministerial rates"}
+                    ? "ត្រៀមបន្តទៅការធ្វើតេស្ត និងដាក់ឱ្យប្រើប្រាស់"
+                    : "Ready for final validation and rollout"}
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right: Payroll Integration (Pending MEF) */}
+        {/* Right: Payroll Integration (Pending Further Study with Ministry) */}
         <div className="vs-column-card">
           <div className="vs-col-head">
             <span className="chip amb">
               <Lock size={14} />
-              {lang === "km" ? "១.២.២ ប្រាក់បៀវត្ស" : "1.2.2 Payroll Sync"}
+              {lang === "km"
+                ? "1.2.2 ដំណើរការប្រាក់បៀវត្ស"
+                : "1.2.2 Payroll Processing"}
             </span>
-            <span className="vs-mono-badge amb">PENDING MEF</span>
+            <span className="vs-mono-badge amb">PENDING STUDY</span>
           </div>
 
           <div className="vs-step-list">
@@ -443,13 +446,13 @@ export function MissionPayrollFlow({ lang }: VisualProps) {
               <div>
                 <h6>
                   {lang === "km"
-                    ? "ទម្រង់កាតាបៀវត្សក្រសួងសេដ្ឋកិច្ច (MEF)"
-                    : "MEF Salary Slip Standard"}
+                    ? "រង់ចាំការសិក្សាជាមួយក្រសួងបន្ថែម"
+                    : "Awaiting Further Study with Ministry"}
                 </h6>
                 <p>
                   {lang === "km"
-                    ? "រង់ចាំការឯកភាពទម្រង់ផ្លូវការពី MEF"
-                    : "Awaiting official slip template sign-off"}
+                    ? "ទាមទារការសិក្សាលម្អិតបន្ថែមជាមួយក្រសួងលើដំណើរការប្រាក់បៀវត្ស"
+                    : "Requires further joint study with the Ministry on payroll workflows"}
                 </p>
               </div>
             </div>
@@ -459,29 +462,13 @@ export function MissionPayrollFlow({ lang }: VisualProps) {
               <div>
                 <h6>
                   {lang === "km"
-                    ? "ការតភ្ជាប់ទិន្នន័យធនាគារដៃគូ"
-                    : "Partner Bank Disbursement"}
+                    ? "ការកំណត់ទម្រង់ និងលក្ខខណ្ឌបច្ចេកទេស"
+                    : "Technical Rules & Schema Definition"}
                 </h6>
                 <p>
                   {lang === "km"
-                    ? "ផ្ទេរប្រាក់បៀវត្ស និងប្រាក់ឧបត្ថម្ភដោយស្វ័យប្រវត្តិ"
-                    : "Automated payroll & allowance payout"}
-                </p>
-              </div>
-            </div>
-
-            <div className="vs-step-item">
-              <span className="vs-step-num amb">C</span>
-              <div>
-                <h6>
-                  {lang === "km"
-                    ? "ការគណនាពន្ធលើប្រាក់បៀវត្ស"
-                    : "Tax & Deduction Rules"}
-                </h6>
-                <p>
-                  {lang === "km"
-                    ? "ស្របតាមច្បាប់ហិរញ្ញវត្ថុសាធារណៈ"
-                    : "Compliant with public finance regulations"}
+                    ? "នឹងចាប់ផ្តើមអភិវឌ្ឍបន្ទាប់ពីបញ្ចប់ការសិក្សាជាមួយក្រសួង"
+                    : "Development will proceed once Ministry study concludes"}
                 </p>
               </div>
             </div>
@@ -493,95 +480,99 @@ export function MissionPayrollFlow({ lang }: VisualProps) {
         <span className="vs-bottom-left">
           <Clock size={18} className="vp-icon-amb" />
           {lang === "km"
-            ? "សំណូមពរ៖ ស្នើបើកកិច្ចប្រជុំបច្ចេកទេសជាមួយតំណាង MEF ដើម្បីឯកភាពលើទម្រង់កាតាបៀវត្ស"
-            : "Action Needed: Technical coordination session with MEF to lock salary slip schema"}
+            ? "សមាសភាគទី២៖ បេសកកម្មរៀបចំប្រព័ន្ធរួចរាល់ (65%) · ប្រាក់បៀវត្សរង់ចាំការសិក្សាជាមួយក្រសួងបន្ថែម"
+            : "Component 2: Mission Request setup ready (65%) · Payroll awaiting further study with Ministry"}
         </span>
-        <span className="vs-mono-badge pri">PRIORITY SYNC</span>
+        <span className="vs-mono-badge pri">65% & PENDING</span>
       </div>
     </div>
   );
 }
 
 /**
- * Slide 6 Visual: QR Code Asset Scanner & Budget Ledger Visual
+ * Slide 6 Visual: Components 3 & 4 (Both at 10% User Requirements Studied)
  */
 export function AssetBudgetVisual({ lang }: VisualProps) {
   return (
     <div className="visual-stack">
       <div className="vs-grid-2-tall">
-        {/* Left: QR Asset Scanner */}
+        {/* Left: Component 3 State Asset Management (10%) */}
         <div className="vs-column-card center-content">
           <div className="vs-qr-scanner">
             <QrCode size={68} className="vp-icon-pri" />
             <div className="vs-laser-line" />
           </div>
-          <span className="vs-code pri">COMPONENT 1.3 · STATE ASSETS</span>
+          <span className="vs-code pri">COMPONENT 1.3 · 10% STUDIED</span>
           <h4 className="vs-card-title">
             {lang === "km"
-              ? "ប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋតាម QR Code"
-              : "QR-Based State Asset Registry"}
+              ? "ប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ (10%)"
+              : "State Asset Management System (10%)"}
           </h4>
           <p className="vs-card-desc">
             {lang === "km"
-              ? "តាមដានទីតាំង ស្ថានភាពថែទាំ និងការរំលស់ទ្រព្យសម្បត្តិរដ្ឋតាមស្តង់ដារក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ"
-              : "Track asset custody, maintenance history, and depreciation using standardized MEF asset codes"}
+              ? "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%) សម្រាប់ការគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ"
+              : "User requirements studied (10%) for the State Asset Management System"}
           </p>
           <div className="vs-tag-row">
-            <span className="vs-status pri">Barcode / QR</span>
-            <span className="vs-status grn">Audit Trail</span>
+            <span className="vs-status amb">10% Studied</span>
+            <span className="vs-status pri">User Requirements</span>
           </div>
         </div>
 
-        {/* Right: Planning & Budget Execution */}
+        {/* Right: Component 4 Planning, Budget, Implementation, M&E (10%) */}
         <div className="vs-column-card">
           <div className="vs-col-head">
-            <span className="chip grn">
-              {lang === "km" ? "១.៤ ផែនការ & ថវិកា" : "1.4 Planning & Budget"}
+            <span className="chip amb">
+              {lang === "km"
+                ? "1.4 ផែនការ ថវិកា និង M&E"
+                : "1.4 Planning, Budget & M&E"}
             </span>
-            <span className="vs-mono-badge grn">UAT READY</span>
+            <span className="vs-mono-badge amb">10% STUDIED</span>
           </div>
 
           <div className="vs-progress-box">
             <div className="vs-progress-head">
               <span>
-                {lang === "km" ? "វឌ្ឍភាពការអភិវឌ្ឍម៉ូឌុលថវិកា" : "Budget Module Progress"}
+                {lang === "km"
+                  ? "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់"
+                  : "User Requirements Studied"}
               </span>
-              <b>65%</b>
+              <b>10%</b>
             </div>
             <div className="vs-progress-bar">
-              <div className="vs-progress-fill" style={{ width: "65%" }} />
+              <div className="vs-progress-fill" style={{ width: "10%" }} />
             </div>
           </div>
 
           <div className="vs-step-list">
             <div className="vs-step-item">
-              <span className="vs-step-num grn">01</span>
+              <span className="vs-step-num pri">01</span>
               <div>
                 <h6>
                   {lang === "km"
-                    ? "ផែនការថវិកាប្រចាំឆ្នាំ និងត្រីមាស"
-                    : "Annual & Quarterly Budget Plans"}
+                    ? "ផែនការ ថវិកា និងការអនុវត្ត"
+                    : "Planning, Budget & Implementation"}
                 </h6>
                 <p>
                   {lang === "km"
-                    ? "រៀបចំគម្រោងចំណាយតាមជំពូកថវិកា"
-                    : "Structured by ministerial budget chapters"}
+                    ? "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)"
+                    : "User requirements studied (10%)"}
                 </p>
               </div>
             </div>
 
             <div className="vs-step-item">
-              <span className="vs-step-num grn">02</span>
+              <span className="vs-step-num pri">02</span>
               <div>
                 <h6>
                   {lang === "km"
-                    ? "ការតាមដានសូចនាករសមិទ្ធកម្ម (KPIs)"
-                    : "Performance KPI Monitoring"}
+                    ? "ការតាមដាន ត្រួតពិនិត្យ និងវាយតម្លៃ"
+                    : "Monitoring, Inspection & Evaluation"}
                 </h6>
                 <p>
                   {lang === "km"
-                    ? "ផ្ទៀងផ្ទាត់លទ្ធផលធៀបនឹងផែនការថវិកា"
-                    : "Real-time budget vs output tracking"}
+                    ? "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)"
+                    : "User requirements studied (10%)"}
                 </p>
               </div>
             </div>
@@ -593,17 +584,17 @@ export function AssetBudgetVisual({ lang }: VisualProps) {
         <span className="vs-bottom-left">
           <ShieldCheck size={18} className="vp-icon-pri" />
           {lang === "km"
-            ? "ត្រៀមដាក់ឱ្យមន្ត្រីជំនាញធ្វើតេស្តសាកល្បង (UAT) ក្នុងដំណាក់កាលបន្ទាប់"
-            : "Scheduled for departmental officer User Acceptance Testing (UAT)"}
+            ? "សមាសភាគទី៣ និងទី៤៖ បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)"
+            : "Components 3 & 4: User requirements studied (10%)"}
         </span>
-        <span className="vs-mono-badge amb">MEF CODE ALIGNMENT</span>
+        <span className="vs-mono-badge amb">10% REQUIREMENT STUDY</span>
       </div>
     </div>
   );
 }
 
 /**
- * Slide 7 Visual: Digital Secretariat Document Vault
+ * Slide 7 Visual: Component 5 (60%) for General Secretariat
  */
 export function SecretariatVaultVisual({ lang }: VisualProps) {
   return (
@@ -616,13 +607,13 @@ export function SecretariatVaultVisual({ lang }: VisualProps) {
           <div>
             <h4>
               {lang === "km"
-                ? "ឃ្លាំងឯកសារឌីជីថលអគ្គលេខាធិការដ្ឋាន (៦០% រួចរាល់)"
-                : "Secretariat Digital Document Vault (60% Complete)"}
+                ? "1.5 សមាសភាគទី៥ (60%) សម្រាប់អគ្គលេខាធិការដ្ឋាន"
+                : "1.5 Component 5 (60%) for General Secretariat"}
             </h4>
             <p>
               {lang === "km"
-                ? "ប្រព័ន្ធគ្រប់គ្រងលិខិតរដ្ឋបាល ចរាចរឯកសារ និងបណ្ណសារឌីជីថល"
-                : "Centralized administrative correspondence, routing & digital archiving"}
+                ? "មុខងារទាំង ៣ ត្រូវបានរៀបចំប្រព័ន្ធរួចរាល់ (60%)"
+                : "All 3 document modules have system setup ready (60%)"}
             </p>
           </div>
         </div>
@@ -632,35 +623,35 @@ export function SecretariatVaultVisual({ lang }: VisualProps) {
       <div className="vs-grid-2">
         <div className="vs-subcard">
           <div className="vs-subcard-top">
-            <span className="vs-code pri">MODULE 1.5.1</span>
-            <span className="vs-status grn">60% Dev</span>
+            <span className="vs-code pri">1.5.1 DISPATCH & CHRONOLOGY</span>
+            <span className="vs-status grn">Setup Ready</span>
           </div>
           <h5>
             {lang === "km"
-              ? "គ្រប់គ្រងលិខិតចូល និងលិខិតចេញ"
-              : "Inbound & Outbound Dispatch"}
+              ? "ការគ្រប់គ្រងឯកសារចូល/ចេញ និងឯកសារកាលប្បវត្តិ"
+              : "Inbound/Outbound & Chronological Documents"}
           </h5>
           <p>
             {lang === "km"
-              ? "ចុះលេខកូដស្វ័យប្រវត្តិ និងតាមដានស្ថានភាពឯកសារតាមពេលវេលាពិត"
-              : "Automated registration numbering and real-time routing status"}
+              ? "ការរៀបចំប្រព័ន្ធរួចរាល់"
+              : "System setup ready"}
           </p>
         </div>
 
         <div className="vs-subcard">
           <div className="vs-subcard-top">
-            <span className="vs-code cy">MODULE 1.5.2</span>
-            <span className="vs-status grn">60% Dev</span>
+            <span className="vs-code cy">1.5.2 UPLOAD & MANAGE</span>
+            <span className="vs-status grn">Setup Ready</span>
           </div>
           <h5>
             {lang === "km"
-              ? "ឃ្លាំងផ្ទុកឯកសារផ្ទៃក្នុងមានសុវត្ថិភាព"
-              : "Encrypted Internal Document Vault"}
+              ? "ការផ្ទុក និងគ្រប់គ្រងឯកសារផ្ទៃក្នុង (Upload & Manage)"
+              : "Upload and Manage Internal Documents"}
           </h5>
           <p>
             {lang === "km"
-              ? "កំណត់សិទ្ធិចូលមើលតាមឋានានុក្រម និងរក្សាទុកប្រវត្តិកែប្រែ"
-              : "Role-based access control with complete version audit history"}
+              ? "ការរៀបចំប្រព័ន្ធរួចរាល់"
+              : "System setup ready"}
           </p>
         </div>
       </div>
@@ -668,35 +659,35 @@ export function SecretariatVaultVisual({ lang }: VisualProps) {
       <div className="vs-grid-2">
         <div className="vs-subcard">
           <div className="vs-subcard-top">
-            <span className="vs-code grn">MODULE 1.5.3</span>
-            <span className="vs-status pri">QR Stamp</span>
+            <span className="vs-code grn">1.5.3 VERIFICATION</span>
+            <span className="vs-status grn">Setup Ready</span>
           </div>
           <h5>
             {lang === "km"
-              ? "ការផ្ទៀងផ្ទាត់ភាពត្រឹមត្រូវតាម QR Code"
-              : "QR Certificate Verification"}
+              ? "ការផ្ទៀងផ្ទាត់ឯកសារ"
+              : "Document Verification"}
           </h5>
           <p>
             {lang === "km"
-              ? "ការពារការក្លែងបន្លំឯកសារផ្លូវការរបស់ក្រសួង"
-              : "Instant cryptographic verification of official documents"}
+              ? "ការរៀបចំប្រព័ន្ធរួចរាល់"
+              : "System setup ready"}
           </p>
         </div>
 
         <div className="vs-subcard">
           <div className="vs-subcard-top">
-            <span className="vs-code amb">MODULE 1.5.4 & 1.5.5</span>
-            <span className="vs-status amb">In Progress</span>
+            <span className="vs-code pri">OVERALL PROGRESS</span>
+            <span className="vs-status pri">60% Complete</span>
           </div>
           <h5>
             {lang === "km"
-              ? "កាលប្បវត្តិ និងលំហូរការងារអគ្គលេខាធិការដ្ឋាន"
-              : "Chronology & Secretariat Workflows"}
+              ? "អគ្គលេខាធិការដ្ឋាន (60%)"
+              : "General Secretariat (60%)"}
           </h5>
           <p>
             {lang === "km"
-              ? "កំពុងអភិវឌ្ឍមុខងារស្វែងរកឆ្លាតវៃ និងរបាយការណ៍សង្ខេប"
-              : "Building smart search indexing and executive summary reports"}
+              ? "ប្រព័ន្ធទាំង ៣ មុខងារបានរៀបចំរួចរាល់"
+              : "All 3 core secretariat modules configured and ready"}
           </p>
         </div>
       </div>
@@ -705,10 +696,282 @@ export function SecretariatVaultVisual({ lang }: VisualProps) {
         <span className="vs-bottom-left">
           <ArrowUpRight size={18} className="vp-icon-pri" />
           {lang === "km"
-            ? "គោលដៅបន្ទាប់៖ បញ្ចប់ការអភិវឌ្ឍ ៤០% ដែលនៅសល់ និងដាក់ឱ្យធ្វើតេស្តសាកល្បង"
-            : "Next Milestone: Complete remaining 40% development and launch pilot UAT"}
+            ? "សមាសភាគទី៥ (60%) សម្រាប់អគ្គលេខាធិការដ្ឋាន៖ ការរៀបចំប្រព័ន្ធរួចរាល់"
+            : "Component 5 (60%) for General Secretariat: System setup ready"}
         </span>
-        <span className="vs-mono-badge pri">Q2-Q3 TARGET</span>
+        <span className="vs-mono-badge grn">60% SETUP READY</span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Slide 8 Visual: General Department of Mineral Resources (Project 2) Portals & Note
+ */
+export function MiningPortalVisual({ lang }: VisualProps) {
+  return (
+    <div className="visual-stack">
+      <div className="vs-grid-2">
+        <div className="vs-subcard">
+          <div className="vs-subcard-top">
+            <span className="vs-code grn">I. APPLICANT PORTAL</span>
+            <span className="vs-status grn">
+              <Check size={12} /> 3 Services Ready
+            </span>
+          </div>
+          <h5>
+            {lang === "km"
+              ? "Web Portal សម្រាប់អ្នកស្នើសុំ (រៀបចំរួចរាល់)"
+              : "Web Portal for Applicants (Setup Ready)"}
+          </h5>
+          <p>
+            {lang === "km"
+              ? "មានចំនួន ៣ សេវា សម្រាប់ស្នើសុំអាជ្ញាបណ្ណអណ្តូងរ៉ែបើក និងការដ្ឋានវាយថ្ម"
+              : "Covers all 3 Open-Pit Mine & Quarry license application services"}
+          </p>
+        </div>
+
+        <div className="vs-subcard">
+          <div className="vs-subcard-top">
+            <span className="vs-code pri">II. INTERNAL PORTAL</span>
+            <span className="vs-status grn">
+              <Check size={12} /> 3 Services Ready
+            </span>
+          </div>
+          <h5>
+            {lang === "km"
+              ? "Web Portal សម្រាប់ការងារផ្ទៃក្នុង (រៀបចំរួចរាល់)"
+              : "Web Portal for Internal Operations (Setup Ready)"}
+          </h5>
+          <p>
+            {lang === "km"
+              ? "មានចំនួន ៣ សេវា សម្រាប់មន្ត្រីពិនិត្យ និងដំណើរការសំណើអាជ្ញាបណ្ណ"
+              : "Covers all 3 internal processing & review workflows"}
+          </p>
+        </div>
+      </div>
+
+      <div className="vs-column-card">
+        <div className="vs-col-head">
+          <span className="chip amb">
+            <AlertTriangle size={14} />
+            {lang === "km" ? "III. ចំណាំសម្គាល់" : "III. Important Note / Remark"}
+          </span>
+          <span className="vs-mono-badge amb">MINISTRY REVIEW</span>
+        </div>
+        <p className="vs-card-desc">
+          {lang === "km"
+            ? "សម្រាប់ការរៀបចំសេវាទី2 និងទី3 ក្រុមការងារបានរៀបចំតាមលំនាំសេវាទី1 រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមដើម្បីកែសម្រួលតាមការអនុវត្តជាក់ស្ដែង។"
+            : "For Services 2 and 3, the technical team configured the workflows following Service 1's template, awaiting further review by the Ministry working group to refine according to actual practice."}
+        </p>
+        <div className="vs-tag-row">
+          <span className="vs-status grn">
+            {lang === "km" ? "សេវាទី១៖ តាមទម្រង់ស្តង់ដារ" : "Service 1: Primary Template"}
+          </span>
+          <span className="vs-status amb">
+            {lang === "km"
+              ? "សេវាទី២ & ទី៣៖ រង់ចាំក្រសួងពិនិត្យបន្ថែម"
+              : "Services 2 & 3: Awaiting Ministry Review"}
+          </span>
+        </div>
+      </div>
+
+      <div className="vs-bottom-strip">
+        <span className="vs-bottom-left">
+          <Globe size={18} className="vp-icon-pri" />
+          {lang === "km"
+            ? "អគ្គនាយកដ្ឋានធនធានរ៉ែ · គម្រោងទី២៖ ប្រព័ន្ធផ្ដល់សេវាសាធារណៈឌីជីថលលើវិស័យរ៉ែ"
+            : "General Department of Mineral Resources · Project 2: Mining Digital Public Services"}
+        </span>
+        <span className="vs-mono-badge grn">3 + 3 SERVICES READY</span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Slide 9 Visual: General Department of Petroleum — I. Applicant Web Portal
+ */
+export function PetroleumApplicantVisual({ lang }: VisualProps) {
+  return (
+    <div className="visual-stack">
+      <div className="vs-banner pri">
+        <div className="vs-banner-left">
+          <div className="ic soft">
+            <Globe size={24} />
+          </div>
+          <div>
+            <h4>
+              {lang === "km"
+                ? "I. Web Portal សម្រាប់អ្នកស្នើសុំ (អគ្គនាយកដ្ឋានប្រេងកាត)"
+                : "I. Applicant Web Portal (General Dept. of Petroleum)"}
+            </h4>
+            <p>
+              {lang === "km"
+                ? "សេវាទី១ និងទី២ រៀបចំរួចរាល់ · សេវាទី៣ សម្រេចបាន 90%"
+                : "Services 1 & 2 setup ready · Service 3 at 90% completion"}
+            </p>
+          </div>
+        </div>
+        <span className="chip pri">3 SERVICES</span>
+      </div>
+
+      <div className="vs-grid-2">
+        <div className="vs-subcard">
+          <div className="vs-subcard-top">
+            <span className="vs-code grn">SERVICE 01 · RENEWAL</span>
+            <span className="vs-status grn">Ready</span>
+          </div>
+          <h5>
+            {lang === "km"
+              ? "ស្នើសុំ និងបន្តសុពលភាពវិញ្ញាបនបត្រស្ថានីយប្រេង/ឧស្ម័នឥន្ធនៈ"
+              : "Application & Renewal for Fuel or LPG Stations"}
+          </h5>
+          <p>
+            {lang === "km"
+              ? "បានរៀបចំរួចរាល់ (រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមដើម្បីកែសម្រួល)"
+              : "Setup ready (awaiting Ministry working group review for refinement)"}
+          </p>
+        </div>
+
+        <div className="vs-subcard">
+          <div className="vs-subcard-top">
+            <span className="vs-code grn">SERVICE 02 · PACKAGING</span>
+            <span className="vs-status grn">Ready</span>
+          </div>
+          <h5>
+            {lang === "km"
+              ? "វិញ្ញាបនបត្រ និងអាជ្ញាបណ្ណពាណិជ្ជកម្មវេចខ្ចប់ប្រេងកាត/ឧស្ម័ន"
+              : "Safety Certificate & Commercial License for Packaging"}
+          </h5>
+          <p>
+            {lang === "km"
+              ? "បានរៀបចំរួចរាល់ (រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមដើម្បីកែសម្រួល)"
+              : "Setup ready (awaiting Ministry working group review for refinement)"}
+          </p>
+        </div>
+      </div>
+
+      <div className="vs-column-card">
+        <div className="vs-col-head">
+          <span className="chip amb">
+            {lang === "km"
+              ? "សេវាទី៣៖ វិញ្ញាបនបត្របច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ"
+              : "Service 03: Technical Safety Certificate for Stations"}
+          </span>
+          <span className="vs-mono-badge pri">90% COMPLETE</span>
+        </div>
+        <div className="vs-progress-box">
+          <div className="vs-progress-head">
+            <span>
+              {lang === "km"
+                ? "វឌ្ឍភាព Web Portal អ្នកស្នើសុំ (សេវាទី៣)"
+                : "Applicant Web Portal Progress (Service 3)"}
+            </span>
+            <b>90%</b>
+          </div>
+          <div className="vs-progress-bar">
+            <div className="vs-progress-fill" style={{ width: "90%" }} />
+          </div>
+        </div>
+        <p className="vs-card-desc">
+          {lang === "km"
+            ? "មានការស្នើសុំកែសម្រួលបន្ថែមក្នុងអង្គប្រជុំកាលពីថ្ងៃទី១០ ខែវិច្ឆិកា ឆ្នាំ២០២៦ ម៉ោង 2:30 PM។"
+            : "Additional refinements requested during the meeting on November 10, 2026 at 2:30 PM."}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Slide 10 Visual: General Department of Petroleum — II. Internal Portal & Offline Mode
+ */
+export function PetroleumInternalVisual({ lang }: VisualProps) {
+  return (
+    <div className="visual-stack">
+      <div className="vs-grid-2">
+        <div className="vs-subcard">
+          <div className="vs-subcard-top">
+            <span className="vs-code pri">INTERNAL SERVICE 01</span>
+            <span className="vs-status pri">75% Complete</span>
+          </div>
+          <h5>
+            {lang === "km"
+              ? "ពិនិត្យ ទទួល និងដំណើរការបន្តសុពលភាពស្ថានីយប្រេង/ឧស្ម័ន (75%)"
+              : "Internal Processing & Renewal for Fuel/LPG Stations (75%)"}
+          </h5>
+          <div className="vs-progress-bar" style={{ marginTop: "8px" }}>
+            <div className="vs-progress-fill" style={{ width: "75%" }} />
+          </div>
+        </div>
+
+        <div className="vs-subcard">
+          <div className="vs-subcard-top">
+            <span className="vs-code grn">INTERNAL SERVICE 02</span>
+            <span className="vs-status grn">Ready</span>
+          </div>
+          <h5>
+            {lang === "km"
+              ? "សកម្មភាពវេចខ្ចប់ផលិតផលប្រេងកាត និងឬឧស្ម័នឥន្ធនៈ"
+              : "Petroleum & LPG Packaging Operations"}
+          </h5>
+          <p>
+            {lang === "km"
+              ? "បានរៀបចំរួចរាល់ (រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែម)"
+              : "Setup ready (awaiting Ministry working group review)"}
+          </p>
+        </div>
+      </div>
+
+      <div className="vs-grid-2">
+        <div className="vs-subcard">
+          <div className="vs-subcard-top">
+            <span className="vs-code amb">INTERNAL SERVICE 03</span>
+            <span className="vs-status amb">
+              <ClipboardCheck size={12} /> Nov 10 · 2:30 PM
+            </span>
+          </div>
+          <h5>
+            {lang === "km"
+              ? "តេស្តដល់ជំហានមន្ទីរចុះពិនិត្យទីតាំង"
+              : "Tested to Provincial On-Site Inspection Step"}
+          </h5>
+          <p>
+            {lang === "km"
+              ? "តេស្តជាមួយនាយកដ្ឋាន និងមន្ទីរខេត្ត ហើយស្នើកែសម្រួលផ្ទាំងបញ្ចូលព័ត៌មានឱ្យបង្ហាញដូចកំណត់ហេតុ"
+              : "Tested with Dept & Provincial Dept; requested form layout to match official inspection minutes"}
+          </p>
+        </div>
+
+        <div className="vs-subcard">
+          <div className="vs-subcard-top">
+            <span className="vs-code cy">ITEM 04 · OFFLINE MODE</span>
+            <span className="vs-status cy">
+              <WifiOff size={12} /> 5%
+            </span>
+          </div>
+          <h5>
+            {lang === "km"
+              ? "មុខងារ Offline Save Auto (5%)"
+              : "Offline Auto-Save Function (5%)"}
+          </h5>
+          <p>
+            {lang === "km"
+              ? "ឧ. អោយ Save ទិន្នន័យ Auto ករណីដាច់ Internet (5%)"
+              : "Auto-saves inspection data when internet disconnects (5%)"}
+          </p>
+        </div>
+      </div>
+
+      <div className="vs-bottom-strip">
+        <span className="vs-bottom-left">
+          <AlertTriangle size={18} className="vp-icon-amb" />
+          {lang === "km"
+            ? "ចំណុចប្រឈម៖ ផ្ទាំងបញ្ចូលព័ត៌មាននៅជំហានមន្ទីរចុះពិនិត្យទីតាំង ស្នើសុំឱ្យបង្ហាញដូចកំណត់ហេតុ"
+            : "Challenge: Provincial On-Site Inspection form requested to match official inspection minutes"}
+        </span>
+        <span className="vs-mono-badge amb">PROVINCIAL FORM SYNC</span>
       </div>
     </div>
   );

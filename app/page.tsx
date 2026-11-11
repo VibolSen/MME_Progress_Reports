@@ -1,3 +1,9 @@
+/**
+ * Author: Antigravity AI Agent
+ * Date: 2026-11-11
+ * Task: Sync Presentation Slides with Updated data.md Across All 3 General Departments
+ */
+
 "use client";
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
@@ -8,9 +14,9 @@ import {
   AGENDA_ITEMS,
   DEPARTMENTS,
   COMPONENTS_DATA,
-  PENDING_ITEMS_SUMMARY,
+  MINERAL_RESOURCES_DATA,
+  PETROLEUM_DATA,
   CHALLENGES_DATA,
-  TIMELINE_MILESTONES,
 } from "./slidesData";
 import {
   HeroHubVisual,
@@ -19,6 +25,9 @@ import {
   MissionPayrollFlow,
   AssetBudgetVisual,
   SecretariatVaultVisual,
+  MiningPortalVisual,
+  PetroleumApplicantVisual,
+  PetroleumInternalVisual,
   RoyalTransmissionVisual,
 } from "./slideVisuals";
 import {
@@ -33,11 +42,9 @@ import {
   Printer,
   Check,
   AlertTriangle,
-  Clock,
   ArrowRight,
   ShieldCheck,
   Layers,
-  Calendar,
   Phone,
   Mail,
   Building2,
@@ -218,7 +225,6 @@ export default function PresentationPage() {
     }
   };
 
-  // Slide navigation list
   const slideList = useMemo(
     () => [
       { id: 1 },
@@ -300,8 +306,8 @@ export default function PresentationPage() {
                   />
                   <span>
                     {lang === "km"
-                      ? "របាយការណ៍បច្ចុប្បន្នភាពសម្រាប់ថ្នាក់ដឹកនាំក្រសួង"
-                      : "Executive Briefing for Ministry Leadership"}
+                      ? "អគ្គនាយកដ្ឋានកិច្ចការទូទៅ · ធនធានរ៉ែ · ប្រេងកាត"
+                      : "General Affairs · Mineral Resources · Petroleum"}
                   </span>
                 </div>
                 <p
@@ -318,7 +324,9 @@ export default function PresentationPage() {
                   onClick={() => goToSlide(1)}
                 >
                   <span>
-                    {lang === "km" ? "ចាប់ផ្តើមបទបង្ហាញ" : "Start the presentation"}
+                    {lang === "km"
+                      ? "ចាប់ផ្តើមបទបង្ហាញ"
+                      : "Start the presentation"}
                   </span>
                   <ArrowRight size={20} />
                 </button>
@@ -374,18 +382,18 @@ export default function PresentationPage() {
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    ទិដ្ឋភាពទូទៅនៃ <span className="g">ខ្លឹមសារបទបង្ហាញ</span>
+                    ទិដ្ឋភាពទូទៅនៃ <span className="g">អគ្គនាយកដ្ឋានទាំង ៣</span>
                   </>
                 ) : (
                   <>
-                    Presentation <span className="g">Overview</span>
+                    Progress Across <span className="g">3 General Departments</span>
                   </>
                 )}
               </h2>
               <p className="lead a" style={{ "--d": 2 } as React.CSSProperties}>
                 {lang === "km"
-                  ? "បទបង្ហាញនេះផ្តោតលើ ៣ ចំណុចស្នូល ស្របតាមការណែនាំរបស់ថ្នាក់ដឹកនាំក្រសួងរ៉ែ និងថាមពល"
-                  : "Covering the 3 primary pillars required by MME leadership for departmental digitalization"}
+                  ? "បច្ចុប្បន្នភាពវឌ្ឍភាពការងារ ចំណាំសម្គាល់ និងចំណុចប្រឈមនៃអគ្គនាយកដ្ឋានកិច្ចការទូទៅ អគ្គនាយកដ្ឋានធនធានរ៉ែ និងអគ្គនាយកដ្ឋានប្រេងកាត"
+                  : "Updated implementation progress, remarks, and challenges across General Affairs, Mineral Resources, and Petroleum"}
               </p>
             </div>
 
@@ -396,16 +404,16 @@ export default function PresentationPage() {
                   className="a interactive"
                   style={{ "--d": idx + 2 } as React.CSSProperties}
                   onClick={() => {
-                    if (idx === 0) goToSlide(2);
-                    else if (idx === 1) goToSlide(8);
-                    else if (idx === 2) goToSlide(9);
+                    if (idx === 0) goToSlide(3);
+                    else if (idx === 1) goToSlide(7);
+                    else if (idx === 2) goToSlide(8);
                   }}
                 >
                   <span className="n">{item.num}</span>
                   <span className="ic soft">
                     {idx === 0 && <Layers size={30} />}
-                    {idx === 1 && <AlertTriangle size={30} />}
-                    {idx === 2 && <Clock size={30} />}
+                    {idx === 1 && <Globe size={30} />}
+                    {idx === 2 && <ShieldCheck size={30} />}
                   </span>
                   <span className="t">
                     {lang === "km" ? item.titleKm : item.titleEn}
@@ -425,10 +433,10 @@ export default function PresentationPage() {
           </div>
         </section>
 
-        {/* SLIDE 3: Department Scope with Network Radar Visual */}
+        {/* SLIDE 3: Executive Overview of All 3 General Departments */}
         <section
           className={`slide ${currentSlide === 2 ? "on" : ""}`}
-          data-label="Scope"
+          data-label="Overview"
         >
           <div className="stage" style={{ transform: `scale(${scale})` }}>
             <div className="bgfx">
@@ -442,24 +450,26 @@ export default function PresentationPage() {
                 style={{ "--d": 0 } as React.CSSProperties}
               >
                 {lang === "km"
-                  ? "០១ · វិសាលភាពនាយកដ្ឋាន"
-                  : "01 · Department Scope"}
+                  ? "០១ · ទិដ្ឋភាពរួមនៃអគ្គនាយកដ្ឋានទាំង ៣"
+                  : "01 · 3 General Departments Overview"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    ស្ថានភាពទិន្នន័យ <span className="g">នៃនាយកដ្ឋានទាំង ៣</span>
+                    វឌ្ឍភាពសង្ខេបនៃ{" "}
+                    <span className="g">អគ្គនាយកដ្ឋានទាំង ៣</span>
                   </>
                 ) : (
                   <>
-                    Data Status of the <span className="g">3 Key Departments</span>
+                    Executive Summary of the{" "}
+                    <span className="g">3 General Departments</span>
                   </>
                 )}
               </h2>
               <p className="lead a" style={{ "--d": 2 } as React.CSSProperties}>
                 {lang === "km"
-                  ? "បច្ចុប្បន្នភាព៖ នាយកដ្ឋានទូទៅមានទិន្នន័យរួចរាល់ពេញលេញ ចំណែកនាយកដ្ឋានចំនួន ២ ទៀតកំពុងស្ថិតក្នុងការរៀបចំទិន្នន័យ"
-                  : "Current coverage: General Department has full data ready; 2 additional departments are in the active requirement pipeline."}
+                  ? "ទិន្នន័យវឌ្ឍភាពបច្ចុប្បន្នភាពពេញលេញសម្រាប់អគ្គនាយកដ្ឋានកិច្ចការទូទៅ អគ្គនាយកដ្ឋានធនធានរ៉ែ និងអគ្គនាយកដ្ឋានប្រេងកាត"
+                  : "Complete up-to-date progress across General Affairs, Mineral Resources, and Petroleum"}
               </p>
             </div>
 
@@ -472,85 +482,33 @@ export default function PresentationPage() {
                   <div>
                     <span className="chip grn">
                       {lang === "km"
-                        ? "នាយកដ្ឋានទូទៅ · ១០០% ពេញលេញ"
-                        : "General Department · 100% Active"}
+                        ? "បច្ចុប្បន្នភាពទិន្នន័យពេញលេញ · ៣ អគ្គនាយកដ្ឋាន"
+                        : "Up-to-Date Progress · All 3 General Departments"}
                     </span>
                     <h3>
                       {lang === "km"
-                        ? DEPARTMENTS[0].nameKm
-                        : DEPARTMENTS[0].nameEn}
+                        ? "ស្ថានភាពគម្រោងតាមអគ្គនាយកដ្ឋាន"
+                        : "Departmental Project Status"}
                     </h3>
                   </div>
                   <span className="ic grn">
                     <Building2 size={24} />
                   </span>
                 </div>
-                <p className="comp-box-sub">
-                  {lang === "km"
-                    ? DEPARTMENTS[0].descriptionKm
-                    : DEPARTMENTS[0].descriptionEn}
-                </p>
                 <div className="comp-list">
-                  <div className="comp-list-item">
-                    <span className="badge-num">01</span>
-                    <div>
-                      <h4>
-                        {lang === "km"
-                          ? "១.១ ប្រតិបត្តិការ & បន្ទប់ប្រជុំ"
-                          : "1.1 Meeting Room Booking & Supplies"}
-                      </h4>
-                      <p>
-                        {lang === "km"
-                          ? "ដាក់ឱ្យដំណើរការជាផ្លូវការ (១០០% Live)"
-                          : "Officially launched and active in production"}
-                      </p>
+                  {DEPARTMENTS.map((dep, idx) => (
+                    <div key={dep.id} className="comp-list-item">
+                      <span className="badge-num">0{idx + 1}</span>
+                      <div>
+                        <h4>{lang === "km" ? dep.nameKm : dep.nameEn}</h4>
+                        <p>
+                          {lang === "km"
+                            ? dep.descriptionKm
+                            : dep.descriptionEn}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="comp-list-item">
-                    <span className="badge-num">02</span>
-                    <div>
-                      <h4>
-                        {lang === "km"
-                          ? "១.២ បេសកកម្ម & ប្រាក់បៀវត្ស"
-                          : "1.2 Mission Workflow & Payroll"}
-                      </h4>
-                      <p>
-                        {lang === "km"
-                          ? "ការរៀបចំប្រព័ន្ធ ៦៥% & រង់ចាំ MEF"
-                          : "Setup 65% ready & pending MEF review"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="comp-list-item">
-                    <span className="badge-num">03</span>
-                    <div>
-                      <h4>
-                        {lang === "km"
-                          ? "១.៣ & ១.៤ ទ្រព្យសម្បត្តិ & ថវិកា"
-                          : "1.3 & 1.4 State Assets & Budgeting"}
-                      </h4>
-                      <p>
-                        {lang === "km"
-                          ? "បានសិក្សាតម្រូវការរួចរាល់ & ត្រៀម UAT"
-                          : "Requirements studied & preparing for UAT"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="comp-list-item">
-                    <span className="badge-num">04</span>
-                    <div>
-                      <h4>
-                        {lang === "km"
-                          ? "១.៥ ឯកសារអគ្គលេខាធិការដ្ឋាន"
-                          : "1.5 Secretariat Document Vault"}
-                      </h4>
-                      <p>
-                        {lang === "km"
-                          ? "អភិវឌ្ឍរួចរាល់ ៦០% (លិខិតចូល-ចេញ & ផ្ទុកឯកសារ)"
-                          : "60% Dev Complete (Dispatch & Archiving)"}
-                      </p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
 
@@ -560,11 +518,11 @@ export default function PresentationPage() {
               >
                 <div className="comp-box-header">
                   <div>
-                    <span className="chip pri">MME TOPOLOGY MAP</span>
+                    <span className="chip pri">MME DIGITAL ECOSYSTEM</span>
                     <h3>
                       {lang === "km"
-                        ? "បណ្តាញតភ្ជាប់នាយកដ្ឋានទាំង ៣"
-                        : "3-Department Architecture Map"}
+                        ? "បណ្តាញប្រព័ន្ធឌីជីថលអគ្គនាយកដ្ឋានទាំង ៣"
+                        : "3-General-Department Digital Architecture"}
                     </h3>
                   </div>
                   <span className="ic soft">
@@ -575,20 +533,20 @@ export default function PresentationPage() {
                 <div className="vs-bottom-strip">
                   <span className="vs-bottom-left">
                     {lang === "km"
-                      ? "ស្ថាបត្យកម្មរួមត្រៀមសម្រាប់នាយកដ្ឋានទាំង ៣"
-                      : "Unified modular architecture ready for all 3 departments"}
+                      ? "អគ្គនាយកដ្ឋានកិច្ចការទូទៅ · អគ្គនាយកដ្ឋានធនធានរ៉ែ · អគ្គនាយកដ្ឋានប្រេងកាត"
+                      : "General Affairs · Mineral Resources · Petroleum"}
                   </span>
-                  <span className="vs-mono-badge grn">MODULAR CORE</span>
+                  <span className="vs-mono-badge grn">ALL 3 ACTIVE</span>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* SLIDE 4: Component 1 with Meeting Room UI Mockup */}
+        {/* SLIDE 4: General Department of General Affairs — Component 1 (1.1) */}
         <section
           className={`slide ${currentSlide === 3 ? "on" : ""}`}
-          data-label="Facilities"
+          data-label="Component 1"
         >
           <div className="stage" style={{ transform: `scale(${scale})` }}>
             <div className="bgfx">
@@ -602,22 +560,22 @@ export default function PresentationPage() {
                 style={{ "--d": 0 } as React.CSSProperties}
               >
                 {lang === "km"
-                  ? "០២ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ"
-                  : "02 · General Department Progress"}
+                  ? "០២ · អគ្គនាយកដ្ឋានកិច្ចការទូទៅ (វឌ្ឍភាពគម្រោងទី១)"
+                  : "02 · General Dept. of General Affairs (Project 1)"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    សមាសភាគទី១៖{" "}
+                    1.1 សមាសភាគទី១៖{" "}
                     <span className="g">
-                      ប្រតិបត្តិការ ការផ្គត់ផ្គង់ & សេវាបន្ទប់ប្រជុំ
+                      ថែទាំ (10%) ផ្គត់ផ្គង់ (10%) & សេវាបន្ទប់ប្រជុំ (100%)
                     </span>
                   </>
                 ) : (
                   <>
-                    Component 1:{" "}
+                    1.1 Component 1:{" "}
                     <span className="g">
-                      Operations, Supply & Meeting Rooms
+                      Maintenance (10%), Supply (10%) & Meeting Room (100%)
                     </span>
                   </>
                 )}
@@ -633,8 +591,8 @@ export default function PresentationPage() {
                   <div>
                     <span className="chip grn">
                       {lang === "km"
-                        ? "ស្ថានភាព៖ ដាក់ឱ្យប្រើប្រាស់ជាក់ស្តែង (Live)"
-                        : "Status: Live in Production"}
+                        ? "សេវាបន្ទប់ប្រជុំ 100% · ថែទាំ និងផ្គត់ផ្គង់ 10%"
+                        : "Meeting Room 100% Live · Maintenance & Supply 10%"}
                     </span>
                     <h3>
                       {lang === "km"
@@ -647,9 +605,9 @@ export default function PresentationPage() {
                   </span>
                 </div>
                 <div className="comp-list">
-                  {COMPONENTS_DATA[0].subtasks.map((item, i) => (
+                  {COMPONENTS_DATA[0].subtasks.map((item) => (
                     <div key={item.id} className="comp-list-item">
-                      <span className="badge-num">0{i + 1}</span>
+                      <span className="badge-num">{item.id}</span>
                       <div>
                         <h4>{lang === "km" ? item.titleKm : item.titleEn}</h4>
                         <p>{lang === "km" ? item.notesKm : item.notesEn}</p>
@@ -669,10 +627,10 @@ export default function PresentationPage() {
           </div>
         </section>
 
-        {/* SLIDE 5: Component 2 with Mission & Payroll Flow Visual */}
+        {/* SLIDE 5: General Department of General Affairs — Component 2 (1.2) */}
         <section
           className={`slide ${currentSlide === 4 ? "on" : ""}`}
-          data-label="Missions"
+          data-label="Component 2"
         >
           <div className="stage" style={{ transform: `scale(${scale})` }}>
             <div className="bgfx">
@@ -686,22 +644,22 @@ export default function PresentationPage() {
                 style={{ "--d": 0 } as React.CSSProperties}
               >
                 {lang === "km"
-                  ? "០៣ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ"
-                  : "03 · General Department Progress"}
+                  ? "០៣ · អគ្គនាយកដ្ឋានកិច្ចការទូទៅ (វឌ្ឍភាពគម្រោងទី១)"
+                  : "03 · General Dept. of General Affairs (Project 1)"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    សមាសភាគទី២៖{" "}
+                    1.2 សមាសភាគទី២៖{" "}
                     <span className="g">
-                      ការគ្រប់គ្រងបេសកកម្ម & ដំណើរការប្រាក់បៀវត្ស
+                      ការស្នើសុំបេសកកម្ម (65%) & ដំណើរការប្រាក់បៀវត្ស
                     </span>
                   </>
                 ) : (
                   <>
-                    Component 2:{" "}
+                    1.2 Component 2:{" "}
                     <span className="g">
-                      Mission Workflows & Payroll Operations
+                      Mission Request (65%) & Payroll Processing
                     </span>
                   </>
                 )}
@@ -717,8 +675,8 @@ export default function PresentationPage() {
                   <div>
                     <span className="chip pri">
                       {lang === "km"
-                        ? "ស្ថានភាព៖ សិក្សាចប់ & ត្រៀមអនុវត្ត"
-                        : "Status: Studied & Ready"}
+                        ? "បេសកកម្មរៀបចំរួចរាល់ 65% · ប្រាក់បៀវត្សរង់ចាំសិក្សាបន្ថែម"
+                        : "Mission Setup Ready (65%) · Payroll Pending Study"}
                     </span>
                     <h3>
                       {lang === "km"
@@ -731,9 +689,9 @@ export default function PresentationPage() {
                   </span>
                 </div>
                 <div className="comp-list">
-                  {COMPONENTS_DATA[1].subtasks.map((item, i) => (
+                  {COMPONENTS_DATA[1].subtasks.map((item) => (
                     <div key={item.id} className="comp-list-item">
-                      <span className="badge-num">0{i + 1}</span>
+                      <span className="badge-num">{item.id}</span>
                       <div>
                         <h4>{lang === "km" ? item.titleKm : item.titleEn}</h4>
                         <p>{lang === "km" ? item.notesKm : item.notesEn}</p>
@@ -753,10 +711,10 @@ export default function PresentationPage() {
           </div>
         </section>
 
-        {/* SLIDE 6: Component 3 & 4 with Asset Scanner Visual */}
+        {/* SLIDE 6: General Department of General Affairs — Components 3 & 4 (1.3 & 1.4) */}
         <section
           className={`slide ${currentSlide === 5 ? "on" : ""}`}
-          data-label="Assets"
+          data-label="Component 3 & 4"
         >
           <div className="stage" style={{ transform: `scale(${scale})` }}>
             <div className="bgfx">
@@ -770,20 +728,22 @@ export default function PresentationPage() {
                 style={{ "--d": 0 } as React.CSSProperties}
               >
                 {lang === "km"
-                  ? "០៤ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ"
-                  : "04 · General Department Progress"}
+                  ? "០៤ · អគ្គនាយកដ្ឋានកិច្ចការទូទៅ (វឌ្ឍភាពគម្រោងទី១)"
+                  : "04 · General Dept. of General Affairs (Project 1)"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    សមាសភាគទី៣ & ៤៖{" "}
-                    <span className="g">ទ្រព្យសម្បត្តិរដ្ឋ ផែនការ & ថវិកា</span>
+                    1.3 & 1.4 សមាសភាគទី៣ & ៤៖{" "}
+                    <span className="g">
+                      ទ្រព្យសម្បត្តិរដ្ឋ (10%) & ផែនការ ថវិកា និង M&E (10%)
+                    </span>
                   </>
                 ) : (
                   <>
-                    Component 3 & 4:{" "}
+                    1.3 & 1.4 Components 3 & 4:{" "}
                     <span className="g">
-                      State Assets, Planning & Budgeting
+                      State Assets (10%) & Planning, Budget, M&E (10%)
                     </span>
                   </>
                 )}
@@ -799,13 +759,13 @@ export default function PresentationPage() {
                   <div>
                     <span className="chip amb">
                       {lang === "km"
-                        ? "ស្ថានភាព៖ រៀបចំកូដ & ត្រៀម UAT"
-                        : "Status: Coding & UAT Prep"}
+                        ? "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)"
+                        : "User Requirements Studied (10%)"}
                     </span>
                     <h3>
                       {lang === "km"
-                        ? "ទ្រព្យសម្បត្តិរដ្ឋ & ថវិកាជាតិ"
-                        : "State Assets & Public Budget"}
+                        ? "សមាសភាគទី៣ (10%) និង សមាសភាគទី៤ (10%)"
+                        : "Component 3 (10%) & Component 4 (10%)"}
                     </h3>
                   </div>
                   <span className="ic amb">
@@ -844,10 +804,10 @@ export default function PresentationPage() {
           </div>
         </section>
 
-        {/* SLIDE 7: Component 5 with Secretariat Document Vault Visual */}
+        {/* SLIDE 7: General Department of General Affairs — Component 5 (1.5 · 60% General Secretariat) */}
         <section
           className={`slide ${currentSlide === 6 ? "on" : ""}`}
-          data-label="Documents"
+          data-label="Component 5"
         >
           <div className="stage" style={{ transform: `scale(${scale})` }}>
             <div className="bgfx">
@@ -861,23 +821,19 @@ export default function PresentationPage() {
                 style={{ "--d": 0 } as React.CSSProperties}
               >
                 {lang === "km"
-                  ? "០៥ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ"
-                  : "05 · General Department Progress"}
+                  ? "០៥ · អគ្គនាយកដ្ឋានកិច្ចការទូទៅ (វឌ្ឍភាពគម្រោងទី១)"
+                  : "05 · General Dept. of General Affairs (Project 1)"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    សមាសភាគទី៥៖{" "}
-                    <span className="g">
-                      ឯកសារអគ្គលេខាធិការដ្ឋាន (៦០% រួចរាល់)
-                    </span>
+                    1.5 សមាសភាគទី៥ (60%)៖{" "}
+                    <span className="g">សម្រាប់អគ្គលេខាធិការដ្ឋាន</span>
                   </>
                 ) : (
                   <>
-                    Component 5:{" "}
-                    <span className="g">
-                      Secretariat Document Vault (60% Ready)
-                    </span>
+                    1.5 Component 5 (60%):{" "}
+                    <span className="g">For General Secretariat</span>
                   </>
                 )}
               </h2>
@@ -892,8 +848,8 @@ export default function PresentationPage() {
                   <div>
                     <span className="chip grn">
                       {lang === "km"
-                        ? "ស្ថានភាព៖ អភិវឌ្ឍរួចរាល់ ៦០%"
-                        : "Status: 60% Developed"}
+                        ? "សម្រេចបាន 60% · ការរៀបចំប្រព័ន្ធរួចរាល់"
+                        : "60% Overall · System Setup Ready"}
                     </span>
                     <h3>
                       {lang === "km"
@@ -906,9 +862,9 @@ export default function PresentationPage() {
                   </span>
                 </div>
                 <div className="comp-list">
-                  {COMPONENTS_DATA[4].subtasks.map((item, i) => (
+                  {COMPONENTS_DATA[4].subtasks.map((item) => (
                     <div key={item.id} className="comp-list-item">
-                      <span className="badge-num">0{i + 1}</span>
+                      <span className="badge-num">{item.id}</span>
                       <div>
                         <h4>{lang === "km" ? item.titleKm : item.titleEn}</h4>
                         <p>{lang === "km" ? item.notesKm : item.notesEn}</p>
@@ -928,10 +884,10 @@ export default function PresentationPage() {
           </div>
         </section>
 
-        {/* SLIDE 8: Pending Items Review (ការងារដែលនៅសេសសល់) */}
+        {/* SLIDE 8: General Department of Mineral Resources (អគ្គនាយកដ្ឋានធនធានរ៉ែ · គម្រោងទី២) */}
         <section
           className={`slide ${currentSlide === 7 ? "on" : ""}`}
-          data-label="Pending"
+          data-label="Mineral Resources"
         >
           <div className="stage" style={{ transform: `scale(${scale})` }}>
             <div className="bgfx">
@@ -945,91 +901,77 @@ export default function PresentationPage() {
                 style={{ "--d": 0 } as React.CSSProperties}
               >
                 {lang === "km"
-                  ? "០៦ · ការងារដែលនៅសេសសល់"
-                  : "06 · Pending Items Review"}
+                  ? "០៦ · អគ្គនាយកដ្ឋានធនធានរ៉ែ (គម្រោងទី២)"
+                  : "06 · General Dept. of Mineral Resources (Project 2)"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    បញ្ជីការងាររង់ចាំការសម្រេច{" "}
-                    <span className="g">(Pending Items)</span>
+                    គម្រោងទី២៖{" "}
+                    <span className="g">
+                      ប្រព័ន្ធផ្ដល់សេវាសាធារណៈឌីជីថលលើវិស័យរ៉ែ
+                    </span>
                   </>
                 ) : (
                   <>
-                    Summary of{" "}
-                    <span className="g">Pending Items & Bottlenecks</span>
+                    Project 2:{" "}
+                    <span className="g">
+                      Digital Public Service System for Mining Sector
+                    </span>
                   </>
                 )}
               </h2>
-              <p className="lead a" style={{ "--d": 2 } as React.CSSProperties}>
-                {lang === "km"
-                  ? "ចំណុចគន្លឹះដែលទាមទារការសម្របសម្រួល និងការសម្រេចគោលការណ៍ជាមួយថ្នាក់ដឹកនាំក្រសួង"
-                  : "Critical decision items requiring inter-ministerial coordination and policy sign-off"}
-              </p>
             </div>
 
-            <div className="ch">
-              {PENDING_ITEMS_SUMMARY.slice(0, 3).map((item, idx) => (
-                <div
-                  key={item.id}
-                  className="card a"
-                  style={{ "--d": idx + 2 } as React.CSSProperties}
-                >
-                  <div className="ch-card-top">
-                    <span className="num">0{idx + 1}</span>
-                    <span className="ic amb">
-                      <Clock size={24} />
+            <div className="comp-split">
+              <div
+                className="comp-box a"
+                style={{ "--d": 2 } as React.CSSProperties}
+              >
+                <div className="comp-box-header">
+                  <div>
+                    <span className="chip grn">
+                      {lang === "km"
+                        ? "I. Web Portal អ្នកស្នើសុំ & II. Web Portal ផ្ទៃក្នុង (៣ សេវា រួចរាល់)"
+                        : "I. Applicant & II. Internal Web Portals (3 Services Ready)"}
                     </span>
+                    <h3>
+                      {lang === "km"
+                        ? "សេវាសាធារណៈឌីជីថលទាំង ៣ លើវិស័យរ៉ែ"
+                        : "3 Digital Mining & Quarry Licensing Services"}
+                    </h3>
                   </div>
-                  <h3>{lang === "km" ? item.titleKm : item.titleEn}</h3>
-                  <p className="ch-desc">
-                    {lang === "km" ? item.detailKm : item.detailEn}
-                  </p>
-                  <div className="ch-footer">
-                    <span className="ag-tag">{item.component}</span>
-                    <span className="chip amb">
-                      {lang === "km" ? item.statusKm : item.statusEn}
-                    </span>
-                  </div>
+                  <span className="ic grn">
+                    <Check size={24} />
+                  </span>
                 </div>
-              ))}
-            </div>
-
-            <div
-              className="shift a"
-              style={{ "--d": 5 } as React.CSSProperties}
-            >
-              <div className="s">
-                <span className="dot red" />
-                <div>
-                  <small>
-                    {lang === "km" ? "ស្ថានភាពបច្ចុប្បន្ន" : "Current Bottleneck"}
-                  </small>
-                  {lang === "km"
-                    ? "ការងារមួយចំនួនរង់ចាំការឯកភាពលើទម្រង់កាតាបៀវត្ស និងកូដសម្បត្តិរដ្ឋពី MEF"
-                    : "Workflows waiting on formal MEF payroll format & state asset code approvals"}
+                <div className="comp-list">
+                  {MINERAL_RESOURCES_DATA.services.map((srv) => (
+                    <div key={srv.num} className="comp-list-item">
+                      <span className="badge-num">{srv.num}</span>
+                      <div>
+                        <h4>{lang === "km" ? srv.titleKm : srv.titleEn}</h4>
+                        <p>{lang === "km" ? srv.statusKm : srv.statusEn}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="track" />
-              <div className="s">
-                <span className="dot grn" />
-                <div>
-                  <small>
-                    {lang === "km" ? "ដំណោះស្រាយស្នើឡើង" : "Proposed Solution"}
-                  </small>
-                  {lang === "km"
-                    ? "បើកកិច្ចប្រជុំអន្តរក្រសួងរួមគ្នា ដើម្បីឯកភាពលើទម្រង់ស្តង់ដារ និងអនុវត្តភ្លាមៗ"
-                    : "Joint inter-ministerial workshop to finalize data formats and unlock deployment"}
-                </div>
+
+              <div
+                className="comp-box a"
+                style={{ "--d": 3 } as React.CSSProperties}
+              >
+                <MiningPortalVisual lang={lang} theme={theme} />
               </div>
             </div>
           </div>
         </section>
 
-        {/* SLIDE 9: Challenges & Suggestions */}
+        {/* SLIDE 9: General Department of Petroleum — I. Applicant Web Portal */}
         <section
           className={`slide ${currentSlide === 8 ? "on" : ""}`}
-          data-label="Challenges"
+          data-label="Petroleum Applicant"
         >
           <div className="stage" style={{ transform: `scale(${scale})` }}>
             <div className="bgfx">
@@ -1043,17 +985,178 @@ export default function PresentationPage() {
                 style={{ "--d": 0 } as React.CSSProperties}
               >
                 {lang === "km"
-                  ? "០៧ · បញ្ហាប្រឈម & សំណូមពរ"
-                  : "07 · Challenges & Suggestions"}
+                  ? "០៧ · អគ្គនាយកដ្ឋានប្រេងកាត (ផ្នែកទី១)"
+                  : "07 · General Dept. of Petroleum (Part I)"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    បញ្ហាប្រឈមចម្បង និង <span className="g">វិធានការដោះស្រាយ</span>
+                    I. Web Portal{" "}
+                    <span className="g">សម្រាប់អ្នកស្នើសុំ (៣ សេវា)</span>
                   </>
                 ) : (
                   <>
-                    Core Challenges & <span className="g">Strategic Solutions</span>
+                    I. Web Portal <span className="g">for Applicants (3 Services)</span>
+                  </>
+                )}
+              </h2>
+            </div>
+
+            <div className="comp-split">
+              <div
+                className="comp-box a"
+                style={{ "--d": 2 } as React.CSSProperties}
+              >
+                <div className="comp-box-header">
+                  <div>
+                    <span className="chip pri">
+                      {lang === "km"
+                        ? "រៀបចំរួចរាល់ ២ សេវា · សម្រេចបាន 90% ១ សេវា"
+                        : "2 Services Ready · 1 Service at 90%"}
+                    </span>
+                    <h3>
+                      {lang === "km"
+                        ? PETROLEUM_DATA.applicantPortal.titleKm
+                        : PETROLEUM_DATA.applicantPortal.titleEn}
+                    </h3>
+                  </div>
+                  <span className="ic soft">
+                    <Globe size={24} />
+                  </span>
+                </div>
+                <div className="comp-list">
+                  {PETROLEUM_DATA.applicantPortal.services.map((srv) => (
+                    <div key={srv.num} className="comp-list-item">
+                      <span className="badge-num">{srv.num}</span>
+                      <div>
+                        <h4>{lang === "km" ? srv.titleKm : srv.titleEn}</h4>
+                        <p>{lang === "km" ? srv.notesKm : srv.notesEn}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div
+                className="comp-box a"
+                style={{ "--d": 3 } as React.CSSProperties}
+              >
+                <PetroleumApplicantVisual lang={lang} theme={theme} />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SLIDE 10: General Department of Petroleum — II. Internal Ministry Web Portal */}
+        <section
+          className={`slide ${currentSlide === 9 ? "on" : ""}`}
+          data-label="Petroleum Internal"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
+            </div>
+
+            <div className="head">
+              <div
+                className="eyebrow a"
+                style={{ "--d": 0 } as React.CSSProperties}
+              >
+                {lang === "km"
+                  ? "០៨ · អគ្គនាយកដ្ឋានប្រេងកាត (ផ្នែកទី២)"
+                  : "08 · General Dept. of Petroleum (Part II)"}
+              </div>
+              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    II. Web Portal{" "}
+                    <span className="g">សម្រាប់ប្រើប្រាស់ផ្ទៃក្នុងក្រសួង</span>
+                  </>
+                ) : (
+                  <>
+                    II. Web Portal{" "}
+                    <span className="g">for Internal Ministry Use</span>
+                  </>
+                )}
+              </h2>
+            </div>
+
+            <div className="comp-split">
+              <div
+                className="comp-box a"
+                style={{ "--d": 2 } as React.CSSProperties}
+              >
+                <div className="comp-box-header">
+                  <div>
+                    <span className="chip amb">
+                      {lang === "km"
+                        ? "75% · រួចរាល់ · តេស្តមន្ទីរខេត្ត (១០ វិច្ឆិកា ២០២៦) · Offline 5%"
+                        : "75% · Ready · Provincial Test (Nov 10, 2026) · Offline 5%"}
+                    </span>
+                    <h3>
+                      {lang === "km"
+                        ? PETROLEUM_DATA.internalPortal.titleKm
+                        : PETROLEUM_DATA.internalPortal.titleEn}
+                    </h3>
+                  </div>
+                  <span className="ic amb">
+                    <ShieldCheck size={24} />
+                  </span>
+                </div>
+                <div className="comp-list">
+                  {PETROLEUM_DATA.internalPortal.services.map((srv) => (
+                    <div key={srv.num} className="comp-list-item">
+                      <span className="badge-num">{srv.num}</span>
+                      <div>
+                        <h4>{lang === "km" ? srv.titleKm : srv.titleEn}</h4>
+                        <p>{lang === "km" ? srv.notesKm : srv.notesEn}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div
+                className="comp-box a"
+                style={{ "--d": 3 } as React.CSSProperties}
+              >
+                <PetroleumInternalVisual lang={lang} theme={theme} />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SLIDE 11: Challenges, Remarks & Timeline Across All 3 General Departments */}
+        <section
+          className={`slide ${currentSlide === 10 ? "on" : ""}`}
+          data-label="Challenges & Timeline"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
+            </div>
+
+            <div className="head">
+              <div
+                className="eyebrow a"
+                style={{ "--d": 0 } as React.CSSProperties}
+              >
+                {lang === "km"
+                  ? "០៩ · ចំណុចប្រឈម ចំណាំសម្គាល់ & សំណូមពរ"
+                  : "09 · Challenges, Remarks & Action Plan"}
+              </div>
+              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    ចំណុចប្រឈម ចំណាំសម្គាល់ និង{" "}
+                    <span className="g">ទិសដៅអនុវត្តបន្ត</span>
+                  </>
+                ) : (
+                  <>
+                    Key Challenges, Remarks &{" "}
+                    <span className="g">Next Milestones</span>
                   </>
                 )}
               </h2>
@@ -1067,7 +1170,9 @@ export default function PresentationPage() {
                   style={{ "--d": idx + 2 } as React.CSSProperties}
                 >
                   <div className="ch-card-top">
-                    <span className="num">0{idx + 1}</span>
+                    <span className="chip pri">
+                      {lang === "km" ? ch.categoryKm : ch.categoryEn}
+                    </span>
                     <span
                       className={`ic ${
                         idx === 0 ? "red" : idx === 1 ? "amb" : "soft"
@@ -1082,7 +1187,9 @@ export default function PresentationPage() {
                   </p>
                   <div className="ch-solution-box">
                     <span className="ch-solution-label">
-                      {lang === "km" ? "សំណូមពរដោះស្រាយ៖" : "Suggested Action:"}
+                      {lang === "km"
+                        ? "សំណូមពរ / ការកែសម្រួល៖"
+                        : "Action / Refinement:"}
                     </span>
                     <p className="ch-solution-text">
                       {lang === "km" ? ch.solutionKm : ch.solutionEn}
@@ -1100,11 +1207,13 @@ export default function PresentationPage() {
                 <span className="dot red" />
                 <div>
                   <small>
-                    {lang === "km" ? "ការអនុវត្តពីមុន" : "Legacy Workflow"}
+                    {lang === "km"
+                      ? "ចំណុចប្រឈមអគ្គនាយកដ្ឋានប្រេងកាត"
+                      : "Petroleum Inspection Form Requirement"}
                   </small>
                   {lang === "km"
-                    ? "ការងារឯកសារដោយដៃ យឺតយ៉ាវ និងមិនមានទិន្នន័យរួមតែមួយ"
-                    : "Manual, siloed paper documentation with disconnected tracking"}
+                    ? "ផ្ទាំងបញ្ចូលព័ត៌មាននៅជំហាន មន្ទីរចុះពិនិត្យទីតាំង ស្នើសុំឱ្យបង្ហាញដូចកំណត់ហេតុ"
+                    : "Provincial On-Site Inspection step data entry screen requested to match official inspection minutes"}
                 </div>
               </div>
               <div className="track" />
@@ -1113,238 +1222,12 @@ export default function PresentationPage() {
                 <div>
                   <small>
                     {lang === "km"
-                      ? "ប្រព័ន្ធឌីជីថលថ្មី"
-                      : "Digital Transformation"}
+                      ? "ការពិនិត្យ និងជំហានបន្ទាប់"
+                      : "Ministry Review & Next Steps"}
                   </small>
                   {lang === "km"
-                    ? "ស្វ័យប្រវត្តិកម្ម តម្លាភាព និងទិន្នន័យជាក់ស្តែងតាមពេលវេលាពិត"
-                    : "Automated, transparent, and near real-time ministerial reporting"}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* SLIDE 10: Expected Completion & Timeline */}
-        <section
-          className={`slide ${currentSlide === 9 ? "on" : ""}`}
-          data-label="Timeline"
-        >
-          <div className="stage" style={{ transform: `scale(${scale})` }}>
-            <div className="bgfx">
-              <div className="dots" />
-              <div className="blob b1" />
-            </div>
-
-            <div className="head head-row">
-              <div>
-                <div
-                  className="eyebrow a"
-                  style={{ "--d": 0 } as React.CSSProperties}
-                >
-                  {lang === "km"
-                    ? "០៨ · ការរំពឹងទុកនៃការបញ្ចប់គម្រោង"
-                    : "08 · Expected Completion"}
-                </div>
-                <h2
-                  className="h a"
-                  style={{ "--d": 1 } as React.CSSProperties}
-                >
-                  {lang === "km" ? (
-                    <>
-                      កាលវិភាគអនុវត្ត{" "}
-                      <span className="g">ពេញលេញ ៤ ដំណាក់កាល</span>
-                    </>
-                  ) : (
-                    <>
-                      Phased Delivery{" "}
-                      <span className="g">Across 4 Milestones</span>
-                    </>
-                  )}
-                </h2>
-                <p
-                  className="lead a"
-                  style={{ "--d": 2 } as React.CSSProperties}
-                >
-                  {lang === "km"
-                    ? "ផែនការប្រគល់ការងារជាជំហានៗ រួមទាំងការដាក់ឱ្យប្រើប្រាស់ និងការបណ្តុះបណ្តាលមន្ត្រី"
-                    : "Structured implementation roadmap with milestone verification at each stage"}
-                </p>
-              </div>
-
-              <div
-                className="ns-stat a-r"
-                style={{ "--d": 2 } as React.CSSProperties}
-              >
-                <b className="grad">4</b>
-                <small>
-                  {lang === "km"
-                    ? "ដំណាក់កាលអនុវត្ត"
-                    : "Phases to Completion"}
-                </small>
-              </div>
-            </div>
-
-            <div className="tlg">
-              {TIMELINE_MILESTONES.map((phase, idx) => (
-                <div
-                  key={phase.phase}
-                  className={`tlg-card ${idx === 0 ? "cur" : ""} a`}
-                  style={{ "--d": idx + 2 } as React.CSSProperties}
-                >
-                  <div className="tlg-phase">
-                    {lang === "km" ? phase.phaseKm : phase.phase}
-                  </div>
-                  <h3>{lang === "km" ? phase.titleKm : phase.titleEn}</h3>
-                  <div className="tlg-date">
-                    <Calendar size={14} />
-                    <span>
-                      {lang === "km" ? phase.timeframeKm : phase.timeframeEn}
-                    </span>
-                  </div>
-
-                  <div className="tlg-points">
-                    {phase.bulletsKm.map((item, i) => (
-                      <div key={i} className="tlg-point">
-                        <Check size={16} />
-                        <span>
-                          {lang === "km" ? item : phase.bulletsEn[i]}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="tlg-footer">
-                    <span className={`chip ${idx === 0 ? "grn" : "pri"}`}>
-                      {idx === 0
-                        ? lang === "km"
-                          ? "កំពុងអនុវត្ត (Active)"
-                          : "Currently Active"
-                        : lang === "km"
-                          ? "តាមកាលវិភាគ"
-                          : "Scheduled"}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* SLIDE 11: 30-Day Action Plan */}
-        <section
-          className={`slide ${currentSlide === 10 ? "on" : ""}`}
-          data-label="Action Plan"
-        >
-          <div className="stage" style={{ transform: `scale(${scale})` }}>
-            <div className="bgfx">
-              <div className="dots" />
-              <div className="blob b1" />
-            </div>
-
-            <div className="head">
-              <div
-                className="eyebrow a"
-                style={{ "--d": 0 } as React.CSSProperties}
-              >
-                {lang === "km" ? "០៩ · ជំហានបន្ទាប់" : "09 · Next Steps"}
-              </div>
-              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
-                {lang === "km" ? (
-                  <>
-                    ផែនការសកម្មភាព <span className="g">៣០ថ្ងៃបន្ទាប់</span>
-                  </>
-                ) : (
-                  <>
-                    Next 30-Day <span className="g">Immediate Action Plan</span>
-                  </>
-                )}
-              </h2>
-              <p className="lead a" style={{ "--d": 2 } as React.CSSProperties}>
-                {lang === "km"
-                  ? "សកម្មភាពជាក់ស្តែងដើម្បីពន្លឿនការងារនៅសេសសល់ និងត្រៀមទទួលយកទិន្នន័យនាយកដ្ឋានទាំង ២ បន្ថែម"
-                  : "Immediate tactical milestones to resolve pending items and onboard remaining departments"}
-              </p>
-            </div>
-
-            <div className="tlg">
-              <div
-                className="tlg-card cur a"
-                style={{ "--d": 2 } as React.CSSProperties}
-              >
-                <div className="tlg-phase">STEP 01</div>
-                <h3>
-                  {lang === "km"
-                    ? "សម្របសម្រួលទម្រង់កាតាបៀវត្ស"
-                    : "MEF Payroll Slip Alignment"}
-                </h3>
-                <p className="tlg-desc">
-                  {lang === "km"
-                    ? "រៀបចំកិច្ចប្រជុំបច្ចេកទេសជាមួយតំណាង MEF និងនាយកដ្ឋានទូទៅ ដើម្បីឯកភាពលើទម្រង់កាតាបៀវត្ស។"
-                    : "Conduct technical coordination workshop to finalize the required salary slip layout."}
-                </p>
-                <div className="tlg-footer">
-                  <span className="chip pri">Week 1 - 2</span>
-                </div>
-              </div>
-
-              <div
-                className="tlg-card a"
-                style={{ "--d": 3 } as React.CSSProperties}
-              >
-                <div className="tlg-phase">STEP 02</div>
-                <h3>
-                  {lang === "km"
-                    ? "ធ្វើតេស្ត UAT ផែនការ & ថវិកា"
-                    : "Planning & Budget UAT"}
-                </h3>
-                <p className="tlg-desc">
-                  {lang === "km"
-                    ? "ដាក់ឱ្យមន្ត្រីជំនាញធ្វើតេស្តសាកល្បងម៉ូឌុលផែនការ និងថវិកា ព្រមទាំងប្រមូលមតិកែលម្អ។"
-                    : "Deploy test environment for departmental officers to validate operational budgeting flows."}
-                </p>
-                <div className="tlg-footer">
-                  <span className="chip pri">Week 2 - 3</span>
-                </div>
-              </div>
-
-              <div
-                className="tlg-card a"
-                style={{ "--d": 4 } as React.CSSProperties}
-              >
-                <div className="tlg-phase">STEP 03</div>
-                <h3>
-                  {lang === "km"
-                    ? "ប្រមូលទិន្នន័យនាយកដ្ឋានទី ២"
-                    : "Department 2 Intake"}
-                </h3>
-                <p className="tlg-desc">
-                  {lang === "km"
-                    ? "ចាប់ផ្តើមកិច្ចសម្ភាសន៍ប្រមូលតម្រូវការ និងទម្រង់ការងារសម្រាប់នាយកដ្ឋានទី ២។"
-                    : "Initiate workflow mapping and template collection with Department 2 task force."}
-                </p>
-                <div className="tlg-footer">
-                  <span className="chip amb">Week 3 - 4</span>
-                </div>
-              </div>
-
-              <div
-                className="tlg-card a"
-                style={{ "--d": 5 } as React.CSSProperties}
-              >
-                <div className="tlg-phase">STEP 04</div>
-                <h3>
-                  {lang === "km"
-                    ? "របាយការណ៍ជូនថ្នាក់ដឹកនាំ"
-                    : "Executive Debrief"}
-                </h3>
-                <p className="tlg-desc">
-                  {lang === "km"
-                    ? "រៀបចំរបាយការណ៍បូកសរុបលទ្ធផល ៣០ថ្ងៃ និងស្នើសុំការសម្រេចលើជំហានបន្ត។"
-                    : "Deliver progress metrics and request formal approvals for Q2 rollout phase."}
-                </p>
-                <div className="tlg-footer">
-                  <span className="chip grn">Week 4</span>
+                    ? "ពិនិត្យកែសម្រួលសេវារ៉ែទី២-៣ តាមការអនុវត្តជាក់ស្ដែង និងសិក្សាប្រាក់បៀវត្សបន្ថែមជាមួយក្រសួង"
+                    : "Review Mining Services 2 & 3 per actual practice and conduct joint Ministry study on Payroll"}
                 </div>
               </div>
             </div>
@@ -1617,7 +1500,9 @@ export default function PresentationPage() {
           style={{ flexShrink: 0 }}
         >
           {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
-          <span className="tx">{isFullscreen ? "Exit" : "Full screen"}</span>
+          <span className="tx" id="fsTx">
+            {isFullscreen ? "Exit" : "Full screen"}
+          </span>
         </button>
       </div>
     </div>
