@@ -73,3 +73,4 @@ Use the following slash commands for specialized workflows:
 * `/review` — Activate the Review desk for code audits and diff reviews
 * `/advisor` — Activate the Advisor desk for strategic guidance and MME stakeholder coordination
 * `/doc` — Activate the Docs desk for updating documentation and slide deck content
+

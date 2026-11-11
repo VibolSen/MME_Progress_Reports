@@ -36,3 +36,4 @@ Use this command when implementing features, updating slides, modifying componen
 4. **Verification:**
    - Run `npm run lint` (ensure 0 errors, 0 warnings).
    - Run `npm run build` to confirm production compilation.
+

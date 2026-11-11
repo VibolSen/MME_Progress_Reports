@@ -19,3 +19,4 @@ Task: Slash Command Setup - dev (workflow)
 3. Obey safety rules: Ask before git push or installing packages; never read `.env` or secrets.
 4. Run `npm run format` after edits.
 5. Verify with `npm run lint` and `npm run build`.
+

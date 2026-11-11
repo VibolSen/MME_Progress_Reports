@@ -37,3 +37,4 @@ Use this command when generating technical documentation, updating slide deck co
    ```bash
    npm run lint
    ```
+

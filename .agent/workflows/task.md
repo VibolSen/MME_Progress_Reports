@@ -18,3 +18,4 @@ Task: Slash Command Setup - task (workflow)
 2. Ensure file header starts with Author, Date, Task.
 3. Fill in objective, scope, checklists, and acceptance criteria.
 4. Run `npm run format` after any edits.
+

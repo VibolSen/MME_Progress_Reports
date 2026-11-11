@@ -30,3 +30,4 @@ The **Advisor Desk** aligns the digital platform with executive requirements fro
 1. Assess project data against MME strategic goals.
 2. Formulate actionable recommendations and mitigation strategies for pending items.
 3. Update slide content in [`app/slidesData.ts`](../../app/slidesData.ts) to reflect executive decisions.
+

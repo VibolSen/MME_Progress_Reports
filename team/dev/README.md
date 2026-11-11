@@ -32,3 +32,4 @@ The **Dev Desk** owns the software architecture, application logic, and UI engin
    npm run build
    ```
 5. Hand off to **QA Desk** or **Review Desk** for verification.
+

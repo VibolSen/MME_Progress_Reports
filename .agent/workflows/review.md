@@ -22,3 +22,4 @@ Task: Slash Command Setup - review (workflow)
 2. Verify safety rules: No secrets, no unapproved packages, no unapproved git push.
 3. Verify every file starts with Author, Date, Task.
 4. Run `npm run format` and `npm run lint`.
+

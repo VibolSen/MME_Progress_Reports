@@ -37,3 +37,4 @@ The **QA Desk** verifies application stability, zero-error policies, responsive 
    ```
 3. Perform interactive UI checks.
 4. Document QA findings and approve or request revision.
+

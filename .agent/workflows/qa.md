@@ -22,3 +22,4 @@ Task: Slash Command Setup - qa (workflow)
 2. Verify Khmer (`KM`) and English (`EN`) UI copy and responsive layouts.
 3. Verify keyboard shortcuts (`←`, `→`, `L`, `T`, `G`, `F`, `P`).
 4. Log outcomes in `tasks/TASK-XXX.md`.
+

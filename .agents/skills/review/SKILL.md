@@ -35,3 +35,4 @@ Use this command to audit git working tree changes, check safety policy complian
    ```
 4. **Outcome:**
    * Approve for completion or request revisions with clear actionable feedback.
+

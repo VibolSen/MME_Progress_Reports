@@ -32,3 +32,4 @@ Use this command to perform automated verification, lint checks, build inspectio
    * Test language toggle (`L`), theme toggle (`T`), slide grid (`G`), fullscreen (`F`), and print preview (`P`).
 4. **Sign-off:**
    * Record QA test outcomes in the respective `tasks/TASK-XXX.md`.
+

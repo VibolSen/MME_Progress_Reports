@@ -18,3 +18,4 @@ Task: Slash Command Setup - advisor (workflow)
 2. Formulate advisory recommendations on Payroll joint study with MEF.
 3. Plan scope intake for Departments 2 & 3.
 4. Update `app/slidesData.ts` and run `npm run format`.
+
