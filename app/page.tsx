@@ -1430,142 +1430,195 @@ export default function PresentationPage() {
       </div>
 
       {/* Unified Bottom Footer Bar */}
-      <div className="bar-dock" id="bar">
+      <div
+        className="bar-dock"
+        id="bar"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "nowrap",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "8px",
+          padding: "0 18px",
+        }}
+      >
         <div
-          className="prog"
-          id="prog"
-          style={{ width: `${progressPercent}%` }}
-        />
-
-        <div className="bar-left">
-          <div className="brand">
-            <Image
-              src="/logo/Oone logo.svg"
-              alt="OONE Logo"
-              width={76}
-              height={34}
-              className="brand-logo object-contain"
-            />
-            <span id="cnt">
-              {currentSlide + 1 < 10
-                ? `0${currentSlide + 1}`
-                : currentSlide + 1}{" "}
-              / {TOTAL_SLIDES}
-            </span>
-          </div>
-        </div>
-
-        <div className="bar-center">
-          <button
-            className="nb interactive"
-            id="prev"
-            onClick={prevSlide}
-            disabled={currentSlide === 0}
-            aria-label="Previous slide"
-          >
-            <ChevronLeft size={18} />
-            <span className="tx">{lang === "km" ? "ថយក្រោយ" : "Back"}</span>
-          </button>
-
-          <nav className="dots-nav" id="dn" aria-label="Slides">
-            {slideList.map((s, idx) => (
-              <button
-                key={s.id}
-                className={`interactive ${currentSlide === idx ? "cur" : ""}`}
-                onClick={() => goToSlide(idx)}
-                aria-label={`Go to slide ${idx + 1}`}
-              >
-                {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
-              </button>
-            ))}
-          </nav>
-
-          <button
-            className="nb pri interactive"
-            id="next"
-            onClick={nextSlide}
-            disabled={currentSlide === TOTAL_SLIDES - 1}
-          >
-            <span className="tx" id="nextTx">
-              {lang === "km" ? "បន្ទាប់" : "Next"}
-            </span>
-            <ChevronRight size={18} />
-          </button>
-        </div>
-
-        <div className="bar-right">
-          {/* Language Switcher */}
+          className="prog-track"
+          style={{
+            position: "absolute",
+            left: "18px",
+            right: "18px",
+            top: 0,
+            height: "3px",
+            borderRadius: "999px",
+            overflow: "hidden",
+            pointerEvents: "none",
+          }}
+        >
           <div
-            className={`langsw ${langDropdownOpen ? "open" : ""}`}
-            id="langDD"
-          >
-            <button
-              className="lbtn interactive"
-              id="langBtn"
-              onClick={() => setLangDropdownOpen((prev) => !prev)}
-              aria-haspopup="true"
-              aria-expanded={langDropdownOpen}
-              aria-label="Language selector"
-            >
-              <Globe size={18} />
-              <span id="langCur">{lang === "km" ? "KH" : "EN"}</span>
-              <ChevronUp size={14} className="lchev" />
-            </button>
-            <div className="lmenu" role="menu">
-              <button
-                role="menuitemradio"
-                aria-checked={lang === "en"}
-                className={`interactive ${lang === "en" ? "on" : ""}`}
-                onClick={() => toggleLanguage("en")}
-              >
-                <span className="lc">EN</span>English
-                {lang === "en" && <Check size={14} />}
-              </button>
-              <button
-                role="menuitemradio"
-                aria-checked={lang === "km"}
-                className={`interactive ${lang === "km" ? "on" : ""}`}
-                onClick={() => toggleLanguage("km")}
-              >
-                <span className="lc">KH</span>ខ្មែរ
-                {lang === "km" && <Check size={14} />}
-              </button>
-            </div>
-          </div>
-
-          {/* Theme Switcher */}
-          <button
-            className="nb interactive"
-            id="theme"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-          >
-            {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
-            <span className="tx">{theme === "light" ? "Dark" : "Light"}</span>
-          </button>
-
-          {/* Print Button */}
-          <button
-            className="nb interactive"
-            id="printb"
-            onClick={() => window.print()}
-            aria-label="Print slides"
-          >
-            <Printer size={18} />
-            <span className="tx">{lang === "km" ? "បោះពុម្ព" : "Print"}</span>
-          </button>
-
-          {/* Fullscreen Button */}
-          <button
-            className="nb interactive"
-            id="fsb"
-            onClick={toggleFullscreen}
-            aria-label="Fullscreen"
-          >
-            {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
-            <span className="tx">{isFullscreen ? "Exit" : "Full screen"}</span>
-          </button>
+            className="prog"
+            id="prog"
+            style={{
+              width: `${progressPercent}%`,
+              position: "static",
+              height: "100%",
+            }}
+          />
         </div>
+
+        <div
+          className="brand"
+          style={{ display: "flex", alignItems: "center", flexShrink: 0 }}
+        >
+          <Image
+            src="/logo/Oone logo.svg"
+            alt="OONE Logo"
+            width={68}
+            height={30}
+            className="brand-logo object-contain"
+          />
+        </div>
+
+        <span className="sep" style={{ flexShrink: 0 }} />
+
+        <button
+          className="nb interactive"
+          id="prev"
+          onClick={prevSlide}
+          disabled={currentSlide === 0}
+          aria-label="Previous slide"
+          style={{ flexShrink: 0 }}
+        >
+          <ChevronLeft size={16} />
+          <span className="tx">{lang === "km" ? "ថយក្រោយ" : "Back"}</span>
+        </button>
+
+        <nav
+          className="dots-nav"
+          id="dn"
+          aria-label="Slides"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "nowrap",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            gap: "4px",
+            overflowX: "auto",
+            overflowY: "hidden",
+            maxWidth: "100%",
+            padding: "2px",
+          }}
+        >
+          {slideList.map((s, idx) => (
+            <button
+              key={s.id}
+              className={`interactive ${currentSlide === idx ? "cur" : ""}`}
+              onClick={() => goToSlide(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+              style={{
+                flexShrink: 0,
+                minWidth: "30px",
+                height: "32px",
+                padding: "0 6px",
+              }}
+            >
+              {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
+            </button>
+          ))}
+        </nav>
+
+        <button
+          className="nb pri interactive"
+          id="next"
+          onClick={nextSlide}
+          disabled={currentSlide === TOTAL_SLIDES - 1}
+          style={{ flexShrink: 0 }}
+        >
+          <span className="tx" id="nextTx">
+            {lang === "km" ? "បន្ទាប់" : "Next"}
+          </span>
+          <ChevronRight size={16} />
+        </button>
+
+        <span className="sep" style={{ flexShrink: 0 }} />
+
+        {/* Language Switcher */}
+        <div
+          className={`langsw ${langDropdownOpen ? "open" : ""}`}
+          id="langDD"
+          style={{ flexShrink: 0 }}
+        >
+          <button
+            className="lbtn interactive"
+            id="langBtn"
+            onClick={() => setLangDropdownOpen((prev) => !prev)}
+            aria-haspopup="true"
+            aria-expanded={langDropdownOpen}
+            aria-label="Language selector"
+          >
+            <Globe size={16} />
+            <span id="langCur">{lang === "km" ? "KH" : "EN"}</span>
+            <ChevronUp size={13} className="lchev" />
+          </button>
+          <div className="lmenu" role="menu">
+            <button
+              role="menuitemradio"
+              aria-checked={lang === "en"}
+              className={`interactive ${lang === "en" ? "on" : ""}`}
+              onClick={() => toggleLanguage("en")}
+            >
+              <span className="lc">EN</span>English
+              {lang === "en" && <Check size={14} />}
+            </button>
+            <button
+              role="menuitemradio"
+              aria-checked={lang === "km"}
+              className={`interactive ${lang === "km" ? "on" : ""}`}
+              onClick={() => toggleLanguage("km")}
+            >
+              <span className="lc">KH</span>ខ្មែរ
+              {lang === "km" && <Check size={14} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Theme Switcher */}
+        <button
+          className="nb interactive"
+          id="theme"
+          onClick={toggleTheme}
+          aria-label="Toggle theme"
+          style={{ flexShrink: 0 }}
+        >
+          {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
+          <span className="tx">{theme === "light" ? "Dark" : "Light"}</span>
+        </button>
+
+        {/* Print Button */}
+        <button
+          className="nb interactive"
+          id="printb"
+          onClick={() => window.print()}
+          aria-label="Print slides"
+          style={{ flexShrink: 0 }}
+        >
+          <Printer size={16} />
+          <span className="tx">{lang === "km" ? "បោះពុម្ព" : "Print"}</span>
+        </button>
+
+        {/* Fullscreen Button */}
+        <button
+          className="nb interactive"
+          id="fsb"
+          onClick={toggleFullscreen}
+          aria-label="Fullscreen"
+          style={{ flexShrink: 0 }}
+        >
+          {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
+          <span className="tx">{isFullscreen ? "Exit" : "Full screen"}</span>
+        </button>
       </div>
     </div>
   );

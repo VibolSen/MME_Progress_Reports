@@ -1672,65 +1672,51 @@ body {
    ========================================== */
 .bar-dock {
   position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 64px;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  height: 58px;
+  width: max-content;
+  max-width: calc(100vw - 24px);
   background: var(--bar);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid var(--card-border);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 0 28px;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 18px;
   z-index: 100;
-  box-shadow: 0 -8px 30px rgba(15, 23, 42, 0.06);
+  box-shadow: var(--shadow-lg);
+}
+
+.prog-track {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 0;
+  height: 3px;
+  border-radius: 999px;
+  overflow: hidden;
+  pointer-events: none;
 }
 
 .prog {
-  position: absolute;
-  left: 0;
-  top: -1px;
-  height: 3px;
+  height: 100%;
   background: linear-gradient(90deg, var(--pri), var(--cy));
+  border-radius: 999px;
   transition: width 0.35s var(--ease);
-}
-
-.bar-left,
-.bar-center,
-.bar-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-.bar-center {
-  flex: 1;
-  justify-content: center;
-  gap: 14px;
-  min-width: 0;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-shrink: 0;
-}
-
-.brand #cnt {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--mu);
-  white-space: nowrap;
-  padding: 4px 10px;
-  border-radius: 8px;
-  background: var(--panel2);
-  border: 1px solid var(--pb);
 }
 
 .nb {
@@ -1738,10 +1724,10 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 38px;
-  min-width: 38px;
-  padding: 0 14px;
-  border-radius: 11px;
+  height: 36px;
+  min-width: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
   border: 1px solid var(--pb);
   background: var(--panel2);
   color: var(--tx);
@@ -1773,13 +1759,17 @@ body {
 
 .dots-nav {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-start;
-  gap: 6px;
+  gap: 4px;
+  flex: 0 1 auto;
+  min-width: 0;
   overflow-x: auto;
+  overflow-y: hidden;
   scrollbar-width: none;
-  padding: 2px 4px;
-  max-width: 100%;
+  padding: 2px;
 }
 
 .dots-nav::-webkit-scrollbar {
@@ -1787,10 +1777,10 @@ body {
 }
 
 .dots-nav button {
-  height: 36px;
-  min-width: 36px;
-  padding: 0 8px;
-  border-radius: 10px;
+  height: 34px;
+  min-width: 32px;
+  padding: 0 7px;
+  border-radius: 9px;
   border: 1px solid var(--pb);
   background: var(--panel2);
   color: var(--mu);
