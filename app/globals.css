@@ -1708,16 +1708,12 @@ body {
   min-width: 0;
 }
 
-.brand div {
+.brand #cnt {
+  font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
+  font-weight: 700;
   color: var(--mu);
   white-space: nowrap;
-}
-
-.brand div b {
-  display: block;
-  font-size: 13px;
-  color: var(--tx);
 }
 
 .nb {

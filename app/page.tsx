@@ -1441,19 +1441,16 @@ export default function PresentationPage() {
           <Image
             src="/logo/Oone logo.svg"
             alt="OONE Logo"
-            width={68}
-            height={30}
+            width={76}
+            height={34}
             className="brand-logo object-contain"
           />
-          <div>
-            <b>MME Digital Platform</b>
-            <span id="cnt">
-              {currentSlide + 1 < 10
-                ? `0${currentSlide + 1}`
-                : currentSlide + 1}{" "}
-              / {TOTAL_SLIDES}
-            </span>
-          </div>
+          <span id="cnt">
+            {currentSlide + 1 < 10
+              ? `0${currentSlide + 1}`
+              : currentSlide + 1}{" "}
+            / {TOTAL_SLIDES}
+          </span>
         </div>
 
         <span className="sep" />
