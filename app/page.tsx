@@ -879,317 +879,398 @@ export default function PresentationPage() {
             </div>
 
             <div className="analytics-dashboard">
-              {/* LEFT ANALYTICS COLUMN: Dual Radial Gauges + Grouped Bar Chart + III. ចំណាំសម្គាល់ */}
+              {/* LEFT ANALYTICS COLUMN: Donut Chart + Vertical Column Bar Chart (Same as Slide 2) */}
               <div
                 className="analytics-col a"
                 style={{ "--d": 1.5 } as React.CSSProperties}
               >
-                {/* Chart 1: Dual Radial Ring Gauges */}
+                {/* Chart 1: SVG Donut Chart of 6 Portal Services */}
                 <div className="chart-card">
                   <div className="chart-head">
                     <h3>
                       {lang === "km"
-                        ? "ការវិភាគវឌ្ឍភាព Web Portal ទាំង ២"
-                        : "Dual Web Portal Readiness Analysis"}
+                        ? "ការវិភាគស្ថានភាពសេវាទាំង ៦ (២ Web Portal)"
+                        : "Status Distribution (6 Portal Modules · 2 Portals)"}
                     </h3>
-                    <span className="chip grn">100% Ready</span>
+                    <span className="chip grn">
+                      {lang === "km" ? "គម្រោងទី២" : "Project 2"}
+                    </span>
                   </div>
 
-                  <div className="gauge-pair">
-                    <div className="gauge-box">
-                      <div className="gauge-ring">
-                        <svg
-                          width="132"
-                          height="132"
-                          viewBox="0 0 132 132"
-                          style={{ transform: "rotate(-90deg)" }}
-                        >
-                          <circle
-                            cx="66"
-                            cy="66"
-                            r="52"
-                            fill="none"
-                            stroke="var(--pb)"
-                            strokeWidth="14"
-                          />
-                          <circle
-                            cx="66"
-                            cy="66"
-                            r="52"
-                            fill="none"
-                            stroke="#059669"
-                            strokeWidth="14"
-                            strokeDasharray="326.7 326.7"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                        <div className="donut-center">
-                          <span
-                            className="big"
-                            style={{ fontSize: "28px", color: "var(--grn)" }}
-                          >
-                            3 / 3
-                          </span>
-                          <span className="lbl">
-                            {lang === "km" ? "សេវា" : "Services"}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="gauge-title">
-                        {lang === "km"
-                          ? "I. Web Portal អ្នកស្នើសុំ"
-                          : "I. Applicant Web Portal"}
-                      </div>
-                      <div className="gauge-sub">
-                        {lang === "km"
-                          ? "បានរៀបចំរួចរាល់ (100%)"
-                          : "Setup Completed (100%)"}
+                  <div className="donut-layout">
+                    <div className="donut-svg-wrap">
+                      {/* Circumference = 2 * pi * 68 ≈ 427.25 */}
+                      <svg
+                        width="196"
+                        height="196"
+                        viewBox="0 0 180 180"
+                        style={{ transform: "rotate(-90deg)" }}
+                      >
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="var(--pb)"
+                          strokeWidth="22"
+                        />
+                        {/* 50% Applicant Portal (3/6) -> 213.6 */}
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="#059669"
+                          strokeWidth="22"
+                          strokeDasharray="213.6 427.3"
+                          strokeDashoffset="0"
+                        />
+                        {/* 16.7% Internal Service 1 Base (1/6) -> 71.2 */}
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="#4F46E5"
+                          strokeWidth="22"
+                          strokeDasharray="71.2 427.3"
+                          strokeDashoffset="-213.6"
+                        />
+                        {/* 33.3% Internal Services 2 & 3 Pattern (2/6) -> 142.5 */}
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="#0284C7"
+                          strokeWidth="22"
+                          strokeDasharray="142.5 427.3"
+                          strokeDashoffset="-284.8"
+                        />
+                      </svg>
+                      <div className="donut-center">
+                        <span className="big">6</span>
+                        <span className="lbl">
+                          {lang === "km" ? "សេវាសរុប" : "Portal Services"}
+                        </span>
                       </div>
                     </div>
 
-                    <div className="gauge-box">
-                      <div className="gauge-ring">
-                        <svg
-                          width="132"
-                          height="132"
-                          viewBox="0 0 132 132"
-                          style={{ transform: "rotate(-90deg)" }}
-                        >
-                          <circle
-                            cx="66"
-                            cy="66"
-                            r="52"
-                            fill="none"
-                            stroke="var(--pb)"
-                            strokeWidth="14"
-                          />
-                          <circle
-                            cx="66"
-                            cy="66"
-                            r="52"
-                            fill="none"
-                            stroke="#4F46E5"
-                            strokeWidth="14"
-                            strokeDasharray="326.7 326.7"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                        <div className="donut-center">
+                    <div className="donut-legend">
+                      <div className="legend-item">
+                        <div className="legend-left">
                           <span
-                            className="big"
-                            style={{ fontSize: "28px", color: "var(--pri)" }}
-                          >
-                            3 / 3
-                          </span>
-                          <span className="lbl">
-                            {lang === "km" ? "សេវា" : "Services"}
+                            className="legend-dot"
+                            style={{ background: "#059669" }}
+                          />
+                          <span className="legend-name">
+                            {lang === "km"
+                              ? "I. Web Portal អ្នកស្នើសុំ (រួចរាល់)"
+                              : "I. Applicant Web Portal (Ready)"}
                           </span>
                         </div>
+                        <span
+                          className="legend-val"
+                          style={{ color: "var(--grn)" }}
+                        >
+                          {lang === "km" ? "3 សេវា" : "3 Services"}
+                        </span>
                       </div>
-                      <div className="gauge-title">
-                        {lang === "km"
-                          ? "II. Web Portal ការងារផ្ទៃក្នុង"
-                          : "II. Internal Web Portal"}
+
+                      <div className="legend-item">
+                        <div className="legend-left">
+                          <span
+                            className="legend-dot"
+                            style={{ background: "#4F46E5" }}
+                          />
+                          <span className="legend-name">
+                            {lang === "km"
+                              ? "II. Web Portal ផ្ទៃក្នុង (លំនាំដើមទី១)"
+                              : "II. Internal Portal (Service 1 Base)"}
+                          </span>
+                        </div>
+                        <span
+                          className="legend-val"
+                          style={{ color: "var(--pri)" }}
+                        >
+                          {lang === "km" ? "1 សេវា" : "1 Service"}
+                        </span>
                       </div>
-                      <div
-                        className="gauge-sub"
-                        style={{ color: "var(--pri)" }}
-                      >
-                        {lang === "km"
-                          ? "បានរៀបចំរួចរាល់ (100%)"
-                          : "Setup Completed (100%)"}
+
+                      <div className="legend-item">
+                        <div className="legend-left">
+                          <span
+                            className="legend-dot"
+                            style={{ background: "#0284C7" }}
+                          />
+                          <span className="legend-name">
+                            {lang === "km"
+                              ? "II. រៀបចំតាមលំនាំសេវាទី១ (សេវាទី២ & ទី៣)"
+                              : "II. Configured via Service 1 (2 & 3)"}
+                          </span>
+                        </div>
+                        <span
+                          className="legend-val"
+                          style={{ color: "var(--cy)" }}
+                        >
+                          {lang === "km" ? "2 សេវា" : "2 Services"}
+                        </span>
+                      </div>
+
+                      <div className="legend-item">
+                        <div className="legend-left">
+                          <span
+                            className="legend-dot"
+                            style={{ background: "#D97706" }}
+                          />
+                          <span className="legend-name">
+                            {lang === "km"
+                              ? "III. រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែម"
+                              : "III. Pending Ministry Group Review"}
+                          </span>
+                        </div>
+                        <span
+                          className="legend-val"
+                          style={{ color: "var(--amb)" }}
+                        >
+                          {lang === "km" ? "សេវា 2 & 3" : "Srv 2 & 3"}
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Chart 2: Grouped Bar Chart by Service */}
+                {/* Chart 2: Vertical Column Bar Chart (Same as Slide 2) */}
                 <div className="chart-card grow">
                   <div className="chart-head">
                     <h3>
                       {lang === "km"
-                        ? "ក្រាហ្វប្រៀបធៀបតាមសេវាទាំង ៣ (អ្នកស្នើសុំ vs ផ្ទៃក្នុង)"
-                        : "Service Readiness Chart (Applicant vs. Internal)"}
+                        ? "ក្រាហ្វប្រៀបធៀបភាគរយវឌ្ឍភាពតាមសេវាទាំង ៦"
+                        : "Completion Percentage Chart Across All 6 Services"}
                     </h3>
+                    <span className="sub">0% – 100%</span>
                   </div>
 
-                  <div className="gbar-list">
-                    <div className="gbar-group">
-                      <div className="gbar-group-head">
-                        <span className="gbar-group-title">
-                          {lang === "km"
-                            ? "១. អាជីវកម្មថ្មសំណង់ ម្នាងសិលា និងធនធានរ៉ែប្រហាក់ប្រហែល (≤ ១០ហិកតា)"
-                            : "1. Construction Stone, Gypsum & Similar Extraction (≤ 10 Ha)"}
-                        </span>
-                      </div>
-                      <div className="gbar-row">
-                        <span className="gbar-tag">
-                          {lang === "km" ? "I & II. ទាំង ២ ប្រព័ន្ធ" : "I & II. Portals"}
-                        </span>
-                        <div className="gbar-track">
-                          <div
-                            className="gbar-fill grn"
-                            style={{ width: "100%" }}
-                          />
-                        </div>
+                  <div className="vbar-chart">
+                    <div className="vbar-plot">
+                      <div className="vbar-col">
                         <span
-                          className="gbar-val"
+                          className="vbar-num"
                           style={{ color: "var(--grn)" }}
                         >
                           100%
                         </span>
+                        <div
+                          className="vbar-bar grn"
+                          style={{ height: "100%" }}
+                        />
                       </div>
-                    </div>
-
-                    <div className="gbar-group">
-                      <div className="gbar-group-head">
-                        <span className="gbar-group-title">
-                          {lang === "km"
-                            ? "២. ការងារស្វែងរុករកថ្មសំណង់ ម្នាងសិលា និងធនធានរ៉ែប្រហាក់ប្រហែល"
-                            : "2. Exploration of Construction Stone, Gypsum & Similar"}
-                        </span>
-                      </div>
-                      <div className="gbar-row">
-                        <span className="gbar-tag">
-                          {lang === "km" ? "តាមលំនាំសេវាទី១" : "Service 1 Pattern"}
-                        </span>
-                        <div className="gbar-track">
-                          <div
-                            className="gbar-fill pri"
-                            style={{ width: "100%" }}
-                          />
-                        </div>
+                      <div className="vbar-col">
                         <span
-                          className="gbar-val"
+                          className="vbar-num"
+                          style={{ color: "var(--grn)" }}
+                        >
+                          100%
+                        </span>
+                        <div
+                          className="vbar-bar grn"
+                          style={{ height: "100%" }}
+                        />
+                      </div>
+                      <div className="vbar-col">
+                        <span
+                          className="vbar-num"
+                          style={{ color: "var(--grn)" }}
+                        >
+                          100%
+                        </span>
+                        <div
+                          className="vbar-bar grn"
+                          style={{ height: "100%" }}
+                        />
+                      </div>
+                      <div className="vbar-col">
+                        <span
+                          className="vbar-num"
                           style={{ color: "var(--pri)" }}
                         >
-                          {lang === "km" ? "រួចរាល់" : "Ready"}
+                          100%
                         </span>
+                        <div
+                          className="vbar-bar pri"
+                          style={{ height: "100%" }}
+                        />
                       </div>
-                    </div>
-
-                    <div className="gbar-group">
-                      <div className="gbar-group-head">
-                        <span className="gbar-group-title">
-                          {lang === "km"
-                            ? "៣. អាជីវកម្មអាចម៍ដី ឡាតេរីត ដីឥដ្ឋ (≤ ១០ហិកតា)"
-                            : "3. Earthfill, Laterite & Clay Extraction (≤ 10 Ha)"}
-                        </span>
-                      </div>
-                      <div className="gbar-row">
-                        <span className="gbar-tag">
-                          {lang === "km" ? "តាមលំនាំសេវាទី១" : "Service 1 Pattern"}
-                        </span>
-                        <div className="gbar-track">
-                          <div
-                            className="gbar-fill pri"
-                            style={{ width: "100%" }}
-                          />
-                        </div>
+                      <div className="vbar-col">
                         <span
-                          className="gbar-val"
-                          style={{ color: "var(--pri)" }}
+                          className="vbar-num"
+                          style={{ color: "var(--cy)" }}
                         >
-                          {lang === "km" ? "រួចរាល់" : "Ready"}
+                          100%
                         </span>
+                        <div
+                          className="vbar-bar cy"
+                          style={{ height: "100%" }}
+                        />
+                      </div>
+                      <div className="vbar-col">
+                        <span
+                          className="vbar-num"
+                          style={{ color: "var(--cy)" }}
+                        >
+                          100%
+                        </span>
+                        <div
+                          className="vbar-bar cy"
+                          style={{ height: "100%" }}
+                        />
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                {/* III. ចំណាំសម្គាល់ */}
-                <div className="alert-note-card">
-                  <div className="alert-note-head">
-                    <span>
-                      {lang === "km"
-                        ? "III. ចំណាំសម្គាល់៖"
-                        : "III. Important Note / Remark:"}
-                    </span>
-                  </div>
-                  <div className="alert-note-body">
-                    {lang === "km"
-                      ? "- សម្រាប់ការរៀបចំសេវាទី2 និងទី3 ក្រុមការងារបានរៀបចំតាមលំនាំសេវាទី1 រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមដើម្បីកែសម្រួលតាមការអនុវត្តជាក់ស្ដែង។"
-                      : "- For Services 2 and 3, the working team configured the system following the template of Service 1, awaiting further review from the Ministry working group to refine according to actual practice."}
+                    <div className="vbar-labels">
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "អ្នកស្នើសុំ ១" : "Applicant 1"}
+                        <small>≤ 10 Ha</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "អ្នកស្នើសុំ ២" : "Applicant 2"}
+                        <small>{lang === "km" ? "ស្វែងរុករក" : "Explore"}</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "អ្នកស្នើសុំ ៣" : "Applicant 3"}
+                        <small>≤ 10 Ha</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "ផ្ទៃក្នុង ១" : "Internal 1"}
+                        <small>{lang === "km" ? "លំនាំដើម" : "Base"}</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "ផ្ទៃក្នុង ២" : "Internal 2"}
+                        <small>{lang === "km" ? "តាមលំនាំទី១" : "Pattern 1"}</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "ផ្ទៃក្នុង ៣" : "Internal 3"}
+                        <small>{lang === "km" ? "តាមលំនាំទី១" : "Pattern 1"}</small>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* RIGHT FULL-TEXT DATA COLUMN: Complete I & II Portal Services (Zero Clipping) */}
+              {/* RIGHT FULL-TEXT DATA COLUMN: Same 2-Column + Span-2 Grid as Slide 2 */}
               <div
                 className="data-col a"
                 style={{ "--d": 2.5 } as React.CSSProperties}
               >
-                {/* I. Web Portal សម្រាប់អ្នកស្នើសុំ */}
-                <div className="comp-data-card" style={{ flex: 1 }}>
-                  <div className="comp-data-head">
-                    <h3>
-                      {lang === "km"
-                        ? "I. Web Portal សម្រាប់អ្នកស្នើសុំ បានរៀបចំរួចរាល់ ដែលមានចំនួន 3 សេវា ៖"
-                        : "I. Web Portal for Applicants — Setup Ready (3 Services):"}
-                    </h3>
-                    <span className="data-badge grn">
-                      <Globe size={15} style={{ display: "inline", marginRight: 6 }} />
-                      {lang === "km" ? "រួចរាល់ 3 / 3" : "Ready 3 / 3"}
-                    </span>
-                  </div>
-                  <div className="data-items-stack">
-                    {MINERAL_RESOURCES_DATA.services.map((srv) => (
-                      <div key={`app-full-${srv.num}`} className="data-item">
-                        <div className="data-item-left">
-                          <span className="data-code">{srv.num}</span>
-                          <div className="data-text">
-                            <h4>
-                              {lang === "km" ? srv.titleKm : srv.titleEn}
-                            </h4>
+                <div className="comp-cards-grid">
+                  {/* Top-Left Card: I. Web Portal សម្រាប់អ្នកស្នើសុំ */}
+                  <div className="comp-data-card">
+                    <div className="comp-data-head">
+                      <h3>
+                        {lang === "km"
+                          ? "I. Web Portal សម្រាប់អ្នកស្នើសុំ (3 សេវា)"
+                          : "I. Web Portal for Applicants (3 Services)"}
+                      </h3>
+                      <span className="chip grn">
+                        <Globe size={16} />
+                        {lang === "km" ? "បានរៀបចំរួចរាល់" : "Setup Ready"}
+                      </span>
+                    </div>
+                    <div className="data-items-stack">
+                      {MINERAL_RESOURCES_DATA.services.map((srv) => (
+                        <div key={`app-full-${srv.num}`} className="data-item">
+                          <div className="data-item-left">
+                            <span className="data-code">{srv.num}</span>
+                            <div className="data-text">
+                              <h4>
+                                {lang === "km" ? srv.titleKm : srv.titleEn}
+                              </h4>
+                              <p>
+                                {lang === "km"
+                                  ? "Web Portal សម្រាប់អ្នកស្នើសុំ បានរៀបចំរួចរាល់"
+                                  : "Web Portal for Applicants — Setup Ready"}
+                              </p>
+                            </div>
                           </div>
+                          <span className="data-badge grn">100%</span>
                         </div>
-                        <span className="data-badge grn">
-                          {lang === "km" ? "រួចរាល់" : "Ready"}
-                        </span>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                {/* II. Web Portal សម្រាប់ការងារផ្ទៃក្នុង */}
-                <div className="comp-data-card" style={{ flex: 1 }}>
-                  <div className="comp-data-head">
-                    <h3>
-                      {lang === "km"
-                        ? "II. Web Portal សម្រាប់ការងារផ្ទៃក្នុងបានរៀបចំរួចរាល់ ដែលមានចំនួន 3 សេវា៖"
-                        : "II. Web Portal for Internal Operations — Setup Ready (3 Services):"}
-                    </h3>
-                    <span className="data-badge pri">
-                      <Check size={15} style={{ display: "inline", marginRight: 6 }} />
-                      {lang === "km" ? "រួចរាល់ 3 / 3" : "Ready 3 / 3"}
-                    </span>
-                  </div>
-                  <div className="data-items-stack">
-                    {MINERAL_RESOURCES_DATA.services.map((srv) => (
-                      <div key={`int-full-${srv.num}`} className="data-item">
-                        <div className="data-item-left">
-                          <span className="data-code">{srv.num}</span>
-                          <div className="data-text">
-                            <h4>
-                              {lang === "km" ? srv.titleKm : srv.titleEn}
-                            </h4>
+                  {/* Top-Right Card: II. Web Portal សម្រាប់ការងារផ្ទៃក្នុង */}
+                  <div className="comp-data-card">
+                    <div className="comp-data-head">
+                      <h3>
+                        {lang === "km"
+                          ? "II. Web Portal សម្រាប់ការងារផ្ទៃក្នុង (3 សេវា)"
+                          : "II. Internal Operations Web Portal (3 Services)"}
+                      </h3>
+                      <span className="chip pri">
+                        <Check size={16} />
+                        {lang === "km" ? "បានរៀបចំរួចរាល់" : "Setup Ready"}
+                      </span>
+                    </div>
+                    <div className="data-items-stack">
+                      {MINERAL_RESOURCES_DATA.services.map((srv) => (
+                        <div key={`int-full-${srv.num}`} className="data-item">
+                          <div className="data-item-left">
+                            <span className="data-code">{srv.num}</span>
+                            <div className="data-text">
+                              <h4>
+                                {lang === "km" ? srv.titleKm : srv.titleEn}
+                              </h4>
+                              <p>
+                                {lang === "km" ? srv.statusKm : srv.statusEn}
+                              </p>
+                            </div>
                           </div>
+                          <span
+                            className={`data-badge ${
+                              srv.num === "01" ? "grn" : "pri"
+                            }`}
+                          >
+                            100%
+                          </span>
                         </div>
-                        <span
-                          className={`data-badge ${
-                            srv.num === "01" ? "grn" : "pri"
-                          }`}
-                        >
-                          {srv.num === "01"
-                            ? lang === "km"
-                              ? "រួចរាល់"
-                              : "Ready"
-                            : lang === "km"
-                              ? "តាមលំនាំសេវាទី1"
-                              : "Pattern 1"}
-                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Bottom Full-Width Span-2 Card: III. ចំណាំសម្គាល់ */}
+                  <div className="comp-data-card span-2">
+                    <div className="comp-data-head">
+                      <h3>
+                        {lang === "km"
+                          ? "III. ចំណាំសម្គាល់៖"
+                          : "III. Important Note / Remark:"}
+                      </h3>
+                      <span className="data-badge amb">
+                        {lang === "km"
+                          ? "រង់ចាំក្រសួងពិនិត្យបន្ថែម"
+                          : "Pending Ministry Review"}
+                      </span>
+                    </div>
+                    <div className="data-item">
+                      <div className="data-item-left">
+                        <span className="data-code">III</span>
+                        <div className="data-text">
+                          <h4>
+                            {lang === "km"
+                              ? "សម្រាប់ការរៀបចំសេវាទី2 និងទី3 ក្រុមការងារបានរៀបចំតាមលំនាំសេវាទី1 រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមដើម្បីកែសម្រួលតាមការអនុវត្តជាក់ស្ដែង។"
+                              : "For Services 2 and 3, the working team configured the system following the template of Service 1, awaiting further review from the Ministry working group to refine according to actual practice."}
+                          </h4>
+                          <p>
+                            {lang === "km"
+                              ? "Web Portal អ្នកស្នើសុំ (៣ សេវា) និង Web Portal ការងារផ្ទៃក្នុង (៣ សេវា) បានរៀបចំរួចរាល់"
+                              : "Both Applicant Web Portal (3 Services) and Internal Web Portal (3 Services) are ready"}
+                          </p>
+                        </div>
                       </div>
-                    ))}
+                      <span className="data-badge pri">
+                        {lang === "km" ? "តាមលំនាំសេវាទី1" : "Service 1 Pattern"}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1239,288 +1320,317 @@ export default function PresentationPage() {
             </div>
 
             <div className="analytics-dashboard">
-              {/* LEFT ANALYTICS COLUMN: Grouped Comparison Chart + III. ចំណុចប្រឈម */}
+              {/* LEFT ANALYTICS COLUMN: Donut Chart + Vertical Column Bar Chart (Same as Slide 2) */}
               <div
                 className="analytics-col a"
                 style={{ "--d": 1.5 } as React.CSSProperties}
               >
+                {/* Chart 1: SVG Donut Chart of 7 Petroleum Portal Modules */}
+                <div className="chart-card">
+                  <div className="chart-head">
+                    <h3>
+                      {lang === "km"
+                        ? "ការវិភាគស្ថានភាពមុខងារទាំង ៧ (២ Web Portal)"
+                        : "Status Distribution (7 Portal Modules · 2 Portals)"}
+                    </h3>
+                    <span className="chip grn">
+                      {lang === "km" ? "វិស័យប្រេងកាត" : "Petroleum"}
+                    </span>
+                  </div>
+
+                  <div className="donut-layout">
+                    <div className="donut-svg-wrap">
+                      {/* Circumference = 2 * pi * 68 ≈ 427.25 */}
+                      <svg
+                        width="196"
+                        height="196"
+                        viewBox="0 0 180 180"
+                        style={{ transform: "rotate(-90deg)" }}
+                      >
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="var(--pb)"
+                          strokeWidth="22"
+                        />
+                        {/* 3/7 Ready (100%) -> 183.1 */}
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="#059669"
+                          strokeWidth="22"
+                          strokeDasharray="183.1 427.3"
+                          strokeDashoffset="0"
+                        />
+                        {/* 2/7 High Progress (75% & 90%) -> 122.1 */}
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="#4F46E5"
+                          strokeWidth="22"
+                          strokeDasharray="122.1 427.3"
+                          strokeDashoffset="-183.1"
+                        />
+                        {/* 1/7 Provincial Inspection Tested -> 61.0 */}
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="#0284C7"
+                          strokeWidth="22"
+                          strokeDasharray="61.0 427.3"
+                          strokeDashoffset="-305.2"
+                        />
+                        {/* 1/7 Offline Mode (5%) -> 61.0 */}
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="#D97706"
+                          strokeWidth="22"
+                          strokeDasharray="61.0 427.3"
+                          strokeDashoffset="-366.2"
+                        />
+                      </svg>
+                      <div className="donut-center">
+                        <span className="big">7</span>
+                        <span className="lbl">
+                          {lang === "km" ? "មុខងារសរុប" : "Total Modules"}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="donut-legend">
+                      <div className="legend-item">
+                        <div className="legend-left">
+                          <span
+                            className="legend-dot"
+                            style={{ background: "#059669" }}
+                          />
+                          <span className="legend-name">
+                            {lang === "km"
+                              ? "បានរៀបចំរួចរាល់ (I.1, I.2, II.2)"
+                              : "Setup Ready (I.1, I.2, II.2)"}
+                          </span>
+                        </div>
+                        <span
+                          className="legend-val"
+                          style={{ color: "var(--grn)" }}
+                        >
+                          {lang === "km" ? "3 សេវា" : "3 Services"}
+                        </span>
+                      </div>
+
+                      <div className="legend-item">
+                        <div className="legend-left">
+                          <span
+                            className="legend-dot"
+                            style={{ background: "#4F46E5" }}
+                          />
+                          <span className="legend-name">
+                            {lang === "km"
+                              ? "សម្រេចបាន 75%–90% (I.3 & II.1)"
+                              : "75%–90% Complete (I.3 & II.1)"}
+                          </span>
+                        </div>
+                        <span
+                          className="legend-val"
+                          style={{ color: "var(--pri)" }}
+                        >
+                          {lang === "km" ? "2 សេវា" : "2 Services"}
+                        </span>
+                      </div>
+
+                      <div className="legend-item">
+                        <div className="legend-left">
+                          <span
+                            className="legend-dot"
+                            style={{ background: "#0284C7" }}
+                          />
+                          <span className="legend-name">
+                            {lang === "km"
+                              ? "តេស្តដល់ជំហានមន្ទីរខេត្ត (១០ វិច្ឆិកា)"
+                              : "Provincial Test (Nov 10 · II.3)"}
+                          </span>
+                        </div>
+                        <span
+                          className="legend-val"
+                          style={{ color: "var(--cy)" }}
+                        >
+                          {lang === "km" ? "1 សេវា" : "1 Service"}
+                        </span>
+                      </div>
+
+                      <div className="legend-item">
+                        <div className="legend-left">
+                          <span
+                            className="legend-dot"
+                            style={{ background: "#D97706" }}
+                          />
+                          <span className="legend-name">
+                            {lang === "km"
+                              ? "មុខងារ Offline Save Auto (5%)"
+                              : "Offline Auto-Save Mode (5%)"}
+                          </span>
+                        </div>
+                        <span
+                          className="legend-val"
+                          style={{ color: "var(--amb)" }}
+                        >
+                          {lang === "km" ? "1 មុខងារ" : "1 Module"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Chart 2: Vertical Column Bar Chart (Same as Slide 2) */}
                 <div className="chart-card grow">
                   <div className="chart-head">
                     <h3>
                       {lang === "km"
-                        ? "ក្រាហ្វវិភាគវឌ្ឍភាព (អ្នកស្នើសុំ vs ផ្ទៃក្នុងក្រសួង)"
-                        : "Progress Comparison Chart (Applicant vs. Internal)"}
+                        ? "ក្រាហ្វប្រៀបធៀបភាគរយវឌ្ឍភាពតាមមុខងារ"
+                        : "Completion Percentage Chart by Portal Module"}
                     </h3>
                     <span className="sub">0% – 100%</span>
                   </div>
 
-                  <div className="gbar-list">
-                    {/* Service 1 */}
-                    <div className="gbar-group">
-                      <div className="gbar-group-head">
-                        <span className="gbar-group-title">
-                          {lang === "km"
-                            ? "១. ពិនិត្យ ទទួល & បន្តសុពលភាពស្ថានីយប្រេង/ឧស្ម័នឥន្ធនៈ"
-                            : "1. Fuel / LPG Station Certificate Application & Renewal"}
-                        </span>
-                      </div>
-                      <div className="gbar-row">
-                        <span className="gbar-tag">
-                          {lang === "km" ? "I. អ្នកស្នើសុំ" : "I. Applicant"}
-                        </span>
-                        <div className="gbar-track">
-                          <div
-                            className="gbar-fill grn"
-                            style={{ width: "100%" }}
-                          />
-                        </div>
+                  <div className="vbar-chart">
+                    <div className="vbar-plot">
+                      <div className="vbar-col">
                         <span
-                          className="gbar-val"
+                          className="vbar-num"
                           style={{ color: "var(--grn)" }}
                         >
-                          {lang === "km" ? "រួចរាល់" : "Ready"}
+                          100%
                         </span>
+                        <div
+                          className="vbar-bar grn"
+                          style={{ height: "100%" }}
+                        />
                       </div>
-                      <div className="gbar-row">
-                        <span className="gbar-tag">
-                          {lang === "km" ? "II. ផ្ទៃក្នុងក្រសួង" : "II. Internal"}
-                        </span>
-                        <div className="gbar-track">
-                          <div
-                            className="gbar-fill pri"
-                            style={{ width: "75%" }}
-                          />
-                        </div>
+                      <div className="vbar-col">
                         <span
-                          className="gbar-val"
-                          style={{ color: "var(--pri)" }}
-                        >
-                          75%
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Service 2 */}
-                    <div className="gbar-group">
-                      <div className="gbar-group-head">
-                        <span className="gbar-group-title">
-                          {lang === "km"
-                            ? "២. សកម្មភាពវេចខ្ចប់ផលិតផលប្រេងកាត និងឬឧស្ម័នឥន្ធនៈ"
-                            : "2. Petroleum / LPG Packaging Safety & Commercial License"}
-                        </span>
-                      </div>
-                      <div className="gbar-row">
-                        <span className="gbar-tag">
-                          {lang === "km" ? "I & II. ទាំង ២ ប្រព័ន្ធ" : "I & II. Portals"}
-                        </span>
-                        <div className="gbar-track">
-                          <div
-                            className="gbar-fill grn"
-                            style={{ width: "100%" }}
-                          />
-                        </div>
-                        <span
-                          className="gbar-val"
+                          className="vbar-num"
                           style={{ color: "var(--grn)" }}
                         >
-                          {lang === "km" ? "រួចរាល់" : "Ready"}
+                          100%
                         </span>
+                        <div
+                          className="vbar-bar grn"
+                          style={{ height: "100%" }}
+                        />
                       </div>
-                    </div>
-
-                    {/* Service 3 */}
-                    <div className="gbar-group">
-                      <div className="gbar-group-head">
-                        <span className="gbar-group-title">
-                          {lang === "km"
-                            ? "៣. ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ"
-                            : "3. Technical Safety Certificate for Stations"}
-                        </span>
-                      </div>
-                      <div className="gbar-row">
-                        <span className="gbar-tag">
-                          {lang === "km" ? "I. អ្នកស្នើសុំ" : "I. Applicant"}
-                        </span>
-                        <div className="gbar-track">
-                          <div
-                            className="gbar-fill pri"
-                            style={{ width: "90%" }}
-                          />
-                        </div>
+                      <div className="vbar-col">
                         <span
-                          className="gbar-val"
+                          className="vbar-num"
                           style={{ color: "var(--pri)" }}
                         >
                           90%
                         </span>
+                        <div
+                          className="vbar-bar pri"
+                          style={{ height: "90%" }}
+                        />
                       </div>
-                      <div className="gbar-row">
-                        <span className="gbar-tag">
-                          {lang === "km" ? "II. ផ្ទៃក្នុងក្រសួង" : "II. Internal"}
-                        </span>
-                        <div className="gbar-track">
-                          <div
-                            className="gbar-fill amb"
-                            style={{ width: "85%" }}
-                          />
-                        </div>
+                      <div className="vbar-col">
                         <span
-                          className="gbar-val"
-                          style={{ color: "var(--amb)" }}
+                          className="vbar-num"
+                          style={{ color: "var(--cy)" }}
                         >
-                          {lang === "km" ? "តេស្តខេត្ត" : "Tested"}
+                          {lang === "km" ? "តេស្ត" : "Test"}
                         </span>
+                        <div
+                          className="vbar-bar cy"
+                          style={{ height: "85%" }}
+                        />
                       </div>
-                    </div>
-
-                    {/* Service 4 */}
-                    <div className="gbar-group">
-                      <div className="gbar-group-head">
-                        <span className="gbar-group-title">
-                          {lang === "km"
-                            ? "៤. មុខងារ Offline (Save ទិន្នន័យ Auto ករណីដាច់ Internet)"
-                            : "4. Offline Mode (Auto-Save Data When Internet Drops)"}
-                        </span>
-                      </div>
-                      <div className="gbar-row">
-                        <span className="gbar-tag">
-                          {lang === "km" ? "II. ផ្ទៃក្នុងក្រសួង" : "II. Internal"}
-                        </span>
-                        <div className="gbar-track">
-                          <div
-                            className="gbar-fill amb"
-                            style={{ width: "8%" }}
-                          />
-                        </div>
+                      <div className="vbar-col">
                         <span
-                          className="gbar-val"
+                          className="vbar-num"
+                          style={{ color: "var(--pri)" }}
+                        >
+                          75%
+                        </span>
+                        <div
+                          className="vbar-bar pri"
+                          style={{ height: "75%" }}
+                        />
+                      </div>
+                      <div className="vbar-col">
+                        <span
+                          className="vbar-num"
                           style={{ color: "var(--amb)" }}
                         >
                           5%
                         </span>
+                        <div
+                          className="vbar-bar amb"
+                          style={{ height: "14%" }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="vbar-labels">
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "អ្នកស្នើសុំ ១" : "Applicant 1"}
+                        <small>{lang === "km" ? "រួចរាល់" : "Ready"}</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "វេចខ្ចប់ ២" : "Packaging 2"}
+                        <small>I.2 & II.2</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "អ្នកស្នើសុំ ៣" : "Applicant 3"}
+                        <small>90%</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "ផ្ទៃក្នុង ៣" : "Internal 3"}
+                        <small>{lang === "km" ? "១០ វិច្ឆិកា" : "Nov 10"}</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "ផ្ទៃក្នុង ១" : "Internal 1"}
+                        <small>75%</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "Offline" : "Offline"}
+                        <small>II.4 (5%)</small>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                {/* III. ចំណុចប្រឈម (Complete Text from data.md) */}
-                <div className="alert-note-card red">
-                  <div className="alert-note-head">
-                    <span>
-                      {lang === "km"
-                        ? "III. ចំណុចប្រឈម ៖"
-                        : "III. Key Challenges:"}
-                    </span>
-                  </div>
-                  <div className="alert-note-body">
-                    {lang === "km" ? (
-                      <>
-                        <div>
-                          <b>1.</b> ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ
-                        </div>
-                        <div>
-                          <b>2.</b> ស្នើសុំពិនិត្យ ទទួល និងដំណើរការឯកសារស្នើសុំនិងការបន្តសុពលភាពវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាព សម្រាប់ស្ថានីយប្រេងឥន្ធនៈ ឬស្ថានីយឧស្ម័នឥន្ធនៈ
-                        </div>
-                        <div style={{ marginTop: 4, color: "var(--red)", fontWeight: 700 }}>
-                          - ផ្ទាំងបញ្ចូលព័ត៌មាននៅជំហាន មន្ទីរចុះពិនិត្យទីតាំង ស្នើសុំឱ្យបង្ហាញដូចកំណត់ហេតុ។
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div>
-                          <b>1.</b> Technical Safety Certificate for Stations
-                        </div>
-                        <div>
-                          <b>2.</b> Application & Renewal of Technical Safety Certificate for Fuel or LPG Stations
-                        </div>
-                        <div style={{ marginTop: 4, color: "var(--red)", fontWeight: 700 }}>
-                          - Data entry form at the Provincial On-Site Inspection step is requested to match the official inspection minutes.
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
               </div>
 
-              {/* RIGHT FULL-TEXT DATA COLUMN: Complete I & II Portal Details (Zero Clipping) */}
+              {/* RIGHT FULL-TEXT DATA COLUMN: Same 2-Column + Span-2 Grid as Slide 2 */}
               <div
                 className="data-col a"
                 style={{ "--d": 2.5 } as React.CSSProperties}
               >
-                {/* I. Web Portal សម្រាប់អ្នកស្នើសុំ */}
-                <div className="comp-data-card">
-                  <div className="comp-data-head">
-                    <h3>
-                      {lang === "km"
-                        ? "I. Web Portal សម្រាប់អ្នកស្នើសុំ"
-                        : "I. Web Portal for Applicants"}
-                    </h3>
-                    <span className="data-badge grn">
-                      {lang === "km" ? "រួចរាល់ 2 · 90% 1" : "2 Ready · 1 at 90%"}
-                    </span>
-                  </div>
-                  <div className="data-items-stack">
-                    {PETROLEUM_DATA.applicantPortal.services.map((srv) => (
-                      <div key={`pet-app-${srv.num}`} className="data-item">
-                        <div className="data-item-left">
-                          <span className="data-code">{srv.num}</span>
-                          <div className="data-text">
-                            <h4>
-                              {lang === "km" ? srv.titleKm : srv.titleEn}
-                            </h4>
-                            <p>{lang === "km" ? srv.notesKm : srv.notesEn}</p>
-                          </div>
-                        </div>
-                        <span
-                          className={`data-badge ${
-                            srv.num === "03" ? "pri" : "grn"
-                          }`}
-                        >
-                          {srv.num === "03"
-                            ? "90%"
-                            : lang === "km"
-                              ? "បានរៀបចំរួចរាល់"
-                              : "Ready"}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* II. Web Portal សម្រាប់ប្រើប្រាស់ផ្ទៃក្នុងក្រសួង */}
-                <div className="comp-data-card" style={{ flex: 1 }}>
-                  <div className="comp-data-head">
-                    <h3>
-                      {lang === "km"
-                        ? "II. Web Portal សម្រាប់ប្រើប្រាស់ផ្ទៃក្នុងក្រសួង"
-                        : "II. Web Portal for Internal Ministry Use"}
-                    </h3>
-                    <span className="data-badge pri">
-                      {lang === "km" ? "៤ មុខងារ" : "4 Items"}
-                    </span>
-                  </div>
-                  <div className="data-items-stack">
-                    {PETROLEUM_DATA.internalPortal.services.map((srv) => {
-                      const badgeClass =
-                        srv.num === "01"
-                          ? "pri"
-                          : srv.num === "02"
-                            ? "grn"
-                            : "amb";
-                      const badgeText =
-                        srv.num === "01"
-                          ? "75%"
-                          : srv.num === "02"
-                            ? lang === "km"
-                              ? "បានរៀបចំរួចរាល់"
-                              : "Ready"
-                            : srv.num === "03"
-                              ? lang === "km"
-                                ? "១០ វិច្ឆិកា ២០២៦"
-                                : "Nov 10 Test"
-                              : "5%";
-                      return (
-                        <div key={`pet-int-${srv.num}`} className="data-item">
+                <div className="comp-cards-grid">
+                  {/* Top-Left Card: I. Web Portal សម្រាប់អ្នកស្នើសុំ */}
+                  <div className="comp-data-card">
+                    <div className="comp-data-head">
+                      <h3>
+                        {lang === "km"
+                          ? "I. Web Portal សម្រាប់អ្នកស្នើសុំ"
+                          : "I. Web Portal for Applicants"}
+                      </h3>
+                      <span className="chip grn">
+                        <Globe size={16} />
+                        {lang === "km" ? "៣ សេវា" : "3 Services"}
+                      </span>
+                    </div>
+                    <div className="data-items-stack">
+                      {PETROLEUM_DATA.applicantPortal.services.map((srv) => (
+                        <div key={`pet-app-${srv.num}`} className="data-item">
                           <div className="data-item-left">
                             <span className="data-code">{srv.num}</span>
                             <div className="data-text">
@@ -1530,12 +1640,139 @@ export default function PresentationPage() {
                               <p>{lang === "km" ? srv.notesKm : srv.notesEn}</p>
                             </div>
                           </div>
-                          <span className={`data-badge ${badgeClass}`}>
-                            {badgeText}
+                          <span
+                            className={`data-badge ${
+                              srv.num === "03" ? "pri" : "grn"
+                            }`}
+                          >
+                            {srv.num === "03"
+                              ? "90%"
+                              : lang === "km"
+                                ? "រួចរាល់"
+                                : "Ready"}
                           </span>
                         </div>
-                      );
-                    })}
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Top-Right Card: II. Web Portal សម្រាប់ប្រើប្រាស់ផ្ទៃក្នុងក្រសួង */}
+                  <div className="comp-data-card">
+                    <div className="comp-data-head">
+                      <h3>
+                        {lang === "km"
+                          ? "II. Web Portal សម្រាប់ប្រើប្រាស់ផ្ទៃក្នុងក្រសួង"
+                          : "II. Web Portal for Internal Ministry Use"}
+                      </h3>
+                      <span className="chip pri">
+                        <Layers size={16} />
+                        {lang === "km" ? "៤ មុខងារ" : "4 Modules"}
+                      </span>
+                    </div>
+                    <div className="data-items-stack">
+                      {PETROLEUM_DATA.internalPortal.services.map((srv) => {
+                        const badgeClass =
+                          srv.num === "01"
+                            ? "pri"
+                            : srv.num === "02"
+                              ? "grn"
+                              : "amb";
+                        const badgeText =
+                          srv.num === "01"
+                            ? "75%"
+                            : srv.num === "02"
+                              ? lang === "km"
+                                ? "រួចរាល់"
+                                : "Ready"
+                              : srv.num === "03"
+                                ? lang === "km"
+                                  ? "តេស្តខេត្ត"
+                                  : "Tested"
+                                : "5%";
+                        return (
+                          <div key={`pet-int-${srv.num}`} className="data-item">
+                            <div className="data-item-left">
+                              <span className="data-code">{srv.num}</span>
+                              <div className="data-text">
+                                <h4>
+                                  {lang === "km" ? srv.titleKm : srv.titleEn}
+                                </h4>
+                                <p>
+                                  {lang === "km" ? srv.notesKm : srv.notesEn}
+                                </p>
+                              </div>
+                            </div>
+                            <span className={`data-badge ${badgeClass}`}>
+                              {badgeText}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Bottom Full-Width Span-2 Card: III. ចំណុចប្រឈម */}
+                  <div className="comp-data-card span-2">
+                    <div className="comp-data-head">
+                      <h3>
+                        {lang === "km"
+                          ? "III. ចំណុចប្រឈម ៖"
+                          : "III. Key Challenges:"}
+                      </h3>
+                      <span className="data-badge red">
+                        {lang === "km"
+                          ? "សំណើកែសម្រួលផ្ទាំងបញ្ចូលព័ត៌មាន"
+                          : "Form Alignment Requested"}
+                      </span>
+                    </div>
+                    <div className="data-items-grid-3">
+                      <div className="data-item">
+                        <div className="data-item-left">
+                          <span className="data-code">01</span>
+                          <div className="data-text">
+                            <h4>
+                              {lang === "km"
+                                ? "ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ"
+                                : "Technical Safety Certificate Application for Stations"}
+                            </h4>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="data-item">
+                        <div className="data-item-left">
+                          <span className="data-code">02</span>
+                          <div className="data-text">
+                            <h4>
+                              {lang === "km"
+                                ? "ស្នើសុំពិនិត្យ ទទួល និងដំណើរការឯកសារស្នើសុំនិងការបន្តសុពលភាពវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាព សម្រាប់ស្ថានីយប្រេងឥន្ធនៈ ឬស្ថានីយឧស្ម័នឥន្ធនៈ"
+                                : "Review, Reception & Processing of Application and Renewal for Fuel or LPG Stations"}
+                            </h4>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="data-item">
+                        <div className="data-item-left">
+                          <span
+                            className="data-code"
+                            style={{
+                              color: "var(--red)",
+                              background: "rgba(225, 29, 72, 0.1)",
+                            }}
+                          >
+                            !
+                          </span>
+                          <div className="data-text">
+                            <h4>
+                              {lang === "km"
+                                ? "ផ្ទាំងបញ្ចូលព័ត៌មាននៅជំហាន មន្ទីរចុះពិនិត្យទីតាំង ស្នើសុំឱ្យបង្ហាញដូចកំណត់ហេតុ។"
+                                : "Data entry screen at the Provincial On-Site Inspection step is requested to match the official inspection minutes."}
+                            </h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
