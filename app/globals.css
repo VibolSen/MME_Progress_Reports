@@ -1679,11 +1679,58 @@ body {
 }
 
 .ty-contact {
-  margin-top: 40px;
+  margin-top: 36px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
+}
+
+.ty-org-badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ty-org-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ty-org-name {
+  font-family: var(--font-stack-km);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--tx);
+  line-height: 1.35;
+}
+
+.ty-org-sub {
+  font-family: var(--font-stack-km);
+  font-size: 13px;
+  color: var(--mu);
+  font-weight: 500;
+}
+
+.ty-divider {
+  width: 1px;
+  height: 48px;
+  background: var(--border);
+}
+
+.ty-tech-partner {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ty-partner-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mu);
 }
 
 .pl {
@@ -1712,6 +1759,140 @@ body {
   border: none;
   box-shadow: none;
   padding: 0;
+}
+
+/* Slide 5 QR Code Presentation Card */
+.qr-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 28px 22px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow:
+    0 24px 48px -12px rgba(0, 0, 0, 0.18),
+    0 0 0 1px var(--border);
+  transition:
+    transform 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+.qr-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 32px 56px -12px rgba(0, 0, 0, 0.24),
+    0 0 0 1px var(--border);
+}
+
+.qr-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.qr-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #059669;
+}
+
+.dark .qr-badge {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.14);
+  border-color: rgba(52, 211, 153, 0.3);
+}
+
+.qr-badge-text {
+  font-family: var(--font-stack-km);
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.qr-tag {
+  background: #10b981;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+}
+
+.qr-frame {
+  position: relative;
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 18px;
+  box-shadow:
+    0 8px 24px -4px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-image {
+  width: 220px;
+  height: 220px;
+  display: block;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.qr-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.qr-scan-label {
+  font-family: var(--font-stack-km);
+  font-size: 13.5px;
+  color: var(--mu);
+  margin: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff !important;
+  font-family: var(--font-stack-km);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  box-shadow: 0 6px 16px -2px rgba(16, 185, 129, 0.35);
+  transition: all 0.25s var(--ease);
+  cursor: pointer;
+}
+
+.qr-download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -2px rgba(16, 185, 129, 0.45);
+  filter: brightness(1.06);
 }
 
 @keyframes pldash {
@@ -2692,7 +2873,8 @@ body {
    Active-Slide Chart, Card & Illustration Animations
    ========================================== */
 .hero-img-direct,
-.qrbox {
+.qrbox,
+.qr-card {
   animation: floatGentle 5s ease-in-out infinite alternate;
 }
 

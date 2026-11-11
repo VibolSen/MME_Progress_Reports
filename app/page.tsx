@@ -43,7 +43,11 @@ import {
   ArrowRight,
   Layers,
   Building2,
+  Download,
+  FileText,
+  QrCode,
 } from "lucide-react";
+import QRCode from "qrcode";
 
 const TOTAL_SLIDES = 5;
 
@@ -54,6 +58,9 @@ export default function PresentationPage() {
   const [theme, setTheme] = useState<"dark" | "light">("light");
   const [lang, setLang] = useState<Language>("en");
   const [langDropdownOpen, setLangDropdownOpen] = useState<boolean>(false);
+
+  // QR Code for Progress Report PDF on Slide 5
+  const [qrDataUrl, setQrDataUrl] = useState<string>("/qr-progress-report.svg");
 
   // Hydration-safe fullscreen state via useSyncExternalStore
   const isFullscreen = useSyncExternalStore(
@@ -100,6 +107,43 @@ export default function PresentationPage() {
       window.clearTimeout(timer);
       window.removeEventListener("hashchange", syncFromHash);
     };
+  }, []);
+
+  // Dynamically resolve target URL for QR code (defaults to production Vercel URL when running locally)
+  useEffect(() => {
+    try {
+      const isLocal =
+        typeof window !== "undefined" &&
+        window.location.hostname &&
+        (window.location.hostname.includes("localhost") ||
+          window.location.hostname.includes("127.0.0.1") ||
+          window.location.hostname.startsWith("192.168."));
+
+      const origin =
+        !isLocal && typeof window !== "undefined" && window.location.origin
+          ? window.location.origin
+          : "https://mme-progress-reports.vercel.app";
+
+      const target = `${origin}/Progress-report.pdf`;
+
+      QRCode.toDataURL(target, {
+        width: 280,
+        margin: 1,
+        color: {
+          dark: "#0F172A",
+          light: "#FFFFFF",
+        },
+        errorCorrectionLevel: "M",
+      })
+        .then((url) => {
+          if (url) setQrDataUrl(url);
+        })
+        .catch((err) => {
+          console.warn("Could not generate dynamic QR code:", err);
+        });
+    } catch {
+      // Fallback remains /qr-progress-report.svg
+    }
   }, []);
 
   const goToSlide = useCallback((index: number) => {
@@ -1850,13 +1894,42 @@ export default function PresentationPage() {
                   className="ty-contact a"
                   style={{ "--d": 3 } as React.CSSProperties}
                 >
-                  <Image
-                    src="/logo/Oone logo.svg"
-                    alt="OONE Logo"
-                    width={110}
-                    height={51}
-                    className="object-contain"
-                  />
+                  <div className="ty-org-badge">
+                    <Image
+                      src="/logo/mme-logo.png"
+                      alt="Ministry of Mines and Energy (MME) Logo"
+                      width={68}
+                      height={66}
+                      className="object-contain"
+                    />
+                    <div className="ty-org-info">
+                      <span className="ty-org-name">
+                        {lang === "km"
+                          ? "ក្រសួងរ៉ែ និងថាមពល"
+                          : "Ministry of Mines and Energy"}
+                      </span>
+                      <span className="ty-org-sub">
+                        {lang === "km"
+                          ? "ព្រះរាជាណាចក្រកម្ពុជា"
+                          : "Kingdom of Cambodia"}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="ty-divider" />
+
+                  <div className="ty-tech-partner">
+                    <span className="ty-partner-label">
+                      {lang === "km" ? "ដៃគូបច្ចេកវិទ្យា" : "Technology Partner"}
+                    </span>
+                    <Image
+                      src="/logo/Oone logo.svg"
+                      alt="OONE Logo"
+                      width={105}
+                      height={49}
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -1864,16 +1937,66 @@ export default function PresentationPage() {
                 className="qrc a-r"
                 style={{ "--d": 3 } as React.CSSProperties}
               >
-                <div className="qrbox">
-                  <Image
-                    src="/logo/mme-logo.png"
-                    alt="Ministry of Mines and Energy (MME) Logo"
-                    width={280}
-                    height={273}
-                    className="object-contain"
-                  />
+                <div className="qr-card">
+                  <div className="qr-header">
+                    <div className="qr-badge">
+                      <FileText className="w-4 h-4 text-emerald-500 shrink-0" />
+                      <span className="qr-badge-text">
+                        {lang === "km"
+                          ? "របាយការណ៍វឌ្ឍនភាព"
+                          : "Progress Report"}
+                      </span>
+                      <span className="qr-tag">PDF</span>
+                    </div>
+                  </div>
+
+                  <div className="qr-frame">
+                    <Image
+                      src={qrDataUrl}
+                      alt="Scan QR Code to Download MME Progress Report"
+                      width={220}
+                      height={220}
+                      className="qr-image"
+                      unoptimized
+                      priority
+                    />
+                  </div>
+
+                  <div className="qr-footer">
+                    <p className="qr-scan-label">
+                      <QrCode className="w-3.5 h-3.5 inline-block mr-1.5 opacity-70" />
+                      {lang === "km"
+                        ? "ស្កេនទូរស័ព្ទដើម្បីបើក/ទាញយក"
+                        : "Scan with camera to view / download"}
+                    </p>
+
+                    <a
+                      href="/Progress-report.pdf"
+                      download="MME-Progress-Report-2026.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="qr-download-btn"
+                      title={
+                        lang === "km"
+                          ? "ទាញយកឯកសារ PDF"
+                          : "Download PDF file"
+                      }
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>
+                        {lang === "km"
+                          ? "ទាញយកឯកសារ PDF (657 KB)"
+                          : "Download PDF (657 KB)"}
+                      </span>
+                    </a>
+                  </div>
                 </div>
-                <span className="chip pri">MME DIGITAL PLATFORM</span>
+
+                <span className="chip pri">
+                  {lang === "km"
+                    ? "ក្រសួងរ៉ែ និងថាមពល · MME DIGITAL"
+                    : "MME DIGITAL PLATFORM"}
+                </span>
               </div>
             </div>
           </div>
