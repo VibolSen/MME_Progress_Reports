@@ -86,7 +86,7 @@ html, body {
 .viewport {
   position: absolute;
   inset: 0;
-  bottom: 84px;
+  bottom: 80px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -96,7 +96,7 @@ html, body {
 }
 
 .deck.fs .viewport {
-  bottom: 0;
+  bottom: 80px;
 }
 
 /* 1920x1080 Presentation Stage */
@@ -756,11 +756,11 @@ html, body {
 }
 
 .ch .card {
-  padding: 36px 32px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  height: 450px;
+  gap: 16px;
+  height: 435px;
 }
 
 .ch .num {
@@ -788,12 +788,12 @@ html, body {
   position: absolute;
   left: 100px;
   right: 100px;
-  bottom: 84px;
+  bottom: 92px;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 36px;
-  padding: 24px 44px;
+  padding: 22px 40px;
   background: var(--panel);
   backdrop-filter: blur(20px);
   border: 1px solid var(--card-border);
@@ -1071,6 +1071,90 @@ html, body {
   justify-content: center;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--pb);
+}
+
+/* In-Slide Executive Presentation Footer Strip */
+.slide-footer {
+  position: absolute;
+  left: 100px;
+  right: 100px;
+  bottom: 24px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  border-radius: 14px;
+  background: var(--panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mu);
+  z-index: 15;
+}
+
+.sf-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sf-emblem {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: rgba(79, 70, 229, 0.08);
+  border: 1px solid rgba(79, 70, 229, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.sf-ministry {
+  font-weight: 700;
+  color: var(--tx);
+}
+
+.sf-center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--mu);
+}
+
+.sf-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--grn);
+  box-shadow: 0 0 8px var(--grn);
+  flex: none;
+}
+
+.sf-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sf-meta {
+  font-size: 12px;
+  color: var(--mu);
+}
+
+.sf-page {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--pri);
+  background: rgba(79, 70, 229, 0.1);
+  border: 1px solid rgba(79, 70, 229, 0.25);
+  padding: 4px 12px;
+  border-radius: 999px;
 }
 
 /* Modern Floating Dock / Nav Bar */

@@ -26,9 +26,12 @@ Address key user feedback:
      - **Slide 10:** 4-quarter delivery timeline with milestone checkpoints.
      - **Slide 11:** 30-day tactical sprint plan with weekly execution deliverables.
      - **Slide 12:** `RoyalTransmissionVisual` — power transmission SVG waves, Cambodian skyline, large celebratory typography, OONE logo, and QR code / contact pills.
+5. **In-Slide Executive Presentation Footer (`SlideFooter`):**
+   - Added a bilingual (Khmer/English) glassmorphic footer strip (`.slide-footer`) inside every slide (`Slides 01 / 12` through `12 / 12`) displaying the MME Emblem, Ministry of Mines and Energy title, OONE Power project attribution, official briefing date, and slide counter pill badge.
 
 ## 2. Verification
 - **Code Formatter:** `npm run format` passed.
 - **Linter:** `npm run lint` passed with 0 errors and 0 warnings.
 - **Production Build:** `npm run build` compiled and statically generated in under 3 seconds.
 - **Safety Compliance:** No `git push` executed; no unauthorized npm packages installed; no secrets accessed.
+

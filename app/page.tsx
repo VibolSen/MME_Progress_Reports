@@ -20,6 +20,7 @@ import {
   AssetBudgetVisual,
   SecretariatVaultVisual,
   RoyalTransmissionVisual,
+  SlideFooter,
 } from "./slideVisuals";
 import {
   ChevronLeft,
@@ -71,9 +72,8 @@ export default function PresentationPage() {
   // Dynamic scale calculation for 1920x1080 stage
   const [scale, setScale] = useState<number>(() => {
     if (typeof window !== "undefined") {
-      const isFS = Boolean(document.fullscreenElement);
       const w = window.innerWidth;
-      const h = isFS ? window.innerHeight : window.innerHeight - 84;
+      const h = window.innerHeight - 80;
       const s = Math.min(w / 1920, h / 1080);
       return s > 0 ? s : 1;
     }
@@ -85,8 +85,7 @@ export default function PresentationPage() {
     const isFS = Boolean(document.fullscreenElement);
     setIsFullscreen(isFS);
     const w = window.innerWidth;
-    // In fullscreen, utilize complete screen height; in standard, reserve dock height
-    const h = isFS ? window.innerHeight : window.innerHeight - 84;
+    const h = window.innerHeight - 80;
     const s = Math.min(w / 1920, h / 1080);
     setScale(s > 0 ? s : 1);
   }, []);
@@ -325,6 +324,8 @@ export default function PresentationPage() {
             <div className="t-photo a-z" style={{ "--d": 2 } as React.CSSProperties}>
               <HeroHubVisual lang={lang} theme={theme} />
             </div>
+
+            <SlideFooter lang={lang} slideNumber={1} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -396,6 +397,8 @@ export default function PresentationPage() {
                 </button>
               ))}
             </div>
+
+            <SlideFooter lang={lang} slideNumber={2} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -502,6 +505,8 @@ export default function PresentationPage() {
                 </div>
               </div>
             </div>
+
+            <SlideFooter lang={lang} slideNumber={3} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -565,6 +570,8 @@ export default function PresentationPage() {
                 <MeetingRoomVisual lang={lang} theme={theme} />
               </div>
             </div>
+
+            <SlideFooter lang={lang} slideNumber={4} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -628,6 +635,8 @@ export default function PresentationPage() {
                 <MissionPayrollFlow lang={lang} theme={theme} />
               </div>
             </div>
+
+            <SlideFooter lang={lang} slideNumber={5} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -700,6 +709,8 @@ export default function PresentationPage() {
                 <AssetBudgetVisual lang={lang} theme={theme} />
               </div>
             </div>
+
+            <SlideFooter lang={lang} slideNumber={6} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -762,6 +773,8 @@ export default function PresentationPage() {
                 <SecretariatVaultVisual lang={lang} theme={theme} />
               </div>
             </div>
+
+            <SlideFooter lang={lang} slideNumber={7} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -844,6 +857,8 @@ export default function PresentationPage() {
                 </div>
               </div>
             </div>
+
+            <SlideFooter lang={lang} slideNumber={8} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -917,6 +932,8 @@ export default function PresentationPage() {
                 </div>
               </div>
             </div>
+
+            <SlideFooter lang={lang} slideNumber={9} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -991,6 +1008,8 @@ export default function PresentationPage() {
                 </div>
               ))}
             </div>
+
+            <SlideFooter lang={lang} slideNumber={10} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -1080,6 +1099,8 @@ export default function PresentationPage() {
                 </div>
               </div>
             </div>
+
+            <SlideFooter lang={lang} slideNumber={11} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -1148,6 +1169,8 @@ export default function PresentationPage() {
                 MME DIGITAL PLATFORM
               </span>
             </div>
+
+            <SlideFooter lang={lang} slideNumber={12} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 

@@ -501,3 +501,58 @@ export function RoyalTransmissionVisual() {
     </svg>
   );
 }
+
+export interface SlideFooterProps {
+  lang: "km" | "en";
+  slideNumber: number;
+  totalSlides: number;
+}
+
+/**
+ * In-Slide Executive Presentation Footer Strip
+ */
+export function SlideFooter({ lang, slideNumber, totalSlides }: SlideFooterProps) {
+  const formattedNum = slideNumber < 10 ? `0${slideNumber}` : `${slideNumber}`;
+  const formattedTotal = totalSlides < 10 ? `0${totalSlides}` : `${totalSlides}`;
+
+  return (
+    <footer className="slide-footer" aria-label="Slide footer">
+      <div className="sf-left">
+        <span className="sf-emblem">
+          <Image
+            src="/logo/logo tab.svg"
+            alt="MME Emblem"
+            width={18}
+            height={18}
+          />
+        </span>
+        <span className="sf-ministry">
+          {lang === "km"
+            ? "ក្រសួងរ៉ែ និងថាមពល (MME) · រាជរដ្ឋាភិបាលកម្ពុជា"
+            : "Ministry of Mines and Energy (MME) · Royal Government of Cambodia"}
+        </span>
+      </div>
+
+      <div className="sf-center">
+        <span className="sf-dot" />
+        <span>
+          {lang === "km"
+            ? "គម្រោងបរិវត្តកម្មឌីជីថល MME · អនុវត្តដោយ OONE Power Technology"
+            : "MME Digital Transformation · OONE Power Technology Co., Ltd"}
+        </span>
+      </div>
+
+      <div className="sf-right">
+        <span className="sf-meta">
+          {lang === "km" ? "វិច្ឆិកា ២០២៦ · ឯកសារផ្លូវការ" : "Nov 2026 · Official Briefing"}
+        </span>
+        <span className="sf-page">
+          {lang === "km"
+            ? `ស្លាយ ${formattedNum} / ${formattedTotal}`
+            : `Slide ${formattedNum} / ${formattedTotal}`}
+        </span>
+      </div>
+    </footer>
+  );
+}
+
