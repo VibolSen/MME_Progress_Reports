@@ -114,11 +114,11 @@ body {
   flex: none;
   transform-origin: center center;
   overflow: hidden;
-  padding: 52px 92px 44px;
+  padding: 38px 64px 32px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 24px;
+  gap: 22px;
 }
 
 .slide {
@@ -213,21 +213,21 @@ body {
   align-items: center;
   gap: 10px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--pri);
   background: rgba(79, 70, 229, 0.08);
-  padding: 6px 16px;
+  padding: 7px 18px;
   border-radius: 999px;
   border: 1px solid rgba(79, 70, 229, 0.22);
 }
 
 .eyebrow::before {
   content: "";
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   background: var(--pri);
   border-radius: 50%;
   box-shadow: 0 0 8px var(--pri);
@@ -235,8 +235,8 @@ body {
 
 .h {
   margin: 10px 0 0;
-  font-size: 46px;
-  line-height: 1.2;
+  font-size: 52px;
+  line-height: 1.18;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--tx);
@@ -252,10 +252,10 @@ body {
 
 .lead {
   margin: 8px 0 0;
-  font-size: 19px;
-  line-height: 1.5;
+  font-size: 22px;
+  line-height: 1.48;
   color: var(--mu);
-  max-width: 1380px;
+  max-width: 1480px;
 }
 
 /* Staggered Entrance Animations */
@@ -330,11 +330,11 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
+  padding: 7px 16px;
   border-radius: 999px;
   background: var(--panel2);
   border: 1px solid var(--pb);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--tx);
   white-space: nowrap;
@@ -365,8 +365,8 @@ body {
 }
 
 .ic {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   border-radius: 16px;
   background: var(--panel2);
   border: 1px solid var(--pb);
@@ -417,8 +417,8 @@ body {
   min-height: 0;
   width: 100%;
   display: grid;
-  grid-template-columns: 1.08fr 0.92fr;
-  gap: 48px;
+  grid-template-columns: 1.06fr 0.94fr;
+  gap: 44px;
   align-items: center;
 }
 
@@ -431,9 +431,9 @@ body {
 }
 
 .t-title {
-  margin: 18px 0 0;
-  font-size: 62px;
-  line-height: 1.15;
+  margin: 16px 0 0;
+  font-size: 68px;
+  line-height: 1.13;
   font-weight: 800;
   letter-spacing: -0.025em;
   color: var(--tx);
@@ -444,12 +444,12 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 20px;
+  padding: 12px 22px;
   border-radius: 999px;
   background: var(--panel);
   backdrop-filter: blur(16px);
   border: 1px solid var(--card-border);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--tx);
   box-shadow: var(--shadow);
@@ -458,10 +458,10 @@ body {
 
 .t-sub {
   margin: 20px 0 0;
-  font-size: 21px;
-  line-height: 1.6;
+  font-size: 23px;
+  line-height: 1.58;
   color: var(--mu);
-  max-width: 820px;
+  max-width: 860px;
 }
 
 .cta {
@@ -470,11 +470,11 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 15px 34px;
+  padding: 16px 36px;
   border-radius: 16px;
   background: linear-gradient(120deg, var(--pri), var(--pri2));
   color: #fff;
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 700;
   border: none;
   cursor: pointer;
@@ -488,7 +488,7 @@ body {
 }
 
 .t-meta {
-  margin-top: 36px;
+  margin-top: 34px;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -498,7 +498,7 @@ body {
 
 .t-meta small {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--mu);
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -506,7 +506,7 @@ body {
 }
 
 .t-meta b {
-  font-size: 16px;
+  font-size: 18px;
   color: var(--tx);
 }
 
@@ -576,33 +576,33 @@ body {
 
 .ag .n {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 800;
   color: var(--pri);
   margin-bottom: 18px;
 }
 
 .ag .ic.soft {
-  width: 64px;
-  height: 64px;
+  width: 68px;
+  height: 68px;
   border-radius: 20px;
   margin-bottom: 20px;
 }
 
 .ag .t {
-  font-size: 25px;
+  font-size: 28px;
   font-weight: 800;
-  line-height: 1.35;
+  line-height: 1.32;
   color: var(--tx);
 }
 
 .ag .t small {
   display: block;
-  margin-top: 12px;
-  font-size: 16px;
+  margin-top: 14px;
+  font-size: 18.5px;
   font-weight: 400;
   color: var(--mu);
-  line-height: 1.65;
+  line-height: 1.62;
 }
 
 .ag-footer {
@@ -617,14 +617,14 @@ body {
 
 .ag-tag {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--pri);
 }
 
 .ag .go {
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   background: var(--panel2);
   border: 1px solid var(--pb);
@@ -653,7 +653,7 @@ body {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  gap: 28px;
   align-items: stretch;
 }
 
@@ -662,7 +662,7 @@ body {
   backdrop-filter: blur(20px);
   border: 1px solid var(--card-border);
   border-radius: 28px;
-  padding: 28px 32px;
+  padding: 26px 30px;
   box-shadow: var(--shadow);
   height: 100%;
   min-height: 0;
@@ -681,7 +681,7 @@ body {
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--pb);
   flex: none;
@@ -689,16 +689,16 @@ body {
 
 .comp-box-header h3 {
   margin: 8px 0 0;
-  font-size: 24px;
+  font-size: 27px;
   font-weight: 800;
-  line-height: 1.3;
+  line-height: 1.28;
   color: var(--tx);
 }
 
 .comp-box-sub {
-  font-size: 14px;
+  font-size: 16.5px;
   color: var(--mu);
-  line-height: 1.5;
+  line-height: 1.48;
   margin: 0 0 12px;
   flex: none;
 }
@@ -729,7 +729,7 @@ body {
 
 .comp-list-item .badge-num {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   color: var(--pri);
   background: rgba(79, 70, 229, 0.1);
@@ -740,15 +740,15 @@ body {
 }
 
 .comp-list-item h4 {
-  margin: 0 0 3px;
-  font-size: 16px;
+  margin: 0 0 4px;
+  font-size: 18.5px;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.32;
   color: var(--tx);
 }
 
 .comp-list-item p {
-  font-size: 13.5px;
+  font-size: 15.5px;
   color: var(--mu);
   line-height: 1.45;
   margin: 0;
@@ -799,7 +799,7 @@ body {
   align-items: center;
   gap: 8px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--pri);
@@ -815,7 +815,7 @@ body {
 
 .vp-title {
   margin: 2px 0 0;
-  font-size: 19px;
+  font-size: 22px;
   font-weight: 800;
   color: var(--tx);
 }
@@ -866,13 +866,13 @@ body {
 
 .vp-dept-code {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
   color: var(--mu);
 }
 
 .vp-status-pill {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   padding: 2px 8px;
   border-radius: 999px;
@@ -895,14 +895,14 @@ body {
 
 .vp-dept-card h4 {
   margin: 0 0 2px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--tx);
 }
 
 .vp-dept-card p {
   margin: 0;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--mu);
 }
 
@@ -912,7 +912,7 @@ body {
   justify-content: space-between;
   padding-top: 12px;
   border-top: 1px solid var(--pb);
-  font-size: 12px;
+  font-size: 14px;
   color: var(--mu);
 }
 
@@ -994,14 +994,14 @@ body {
 
 .vs-banner h4 {
   margin: 0 0 3px;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--tx);
 }
 
 .vs-banner p {
   margin: 0;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--mu);
 }
 
@@ -1040,7 +1040,7 @@ body {
 
 .vs-code {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
 }
 
@@ -1064,7 +1064,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 700;
   padding: 3px 10px;
   border-radius: 999px;
@@ -1092,17 +1092,17 @@ body {
 
 .vs-subcard h5 {
   margin: 0 0 6px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--tx);
-  line-height: 1.35;
+  line-height: 1.32;
 }
 
 .vs-subcard p {
   margin: 0;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--mu);
-  line-height: 1.5;
+  line-height: 1.48;
 }
 
 .vs-column-card {
@@ -1130,7 +1130,7 @@ body {
 
 .vs-mono-badge {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
   padding: 4px 10px;
   border-radius: 8px;
@@ -1170,11 +1170,11 @@ body {
 }
 
 .vs-step-num {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 8px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -1198,15 +1198,15 @@ body {
 }
 
 .vs-step-item h6 {
-  margin: 0 0 2px;
-  font-size: 14px;
+  margin: 0 0 3px;
+  font-size: 16.5px;
   font-weight: 700;
   color: var(--tx);
 }
 
 .vs-step-item p {
   margin: 0;
-  font-size: 12.5px;
+  font-size: 14.5px;
   color: var(--mu);
   line-height: 1.45;
 }
@@ -1237,14 +1237,14 @@ body {
 
 .vs-card-title {
   margin: 0;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--tx);
 }
 
 .vs-card-desc {
   margin: 0;
-  font-size: 13.5px;
+  font-size: 15.5px;
   color: var(--mu);
   line-height: 1.55;
 }
@@ -1267,7 +1267,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--mu);
   margin-bottom: 8px;
 }
@@ -1300,7 +1300,7 @@ body {
   border-radius: 16px;
   background: var(--panel2);
   border: 1px solid var(--pb);
-  font-size: 13.5px;
+  font-size: 15.5px;
   color: var(--tx);
 }
 
@@ -1343,22 +1343,22 @@ body {
 
 .ch .num {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 800;
   color: var(--pri);
 }
 
 .ch h3 {
   margin: 4px 0 0;
-  font-size: 21px;
+  font-size: 24px;
   font-weight: 800;
-  line-height: 1.35;
+  line-height: 1.32;
   color: var(--tx);
 }
 
 .ch-desc {
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 17.5px;
+  line-height: 1.58;
   color: var(--mu);
   margin: 0;
 }
@@ -1382,7 +1382,7 @@ body {
 
 .ch-solution-label {
   display: block;
-  font-size: 12px;
+  font-size: 13.5px;
   font-weight: 800;
   color: var(--grn);
   margin-bottom: 4px;
@@ -1391,9 +1391,9 @@ body {
 
 .ch-solution-text {
   margin: 0;
-  font-size: 13.5px;
+  font-size: 16px;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.48;
   color: var(--tx);
 }
 
@@ -1418,7 +1418,7 @@ body {
   display: flex;
   align-items: center;
   gap: 16px;
-  font-size: 15.5px;
+  font-size: 17.5px;
   font-weight: 600;
   color: var(--tx);
   line-height: 1.45;
@@ -1426,7 +1426,7 @@ body {
 
 .shift .s small {
   display: block;
-  font-size: 11.5px;
+  font-size: 13px;
   font-family: 'JetBrains Mono', monospace;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1467,7 +1467,7 @@ body {
 }
 
 .ns-stat b {
-  font-size: 56px;
+  font-size: 62px;
   line-height: 1;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 800;
@@ -1475,7 +1475,7 @@ body {
 }
 
 .ns-stat small {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--mu);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1521,7 +1521,7 @@ body {
 
 .tlg-phase {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 800;
   color: var(--pri);
   margin-bottom: 8px;
@@ -1529,16 +1529,16 @@ body {
 
 .tlg-card h3 {
   margin: 0 0 12px;
-  font-size: 21px;
+  font-size: 24px;
   font-weight: 800;
   color: var(--tx);
-  line-height: 1.35;
+  line-height: 1.32;
 }
 
 .tlg-desc {
-  font-size: 15px;
+  font-size: 17.5px;
   color: var(--mu);
-  line-height: 1.65;
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -1547,7 +1547,7 @@ body {
   align-items: center;
   gap: 8px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--mu);
   margin-bottom: 18px;
 }
@@ -1563,8 +1563,8 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 16.5px;
+  line-height: 1.48;
   color: var(--tx);
 }
 
@@ -1602,7 +1602,7 @@ body {
 }
 
 .ty h1 {
-  font-size: 104px;
+  font-size: 112px;
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -1610,10 +1610,10 @@ body {
 }
 
 .ty p {
-  font-size: 24px;
+  font-size: 27px;
   color: var(--mu);
-  max-width: 920px;
-  line-height: 1.6;
+  max-width: 960px;
+  line-height: 1.58;
   margin: 0;
 }
 
@@ -1907,13 +1907,13 @@ body {
 }
 
 .deck[data-lang="km"] .h {
-  font-size: 42px;
-  line-height: 1.35;
+  font-size: 48px;
+  line-height: 1.32;
 }
 
 .deck[data-lang="km"] .t-title {
-  font-size: 56px;
-  line-height: 1.32;
+  font-size: 62px;
+  line-height: 1.28;
 }
 
 .deck[data-lang="km"] .eyebrow {
