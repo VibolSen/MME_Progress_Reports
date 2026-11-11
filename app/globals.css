@@ -2435,6 +2435,10 @@ body {
   gap: 9px;
   flex: 1;
   justify-content: space-around;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pb) transparent;
 }
 
 .data-items-grid-3 {

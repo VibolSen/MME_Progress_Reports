@@ -317,7 +317,7 @@ export default function PresentationPage() {
                     src="/logo/Oone logo.svg"
                     alt="OONE Power"
                     width={110}
-                    height={48}
+                    height={51}
                     priority
                     className="object-contain"
                   />
@@ -1633,12 +1633,12 @@ export default function PresentationPage() {
                 </div>
               </div>
 
-              {/* RIGHT FULL-TEXT DATA COLUMN: Same 2-Column + Span-2 Grid as Slide 2 */}
+              {/* RIGHT FULL-TEXT DATA COLUMN: Same 2-Column + Span-2 Grid as Slide 2 & 3 */}
               <div
                 className="data-col a"
                 style={{ "--d": 2.5 } as React.CSSProperties}
               >
-                <div className="comp-cards-grid dense">
+                <div className="comp-cards-grid">
                   {/* Top-Left Card: I. Web Portal សម្រាប់អ្នកស្នើសុំ */}
                   <div className="comp-data-card">
                     <div className="comp-data-head">
@@ -1854,7 +1854,7 @@ export default function PresentationPage() {
                     src="/logo/Oone logo.svg"
                     alt="OONE Logo"
                     width={110}
-                    height={46}
+                    height={51}
                     className="object-contain"
                   />
                 </div>
@@ -1869,7 +1869,7 @@ export default function PresentationPage() {
                     src="/logo/mme-logo.png"
                     alt="Ministry of Mines and Energy (MME) Logo"
                     width={280}
-                    height={280}
+                    height={273}
                     className="object-contain"
                   />
                 </div>
@@ -1926,7 +1926,7 @@ export default function PresentationPage() {
             src="/logo/Oone logo.svg"
             alt="OONE Logo"
             width={68}
-            height={30}
+            height={32}
             className="brand-logo object-contain"
           />
         </div>
