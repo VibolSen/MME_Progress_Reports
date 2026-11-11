@@ -522,8 +522,9 @@ export function SlideFooter({ lang, slideNumber, totalSlides }: SlideFooterProps
           <Image
             src="/logo/logo tab.svg"
             alt="MME Emblem"
-            width={18}
-            height={18}
+            width={24}
+            height={24}
+            className="object-contain"
           />
         </span>
         <span className="sf-ministry">
@@ -535,6 +536,13 @@ export function SlideFooter({ lang, slideNumber, totalSlides }: SlideFooterProps
 
       <div className="sf-center">
         <span className="sf-dot" />
+        <Image
+          src="/logo/Oone logo.svg"
+          alt="OONE Power Logo"
+          width={58}
+          height={24}
+          className="object-contain"
+        />
         <span>
           {lang === "km"
             ? "គម្រោងបរិវត្តកម្មឌីជីថល MME · អនុវត្តដោយ OONE Power Technology"
