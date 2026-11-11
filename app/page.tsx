@@ -15,24 +15,26 @@ import {
 import {
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
   Maximize,
   Minimize,
   Sun,
   Moon,
   Globe,
-  LayoutGrid,
   Printer,
-  CheckCircle2,
-  Clock,
-  AlertTriangle,
-  Building2,
-  Calendar,
-  ArrowRight,
   Check,
+  AlertTriangle,
+  Clock,
+  ArrowRight,
   ShieldCheck,
+  Layers,
+  Sparkles,
+  Calendar,
+  Phone,
+  Mail,
 } from "lucide-react";
 
-const TOTAL_SLIDES = 13;
+const TOTAL_SLIDES = 12;
 
 export default function PresentationPage() {
   const [currentSlide, setCurrentSlide] = useState<number>(() => {
@@ -45,34 +47,32 @@ export default function PresentationPage() {
     }
     return 0;
   });
+
   const [lang, setLang] = useState<Language>("km"); // Default to Khmer as requested for Cambodian ministry
   const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [langDropdownOpen, setLangDropdownOpen] = useState<boolean>(false);
+
+  // Dynamic scale calculation for 1920x1080 stage
   const [scale, setScale] = useState<number>(() => {
     if (typeof window !== "undefined") {
-      const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+      const w = window.innerWidth;
+      const h = window.innerHeight - 72; // Reserve 72px for bottom bar
+      const s = Math.min(w / 1920, h / 1080);
       return s > 0 ? s : 1;
     }
     return 1;
   });
-  const [showGrid, setShowGrid] = useState<boolean>(false);
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
 
-  // Auto-scale slide viewport to fit current window maintaining 16:9 ratio
-  const handleResize = useCallback(() => {
-    const targetWidth = 1920;
-    const targetHeight = 1080;
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
-    // Leave a small margin for controls
-    const scaleX = windowWidth / targetWidth;
-    const scaleY = windowHeight / targetHeight;
-    const newScale = Math.min(scaleX, scaleY);
-    setScale(newScale > 0 ? newScale : 1);
+  const fit = useCallback(() => {
+    const w = window.innerWidth;
+    const h = window.innerHeight - 72;
+    const s = Math.min(w / 1920, h / 1080);
+    setScale(s > 0 ? s : 1);
   }, []);
 
   useEffect(() => {
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", fit);
     const handleHashChange = () => {
       const hash = window.location.hash.replace("#", "");
       const slideNum = parseInt(hash, 10);
@@ -82,12 +82,11 @@ export default function PresentationPage() {
     };
     window.addEventListener("hashchange", handleHashChange);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", fit);
       window.removeEventListener("hashchange", handleHashChange);
     };
-  }, [handleResize]);
+  }, [fit]);
 
-  // Sync slide change to URL hash
   const goToSlide = useCallback((index: number) => {
     if (index >= 0 && index < TOTAL_SLIDES) {
       setCurrentSlide(index);
@@ -109,8 +108,9 @@ export default function PresentationPage() {
     }
   }, [currentSlide, goToSlide]);
 
-  const toggleLanguage = () => {
-    setLang((prev) => (prev === "km" ? "en" : "km"));
+  const toggleLanguage = (newLang?: Language) => {
+    setLang((prev) => (newLang ? newLang : prev === "km" ? "en" : "km"));
+    setLangDropdownOpen(false);
   };
 
   const toggleTheme = () => {
@@ -127,10 +127,9 @@ export default function PresentationPage() {
     }
   };
 
-  // Keyboard navigation
+  // Keyboard navigation shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't intercept if inside input
       if ((e.target as HTMLElement).tagName === "INPUT") return;
 
       switch (e.key) {
@@ -161,10 +160,6 @@ export default function PresentationPage() {
         case "T":
           toggleTheme();
           break;
-        case "g":
-        case "G":
-          setShowGrid((prev) => !prev);
-          break;
         case "f":
         case "F":
           toggleFullscreen();
@@ -176,7 +171,7 @@ export default function PresentationPage() {
           }
           break;
         case "Escape":
-          setShowGrid(false);
+          setLangDropdownOpen(false);
           break;
       }
     };
@@ -185,10 +180,9 @@ export default function PresentationPage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [nextSlide, prevSlide, goToSlide]);
 
-  // Click side navigation (Canva style: left 25% prev, right 75% next)
+  // Canva-style click on viewport sides (left 25% = prev, right 75% = next)
   const handleViewportClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    // If clicked on button or interactive element, ignore
-    if ((e.target as HTMLElement).closest("button, a, input, select, .interactive")) {
+    if ((e.target as HTMLElement).closest("button, a, input, select, .interactive, .card, .scope-card, .tlg-card")) {
       return;
     }
     const rect = e.currentTarget.getBoundingClientRect();
@@ -200,1556 +194,1270 @@ export default function PresentationPage() {
     }
   };
 
-  // Slide Titles list for Grid & Overview
-  const slideTitles = useMemo(() => [
-    { en: "Title Slide", km: "ទំព័រដើម / ចំណងជើង" },
-    { en: "01. Presentation Overview", km: "០១. របៀបវារៈបទបង្ហាញ" },
-    { en: "02. Departments Scope", km: "០២. វិសាលភាពនាយកដ្ឋាន" },
-    { en: "03. General Department Summary", km: "០៣. សង្ខេបវឌ្ឍភាពនាយកដ្ឋានទូទៅ" },
-    { en: "04. Component 1: Operational Support", km: "០៤. សមាសភាគទី១៖ ប្រតិបត្តិការ & បន្ទប់ប្រជុំ" },
-    { en: "05. Component 2: Mission & Payroll", km: "០៥. សមាសភាគទី២៖ បេសកកម្ម & ប្រាក់បៀវត្ស" },
-    { en: "06. Component 3 & 4: Assets & Budget", km: "០៦. សមាសភាគទី៣ & ៤៖ ទ្រព្យសម្បត្តិ & ថវិកា" },
-    { en: "07. Component 5: Document Management", km: "០៧. សមាសភាគទី៥៖ ឯកសារអគ្គលេខាធិការដ្ឋាន" },
-    { en: "08. Pending Items Review", km: "០៨. ការងារដែលនៅសេសសល់ (Pending)" },
-    { en: "09. Challenges & Suggestions", km: "០៩. បញ្ហាប្រឈម & សំណូមពរ" },
-    { en: "10. Expected Completion & Timeline", km: "១០. កាលវិភាគបញ្ចប់គម្រោង" },
-    { en: "11. Next 30-Day Action Plan", km: "១១. សេចក្តីសន្និដ្ឋាន & ជំហានបន្ទាប់" },
-    { en: "12. Questions & Discussion", km: "១២. សំណួរ & សូមអរគុណ" },
-  ], []);
+  // Slide navigation list
+  const slideList = useMemo(
+    () => [
+      { id: 1, labelEn: "Title", labelKm: "ចំណងជើង" },
+      { id: 2, labelEn: "Agenda", labelKm: "របៀបវារៈ" },
+      { id: 3, labelEn: "Scope", labelKm: "វិសាលភាព" },
+      { id: 4, labelEn: "Part 1", labelKm: "សមាសភាគ ១ & ២" },
+      { id: 5, labelEn: "Part 2", labelKm: "សមាសភាគ ៣ & ៤" },
+      { id: 6, labelEn: "Part 3", labelKm: "សមាសភាគ ៥" },
+      { id: 7, labelEn: "Pending", labelKm: "ការងារសេសសល់" },
+      { id: 8, labelEn: "Challenges", labelKm: "បញ្ហាប្រឈម" },
+      { id: 9, labelEn: "Timeline", labelKm: "កាលវិភាគ" },
+      { id: 10, labelEn: "Action Plan", labelKm: "ផែនការ ៣០ថ្ងៃ" },
+      { id: 11, labelEn: "Conclusion", labelKm: "សេចក្តីសន្និដ្ឋាន" },
+      { id: 12, labelEn: "Thanks", labelKm: "សូមអរគុណ" },
+    ],
+    []
+  );
+
+  const progressPercent = ((currentSlide + 1) / TOTAL_SLIDES) * 100;
 
   return (
     <div
-      className="deck-container font-sans"
+      className={`deck ${isFullscreen ? "fs" : ""}`}
+      id="deck"
       data-theme={theme}
       data-lang={lang}
     >
-      {/* 16:9 Aspect Viewport */}
-      <div
-        className="slide-viewport relative flex flex-col justify-between p-16 select-none cursor-default"
-        style={{
-          transform: `scale(${scale})`,
-          width: "1920px",
-          height: "1080px",
-        }}
-        onClick={handleViewportClick}
-      >
-        {/* Background Ambient Glows and Grid */}
-        <div className="bg-ambient">
-          <div className="bg-dots" />
-          <div className="blob blob-1" />
-          <div className="blob blob-2" />
-        </div>
+      {/* Viewport wrapping the 1920x1080 stage */}
+      <div className="viewport" id="vp" onClick={handleViewportClick}>
+        
+        {/* SLIDE 1: Title (ចំណងជើង) */}
+        <section
+          className={`slide ${currentSlide === 0 ? "on" : ""}`}
+          data-label="Title"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
+              <div className="blob b2" />
+            </div>
 
-        {/* Global Slide Header (Shown on slides > 0) */}
-        {currentSlide > 0 && (
-          <header className="relative z-10 flex items-center justify-between pb-6 border-b border-[var(--pb)]">
-            <div className="flex items-center gap-5">
-              <div className="relative w-11 h-11 flex items-center justify-center rounded-xl bg-[var(--panel2)] border border-[var(--pb)] overflow-hidden shadow-inner">
+            <div className="t-left">
+              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km"
+                  ? "ក្រសួងរ៉ែ និងថាមពល · MME Progress Reports"
+                  : "Ministry of Mines and Energy · MME"}
+              </div>
+              <h1 className="t-title a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    របាយការណ៍វឌ្ឍភាព <span className="grad">គម្រោងប្រព័ន្ធបច្ចេកវិទ្យា</span> MME
+                  </>
+                ) : (
+                  <>
+                    MME Digital <span className="grad">Transformation</span> Progress
+                  </>
+                )}
+              </h1>
+              <div className="t-badge a" style={{ "--d": 2 } as React.CSSProperties}>
+                <span className="ic soft">
+                  <Image
+                    src="/logo/logo tab.svg"
+                    alt="Emblem"
+                    width={26}
+                    height={26}
+                    priority
+                  />
+                </span>
+                <span>
+                  {lang === "km"
+                    ? "របាយការណ៍បច្ចុប្បន្នភាពសម្រាប់ថ្នាក់ដឹកនាំក្រសួង"
+                    : "Executive Briefing for Ministry Leadership"}
+                </span>
+              </div>
+              <p className="t-sub a" style={{ "--d": 3 } as React.CSSProperties}>
+                {lang === "km"
+                  ? PRESENTATION_META.taglineKm
+                  : PRESENTATION_META.taglineEn}
+              </p>
+              <button
+                className="cta a interactive"
+                style={{ "--d": 4 } as React.CSSProperties}
+                onClick={() => goToSlide(1)}
+              >
+                <span>{lang === "km" ? "ចាប់ផ្តើមបទបង្ហាញ" : "Start the presentation"}</span>
+                <ArrowRight size={20} />
+              </button>
+              <div className="t-meta a" style={{ "--d": 5 } as React.CSSProperties}>
                 <Image
-                  src="/logo/logo tab.svg"
-                  alt="OONE Tab Logo"
-                  width={34}
-                  height={34}
+                  src="/logo/Oone logo.svg"
+                  alt="OONE Power"
+                  width={140}
+                  height={40}
                   priority
                   className="object-contain"
                 />
-              </div>
-              <div>
-                <div className="text-xs font-semibold tracking-wider uppercase text-[var(--pri)]">
-                  {lang === "km"
-                    ? "ក្រសួងរ៉ែ និងថាមពល · MME"
-                    : "Ministry of Mines and Energy · MME"}
-                </div>
-                <div className="text-lg font-bold text-[var(--tx)]">
-                  {lang === "km"
-                    ? PRESENTATION_META.projectTitleKm
-                    : PRESENTATION_META.projectTitleEn}
+                <div>
+                  <small>{lang === "km" ? "រៀបចំ និងអនុវត្តដោយ" : "Prepared by"}</small>
+                  <b>{PRESENTATION_META.companyEn}</b>
                 </div>
               </div>
             </div>
 
-            {/* Department Badge Tracker */}
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--panel2)] border border-[var(--pb)] text-xs text-[var(--mu)]">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="font-semibold text-[var(--tx)]">
-                  {lang === "km" ? "នាយកដ្ឋានទូទៅ" : "General Department"}
-                </span>
-                <span className="text-[var(--mu)]">
-                  ({lang === "km" ? "ទិន្នន័យមានស្រាប់" : "Active"})
-                </span>
+            <div className="t-photo a-z" style={{ "--d": 2 } as React.CSSProperties}>
+              <div className="wire-grid" />
+              
+              <div className="float-card a" style={{ "--d": 3 } as React.CSSProperties}>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="chip grn text-xs">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    {lang === "km" ? "នាយកដ្ឋានទូទៅ (១ ក្នុងចំណោម ៣)" : "General Department (1 of 3)"}
+                  </span>
+                  <span className="text-xs font-mono font-bold text-[var(--grn)]">
+                    {lang === "km" ? "ទិន្នន័យរួចរាល់" : "Data Ready"}
+                  </span>
+                </div>
+                <h4 className="text-lg font-bold text-[var(--tx)] mb-1">
+                  {lang === "km"
+                    ? "ប្រព័ន្ធរដ្ឋបាល ការផ្គត់ផ្គង់ និងការគ្រប់គ្រង"
+                    : "Operations, Supply & Administration"}
+                </h4>
+                <p className="text-sm text-[var(--mu)] leading-relaxed">
+                  {lang === "km"
+                    ? "ប្រព័ន្ធកក់បន្ទប់ប្រជុំ និងផ្គត់ផ្គង់សម្ភារ បានដាក់ឱ្យប្រើប្រាស់ជាក់ស្តែងរួចហើយ។"
+                    : "Meeting room booking and office supplies systems are currently live in production."}
+                </p>
               </div>
-              <div className="px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-xs font-medium text-amber-400">
+
+              <div className="float-card a" style={{ "--d": 4 } as React.CSSProperties}>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="chip amb text-xs">
+                    <Clock size={14} className="text-amber-400" />
+                    {lang === "km" ? "ការងារនៅសេសសល់ (Pending)" : "Pending Review"}
+                  </span>
+                  <span className="text-xs font-mono font-bold text-[var(--amb)]">
+                    {lang === "km" ? "៥ ចំណុចសំខាន់" : "5 Key Items"}
+                  </span>
+                </div>
+                <h4 className="text-lg font-bold text-[var(--tx)] mb-1">
+                  {lang === "km"
+                    ? "ការសម្រេចគោលការណ៍ & ការផ្ទៀងផ្ទាត់"
+                    : "Policy Decisions & Formats"}
+                </h4>
+                <p className="text-sm text-[var(--mu)] leading-relaxed">
+                  {lang === "km"
+                    ? "ទាមទារការសម្របសម្រួលជាមួយក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ លើទម្រង់កាតាបៀវត្ស និងទ្រព្យសម្បត្តិរដ្ឋ។"
+                    : "Inter-ministerial alignment needed with MEF regarding payroll slips and asset codes."}
+                </p>
+              </div>
+
+              <div className="float-card a" style={{ "--d": 5 } as React.CSSProperties}>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="chip pri text-xs">
+                    <Calendar size={14} className="text-indigo-400" />
+                    {lang === "km" ? "កាលវិភាគបញ្ចប់" : "Target Completion"}
+                  </span>
+                  <span className="text-xs font-mono font-bold text-[var(--pri)]">
+                    Q4 2026
+                  </span>
+                </div>
+                <h4 className="text-lg font-bold text-[var(--tx)] mb-1">
+                  {lang === "km" ? "ការប្រគល់ជូនដំណាក់កាលពេញលេញ" : "Full Phased Delivery"}
+                </h4>
+                <p className="text-sm text-[var(--mu)] leading-relaxed">
+                  {lang === "km"
+                    ? "ការដាក់ដំណើរការជាជំហានៗ រួមទាំងការតភ្ជាប់ទិន្នន័យនាយកដ្ឋានទាំង ៣។"
+                    : "Structured rollout across all 4 quarters with full stakeholder training."}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SLIDE 2: Agenda (របៀបវារៈ) */}
+        <section
+          className={`slide ${currentSlide === 1 ? "on" : ""}`}
+          data-label="Agenda"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
+            </div>
+
+            <div className="head">
+              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? "របៀបវារៈបទបង្ហាញ" : "Agenda"}
+              </div>
+              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    ទិដ្ឋភាពទូទៅនៃ <span className="g">ខ្លឹមសារបទបង្ហាញ</span>
+                  </>
+                ) : (
+                  <>
+                    Presentation <span className="g">Overview</span>
+                  </>
+                )}
+              </h2>
+              <p className="lead a" style={{ "--d": 2 } as React.CSSProperties}>
                 {lang === "km"
-                  ? "២ នាយកដ្ឋានទៀត · រង់ចាំទិន្នន័យ"
-                  : "2 Other Depts · In Pipeline"}
-              </div>
+                  ? "បទបង្ហាញនេះផ្តោតលើ ៣ ចំណុចស្នូល ស្របតាមការណែនាំរបស់ថ្នាក់ដឹកនាំក្រសួងរ៉ែ និងថាមពល"
+                  : "Covering the 3 primary pillars required by MME leadership for departmental digitalization"}
+              </p>
             </div>
-          </header>
-        )}
 
-        {/* Main Slide Body */}
-        <main className="relative z-10 flex-1 flex flex-col justify-center my-auto overflow-hidden">
-          {/* SLIDE 1: TITLE SLIDE */}
-          {currentSlide === 0 && (
-            <div className="slide-content grid grid-cols-12 gap-12 items-center h-full">
-              <div className="col-span-7 flex flex-col justify-center gap-6 pr-6">
-                <div className="inline-flex items-center gap-3 w-fit px-4 py-2 rounded-full bg-[var(--panel)] border border-[var(--pb)]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[var(--pri)] animate-ping" />
-                  <span className="text-sm font-semibold tracking-wide uppercase text-[var(--pri)]">
-                    {lang === "km"
-                      ? "ក្រុមហ៊ុន អូន ផៅវ័រ ថេកណឡជី · បទបង្ហាញវឌ្ឍភាព"
-                      : "OONE Power Technology · Progress Presentation"}
-                  </span>
-                </div>
-
-                <h1 className="text-6xl font-extrabold leading-tight tracking-tight text-[var(--tx)]">
-                  {lang === "km" ? (
-                    <>
-                      របាយការណ៍{" "}
-                      <span className="text-gradient-purple">វឌ្ឍភាពការងារ</span>{" "}
-                      គម្រោង
-                    </>
-                  ) : (
-                    <>
-                      Digital System{" "}
-                      <span className="text-gradient-purple">Progress Report</span>
-                    </>
-                  )}
-                </h1>
-
-                <div className="inline-flex items-center gap-3 text-2xl font-semibold text-[var(--cy)]">
-                  <Building2 className="w-7 h-7 text-[var(--cy)]" />
-                  <span>
-                    {lang === "km"
-                      ? "ក្រសួងរ៉ែ និងថាមពល (MME)"
-                      : "Ministry of Mines and Energy (MME)"}
-                  </span>
-                </div>
-
-                <p className="text-xl text-[var(--mu)] leading-relaxed max-w-2xl">
-                  {lang === "km"
-                    ? "ទិដ្ឋភាពរួមនៃវឌ្ឍភាពការងារ បញ្ជីការងារដែលនៅសេសសល់ (Pending) បញ្ហាប្រឈម និងផែនការរំពឹងទុកនៃការបញ្ចប់គម្រោងសម្រាប់នាយកដ្ឋានទូទៅ។"
-                    : "A comprehensive executive overview covering Progress & Pending items, Operational Challenges, and Expected Completion Timeline."}
-                </p>
-
-                <div className="flex items-center gap-5 pt-4">
-                  <button
-                    onClick={() => goToSlide(1)}
-                    className="interactive flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-[var(--pri2)] to-[var(--pri)] hover:from-[var(--pri)] hover:to-[#A78BFA] text-white font-semibold text-lg shadow-lg shadow-[var(--pri)]/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    <span>
-                      {lang === "km"
-                        ? "ចាប់ផ្តើមបទបង្ហាញ"
-                        : "Start Presentation"}
-                    </span>
-                    <ArrowRight className="w-5 h-5" />
-                  </button>
-
-                  <div className="flex items-center gap-3 pl-4 border-l border-[var(--pb)]">
-                    <span className="text-xs text-[var(--mu)] uppercase tracking-wider block">
-                      {lang === "km" ? "រៀបចំដោយ" : "Prepared by"}
-                    </span>
-                    <div className="text-sm font-bold text-[var(--tx)]">
-                      {lang === "km"
-                        ? PRESENTATION_META.companyKm
-                        : PRESENTATION_META.companyEn}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Hero Visual Cards */}
-              <div className="col-span-5 flex flex-col gap-5 justify-center">
-                <div className="glass-panel p-6 flex items-center gap-5">
-                  <div className="w-16 h-16 rounded-2xl bg-[var(--pri)]/15 border border-[var(--pri)]/30 flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-8 h-8 text-[var(--pri)]" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-[var(--pri)]">
-                      {lang === "km" ? "ចំណុចទី ១" : "Key Agenda 01"}
-                    </div>
-                    <div className="text-xl font-bold text-[var(--tx)]">
-                      {lang === "km"
-                        ? "វឌ្ឍភាព & ការងារនៅសេសសល់"
-                        : "Progress & Pending Items"}
-                    </div>
-                    <div className="text-sm text-[var(--mu)] mt-1">
-                      {lang === "km"
-                        ? "សមាសភាគទាំង ៥ នៃនាយកដ្ឋានទូទៅ"
-                        : "5 Components of General Department"}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="glass-panel p-6 flex items-center gap-5">
-                  <div className="w-16 h-16 rounded-2xl bg-[var(--amb)]/15 border border-[var(--amb)]/30 flex items-center justify-center shrink-0">
-                    <AlertTriangle className="w-8 h-8 text-[var(--amb)]" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-[var(--amb)]">
-                      {lang === "km" ? "ចំណុចទី ២" : "Key Agenda 02"}
-                    </div>
-                    <div className="text-xl font-bold text-[var(--tx)]">
-                      {lang === "km"
-                        ? "បញ្ហាប្រឈម & សំណូមពរ"
-                        : "Challenges & Solutions"}
-                    </div>
-                    <div className="text-sm text-[var(--mu)] mt-1">
-                      {lang === "km"
-                        ? "ការសម្របសម្រួលប្រាក់បៀវត្ស & ការសិក្សាតម្រូវការ"
-                        : "Payroll inter-ministry alignment & study sign-offs"}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="glass-panel p-6 flex items-center gap-5">
-                  <div className="w-16 h-16 rounded-2xl bg-[var(--cy)]/15 border border-[var(--cy)]/30 flex items-center justify-center shrink-0">
-                    <Calendar className="w-8 h-8 text-[var(--cy)]" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-[var(--cy)]">
-                      {lang === "km" ? "ចំណុចទី ៣" : "Key Agenda 03"}
-                    </div>
-                    <div className="text-xl font-bold text-[var(--tx)]">
-                      {lang === "km"
-                        ? "ការរំពឹងទុកនៃការបញ្ចប់"
-                        : "Expected Completion"}
-                    </div>
-                    <div className="text-sm text-[var(--mu)] mt-1">
-                      {lang === "km"
-                        ? "កាលវិភាគប្រគល់គម្រោង & នាយកដ្ឋានបន្ទាប់"
-                        : "Phased timeline & upcoming 2 departments"}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* SLIDE 2: AGENDA / PRESENTATION OVERVIEW */}
-          {currentSlide === 1 && (
-            <div className="slide-content flex flex-col gap-8 h-full justify-center">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[var(--pri)] mb-2">
-                  {lang === "km" ? "ទិដ្ឋភាពទូទៅនៃបទបង្ហាញ" : "Presentation Structure"}
-                </div>
-                <h2 className="text-4xl font-extrabold text-[var(--tx)]">
-                  {lang === "km" ? "របៀបវារៈបទបង្ហាញ (Agenda)" : "Presentation Agenda"}
-                </h2>
-                <p className="text-base text-[var(--mu)] mt-1">
-                  {lang === "km"
-                    ? "ការបង្ហាញត្រូវបានបែងចែកជា ៣ ចំណុចស្នូល ស្របតាមការស្នើសុំជាក់ស្តែង"
-                    : "Structured around 3 pivotal pillars covering immediate status to strategic delivery."}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-3 gap-8">
-                {AGENDA_ITEMS.map((item, idx) => (
-                  <div
-                    key={item.key}
-                    onClick={() => goToSlide(idx === 0 ? 3 : idx === 1 ? 9 : 10)}
-                    className="interactive glass-panel p-8 flex flex-col justify-between group hover:border-[var(--pri)] transition-all cursor-pointer relative overflow-hidden"
-                  >
-                    <div className="absolute top-0 right-0 w-28 h-28 bg-[var(--pri)]/5 rounded-full blur-2xl group-hover:bg-[var(--pri)]/15 transition-all" />
-                    <div>
-                      <div className="text-4xl font-black text-[var(--pri)] opacity-60 mb-4">
-                        {item.num}
-                      </div>
-                      <div className="text-xs font-semibold uppercase tracking-wider text-[var(--cy)] mb-2">
-                        {lang === "km" ? item.tagKm : item.tagEn}
-                      </div>
-                      <h3 className="text-2xl font-bold text-[var(--tx)] mb-4 group-hover:text-[var(--pri)] transition-colors">
-                        {lang === "km" ? item.titleKm : item.titleEn}
-                      </h3>
-                      <p className="text-sm text-[var(--mu)] leading-relaxed">
-                        {lang === "km" ? item.descKm : item.descEn}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-2 mt-8 text-xs font-semibold text-[var(--pri)] group-hover:translate-x-1 transition-transform">
-                      <span>{lang === "km" ? "មើលព័ត៌មានលម្អិត" : "Jump to section"}</span>
-                      <ChevronRight className="w-4 h-4" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Department Notice Banner */}
-              <div className="glass-panel-subtle p-5 flex items-center justify-between border-l-4 border-amber-500">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold">
-                    !
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold text-[var(--tx)]">
-                      {lang === "km"
-                        ? "ចំណាំអំពីវិសាលភាពនាយកដ្ឋាន"
-                        : "Departmental Scope Context"}
-                    </div>
-                    <div className="text-xs text-[var(--mu)] mt-0.5">
-                      {lang === "km"
-                        ? "បច្ចុប្បន្នទិន្នន័យត្រូវបានរៀបចំសម្រាប់ នាយកដ្ឋានទូទៅ (១ ក្នុងចំណោម ៣)។ ទិន្នន័យសម្រាប់នាយកដ្ឋាន ២ ទៀត នឹងត្រូវបញ្ចូលជាបន្តបន្ទាប់។"
-                        : "Currently presenting complete data for Department 1 (General Department). The 2 remaining departments are in pipeline and will be appended upon receipt."}
-                    </div>
-                  </div>
-                </div>
+            <div className="ag">
+              {AGENDA_ITEMS.map((item, idx) => (
                 <button
-                  onClick={() => goToSlide(2)}
-                  className="interactive px-4 py-2 rounded-lg bg-[var(--panel)] border border-[var(--pb)] hover:border-[var(--pri)] text-xs font-semibold text-[var(--tx)]"
+                  key={item.key}
+                  className="a interactive"
+                  style={{ "--d": idx + 2 } as React.CSSProperties}
+                  onClick={() => {
+                    if (idx === 0) goToSlide(2);
+                    else if (idx === 1) goToSlide(7);
+                    else if (idx === 2) goToSlide(8);
+                  }}
                 >
-                  {lang === "km" ? "មើលផែនការនាយកដ្ឋាន" : "View Department Matrix"}
+                  <span className="n">{item.num}</span>
+                  <span className="ic soft">
+                    {idx === 0 && <Layers size={28} />}
+                    {idx === 1 && <AlertTriangle size={28} className="text-amber-400" />}
+                    {idx === 2 && <Clock size={28} className="text-emerald-400" />}
+                  </span>
+                  <span className="t">
+                    {lang === "km" ? item.titleKm : item.titleEn}
+                    <small>
+                      {lang === "km" ? item.descKm : item.descEn}
+                    </small>
+                  </span>
+                  <div className="mt-auto pt-6 flex items-center justify-between w-full border-t border-[var(--pb)]">
+                    <span className="text-xs font-mono text-[var(--pri)]">
+                      {lang === "km" ? item.tagKm : item.tagEn}
+                    </span>
+                    <span className="go">
+                      <ArrowRight size={18} />
+                    </span>
+                  </div>
                 </button>
-              </div>
+              ))}
             </div>
-          )}
+          </div>
+        </section>
 
-          {/* SLIDE 3: MULTI-DEPARTMENT SCOPE */}
-          {currentSlide === 2 && (
-            <div className="slide-content flex flex-col gap-8 h-full justify-center">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[var(--cy)] mb-2">
-                  {lang === "km" ? "វិសាលភាពស្ថាបត្យកម្ម" : "Architectural Scope"}
-                </div>
-                <h2 className="text-4xl font-extrabold text-[var(--tx)]">
-                  {lang === "km"
-                    ? "វិសាលភាពនៃនាយកដ្ឋានទាំង ៣ ក្នុងគម្រោង MME"
-                    : "Three-Department Transformation Matrix"}
-                </h2>
-                <p className="text-base text-[var(--mu)] mt-1">
-                  {lang === "km"
-                    ? "ប្រព័ន្ធត្រូវបានរៀបចំឡើងជាលក្ខណៈម៉ូឌុលដែលអាចពង្រីក (Scalable) ដើម្បីទទួលទិន្នន័យពីនាយកដ្ឋានទាំងអស់"
-                    : "Designed with a modular architecture ready to ingest and synchronize departmental data streams."}
-                </p>
+        {/* SLIDE 3: Department Scope (វិសាលភាពនាយកដ្ឋាន) */}
+        <section
+          className={`slide ${currentSlide === 2 ? "on" : ""}`}
+          data-label="Scope"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
+            </div>
+
+            <div className="head">
+              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? "០១ · វិសាលភាពនាយកដ្ឋាន" : "01 · Department Scope"}
               </div>
+              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    ស្ថានភាពទិន្នន័យ <span className="g">នៃនាយកដ្ឋានទាំង ៣</span>
+                  </>
+                ) : (
+                  <>
+                    Data Status of the <span className="g">3 Key Departments</span>
+                  </>
+                )}
+              </h2>
+              <p className="lead a" style={{ "--d": 2 } as React.CSSProperties}>
+                {lang === "km"
+                  ? "បច្ចុប្បន្នភាព៖ នាយកដ្ឋានទូទៅមានទិន្នន័យរួចរាល់ពេញលេញ ចំណែកនាយកដ្ឋានចំនួន ២ ទៀតកំពុងស្ថិតក្នុងការរៀបចំទិន្នន័យ"
+                  : "Current coverage: General Department has full data ready; 2 additional departments are in the active requirement pipeline."}
+              </p>
+            </div>
 
-              <div className="grid grid-cols-3 gap-8">
-                {DEPARTMENTS.map((dept, i) => (
-                  <div
-                    key={dept.id}
-                    className={`glass-panel p-8 flex flex-col justify-between border-2 ${
-                      dept.status === "active"
-                        ? "border-[var(--pri)] bg-[var(--pri)]/5 shadow-lg shadow-[var(--pri)]/10"
-                        : "border-[var(--pb)] opacity-85"
-                    }`}
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-xs font-bold uppercase tracking-widest text-[var(--mu)]">
-                          {`Dept 0${i + 1}`}
-                        </span>
-                        <span
-                          className={`text-xs px-3 py-1 rounded-full font-semibold ${
-                            dept.status === "active"
-                              ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
-                              : "bg-amber-500/15 text-amber-400 border border-amber-500/30"
-                          }`}
-                        >
-                          {lang === "km" ? dept.statusKm : dept.statusEn}
-                        </span>
-                      </div>
-
-                      <h3 className="text-2xl font-bold text-[var(--tx)] mb-2">
-                        {lang === "km" ? dept.nameKm : dept.nameEn}
-                      </h3>
-                      <div className="text-xs font-semibold text-[var(--cy)] mb-4">
-                        {lang === "km" ? dept.badgeKm : dept.badgeEn}
-                      </div>
-
-                      <p className="text-sm text-[var(--mu)] leading-relaxed mb-6">
-                        {lang === "km" ? dept.descriptionKm : dept.descriptionEn}
-                      </p>
-                    </div>
-
-                    <div className="pt-6 border-t border-[var(--pb)]">
+            <div className="scope-grid">
+              {DEPARTMENTS.map((dept, idx) => (
+                <div
+                  key={dept.id}
+                  className={`scope-card ${dept.status === "active" ? "active" : "pending"} a`}
+                  style={{ "--d": idx + 2 } as React.CSSProperties}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className={`chip ${dept.status === "active" ? "grn" : "amb"}`}>
                       {dept.status === "active" ? (
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between text-xs">
-                            <span className="text-[var(--mu)]">
-                              {lang === "km" ? "សមាសភាគគម្រោង:" : "Project Components:"}
-                            </span>
-                            <span className="font-bold text-[var(--tx)]">5 Modules</span>
-                          </div>
-                          <div className="flex items-center justify-between text-xs">
-                            <span className="text-[var(--mu)]">
-                              {lang === "km" ? "សេវាដំណើរការផ្លូវការ:" : "Live Services:"}
-                            </span>
-                            <span className="font-bold text-emerald-400">1 (Meeting Room)</span>
-                          </div>
-                          <div className="flex items-center justify-between text-xs">
-                            <span className="text-[var(--mu)]">
-                              {lang === "km" ? "ការងាររៀបចំប្រព័ន្ធ:" : "In System Setup:"}
-                            </span>
-                            <span className="font-bold text-[var(--pri)]">4 Modules</span>
-                          </div>
-                        </div>
+                        <>
+                          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                          {lang === "km" ? dept.statusKm : dept.statusEn}
+                        </>
                       ) : (
-                        <div className="py-4 text-center">
-                          <Clock className="w-8 h-8 text-amber-400/60 mx-auto mb-2 animate-bounce" />
-                          <div className="text-xs font-semibold text-[var(--tx)]">
-                            {lang === "km"
-                              ? "រង់ចាំការបញ្ជូនទិន្នន័យដំណាក់កាលទី ២"
-                              : "Phase 2 Data Gathering in Progress"}
-                          </div>
-                          <div className="text-[11px] text-[var(--mu)] mt-1">
-                            {lang === "km"
-                              ? "ម៉ូឌុលប្រព័ន្ធបានត្រៀមរួចរាល់សម្រាប់ភ្ជាប់"
-                              : "System slots pre-configured for instant intake"}
-                          </div>
-                        </div>
+                        <>
+                          <Clock size={14} />
+                          {lang === "km" ? dept.statusKm : dept.statusEn}
+                        </>
                       )}
-                    </div>
+                    </span>
+                    <span className="font-mono text-xs text-[var(--mu)]">
+                      {idx === 0 ? "DEP-01" : idx === 1 ? "DEP-02" : "DEP-03"}
+                    </span>
                   </div>
-                ))}
-              </div>
 
-              <div className="flex items-center justify-end">
-                <button
-                  onClick={() => goToSlide(3)}
-                  className="interactive flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--panel)] border border-[var(--pb)] hover:border-[var(--pri)] text-sm font-semibold text-[var(--tx)]"
-                >
-                  <span>
-                    {lang === "km"
-                      ? "បន្តទៅសង្ខេបវឌ្ឍភាពនាយកដ្ឋានទូទៅ"
-                      : "Proceed to General Department Status"}
-                  </span>
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
+                  <h3>{lang === "km" ? dept.nameKm : dept.nameEn}</h3>
+                  <p className="text-sm text-[var(--mu)] leading-relaxed">
+                    {lang === "km" ? dept.descriptionKm : dept.descriptionEn}
+                  </p>
+
+                  <div className="scope-items">
+                    {idx === 0 ? (
+                      <>
+                        <div className="scope-item">
+                          <Check size={18} className="text-emerald-400" />
+                          <span>{lang === "km" ? "១.១ ប្រតិបត្តិការ & បន្ទប់ប្រជុំ (ផ្សាយបន្តផ្ទាល់)" : "1.1 Meeting Room & Supply (Live)"}</span>
+                        </div>
+                        <div className="scope-item">
+                          <Check size={18} className="text-emerald-400" />
+                          <span>{lang === "km" ? "១.២ បេសកកម្ម & ប្រាក់បៀវត្ស (សិក្សារួចរាល់)" : "1.2 Mission & Payroll (Studied)"}</span>
+                        </div>
+                        <div className="scope-item">
+                          <Check size={18} className="text-emerald-400" />
+                          <span>{lang === "km" ? "១.៣ ការគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ (រៀបចំកូដ)" : "1.3 State Assets Management (In Progress)"}</span>
+                        </div>
+                        <div className="scope-item">
+                          <Check size={18} className="text-emerald-400" />
+                          <span>{lang === "km" ? "១.៤ ផែនការ & ថវិកា (ត្រៀមដាក់ឱ្យប្រើ)" : "1.4 Planning & Budgeting (UAT Stage)"}</span>
+                        </div>
+                        <div className="scope-item">
+                          <Check size={18} className="text-emerald-400" />
+                          <span>{lang === "km" ? "១.៥ ឯកសារអគ្គលេខាធិការដ្ឋាន (អភិវឌ្ឍរួចរាល់)" : "1.5 Secretariat Documents (Dev Complete)"}</span>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="scope-item opacity-60">
+                          <Clock size={18} className="text-amber-400" />
+                          <span>{lang === "km" ? "ការកំណត់វិសាលភាពការងាររួម" : "Requirement scope definition"}</span>
+                        </div>
+                        <div className="scope-item opacity-60">
+                          <Clock size={18} className="text-amber-400" />
+                          <span>{lang === "km" ? "ការប្រមូលទម្រង់ឯកសាររដ្ឋបាល" : "Form & document collection"}</span>
+                        </div>
+                        <div className="scope-item opacity-60">
+                          <Clock size={18} className="text-amber-400" />
+                          <span>{lang === "km" ? "ការកំណត់សិទ្ធិ និងតួនាទីអ្នកប្រើប្រាស់" : "User roles & approval matrix"}</span>
+                        </div>
+                        <div className="scope-item opacity-60">
+                          <Clock size={18} className="text-amber-400" />
+                          <span>{lang === "km" ? "រង់ចាំការសម្របសម្រួលទិន្នន័យ" : "Pending stakeholder data intake"}</span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  <div className="mt-auto pt-6 border-t border-[var(--pb)] flex items-center justify-between text-xs">
+                    <span className="text-[var(--mu)] font-mono">
+                      {idx === 0
+                        ? (lang === "km" ? "សមាសភាគ៖ ៥ / ៥ រួចរាល់" : "Components: 5 / 5 Studied")
+                        : (lang === "km" ? "ដំណាក់កាលបន្ទាប់" : "Next Phase Pipeline")}
+                    </span>
+                    <span className={`font-bold ${idx === 0 ? "text-[var(--grn)]" : "text-[var(--amb)]"}`}>
+                      {idx === 0 ? "100% INCLUDED" : "PIPELINE"}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
-          )}
+          </div>
+        </section>
 
-          {/* SLIDE 4: GENERAL DEPARTMENT - EXECUTIVE SUMMARY */}
-          {currentSlide === 3 && (
-            <div className="slide-content flex flex-col gap-6 h-full justify-center">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[var(--pri)] mb-2">
-                  {lang === "km" ? "ចំណុចទី ១ · សេចក្តីសង្ខេបប្រតិបត្តិ" : "Agenda 01 · Executive Summary"}
-                </div>
-                <h2 className="text-4xl font-extrabold text-[var(--tx)]">
-                  {lang === "km"
-                    ? "ស្ថានភាពវឌ្ឍភាពទូទៅនៃនាយកដ្ឋានទូទៅ (Progress Snapshot)"
-                    : "General Department: Progress & Status Snapshot"}
-                </h2>
-                <p className="text-base text-[var(--mu)] mt-1">
-                  {lang === "km"
-                    ? "ការបែងចែកសមាសភាគទាំង ៥ ទៅតាមស្ថានភាពជាក់ស្តែងនៃការអនុវត្ត"
-                    : "System readiness across operations, personnel, finance, assets, and document management."}
-                </p>
+        {/* SLIDE 4: Part 1 - Component 1 & 2 */}
+        <section
+          className={`slide ${currentSlide === 3 ? "on" : ""}`}
+          data-label="Components 1 & 2"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
+            </div>
+
+            <div className="head">
+              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? "០២ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ" : "02 · General Department Progress"}
               </div>
+              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    សមាសភាគទី១ & ទី២៖ <span className="g">ប្រតិបត្តិការ បេសកកម្ម & បៀវត្ស</span>
+                  </>
+                ) : (
+                  <>
+                    Component 1 & 2: <span className="g">Operations, Mission & Payroll</span>
+                  </>
+                )}
+              </h2>
+            </div>
 
-              {/* 4 KPI Metric Cards */}
-              <div className="grid grid-cols-4 gap-6">
-                <div className="glass-panel p-6 border-l-4 border-emerald-400">
-                  <div className="flex items-center justify-between text-xs text-[var(--mu)] mb-2">
-                    <span>{lang === "km" ? "សេវាដំណើរការផ្លូវការ" : "Officially Live"}</span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+            <div className="comp-split">
+              {/* Component 1.1 */}
+              <div className="comp-box a" style={{ "--d": 2 } as React.CSSProperties}>
+                <div className="comp-box-header">
+                  <div>
+                    <span className="chip grn text-xs mb-2">
+                      {lang === "km" ? "ស្ថានភាព៖ ដាក់ឱ្យប្រើប្រាស់ជាក់ស្តែង (Live)" : "Status: Live in Production"}
+                    </span>
+                    <h3>{lang === "km" ? COMPONENTS_DATA[0].titleKm : COMPONENTS_DATA[0].titleEn}</h3>
                   </div>
-                  <div className="text-4xl font-extrabold text-emerald-400 mb-1">
-                    100%
-                  </div>
-                  <div className="text-sm font-bold text-[var(--tx)]">
-                    {lang === "km" ? "សេវាបន្ទប់ប្រជុំ" : "Meeting Room Service"}
-                  </div>
-                  <div className="text-xs text-[var(--mu)] mt-1">
-                    {lang === "km" ? "ដាក់ឱ្យមន្ត្រីប្រើប្រាស់ពេញលេញ" : "Fully deployed across MME"}
-                  </div>
+                  <span className="ic grn">
+                    <Check size={26} />
+                  </span>
                 </div>
-
-                <div className="glass-panel p-6 border-l-4 border-[var(--pri)]">
-                  <div className="flex items-center justify-between text-xs text-[var(--mu)] mb-2">
-                    <span>{lang === "km" ? "រៀបចំប្រព័ន្ធរួចរាល់" : "System Setup Ready"}</span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-[var(--pri)]" />
-                  </div>
-                  <div className="text-4xl font-extrabold text-[var(--pri)] mb-1">
-                    60% - 65%
-                  </div>
-                  <div className="text-sm font-bold text-[var(--tx)]">
-                    {lang === "km" ? "ឯកសារ & ស្នើសុំបេសកកម្ម" : "Secretariat Docs & Mission"}
-                  </div>
-                  <div className="text-xs text-[var(--mu)] mt-1">
-                    {lang === "km" ? "កំពុងត្រៀមធ្វើតេស្តសាកល្បង UAT" : "Prepared for user acceptance"}
-                  </div>
-                </div>
-
-                <div className="glass-panel p-6 border-l-4 border-amber-400">
-                  <div className="flex items-center justify-between text-xs text-[var(--mu)] mb-2">
-                    <span>{lang === "km" ? "បានសិក្សាតម្រូវការ" : "User Studied"}</span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                  </div>
-                  <div className="text-4xl font-extrabold text-amber-400 mb-1">
-                    10%
-                  </div>
-                  <div className="text-sm font-bold text-[var(--tx)]">
-                    {lang === "km" ? "ថែទាំ ផ្គត់ផ្គង់ ទ្រព្យ & ផែនការ" : "Ops, Supply, Assets, Budget"}
-                  </div>
-                  <div className="text-xs text-[var(--mu)] mt-1">
-                    {lang === "km" ? "បានប្រមូលតម្រូវការពីមន្ត្រីរួចរាល់" : "Ready for specification sign-off"}
-                  </div>
-                </div>
-
-                <div className="glass-panel p-6 border-l-4 border-rose-400">
-                  <div className="flex items-center justify-between text-xs text-[var(--mu)] mb-2">
-                    <span>{lang === "km" ? "រង់ចាំការសម្រេចពីក្រសួង" : "Pending Inter-Ministry"}</span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-400" />
-                  </div>
-                  <div className="text-4xl font-extrabold text-rose-400 mb-1">
-                    Pending
-                  </div>
-                  <div className="text-sm font-bold text-[var(--tx)]">
-                    {lang === "km" ? "ដំណើរការប្រាក់បៀវត្ស" : "Payroll Processing"}
-                  </div>
-                  <div className="text-xs text-[var(--mu)] mt-1">
-                    {lang === "km" ? "ត្រូវការការសិក្សាជាមួយក្រសួងបន្ថែម" : "Awaiting joint MEF study"}
-                  </div>
-                </div>
-              </div>
-
-              {/* Component Overview Quick Navigation Bar */}
-              <div className="glass-panel p-6">
-                <div className="text-xs font-bold uppercase tracking-wider text-[var(--tx)] mb-4">
-                  {lang === "km" ? "បញ្ជីសមាសភាគទាំង ៥ (ចុចដើម្បីពិនិត្យលម្អិត):" : "Component Drilldown Navigator:"}
-                </div>
-                <div className="grid grid-cols-5 gap-4">
-                  {COMPONENTS_DATA.map((comp, idx) => (
-                    <div
-                      key={comp.id}
-                      onClick={() => goToSlide(4 + idx)}
-                      className="interactive glass-panel-subtle p-4 hover:border-[var(--pri)] hover:bg-[var(--pri)]/10 transition-all cursor-pointer flex flex-col justify-between"
-                    >
+                <div className="comp-list">
+                  {COMPONENTS_DATA[0].subtasks.map((item, i) => (
+                    <div key={item.id} className="comp-list-item">
+                      <span className="badge-num">{i + 1}</span>
                       <div>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs font-bold text-[var(--cy)]">{comp.num}</span>
-                          <span className="text-xs font-extrabold text-[var(--tx)]">{comp.overallProgress}%</span>
-                        </div>
-                        <div className="text-xs font-bold text-[var(--tx)] line-clamp-2">
-                          {lang === "km" ? comp.titleKm : comp.titleEn}
-                        </div>
+                        <h4>{lang === "km" ? item.titleKm : item.titleEn}</h4>
+                        <p>{lang === "km" ? item.notesKm : item.notesEn}</p>
                       </div>
-                      <div className="w-full bg-[var(--pb)] h-1.5 rounded-full overflow-hidden mt-3">
-                        <div
-                          className={`h-full ${
-                            comp.overallProgress >= 60
-                              ? "bg-emerald-400"
-                              : comp.overallProgress >= 30
-                              ? "bg-[var(--pri)]"
-                              : "bg-amber-400"
-                          }`}
-                          style={{ width: `${comp.overallProgress}%` }}
-                        />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Component 1.2 */}
+              <div className="comp-box a" style={{ "--d": 3 } as React.CSSProperties}>
+                <div className="comp-box-header">
+                  <div>
+                    <span className="chip pri text-xs mb-2">
+                      {lang === "km" ? "ស្ថានភាព៖ សិក្សាចប់ & ត្រៀមអនុវត្ត" : "Status: Studied & Ready"}
+                    </span>
+                    <h3>{lang === "km" ? COMPONENTS_DATA[1].titleKm : COMPONENTS_DATA[1].titleEn}</h3>
+                  </div>
+                  <span className="ic soft">
+                    <Layers size={26} />
+                  </span>
+                </div>
+                <div className="comp-list">
+                  {COMPONENTS_DATA[1].subtasks.map((item, i) => (
+                    <div key={item.id} className="comp-list-item">
+                      <span className="badge-num">{i + 1}</span>
+                      <div>
+                        <h4>{lang === "km" ? item.titleKm : item.titleEn}</h4>
+                        <p>{lang === "km" ? item.notesKm : item.notesEn}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-          )}
+          </div>
+        </section>
 
-          {/* SLIDE 5: COMPONENT 1 - OPERATIONAL SUPPORT, SUPPLY & MEETING ROOMS */}
-          {currentSlide === 4 && (
-            <div className="slide-content flex flex-col gap-6 h-full justify-center">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[var(--pri)] mb-2">
-                  {lang === "km" ? "សមាសភាគទី ១ · នាយកដ្ឋានទូទៅ" : "Component 01 · General Department"}
-                </div>
-                <h2 className="text-4xl font-extrabold text-[var(--tx)]">
-                  {lang === "km"
-                    ? "១.១. ការងារថែទាំ ផ្គត់ផ្គង់ និងសេវាបន្ទប់ប្រជុំ"
-                    : "1.1. Facilities, Supply Procurement, & Meeting Rooms"}
-                </h2>
-                <p className="text-base text-[var(--mu)] mt-1">
-                  {lang === "km"
-                    ? "ការដាក់ដំណើរការសេវាបន្ទប់ប្រជុំ (Quick Win) និងការសិក្សាតម្រូវការសម្ភារ"
-                    : "Highlighting our first fully deployed operational service alongside supply chain requirements."}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-3 gap-6">
-                {COMPONENTS_DATA[0].subtasks.map((task) => (
-                  <div
-                    key={task.id}
-                    className={`glass-panel p-6 flex flex-col justify-between border-2 ${
-                      task.status === "live"
-                        ? "border-emerald-400/70 bg-emerald-500/5 shadow-lg shadow-emerald-500/10"
-                        : "border-[var(--pb)]"
-                    }`}
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-xs font-bold px-2.5 py-1 rounded bg-[var(--panel2)] text-[var(--cy)]">
-                          {task.id}
-                        </span>
-                        <span
-                          className={`text-xs px-3 py-1 rounded-full font-bold ${
-                            task.status === "live"
-                              ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
-                              : "bg-amber-500/20 text-amber-300 border border-amber-500/40"
-                          }`}
-                        >
-                          {lang === "km" ? task.statusKm : task.statusEn}
-                        </span>
-                      </div>
-
-                      <h3 className="text-xl font-bold text-[var(--tx)] mb-3">
-                        {lang === "km" ? task.titleKm : task.titleEn}
-                      </h3>
-
-                      <p className="text-sm text-[var(--mu)] leading-relaxed mb-6">
-                        {lang === "km" ? task.notesKm : task.notesEn}
-                      </p>
-                    </div>
-
-                    <div className="pt-4 border-t border-[var(--pb)]">
-                      <div className="flex items-center justify-between text-xs font-bold mb-2">
-                        <span className="text-[var(--mu)]">
-                          {lang === "km" ? "វឌ្ឍភាពជាក់ស្តែង:" : "Progress Rate:"}
-                        </span>
-                        <span
-                          className={
-                            task.progress === 100
-                              ? "text-emerald-400 text-base"
-                              : "text-amber-400 text-base"
-                          }
-                        >
-                          {task.progress}%
-                        </span>
-                      </div>
-                      <div className="w-full bg-[var(--pb)] h-2 rounded-full overflow-hidden">
-                        <div
-                          className={`h-full transition-all duration-700 ${
-                            task.progress === 100 ? "bg-emerald-400" : "bg-amber-400"
-                          }`}
-                          style={{ width: `${task.progress}%` }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Success Callout for Meeting Room */}
-              <div className="glass-panel p-4 flex items-center justify-between border-l-4 border-emerald-400 bg-emerald-500/5">
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0" />
-                  <div className="text-sm text-[var(--tx)]">
-                    <b className="text-emerald-400">
-                      {lang === "km" ? "សមិទ្ធផលជោគជ័យ (Live):" : "Deployed Live:"}
-                    </b>{" "}
-                    {lang === "km"
-                      ? "សេវាបន្ទប់ប្រជុំបានដាក់ឱ្យដំណើរការជាផ្លូវការ (១០០%) រួចហើយ កាត់បន្ថយការជាន់កាលវិភាគ និងបង្កើនប្រសិទ្ធភាពកិច្ចប្រជុំទូទាំងក្រសួង។"
-                      : "The Meeting Room Booking Service is 100% operational, resolving reservation conflicts and providing an instant shared schedule across MME."}
-                  </div>
-                </div>
-              </div>
+        {/* SLIDE 5: Part 2 - Component 3 & 4 */}
+        <section
+          className={`slide ${currentSlide === 4 ? "on" : ""}`}
+          data-label="Components 3 & 4"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
             </div>
-          )}
 
-          {/* SLIDE 6: COMPONENT 2 - MISSION REQUESTS & PAYROLL */}
-          {currentSlide === 5 && (
-            <div className="slide-content flex flex-col gap-6 h-full justify-center">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[var(--pri)] mb-2">
-                  {lang === "km" ? "សមាសភាគទី ២ · នាយកដ្ឋានទូទៅ" : "Component 02 · General Department"}
-                </div>
-                <h2 className="text-4xl font-extrabold text-[var(--tx)]">
-                  {lang === "km"
-                    ? "១.២. ការស្នើសុំបេសកកម្ម និងដំណើរការប្រាក់បៀវត្ស"
-                    : "1.2. Mission Requests & Payroll Processing"}
-                </h2>
-                <p className="text-base text-[var(--mu)] mt-1">
-                  {lang === "km"
-                    ? "វឌ្ឍភាពរៀបចំប្រព័ន្ធបេសកកម្ម (៦៥%) និងស្ថានភាពរង់ចាំការសម្របសម្រួលប្រាក់បៀវត្ស"
-                    : "Comparing ready administrative workflows against external inter-ministerial requirements."}
-                </p>
+            <div className="head">
+              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? "០៣ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ" : "03 · General Department Progress"}
               </div>
-
-              <div className="grid grid-cols-2 gap-8">
-                {/* 1.2.1 Mission Request */}
-                <div className="glass-panel p-8 border-2 border-[var(--pri)]/60 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs font-bold px-3 py-1 rounded bg-[var(--panel2)] text-[var(--cy)]">
-                        1.2.1
-                      </span>
-                      <span className="text-xs px-3.5 py-1.5 rounded-full font-bold bg-[var(--pri)]/20 text-[var(--pri)] border border-[var(--pri)]/40">
-                        {lang === "km" ? "ការរៀបចំប្រព័ន្ធរួចរាល់ (៦៥%)" : "System Setup Ready (65%)"}
-                      </span>
-                    </div>
-
-                    <h3 className="text-2xl font-bold text-[var(--tx)] mb-3">
-                      {lang === "km" ? "ការស្នើសុំបេសកកម្ម" : "Mission Request Workflow"}
-                    </h3>
-
-                    <p className="text-sm text-[var(--mu)] leading-relaxed mb-6">
-                      {lang === "km"
-                        ? "ទម្រង់បែបបទស្នើសុំឌីជីថល លំហូរការងារពិនិត្យ និងអនុម័តតាមឋានានុក្រម ព្រមទាំងការគណនាប្រាក់ឧបត្ថម្ភបេសកកម្ម បានរៀបចំក្នុងប្រព័ន្ធរួចរាល់។"
-                        : "Digital application forms, hierarchical review approvals, and allowance calculation workflows are structured and ready for final pilot verification."}
-                    </p>
-
-                    <div className="space-y-2 mb-6 text-xs text-[var(--tx)]">
-                      <div className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-emerald-400" />
-                        <span>{lang === "km" ? "ទម្រង់ស្នើសុំបេសកកម្មឌីជីថល" : "Digital Mission Requisition Forms"}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-emerald-400" />
-                        <span>{lang === "km" ? "ខ្សែសង្វាក់អនុម័តតាមឋានានុក្រម" : "Multi-tiered Approval Routing"}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-[var(--mu)]">
-                        <Clock className="w-4 h-4 text-amber-400" />
-                        <span>{lang === "km" ? "ត្រៀមធ្វើតេស្តសាកល្បង UAT (៣៥% នៅសល់)" : "Remaining: Staff UAT & Final Rollout"}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-[var(--pb)]">
-                    <div className="flex items-center justify-between text-xs font-bold mb-2">
-                      <span className="text-[var(--mu)]">{lang === "km" ? "វឌ្ឍភាព:" : "Progress:"}</span>
-                      <span className="text-[var(--pri)] text-lg">65%</span>
-                    </div>
-                    <div className="w-full bg-[var(--pb)] h-2 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-[var(--pri2)] to-[var(--pri)]" style={{ width: "65%" }} />
-                    </div>
-                  </div>
-                </div>
-
-                {/* 1.2.2 Payroll Process */}
-                <div className="glass-panel p-8 border-2 border-rose-500/50 flex flex-col justify-between bg-rose-500/5">
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs font-bold px-3 py-1 rounded bg-[var(--panel2)] text-rose-400">
-                        1.2.2
-                      </span>
-                      <span className="text-xs px-3.5 py-1.5 rounded-full font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40 animate-pulse">
-                        {lang === "km" ? "រង់ចាំការសិក្សាជាមួយក្រសួងបន្ថែម (Pending)" : "Pending Joint Study with Ministry"}
-                      </span>
-                    </div>
-
-                    <h3 className="text-2xl font-bold text-[var(--tx)] mb-3">
-                      {lang === "km" ? "ដំណើរការប្រាក់បៀវត្ស" : "Payroll Processing System"}
-                    </h3>
-
-                    <p className="text-sm text-[var(--mu)] leading-relaxed mb-6">
-                      {lang === "km"
-                        ? "ការងារនេះទាមទារការសម្របសម្រួល និងសិក្សាបន្ថែមជាមួយក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ (MEF) ដើម្បីធានាបាននូវភាពត្រឹមត្រូវនៃរូបមន្ត និងប្រព័ន្ធទូទាត់។"
-                        : "Requires formal inter-ministerial coordination with the Ministry of Economy and Finance regarding standardized salary grids, tax rules, and banking integration."}
-                    </p>
-
-                    <div className="glass-panel-subtle p-4 rounded-xl border border-rose-500/30 text-xs space-y-2 mb-4">
-                      <div className="font-bold text-rose-400 flex items-center gap-2">
-                        <AlertTriangle className="w-4 h-4" />
-                        <span>{lang === "km" ? "មូលហេតុនៃការពន្យារពេល:" : "Pending Reason:"}</span>
-                      </div>
-                      <p className="text-[var(--mu)] leading-relaxed">
-                        {lang === "km"
-                          ? "ទាមទារទម្រង់ទិន្នន័យរួម និងគោលការណ៍ណែនាំបច្ចេកទេសផ្លូវការពីក្រសួងពាក់ព័ន្ធ មុនពេលអាចបញ្ចប់ការកំណត់ប្រព័ន្ធស្វ័យប្រវត្តិកម្ម។"
-                          : "Awaiting unified external schema and guidelines from governing ministries prior to locking system automation logic."}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-[var(--pb)]">
-                    <div className="flex items-center justify-between text-xs font-bold mb-2">
-                      <span className="text-[var(--mu)]">{lang === "km" ? "ស្ថានភាព:" : "Status:"}</span>
-                      <span className="text-rose-400 text-sm">{lang === "km" ? "រង់ចាំកិច្ចប្រជុំអន្តរក្រសួង" : "Awaiting Inter-Ministry Meeting"}</span>
-                    </div>
-                    <div className="w-full bg-[var(--pb)] h-2 rounded-full overflow-hidden">
-                      <div className="h-full bg-rose-500" style={{ width: "10%" }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    សមាសភាគទី៣ & ទី៤៖ <span className="g">ទ្រព្យសម្បត្តិរដ្ឋ ផែនការ & ថវិកា</span>
+                  </>
+                ) : (
+                  <>
+                    Component 3 & 4: <span className="g">State Assets, Planning & Budgeting</span>
+                  </>
+                )}
+              </h2>
             </div>
-          )}
 
-          {/* SLIDE 7: COMPONENTS 3 & 4 - STATE ASSETS & PLANNING/BUDGETING */}
-          {currentSlide === 6 && (
-            <div className="slide-content flex flex-col gap-6 h-full justify-center">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[var(--pri)] mb-2">
-                  {lang === "km" ? "សមាសភាគទី ៣ & ៤ · នាយកដ្ឋានទូទៅ" : "Components 03 & 04 · General Department"}
-                </div>
-                <h2 className="text-4xl font-extrabold text-[var(--tx)]">
-                  {lang === "km"
-                    ? "១.៣. ទ្រព្យសម្បត្តិរដ្ឋ & ១.៤. ផែនការ ថវិកា និងការតាមដានត្រួតពិនិត្យ"
-                    : "1.3. State Assets & 1.4. Planning, Budgeting, & Evaluation"}
-                </h2>
-                <p className="text-base text-[var(--mu)] mt-1">
-                  {lang === "km"
-                    ? "ស្ថានភាពបច្ចុប្បន្នបានបញ្ចប់ការសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (១០%) និងត្រៀមបន្តទៅដំណាក់កាលអភិវឌ្ឍ"
-                    : "Requirements surveyed; ready for technical specification approval and database architecture."}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-8">
-                {/* Component 1.3 */}
-                <div className="glass-panel p-8 flex flex-col justify-between">
+            <div className="comp-split">
+              {/* Component 1.3 */}
+              <div className="comp-box a" style={{ "--d": 2 } as React.CSSProperties}>
+                <div className="comp-box-header">
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs font-bold px-3 py-1 rounded bg-[var(--panel2)] text-[var(--cy)]">
-                        1.3
-                      </span>
-                      <span className="text-xs px-3.5 py-1.5 rounded-full font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                        {lang === "km" ? "បានសិក្សាតម្រូវការ (១០%)" : "User Studied (10%)"}
-                      </span>
-                    </div>
-
-                    <h3 className="text-2xl font-bold text-[var(--tx)] mb-3">
-                      {lang === "km"
-                        ? "ប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ"
-                        : "State Asset Management System"}
-                    </h3>
-
-                    <p className="text-sm text-[var(--mu)] leading-relaxed mb-6">
-                      {lang === "km"
-                        ? "បានសិក្សាលម្អិតអំពីចំណាត់ថ្នាក់ទ្រព្យសម្បត្តិរដ្ឋ ការគ្រប់គ្រងវដ្តជីវិតទ្រព្យ ការចុះបញ្ជីសម្ភារ និងការតាមដានទីតាំងទ្រព្យសម្បត្តិ។"
-                        : "Comprehensive field survey completed on state asset classification, lifecycle auditing, barcode/QR tracking, and inventory deprecation rules."}
-                    </p>
-
-                    <div className="space-y-3 mb-6 text-xs text-[var(--tx)]">
-                      <div className="p-3 rounded-lg bg-[var(--panel2)] border border-[var(--pb)] flex items-center justify-between">
-                        <span>{lang === "km" ? "ការកំណត់រចនាសម្ព័ន្ធបាកូដ / QR កូដ" : "Barcode & QR Tagging Model"}</span>
-                        <span className="text-emerald-400 font-bold">{lang === "km" ? "បានសិក្សា" : "Mapped"}</span>
-                      </div>
-                      <div className="p-3 rounded-lg bg-[var(--panel2)] border border-[var(--pb)] flex items-center justify-between">
-                        <span>{lang === "km" ? "ការចុះហត្ថលេខាឯកភាពលើឯកសារតម្រូវការ" : "User Requirement Sign-off"}</span>
-                        <span className="text-amber-400 font-bold">{lang === "km" ? "ជំហានបន្ទាប់" : "Next Step"}</span>
-                      </div>
-                    </div>
+                    <span className="chip amb text-xs mb-2">
+                      {lang === "km" ? "ស្ថានភាព៖ កំពុងរៀបចំកូដ & ទម្រង់" : "Status: Coding Standard In Progress"}
+                    </span>
+                    <h3>{lang === "km" ? COMPONENTS_DATA[2].titleKm : COMPONENTS_DATA[2].titleEn}</h3>
                   </div>
-
-                  <div className="pt-4 border-t border-[var(--pb)]">
-                    <div className="flex items-center justify-between text-xs font-bold mb-2">
-                      <span className="text-[var(--mu)]">{lang === "km" ? "វឌ្ឍភាព:" : "Progress:"}</span>
-                      <span className="text-amber-400 text-lg">10%</span>
-                    </div>
-                    <div className="w-full bg-[var(--pb)] h-2 rounded-full overflow-hidden">
-                      <div className="h-full bg-amber-400" style={{ width: "10%" }} />
-                    </div>
-                  </div>
+                  <span className="ic amb">
+                    <ShieldCheck size={26} />
+                  </span>
                 </div>
-
-                {/* Component 1.4 */}
-                <div className="glass-panel p-8 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs font-bold px-3 py-1 rounded bg-[var(--panel2)] text-[var(--cy)]">
-                        1.4
-                      </span>
-                      <span className="text-xs px-3.5 py-1.5 rounded-full font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                        {lang === "km" ? "បានសិក្សាតម្រូវការ (១០%)" : "User Studied (10%)"}
-                      </span>
-                    </div>
-
-                    <h3 className="text-2xl font-bold text-[var(--tx)] mb-3">
-                      {lang === "km"
-                        ? "ប្រព័ន្ធគ្រប់គ្រងផែនការ ថវិកា និងការវាយតម្លៃ"
-                        : "Planning, Budgeting, & Evaluation System"}
-                    </h3>
-
-                    <p className="text-sm text-[var(--mu)] leading-relaxed mb-6">
-                      {lang === "km"
-                        ? "បានប្រមូល និងចងក្រងតម្រូវការលើការរៀបចំផែនការសកម្មភាពប្រចាំឆ្នាំ ការបែងចែកថវិកា និងការតាមដានវាយតម្លៃលទ្ធផលការងារ (M&E)។"
-                        : "Requirements mapped for annual work plans, budget disbursement tracking, project progress indicators, and quarterly performance evaluation."}
-                    </p>
-
-                    <div className="space-y-3 mb-6 text-xs text-[var(--tx)]">
-                      <div className="p-3 rounded-lg bg-[var(--panel2)] border border-[var(--pb)] flex items-center justify-between">
-                        <span>{lang === "km" ? "ក្របខ័ណ្ឌសូចនាករគន្លឹះ (KPI Framework)" : "Strategic KPI Matrix Definition"}</span>
-                        <span className="text-emerald-400 font-bold">{lang === "km" ? "បានសិក្សា" : "Defined"}</span>
-                      </div>
-                      <div className="p-3 rounded-lg bg-[var(--panel2)] border border-[var(--pb)] flex items-center justify-between">
-                        <span>{lang === "km" ? "ការតភ្ជាប់ទៅនឹងតារាងគណនេយ្យថវិកា" : "Budget Ledger Interface Design"}</span>
-                        <span className="text-amber-400 font-bold">{lang === "km" ? "ជំហានបន្ទាប់" : "Next Step"}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-[var(--pb)]">
-                    <div className="flex items-center justify-between text-xs font-bold mb-2">
-                      <span className="text-[var(--mu)]">{lang === "km" ? "វឌ្ឍភាព:" : "Progress:"}</span>
-                      <span className="text-amber-400 text-lg">10%</span>
-                    </div>
-                    <div className="w-full bg-[var(--pb)] h-2 rounded-full overflow-hidden">
-                      <div className="h-full bg-amber-400" style={{ width: "10%" }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* SLIDE 8: COMPONENT 5 - DOCUMENT MANAGEMENT FOR GENERAL SECRETARIAT */}
-          {currentSlide === 7 && (
-            <div className="slide-content flex flex-col gap-6 h-full justify-center">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[var(--pri)] mb-2">
-                  {lang === "km" ? "សមាសភាគទី ៥ · អគ្គលេខាធិការដ្ឋាន" : "Component 05 · General Secretariat"}
-                </div>
-                <div className="flex items-center justify-between">
-                  <h2 className="text-4xl font-extrabold text-[var(--tx)]">
-                    {lang === "km"
-                      ? "១.៥. ប្រព័ន្ធគ្រប់គ្រងឯកសារសម្រាប់អគ្គលេខាធិការដ្ឋាន (៦០%)"
-                      : "1.5. Document Management System (60% Setup Ready)"}
-                  </h2>
-                  <div className="px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold text-sm">
-                    {lang === "km" ? "ការរៀបចំប្រព័ន្ធរួចរាល់" : "System Setup Ready"}
-                  </div>
-                </div>
-                <p className="text-base text-[var(--mu)] mt-1">
-                  {lang === "km"
-                    ? "ម៉ូឌុលទាំង ៣ នៃប្រព័ន្ធឯកសារត្រូវបានរៀបចំរួចរាល់ កំពុងត្រៀមធ្វើតេស្តសាកល្បងផ្ទៃក្នុង"
-                    : "Three core modules for document entry, encrypted storage, and QR verification are configured."}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-3 gap-6">
-                {COMPONENTS_DATA[4].subtasks.map((task) => (
-                  <div
-                    key={task.id}
-                    className="glass-panel p-6 flex flex-col justify-between border-2 border-[var(--pri)]/50 hover:border-[var(--pri)] transition-all"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-xs font-bold px-2.5 py-1 rounded bg-[var(--panel2)] text-[var(--cy)]">
-                          {task.id}
-                        </span>
-                        <span className="text-xs px-3 py-1 rounded-full font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
-                          {lang === "km" ? task.statusKm : task.statusEn}
-                        </span>
-                      </div>
-
-                      <h3 className="text-xl font-bold text-[var(--tx)] mb-3">
-                        {lang === "km" ? task.titleKm : task.titleEn}
-                      </h3>
-
-                      <p className="text-sm text-[var(--mu)] leading-relaxed mb-6">
-                        {lang === "km" ? task.notesKm : task.notesEn}
-                      </p>
-                    </div>
-
-                    <div className="pt-4 border-t border-[var(--pb)]">
-                      <div className="flex items-center justify-between text-xs font-bold mb-2">
-                        <span className="text-[var(--mu)]">
-                          {lang === "km" ? "ស្ថានភាពរៀបចំ:" : "Config Status:"}
-                        </span>
-                        <span className="text-emerald-400 text-sm">
-                          {lang === "km" ? "រួចរាល់ (Ready)" : "Configured"}
-                        </span>
-                      </div>
-                      <div className="w-full bg-[var(--pb)] h-2 rounded-full overflow-hidden">
-                        <div className="h-full bg-emerald-400" style={{ width: "60%" }} />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Security & Verification Callout */}
-              <div className="glass-panel p-4 flex items-center justify-between border-l-4 border-[var(--pri)] bg-[var(--pri)]/5">
-                <div className="flex items-center gap-3">
-                  <ShieldCheck className="w-6 h-6 text-[var(--pri)] shrink-0" />
-                  <div className="text-sm text-[var(--tx)]">
-                    <b className="text-[var(--pri)]">
-                      {lang === "km" ? "លក្ខណៈពិសេសសុវត្ថិភាព:" : "Security & Integrity:"}
-                    </b>{" "}
-                    {lang === "km"
-                      ? "ប្រព័ន្ធផ្ទៀងផ្ទាត់ឯកសារតាម QR Code និងការរក្សាទុកទិន្នន័យមានការអ៊ិនគ្រីប (Encrypted) ជួយការពារការក្លែងបន្លំឯកសាររដ្ឋបាលផ្លូវការ។"
-                      : "Includes encrypted document repositories, audit logging, and QR-based digital verification to ensure full authenticity of all official administrative decrees."}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* SLIDE 9: PENDING ITEMS REVIEW (FOCUSED SLIDE) */}
-          {currentSlide === 8 && (
-            <div className="slide-content flex flex-col gap-6 h-full justify-center">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[var(--amb)] mb-2">
-                  {lang === "km" ? "ចំណុចទី ១ · បញ្ជីការងារនៅសេសសល់" : "Agenda 01 · Pending Items Review"}
-                </div>
-                <h2 className="text-4xl font-extrabold text-[var(--tx)]">
-                  {lang === "km"
-                    ? "បញ្ជីការងារដែលនៅសេសសល់ និងតម្រូវការដោះស្រាយ (Pending Items)"
-                    : "Comprehensive Review of Pending Milestones"}
-                </h2>
-                <p className="text-base text-[var(--mu)] mt-1">
-                  {lang === "km"
-                    ? "ការវិភាគលើចំណុចដែលទាមទារការសម្របសម្រួល និងការសម្រេចចិត្តដើម្បីរុញច្រានគម្រោងទៅមុខ"
-                    : "Prioritizing items that require ministerial coordination, user sign-offs, or testing."}
-                </p>
-              </div>
-
-              <div className="space-y-3.5 overflow-y-auto max-h-[560px] pr-2">
-                {PENDING_ITEMS_SUMMARY.map((item) => (
-                  <div
-                    key={item.id}
-                    className="glass-panel p-5 flex items-start justify-between gap-6 border-l-4 border-amber-400 hover:border-[var(--pri)] transition-all"
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="px-3 py-1.5 rounded-lg bg-[var(--panel2)] border border-[var(--pb)] text-xs font-mono font-bold text-[var(--cy)] shrink-0">
-                        {item.component}
-                      </div>
+                <div className="comp-list">
+                  {COMPONENTS_DATA[2].subtasks.map((item, i) => (
+                    <div key={item.id} className="comp-list-item">
+                      <span className="badge-num">{i + 1}</span>
                       <div>
-                        <div className="flex items-center gap-3 mb-1">
-                          <h4 className="text-lg font-bold text-[var(--tx)]">
-                            {lang === "km" ? item.titleKm : item.titleEn}
-                          </h4>
-                          <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 font-semibold">
-                            {lang === "km" ? item.impactKm : item.impactEn}
-                          </span>
-                        </div>
-                        <p className="text-xs text-[var(--mu)] leading-relaxed">
-                          {lang === "km" ? item.detailKm : item.detailEn}
-                        </p>
+                        <h4>{lang === "km" ? item.titleKm : item.titleEn}</h4>
+                        <p>{lang === "km" ? item.notesKm : item.notesEn}</p>
                       </div>
                     </div>
+                  ))}
+                </div>
+              </div>
 
-                    <div className="shrink-0 text-right">
-                      <span className="text-xs font-bold text-amber-400 block mb-1">
-                        {lang === "km" ? item.statusKm : item.statusEn}
-                      </span>
-                    </div>
+              {/* Component 1.4 */}
+              <div className="comp-box a" style={{ "--d": 3 } as React.CSSProperties}>
+                <div className="comp-box-header">
+                  <div>
+                    <span className="chip grn text-xs mb-2">
+                      {lang === "km" ? "ស្ថានភាព៖ អភិវឌ្ឍរួច & ត្រៀម UAT" : "Status: Dev Complete & Ready for UAT"}
+                    </span>
+                    <h3>{lang === "km" ? COMPONENTS_DATA[3].titleKm : COMPONENTS_DATA[3].titleEn}</h3>
                   </div>
-                ))}
+                  <span className="ic soft">
+                    <Sparkles size={26} />
+                  </span>
+                </div>
+                <div className="comp-list">
+                  {COMPONENTS_DATA[3].subtasks.map((item, i) => (
+                    <div key={item.id} className="comp-list-item">
+                      <span className="badge-num">{i + 1}</span>
+                      <div>
+                        <h4>{lang === "km" ? item.titleKm : item.titleEn}</h4>
+                        <p>{lang === "km" ? item.notesKm : item.notesEn}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          )}
+          </div>
+        </section>
 
-          {/* SLIDE 10: AGENDA POINT 2 - CHALLENGES & SUGGESTIONS */}
-          {currentSlide === 9 && (
-            <div className="slide-content flex flex-col gap-6 h-full justify-center">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[var(--amb)] mb-2">
-                  {lang === "km" ? "របៀបវារៈទី ២ · បញ្ហាប្រឈម & សំណូមពរ" : "Agenda 02 · Challenges & Solutions"}
+        {/* SLIDE 6: Part 3 - Component 5 */}
+        <section
+          className={`slide ${currentSlide === 5 ? "on" : ""}`}
+          data-label="Component 5"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
+            </div>
+
+            <div className="head">
+              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? "០៤ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ" : "04 · General Department Progress"}
+              </div>
+              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    សមាសភាគទី៥៖ <span className="g">ឯកសារអគ្គលេខាធិការដ្ឋាន</span>
+                  </>
+                ) : (
+                  <>
+                    Component 5: <span className="g">Secretariat Document Management</span>
+                  </>
+                )}
+              </h2>
+            </div>
+
+            <div className="comp-split">
+              <div className="comp-box a" style={{ "--d": 2 } as React.CSSProperties}>
+                <div className="comp-box-header">
+                  <div>
+                    <span className="chip grn text-xs mb-2">
+                      {lang === "km" ? "ស្ថានភាព៖ អភិវឌ្ឍរួចរាល់ ៦០%" : "Status: 60% Developed"}
+                    </span>
+                    <h3>{lang === "km" ? COMPONENTS_DATA[4].titleKm : COMPONENTS_DATA[4].titleEn}</h3>
+                  </div>
+                  <span className="ic soft">
+                    <Layers size={26} />
+                  </span>
                 </div>
-                <h2 className="text-4xl font-extrabold text-[var(--tx)]">
-                  {lang === "km"
-                    ? "បញ្ហាប្រឈមចម្បង និងសំណូមពរដំណោះស្រាយ"
-                    : "Key Operational Challenges & Proposed Mitigations"}
-                </h2>
-                <p className="text-base text-[var(--mu)] mt-1">
-                  {lang === "km"
-                    ? "ការកំណត់បញ្ហាច្បាស់លាស់ អមដោយវិធានការដោះស្រាយជាក់ស្តែងដើម្បីធានាការអនុវត្តទាន់ពេល"
-                    : "Direct assessment of roadblocks paired with pragmatic, high-impact recommendations."}
-                </p>
+                <div className="comp-list">
+                  {COMPONENTS_DATA[4].subtasks.map((item, i) => (
+                    <div key={item.id} className="comp-list-item">
+                      <span className="badge-num">{i + 1}</span>
+                      <div>
+                        <h4>{lang === "km" ? item.titleKm : item.titleEn}</h4>
+                        <p>{lang === "km" ? item.notesKm : item.notesEn}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-6">
-                {CHALLENGES_DATA.map((ch) => (
-                  <div
-                    key={ch.id}
-                    className="glass-panel p-6 flex flex-col justify-between border-t-4 border-[var(--amb)]"
-                  >
+              {/* Digital Architecture Overview */}
+              <div className="comp-box a" style={{ "--d": 3 } as React.CSSProperties}>
+                <div className="comp-box-header">
+                  <div>
+                    <span className="chip pri text-xs mb-2">
+                      {lang === "km" ? "ប្រព័ន្ធរួមបញ្ចូលគ្នា" : "Integrated Architecture"}
+                    </span>
+                    <h3>{lang === "km" ? "ស្ថាបត្យកម្មឌីជីថលទូទៅ" : "Digital Workflow Integration"}</h3>
+                  </div>
+                  <span className="ic cy">
+                    <ShieldCheck size={26} />
+                  </span>
+                </div>
+                <p className="lead-desc">
+                  {lang === "km"
+                    ? "ការតភ្ជាប់រវាងលិខិតចូល-ចេញ បេសកកម្ម និងការទូទាត់ថវិកា ធានាឱ្យមានតម្លាភាព និងភាពឆាប់រហ័ស។"
+                    : "End-to-end integration across incoming/outgoing correspondence, official missions, and budget disbursements."}
+                </p>
+                <div className="comp-list">
+                  <div className="comp-list-item">
+                    <span className="badge-num">A</span>
                     <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-2xl font-black text-[var(--amb)] opacity-70">
-                          {ch.num}
-                        </span>
-                        <span className="text-[11px] px-2.5 py-1 rounded bg-[var(--panel2)] text-[var(--cy)] font-semibold">
-                          {lang === "km" ? ch.categoryKm : ch.categoryEn}
-                        </span>
-                      </div>
-
-                      <h3 className="text-lg font-bold text-[var(--tx)] mb-4">
-                        {lang === "km" ? ch.titleKm : ch.titleEn}
-                      </h3>
-
-                      <div className="mb-4">
-                        <div className="text-xs font-bold uppercase text-rose-400 mb-1 flex items-center gap-1.5">
-                          <AlertTriangle className="w-3.5 h-3.5" />
-                          <span>{lang === "km" ? "បញ្ហាប្រឈម:" : "Challenge:"}</span>
-                        </div>
-                        <p className="text-xs text-[var(--mu)] leading-relaxed">
-                          {lang === "km" ? ch.problemKm : ch.problemEn}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="pt-4 border-t border-[var(--pb)] bg-[var(--panel2)]/50 -mx-6 -mb-6 p-6 rounded-b-2xl">
-                      <div className="text-xs font-bold uppercase text-emerald-400 mb-1 flex items-center gap-1.5">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                        <span>{lang === "km" ? "សំណូមពរដំណោះស្រាយ:" : "Proposed Mitigation:"}</span>
-                      </div>
-                      <p className="text-xs text-[var(--tx)] font-medium leading-relaxed">
-                        {lang === "km" ? ch.solutionKm : ch.solutionEn}
-                      </p>
+                      <h4>{lang === "km" ? "សុវត្ថិភាពទិន្នន័យ & ការផ្ទៀងផ្ទាត់" : "Role-Based Security & Permissions"}</h4>
+                      <p>{lang === "km" ? "គ្រប់គ្រងសិទ្ធិមើល យល់ព្រម និងចុះហត្ថលេខាឌីជីថលតាមឋានានុក្រម។" : "Multi-tiered permission hierarchy from department chiefs to leadership."}</p>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* SLIDE 11: AGENDA POINT 3 - EXPECTED COMPLETION & TIMELINE */}
-          {currentSlide === 10 && (
-            <div className="slide-content flex flex-col gap-6 h-full justify-center">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[var(--cy)] mb-2">
-                  {lang === "km" ? "របៀបវារៈទី ៣ · កាលវិភាគគម្រោង" : "Agenda 03 · Delivery Timeline"}
-                </div>
-                <h2 className="text-4xl font-extrabold text-[var(--tx)]">
-                  {lang === "km"
-                    ? "ការរំពឹងទុកនៃការបញ្ចប់គម្រោង និងកាលវិភាគតាមដំណាក់កាល"
-                    : "Expected Completion & Phased Delivery Roadmap"}
-                </h2>
-                <p className="text-base text-[var(--mu)] mt-1">
-                  {lang === "km"
-                    ? "ផែនការមេពីត្រីមាសទី ៤ ឆ្នាំ២០២៦ រហូតដល់ការប្រគល់ប្រព័ន្ធពេញលេញនៅឆ្នាំ២០២៧"
-                    : "From immediate wins to full multi-departmental rollout and formal handover."}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-4 gap-6">
-                {TIMELINE_MILESTONES.map((phase, idx) => (
-                  <div
-                    key={phase.phase}
-                    className={`glass-panel p-6 flex flex-col justify-between border-t-4 relative ${
-                      phase.status === "done"
-                        ? "border-emerald-400"
-                        : phase.status === "current"
-                        ? "border-[var(--pri)] bg-[var(--pri)]/5 shadow-lg shadow-[var(--pri)]/10"
-                        : "border-[var(--pb)]"
-                    }`}
-                  >
+                  <div className="comp-list-item">
+                    <span className="badge-num">B</span>
                     <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs font-bold text-[var(--cy)] uppercase tracking-wider">
-                          {lang === "km" ? phase.phaseKm : phase.phase}
-                        </span>
-                        <span
-                          className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${
-                            phase.status === "done"
-                              ? "bg-emerald-500/20 text-emerald-300"
-                              : phase.status === "current"
-                              ? "bg-[var(--pri)]/20 text-[var(--pri)] animate-pulse"
-                              : "bg-[var(--panel2)] text-[var(--mu)]"
-                          }`}
-                        >
-                          {phase.status === "done"
-                            ? lang === "km"
-                              ? "សម្រេចបាន"
-                              : "Completed"
-                            : phase.status === "current"
-                            ? lang === "km"
-                              ? "កំពុងអនុវត្ត"
-                              : "In Progress"
-                            : lang === "km"
-                            ? "ដំណាក់កាលបន្ទាប់"
-                            : "Upcoming"}
-                        </span>
-                      </div>
-
-                      <div className="text-[11px] text-[var(--mu)] font-mono mb-2">
-                        {lang === "km" ? phase.timeframeKm : phase.timeframeEn}
-                      </div>
-
-                      <h3 className="text-lg font-bold text-[var(--tx)] mb-4">
-                        {lang === "km" ? phase.titleKm : phase.titleEn}
-                      </h3>
-
-                      <ul className="space-y-2.5">
-                        {(lang === "km" ? phase.bulletsKm : phase.bulletsEn).map(
-                          (bullet, bIdx) => (
-                            <li
-                              key={bIdx}
-                              className="text-xs text-[var(--mu)] flex items-start gap-2 leading-relaxed"
-                            >
-                              <span className="text-[var(--pri)] font-bold">›</span>
-                              <span>{bullet}</span>
-                            </li>
-                          )
-                        )}
-                      </ul>
-                    </div>
-
-                    <div className="pt-4 border-t border-[var(--pb)] mt-6 text-xs text-[var(--mu)] flex items-center justify-between">
-                      <span>Milestone {idx + 1} of 4</span>
-                      {phase.status === "done" && <Check className="w-4 h-4 text-emerald-400" />}
+                      <h4>{lang === "km" ? "ការស្វែងរកឯកសាររហ័ស" : "Smart Search & Archiving"}</h4>
+                      <p>{lang === "km" ? "ស្វែងរកតាមលេខកូដ កាលបរិច្ឆេទ ប្រភពឯកសារ និងពាក្យគន្លឹះ។" : "Instant multi-indexed search across historical ministerial records."}</p>
                     </div>
                   </div>
-                ))}
+                  <div className="comp-list-item">
+                    <span className="badge-num">C</span>
+                    <div>
+                      <h4>{lang === "km" ? "ការជូនដំណឹងស្វ័យប្រវត្តិ" : "Automated Notifications & Reminders"}</h4>
+                      <p>{lang === "km" ? "ជូនដំណឹងភ្លាមៗនៅពេលមានលិខិតបន្ទាន់ ឬការងាររង់ចាំការអនុម័ត។" : "Real-time task reminders and escalation for urgent directives."}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SLIDE 7: Pending Items Review (ការងារដែលនៅសេសសល់) */}
+        <section
+          className={`slide ${currentSlide === 6 ? "on" : ""}`}
+          data-label="Pending"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
             </div>
-          )}
 
-          {/* SLIDE 12: NEXT 30-DAY ACTION PLAN */}
-          {currentSlide === 11 && (
-            <div className="slide-content flex flex-col gap-6 h-full justify-center">
-              <div>
-                <div className="text-xs font-bold uppercase tracking-widest text-[var(--pri)] mb-2">
-                  {lang === "km" ? "សេចក្តីសន្និដ្ឋាន & ជំហានបន្ទាប់" : "Conclusion & Next Steps"}
-                </div>
-                <h2 className="text-4xl font-extrabold text-[var(--tx)]">
-                  {lang === "km"
-                    ? "ផែនការសកម្មភាព ៣០ ថ្ងៃបន្ទាប់ (Next 30-Day Plan)"
-                    : "Immediate 30-Day Action Plan"}
-                </h2>
-                <p className="text-base text-[var(--mu)] mt-1">
-                  {lang === "km"
-                    ? "ការងារអាទិភាពដើម្បីពន្លឿនការអនុវត្តគម្រោង និងការត្រៀមទទួលទិន្នន័យនាយកដ្ឋានផ្សេងទៀត"
-                    : "Critical path activities to unblock pending items and ingest remaining departments."}
-                </p>
+            <div className="head">
+              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? "០៥ · ការងារដែលនៅសេសសល់" : "05 · Pending Items Review"}
               </div>
+              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    បញ្ជីការងាររង់ចាំការសម្រេច <span className="g">(Pending Items)</span>
+                  </>
+                ) : (
+                  <>
+                    Summary of <span className="g">Pending Items & Bottlenecks</span>
+                  </>
+                )}
+              </h2>
+              <p className="lead a" style={{ "--d": 2 } as React.CSSProperties}>
+                {lang === "km"
+                  ? "ចំណុចគន្លឹះចំនួន ៥ ដែលទាមទារការសម្របសម្រួល និងការសម្រេចគោលការណ៍ជាមួយថ្នាក់ដឹកនាំក្រសួង"
+                  : "5 critical decision items requiring inter-ministerial coordination and policy sign-off"}
+              </p>
+            </div>
 
-              <div className="grid grid-cols-3 gap-8">
-                <div className="glass-panel p-6 border-l-4 border-[var(--pri)] flex flex-col justify-between">
-                  <div>
-                    <div className="text-xs font-bold text-[var(--pri)] uppercase tracking-wider mb-2">
-                      Priority 01 · Immediate
-                    </div>
-                    <h3 className="text-xl font-bold text-[var(--tx)] mb-3">
-                      {lang === "km"
-                        ? "១. បើកកិច្ចប្រជុំសម្របសម្រួលប្រាក់បៀវត្ស"
-                        : "1. Convene Inter-Ministerial Payroll Working Group"}
-                    </h3>
-                    <p className="text-xs text-[var(--mu)] leading-relaxed mb-4">
-                      {lang === "km"
-                        ? "សហការជាមួយថ្នាក់ដឹកនាំ MME ដើម្បីរៀបចំកិច្ចប្រជុំបច្ចេកទេសជាមួយក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ ក្នុងការឯកភាពលើរូបមន្តប្រាក់បៀវត្ស។"
-                        : "Coordinate with MME leadership to host a technical workshop with MEF focal points to finalize the automated payroll calculation schema."}
-                    </p>
-                  </div>
-                  <div className="text-xs font-semibold text-[var(--cy)]">
-                    Target: Week 1 - 2
-                  </div>
-                </div>
-
-                <div className="glass-panel p-6 border-l-4 border-emerald-400 flex flex-col justify-between">
-                  <div>
-                    <div className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">
-                      Priority 02 · Rollout
-                    </div>
-                    <h3 className="text-xl font-bold text-[var(--tx)] mb-3">
-                      {lang === "km"
-                        ? "២. ធ្វើតេស្ត UAT បេសកកម្ម & ដាក់ប្រើ ១០០%"
-                        : "2. Complete Mission Request UAT & Launch"}
-                    </h3>
-                    <p className="text-xs text-[var(--mu)] leading-relaxed mb-4">
-                      {lang === "km"
-                        ? "រៀបចំការធ្វើតេស្តជាក់ស្តែងលើប្រព័ន្ធស្នើសុំបេសកកម្ម (ដែលសម្រេចបាន ៦៥%) ជាមួយមន្ត្រីនាយកដ្ឋានទូទៅ និងដាក់ឱ្យប្រើប្រាស់ផ្លូវការ។"
-                        : "Conduct user acceptance testing for the 65% completed mission request module and roll out to all department users."}
-                    </p>
-                  </div>
-                  <div className="text-xs font-semibold text-[var(--cy)]">
-                    Target: Week 2 - 3
-                  </div>
-                </div>
-
-                <div className="glass-panel p-6 border-l-4 border-amber-400 flex flex-col justify-between">
-                  <div>
-                    <div className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">
-                      Priority 03 · Expansion
-                    </div>
-                    <h3 className="text-xl font-bold text-[var(--tx)] mb-3">
-                      {lang === "km"
-                        ? "៣. ចាប់ផ្តើមប្រមូលទិន្នន័យនាយកដ្ឋានទី ២ & ៣"
-                        : "3. Scope Intake for Departments 2 & 3"}
-                    </h3>
-                    <p className="text-xs text-[var(--mu)] leading-relaxed mb-4">
-                      {lang === "km"
-                        ? "ជួបប្រជុំជាមួយតំណាងនាយកដ្ឋានទាំង ២ ទៀត ដើម្បីកំណត់វិសាលភាព មុខងារស្នូល និងបញ្ចូលទិន្នន័យទៅក្នុងប្រព័ន្ធតាមដានវឌ្ឍភាពរួម។"
-                        : "Hold intake sessions with focal persons from the remaining 2 departments to define requirements and plug data into the dashboard."}
-                    </p>
-                  </div>
-                  <div className="text-xs font-semibold text-[var(--cy)]">
-                    Target: Week 3 - 4
-                  </div>
-                </div>
-              </div>
-
-              {/* Ready Commitment */}
-              <div className="glass-panel p-5 flex items-center justify-between border border-[var(--pri)]/40 bg-[var(--pri)]/5">
-                <div className="flex items-center gap-4">
-                  <div className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--panel)] border border-[var(--pb)] overflow-hidden shrink-0">
-                    <Image
-                      src="/logo/logo tab.svg"
-                      alt="Logo"
-                      width={28}
-                      height={28}
-                      className="object-contain"
-                    />
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold text-[var(--tx)]">
-                      {lang === "km"
-                        ? "ការប្តេជ្ញាចិត្តរបស់ក្រុមហ៊ុន អូន ផៅវ័រ ថេកណឡជី"
-                        : "OONE Power Technology Delivery Commitment"}
-                    </div>
-                    <div className="text-xs text-[var(--mu)] mt-0.5">
-                      {lang === "km"
-                        ? "ក្រុមការងារបច្ចេកទេសត្រៀមខ្លួនជានិច្ចក្នុងការគាំទ្រ និងជំរុញឱ្យគ្រប់សមាសភាគទាំងអស់សម្រេចបានតាមផែនការកំណត់។"
-                        : "Our dedicated technical squad is on standby to support MME stakeholders across all phases of digital implementation."}
-                    </div>
-                  </div>
-                </div>
-                <button
-                  onClick={() => goToSlide(12)}
-                  className="interactive px-5 py-2.5 rounded-xl bg-gradient-to-r from-[var(--pri2)] to-[var(--pri)] text-white font-semibold text-xs shadow-md shadow-[var(--pri)]/20"
+            <div className="ch">
+              {PENDING_ITEMS_SUMMARY.slice(0, 3).map((item, idx) => (
+                <div
+                  key={item.id}
+                  className="card a"
+                  style={{ "--d": idx + 2 } as React.CSSProperties}
                 >
-                  {lang === "km" ? "បន្តទៅសំណួរ-ចម្លើយ" : "Go to Q&A"}
-                </button>
+                  <span className="num">0{idx + 1}</span>
+                  <span className="ic amb pulse bob">
+                    <Clock size={24} className="text-amber-400" />
+                  </span>
+                  <h3>{lang === "km" ? item.titleKm : item.titleEn}</h3>
+                  <p>{lang === "km" ? item.detailKm : item.detailEn}</p>
+                  <div className="mt-auto pt-4 border-t border-[var(--pb)] flex items-center justify-between text-xs">
+                    <span className="font-mono text-[var(--pri)]">
+                      {item.component}
+                    </span>
+                    <span className="chip amb text-xs py-1 px-2.5">
+                      {lang === "km" ? item.statusKm : item.statusEn}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="shift a" style={{ "--d": 5 } as React.CSSProperties}>
+              <div className="s">
+                <span className="dot red" />
+                <div>
+                  <small>{lang === "km" ? "ស្ថានភាពបច្ចុប្បន្ន" : "Current Bottleneck"}</small>
+                  {lang === "km"
+                    ? "ការងារមួយចំនួនរង់ចាំការឯកភាពលើទម្រង់កាតាបៀវត្ស និងកូដសម្បត្តិរដ្ឋពី MEF"
+                    : "Workflows waiting on formal MEF payroll format & state asset code approvals"}
+                </div>
+              </div>
+              <div className="track" />
+              <div className="s">
+                <span className="dot grn" />
+                <div>
+                  <small>{lang === "km" ? "ដំណោះស្រាយស្នើឡើង" : "Proposed Solution"}</small>
+                  {lang === "km"
+                    ? "បើកកិច្ចប្រជុំអន្តរក្រសួងរួមគ្នា ដើម្បីឯកភាពលើទម្រង់ស្តង់ដារ និងអនុវត្តភ្លាមៗ"
+                    : "Joint inter-ministerial workshop to finalize data formats and unlock deployment"}
+                </div>
               </div>
             </div>
-          )}
+          </div>
+        </section>
 
-          {/* SLIDE 13: QUESTIONS & DISCUSSION */}
-          {currentSlide === 12 && (
-            <div className="slide-content flex flex-col items-center justify-center text-center gap-8 h-full">
-              <div className="relative w-24 h-24 flex items-center justify-center rounded-3xl bg-[var(--panel)] border border-[var(--pb)] shadow-2xl overflow-hidden p-4">
-                <Image
-                  src="/logo/logo tab.svg"
-                  alt="OONE Logo"
-                  width={72}
-                  height={72}
-                  priority
-                  className="object-contain"
-                />
+        {/* SLIDE 8: Challenges & Suggestions (Exact Slide 3 Template) */}
+        <section
+          className={`slide ${currentSlide === 7 ? "on" : ""}`}
+          data-label="Challenges"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
+            </div>
+
+            <div className="head">
+              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? "០៦ · បញ្ហាប្រឈម & សំណូមពរ" : "06 · Challenges & Suggestions"}
+              </div>
+              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    បញ្ហាប្រឈមចម្បង និង <span className="g">វិធានការដោះស្រាយ</span>
+                  </>
+                ) : (
+                  <>
+                    Core Challenges & <span className="g">Strategic Solutions</span>
+                  </>
+                )}
+              </h2>
+            </div>
+
+            <div className="ch">
+              {CHALLENGES_DATA.map((ch, idx) => (
+                <div
+                  key={ch.id}
+                  className="card a"
+                  style={{ "--d": idx + 2 } as React.CSSProperties}
+                >
+                  <span className="num">0{idx + 1}</span>
+                  <span className={`ic ${idx === 0 ? "red" : idx === 1 ? "amb" : "soft"} pulse bob`}>
+                    <AlertTriangle size={24} className={idx === 0 ? "text-rose-400" : idx === 1 ? "text-amber-400" : "text-indigo-400"} />
+                  </span>
+                  <h3>{lang === "km" ? ch.titleKm : ch.titleEn}</h3>
+                  <p>{lang === "km" ? ch.problemKm : ch.problemEn}</p>
+                  <div className="mt-auto pt-4 border-t border-[var(--pb)]">
+                    <span className="text-xs font-semibold text-[var(--tx)] block mb-1">
+                      {lang === "km" ? "សំណូមពរដោះស្រាយ៖" : "Suggested Action:"}
+                    </span>
+                    <p className="text-xs text-[var(--grn)] leading-relaxed">
+                      {lang === "km" ? ch.solutionKm : ch.solutionEn}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="shift a" style={{ "--d": 5 } as React.CSSProperties}>
+              <div className="s">
+                <span className="dot red" />
+                <div>
+                  <small>{lang === "km" ? "ការអនុវត្តពីមុន" : "Legacy Workflow"}</small>
+                  {lang === "km" ? "ការងារឯកសារដោយដៃ យឺតយ៉ាវ និងមិនមានទិន្នន័យរួមតែមួយ" : "Manual, siloed paper documentation with disconnected tracking"}
+                </div>
+              </div>
+              <div className="track" />
+              <div className="s">
+                <span className="dot grn" />
+                <div>
+                  <small>{lang === "km" ? "ប្រព័ន្ធឌីជីថលថ្មី" : "Digital Transformation"}</small>
+                  {lang === "km" ? "ស្វ័យប្រវត្តិកម្ម តម្លាភាព និងទិន្នន័យជាក់ស្តែងតាមពេលវេលាពិត" : "Automated, transparent, and near real-time ministerial reporting"}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SLIDE 9: Expected Completion & Timeline (Exact Slide 16 Template) */}
+        <section
+          className={`slide ${currentSlide === 8 ? "on" : ""}`}
+          data-label="Timeline"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
+            </div>
+
+            <div className="head">
+              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? "០៧ · ការរំពឹងទុកនៃការបញ្ចប់គម្រោង" : "07 · Expected Completion"}
+              </div>
+              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    កាលវិភាគអនុវត្ត <span className="g">ពេញលេញ ៤ ដំណាក់កាល</span>
+                  </>
+                ) : (
+                  <>
+                    Phased Delivery <span className="g">Across 4 Milestones</span>
+                  </>
+                )}
+              </h2>
+              <p className="lead a" style={{ "--d": 2 } as React.CSSProperties}>
+                {lang === "km"
+                  ? "ផែនការប្រគល់ការងារជាជំហានៗ រួមទាំងការដាក់ឱ្យប្រើប្រាស់ និងការបណ្តុះបណ្តាលមន្ត្រី"
+                  : "Structured implementation roadmap with milestone verification at each milestone stage"}
+              </p>
+            </div>
+
+            <div className="ns-stat a-r" style={{ "--d": 2 } as React.CSSProperties}>
+              <b className="grad">4</b>
+              <small>{lang === "km" ? "ដំណាក់កាលអនុវត្ត" : "Phases to Completion"}</small>
+            </div>
+
+            <div className="tlg">
+              {TIMELINE_MILESTONES.map((phase, idx) => (
+                <div
+                  key={phase.phase}
+                  className={`tlg-card ${idx === 0 ? "cur" : ""} a`}
+                  style={{ "--d": idx + 2 } as React.CSSProperties}
+                >
+                  <div className="tlg-phase">{lang === "km" ? phase.phaseKm : phase.phase}</div>
+                  <h3>{lang === "km" ? phase.titleKm : phase.titleEn}</h3>
+                  <div className="tlg-date">
+                    <Calendar size={14} />
+                    <span>{lang === "km" ? phase.timeframeKm : phase.timeframeEn}</span>
+                  </div>
+
+                  <div className="tlg-points">
+                    {phase.bulletsKm.map((item, i) => (
+                      <div key={i} className="tlg-point">
+                        <Check size={16} />
+                        <span>{lang === "km" ? item : phase.bulletsEn[i]}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-auto pt-6 border-t border-[var(--pb)]">
+                    <span className={`chip text-xs w-full justify-center ${idx === 0 ? "grn" : "pri"}`}>
+                      {idx === 0
+                        ? (lang === "km" ? "កំពុងអនុវត្ត (Active)" : "Currently Active")
+                        : (lang === "km" ? "តាមកាលវិភាគ" : "Scheduled")}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SLIDE 10: 30-Day Action Plan */}
+        <section
+          className={`slide ${currentSlide === 9 ? "on" : ""}`}
+          data-label="Action Plan"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
+            </div>
+
+            <div className="head">
+              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? "០៨ · ជំហានបន្ទាប់" : "08 · Next Steps"}
+              </div>
+              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    ផែនការសកម្មភាព <span className="g">៣០ថ្ងៃបន្ទាប់</span>
+                  </>
+                ) : (
+                  <>
+                    Next 30-Day <span className="g">Immediate Action Plan</span>
+                  </>
+                )}
+              </h2>
+              <p className="lead a" style={{ "--d": 2 } as React.CSSProperties}>
+                {lang === "km"
+                  ? "សកម្មភាពជាក់ស្តែងដើម្បីពន្លឿនការងារនៅសេសសល់ និងត្រៀមទទួលយកទិន្នន័យនាយកដ្ឋានទាំង ២ បន្ថែម"
+                  : "Immediate tactical milestones to resolve pending items and onboard remaining departments"}
+              </p>
+            </div>
+
+            <div className="tlg">
+              <div className="tlg-card a" style={{ "--d": 2 } as React.CSSProperties}>
+                <div className="tlg-phase">STEP 01</div>
+                <h3>{lang === "km" ? "សម្របសម្រួលទម្រង់កាតាបៀវត្ស" : "MEF Payroll Slip Alignment"}</h3>
+                <p className="text-sm text-[var(--mu)] mb-4 leading-relaxed">
+                  {lang === "km"
+                    ? "រៀបចំកិច្ចប្រជុំបច្ចេកទេសជាមួយតំណាង MEF និងនាយកដ្ឋានទូទៅ ដើម្បីឯកភាពលើទម្រង់កាតាបៀវត្ស។"
+                    : "Conduct technical coordination workshop to finalize the required salary slip layout."}
+                </p>
+                <div className="mt-auto pt-4 border-t border-[var(--pb)]">
+                  <span className="chip pri text-xs w-full justify-center">Week 1 - 2</span>
+                </div>
               </div>
 
-              <div className="space-y-3 max-w-2xl">
-                <div className="text-xs font-bold uppercase tracking-widest text-[var(--pri)]">
-                  {lang === "km" ? "កិច្ចពិភាក្សា និងសំណួរ-ចម្លើយ" : "Open Discussion & Q&A"}
-                </div>
-                <h2 className="text-5xl font-black text-[var(--tx)]">
-                  {lang === "km" ? "សូមអរគុណ" : "Thank You"}
-                </h2>
-                <div className="text-xl font-bold text-[var(--cy)]">
+              <div className="tlg-card a" style={{ "--d": 3 } as React.CSSProperties}>
+                <div className="tlg-phase">STEP 02</div>
+                <h3>{lang === "km" ? "ធ្វើតេស្ត UAT ផែនការ & ថវិកា" : "Planning & Budget UAT"}</h3>
+                <p className="text-sm text-[var(--mu)] mb-4 leading-relaxed">
                   {lang === "km"
-                    ? "ក្រសួងរ៉ែ និងថាមពល (MME)"
-                    : "Ministry of Mines and Energy (MME)"}
+                    ? "ដាក់ឱ្យមន្ត្រីជំនាញធ្វើតេស្តសាកល្បងម៉ូឌុលផែនការ និងថវិកា ព្រមទាំងប្រមូលមតិកែលម្អ។"
+                    : "Deploy test environment for departmental officers to validate operational budgeting flows."}
+                </p>
+                <div className="mt-auto pt-4 border-t border-[var(--pb)]">
+                  <span className="chip pri text-xs w-full justify-center">Week 2 - 3</span>
+                </div>
+              </div>
+
+              <div className="tlg-card a" style={{ "--d": 4 } as React.CSSProperties}>
+                <div className="tlg-phase">STEP 03</div>
+                <h3>{lang === "km" ? "ប្រមូលទិន្នន័យនាយកដ្ឋានទី ២" : "Department 2 Intake"}</h3>
+                <p className="text-sm text-[var(--mu)] mb-4 leading-relaxed">
+                  {lang === "km"
+                    ? "ចាប់ផ្តើមកិច្ចសម្ភាសន៍ប្រមូលតម្រូវការ និងទម្រង់ការងារសម្រាប់នាយកដ្ឋានទី ២។"
+                    : "Initiate workflow mapping and template collection with Department 2 task force."}
+                </p>
+                <div className="mt-auto pt-4 border-t border-[var(--pb)]">
+                  <span className="chip amb text-xs w-full justify-center">Week 3 - 4</span>
+                </div>
+              </div>
+
+              <div className="tlg-card a" style={{ "--d": 5 } as React.CSSProperties}>
+                <div className="tlg-phase">STEP 04</div>
+                <h3>{lang === "km" ? "របាយការណ៍ជូនថ្នាក់ដឹកនាំ" : "Executive Debrief"}</h3>
+                <p className="text-sm text-[var(--mu)] mb-4 leading-relaxed">
+                  {lang === "km"
+                    ? "រៀបចំរបាយការណ៍បូកសរុបលទ្ធផល ៣០ថ្ងៃ និងស្នើសុំការសម្រេចលើជំហានបន្ត។"
+                    : "Deliver progress metrics and request formal approvals for Q2 rollout phase."}
+                </p>
+                <div className="mt-auto pt-4 border-t border-[var(--pb)]">
+                  <span className="chip grn text-xs w-full justify-center">Week 4</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SLIDE 11: Strategic Conclusion (Exact Slide 17 Template) */}
+        <section
+          className={`slide ${currentSlide === 10 ? "on" : ""}`}
+          data-label="Conclusion"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
+            </div>
+
+            <div className="head">
+              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? "០៩ · សេចក្តីសន្និដ្ឋាន" : "09 · Conclusion"}
+              </div>
+              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    សេចក្តីសន្និដ្ឋាន & <span className="g">តម្លៃយុទ្ធសាស្ត្រ</span>
+                  </>
+                ) : (
+                  <>
+                    Executive Summary & <span className="g">Strategic Value</span>
+                  </>
+                )}
+              </h2>
+            </div>
+
+            <div className="cc2">
+              <div className="a" style={{ "--d": 2 } as React.CSSProperties}>
+                <div className="ccq">
+                  {lang === "km"
+                    ? "ការផ្លាស់ប្តូរឆ្ពោះទៅកាន់ប្រព័ន្ធរដ្ឋបាលឌីជីថលពេញលេញ សម្រាប់ក្រសួងរ៉ែ និងថាមពល"
+                    : "Accelerating Ministerial Efficiency Through Seamless Digital Governance"}
+                </div>
+                <div className="chk-list">
+                  <div className="chk">
+                    <Check size={22} className="text-emerald-400" />
+                    <div>
+                      <b>{lang === "km" ? "តម្លាភាព និងប្រសិទ្ធភាពការងារ៖" : "Operational Transparency:"}</b>{" "}
+                      {lang === "km"
+                        ? "កាត់បន្ថយពេលវេលាដំណើរការឯកសារ និងការទូទាត់ថវិកាបានជាង ៦០%។"
+                        : "Reduces administrative cycle times and payment processing delays by over 60%."}
+                    </div>
+                  </div>
+                  <div className="chk">
+                    <Check size={22} className="text-emerald-400" />
+                    <div>
+                      <b>{lang === "km" ? "ទិន្នន័យជាក់ស្តែង និងត្រឹមត្រូវ៖" : "Real-Time Accuracy:"}</b>{" "}
+                      {lang === "km"
+                        ? "លុបបំបាត់ការបាត់បង់ទិន្នន័យ ឬការកត់ត្រាស្ទួនរវាងនាយកដ្ឋាន។"
+                        : "Eliminates duplicate record-keeping and ensures audit-ready data consistency."}
+                    </div>
+                  </div>
+                  <div className="chk">
+                    <Check size={22} className="text-emerald-400" />
+                    <div>
+                      <b>{lang === "km" ? "ការត្រៀមលក្ខណៈពង្រីកវិសាលភាព៖" : "Scalable Architecture:"}</b>{" "}
+                      {lang === "km"
+                        ? "ស្ថាបត្យកម្មប្រព័ន្ធអាចតភ្ជាប់ទិន្នន័យនាយកដ្ឋានផ្សេងទៀតបានយ៉ាងងាយស្រួល។"
+                        : "Modular design enables rapid onboarding of remaining ministerial departments."}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="cc-photo a-r" style={{ "--d": 3 } as React.CSSProperties}>
+                <div className="flex items-center gap-4 mb-4">
+                  <Image
+                    src="/logo/logo tab.svg"
+                    alt="Emblem"
+                    width={48}
+                    height={48}
+                    priority
+                  />
+                  <div>
+                    <h4 className="text-lg font-bold text-[var(--tx)]">
+                      {lang === "km" ? "ក្រសួងរ៉ែ និងថាមពល" : "Ministry of Mines & Energy"}
+                    </h4>
+                    <p className="text-xs text-[var(--mu)]">
+                      {lang === "km" ? "រាជរដ្ឋាភិបាលកម្ពុជា" : "Royal Government of Cambodia"}
+                    </p>
+                  </div>
                 </div>
                 <p className="text-sm text-[var(--mu)] leading-relaxed">
                   {lang === "km"
-                    ? "រីករាយក្នុងការទទួលយកនូវមតិយោបល់ ការណែនាំបន្ថែម និងការឆ្លើយសំណួររបស់គណៈកម្មការបច្ចេកទេស និងថ្នាក់ដឹកនាំ។"
-                    : "We welcome all guidance, inquiries, and collaboration points from MME leadership and technical committee."}
+                    ? "ក្រុមហ៊ុន អូន ផៅវ័រ ថេកណឡជី ប្តេជ្ញាចិត្តសហការយ៉ាងជិតស្និទ្ធជាមួយថ្នាក់ដឹកនាំ និងមន្ត្រីជំនាញ ដើម្បីធានាបាននូវភាពជោគជ័យពេញលេញនៃគម្រោង។"
+                    : "OONE Power Technology is dedicated to close partnership with MME leadership and teams to ensure complete project success."}
                 </p>
-              </div>
-
-              <div className="flex items-center gap-6 pt-2">
-                <button
-                  onClick={() => goToSlide(0)}
-                  className="interactive px-6 py-3 rounded-xl bg-[var(--panel)] border border-[var(--pb)] hover:border-[var(--pri)] text-sm font-semibold text-[var(--tx)] transition-all"
-                >
-                  {lang === "km" ? "ត្រឡប់ទៅទំព័រដើម" : "Back to First Slide"}
-                </button>
-                <button
-                  onClick={() => goToSlide(1)}
-                  className="interactive px-6 py-3 rounded-xl bg-[var(--panel)] border border-[var(--pb)] hover:border-[var(--pri)] text-sm font-semibold text-[var(--tx)] transition-all"
-                >
-                  {lang === "km" ? "ពិនិត្យរបៀបវារៈឡើងវិញ" : "Review Agenda"}
-                </button>
-              </div>
-
-              <div className="pt-8 border-t border-[var(--pb)] w-full max-w-xl flex items-center justify-between text-xs text-[var(--mu)]">
-                <div>
-                  <span className="block text-[var(--tx)] font-semibold">
-                    {lang === "km" ? PRESENTATION_META.companyKm : PRESENTATION_META.companyEn}
-                  </span>
-                  <span>Phnom Penh, Kingdom of Cambodia</span>
-                </div>
-                <div className="text-right">
-                  <span className="block text-[var(--tx)] font-semibold">
-                    {lang === "km" ? PRESENTATION_META.dateKm : PRESENTATION_META.dateEn}
-                  </span>
-                  <span>Progress Report Deck v1.0</span>
+                <div className="mt-auto pt-4 border-t border-[var(--pb)] flex items-center justify-between">
+                  <span className="text-xs font-mono text-[var(--pri)]">OONE POWER TECHNOLOGY</span>
+                  <span className="chip grn text-xs py-1">COMMITTED</span>
                 </div>
               </div>
             </div>
-          )}
-        </main>
-
-        {/* Global Slide Footer (Slide Index & Bottom Progress Line) */}
-        <footer className="relative z-10 pt-4 flex items-center justify-between border-t border-[var(--pb)] text-xs text-[var(--mu)]">
-          <div className="flex items-center gap-3">
-            <span className="font-mono font-bold text-[var(--tx)]">
-              {String(currentSlide + 1).padStart(2, "0")} / {String(TOTAL_SLIDES).padStart(2, "0")}
-            </span>
-            <span>·</span>
-            <span className="font-medium">
-              {lang === "km"
-                ? slideTitles[currentSlide].km
-                : slideTitles[currentSlide].en}
-            </span>
           </div>
+        </section>
 
-          <div className="flex items-center gap-4">
-            <span className="hidden sm:inline text-[11px] text-[var(--mu)]">
-              {lang === "km"
-                ? "ប្រើសញ្ញាព្រួញ ← → ឬចុចលើស្លាយដើម្បីប្តូរ"
-                : "Use ← → arrows or click sides to navigate"}
-            </span>
-            <div className="w-32 bg-[var(--pb)] h-1.5 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-[var(--pri2)] to-[var(--pri)] transition-all duration-300"
-                style={{
-                  width: `${((currentSlide + 1) / TOTAL_SLIDES) * 100}%`,
-                }}
-              />
+        {/* SLIDE 12: Thank You (Exact Slide 19 Template) */}
+        <section
+          className={`slide ${currentSlide === 11 ? "on" : ""}`}
+          data-label="Thanks"
+        >
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="bgfx">
+              <div className="dots" />
+              <div className="blob b1" />
+              <div className="blob b2" />
+            </div>
+
+            {/* Power transmission SVG waves from template */}
+            <svg className="pl" viewBox="0 0 1920 420" preserveAspectRatio="none" aria-hidden="true">
+              <g className="tower">
+                <path d="M300 420 L340 120 L380 420 M310 340 H370 M318 260 H362 M326 190 H354 M280 150 H400" />
+                <path d="M960 420 L1000 100 L1040 420 M970 340 H1030 M978 260 H1022 M986 180 H1014 M940 130 H1060" />
+                <path d="M1620 420 L1660 120 L1700 420 M1630 340 H1690 M1638 260 H1682 M1646 190 H1674 M1600 150 H1720" />
+              </g>
+              <path className="w" d="M-20 170 Q 140 230 280 150 Q 620 260 940 130 Q 1290 260 1600 150 Q 1770 230 1940 170" />
+              <path className="w" d="M-20 190 Q 160 250 400 150 Q 680 270 1060 130 Q 1340 270 1720 150 Q 1840 210 1940 190" />
+              <path className="e" d="M-20 170 Q 140 230 280 150 Q 620 260 940 130 Q 1290 260 1600 150 Q 1770 230 1940 170" />
+              <path className="e" style={{ animationDelay: "-2s" }} d="M-20 190 Q 160 250 400 150 Q 680 270 1060 130 Q 1340 270 1720 150 Q 1840 210 1940 190" />
+            </svg>
+
+            <div className="ty">
+              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? "សំណួរ & ចម្លើយ" : "Questions & Discussion"}
+              </div>
+              <h1 className="grad a" style={{ "--d": 1 } as React.CSSProperties}>
+                {lang === "km" ? "សូមអរគុណ" : "Thank You"}
+              </h1>
+              <p className="a" style={{ "--d": 2 } as React.CSSProperties}>
+                {lang === "km"
+                  ? "សូមគោរពថ្លែងអំណរគុណយ៉ាងជ្រាលជ្រៅចំពោះឯកឧត្តម លោកជំទាវ និងលោក-លោកស្រី ដែលបានចំណាយពេលវេលាដ៏មានតម្លៃចូលរួមក្នុងបទបង្ហាញនេះ។"
+                  : "Thank you for your valuable time and participation. We look forward to our continuous collaboration."}
+              </p>
+
+              <div className="ty-contact a" style={{ "--d": 3 } as React.CSSProperties}>
+                <div className="chip pri">
+                  <Image
+                    src="/logo/Oone logo.svg"
+                    alt="OONE Logo"
+                    width={100}
+                    height={28}
+                    className="object-contain"
+                  />
+                </div>
+                <div className="chip">
+                  <Phone size={16} className="text-[var(--pri)]" />
+                  <span>+855 23 888 999</span>
+                </div>
+                <div className="chip">
+                  <Mail size={16} className="text-[var(--cy)]" />
+                  <span>contact@oonepower.com</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="qrc a-r" style={{ "--d": 3 } as React.CSSProperties}>
+              <div className="qrbox">
+                <Image
+                  src="/logo/logo tab.svg"
+                  alt="QR Emblem"
+                  width={140}
+                  height={140}
+                  className="object-contain"
+                />
+              </div>
+              <span className="chip pri text-xs">
+                {lang === "km" ? "MME Digital Platform" : "MME Digital Platform"}
+              </span>
             </div>
           </div>
-        </footer>
+        </section>
+
       </div>
 
-      {/* Floating Presenter Control Bar (Hover & Fixed) */}
-      <div className="fixed bottom-6 z-50 flex items-center gap-2 p-2 rounded-2xl glass-panel shadow-2xl border border-[var(--pb)] bg-[var(--panel)]/90 backdrop-blur-md">
-        {/* Previous Slide */}
-        <button
-          onClick={prevSlide}
-          disabled={currentSlide === 0}
-          title={lang === "km" ? "ស្លាយមុន (←)" : "Previous Slide (←)"}
-          className="interactive p-2.5 rounded-xl hover:bg-[var(--panel2)] text-[var(--tx)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-
-        {/* Slide Counter / Direct Input */}
-        <div className="px-3 py-1 font-mono text-xs font-bold text-[var(--tx)] flex items-center gap-1">
-          <span>{currentSlide + 1}</span>
-          <span className="text-[var(--mu)]">/</span>
-          <span className="text-[var(--mu)]">{TOTAL_SLIDES}</span>
+      {/* Nav Bar (#bar) matching reference template */}
+      <div className="bar" id="bar">
+        <div className="prog" id="prog" style={{ width: `${progressPercent}%` }} />
+        
+        <div className="brand">
+          <Image
+            src="/logo/Oone logo.svg"
+            alt="OONE Logo"
+            width={72}
+            height={28}
+            className="brand-logo object-contain"
+          />
+          <div>
+            <b>{lang === "km" ? "របាយការណ៍វឌ្ឍភាព MME" : "MME Progress Reports"}</b>
+            <span id="cnt">
+              {lang === "km"
+                ? `ទំព័រទី ${currentSlide + 1} នៃ ${TOTAL_SLIDES}`
+                : `Slide ${currentSlide + 1} of ${TOTAL_SLIDES}`}
+            </span>
+          </div>
         </div>
 
-        {/* Next Slide */}
+        <span className="sep" />
+
         <button
+          className="nb interactive"
+          id="prev"
+          onClick={prevSlide}
+          disabled={currentSlide === 0}
+          aria-label="Previous slide"
+        >
+          <ChevronLeft size={18} />
+          <span className="tx">{lang === "km" ? "ថយក្រោយ" : "Back"}</span>
+        </button>
+
+        <nav className="dots-nav" id="dn" aria-label="Slides">
+          {slideList.map((s, idx) => (
+            <button
+              key={s.id}
+              className={`interactive ${currentSlide === idx ? "cur" : ""}`}
+              onClick={() => goToSlide(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+            >
+              {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
+              <span>{lang === "km" ? s.labelKm : s.labelEn}</span>
+            </button>
+          ))}
+        </nav>
+
+        <button
+          className="nb pri interactive"
+          id="next"
           onClick={nextSlide}
           disabled={currentSlide === TOTAL_SLIDES - 1}
-          title={lang === "km" ? "ស្លាយបន្ទាប់ (→ / Space)" : "Next Slide (→ / Space)"}
-          className="interactive p-2.5 rounded-xl hover:bg-[var(--panel2)] text-[var(--tx)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
         >
-          <ChevronRight className="w-5 h-5" />
+          <span className="tx" id="nextTx">{lang === "km" ? "បន្ទាប់" : "Next"}</span>
+          <ChevronRight size={18} />
         </button>
 
-        <div className="w-px h-6 bg-[var(--pb)] mx-1" />
+        <span className="sep" />
 
-        {/* Language Switcher (EN / ខ្មែរ) */}
-        <button
-          onClick={toggleLanguage}
-          title={
-            lang === "km"
-              ? "ប្តូរទៅភាសាអង់គ្លេស (Switch to English) [ចុច L]"
-              : "ប្តូរទៅភាសាខ្មែរ (Switch to Khmer) [Press L]"
-          }
-          className="interactive flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[var(--panel2)] hover:border-[var(--pri)] border border-[var(--pb)] text-xs font-bold transition-all text-[var(--tx)]"
-        >
-          <Globe className="w-4 h-4 text-[var(--pri)]" />
-          <span>{lang === "km" ? "ខ្មែរ (KM)" : "English (EN)"}</span>
-        </button>
+        {/* Language Switcher */}
+        <div className={`langsw ${langDropdownOpen ? "open" : ""}`} id="langDD">
+          <button
+            className="lbtn interactive"
+            id="langBtn"
+            onClick={() => setLangDropdownOpen((prev) => !prev)}
+            aria-haspopup="true"
+            aria-expanded={langDropdownOpen}
+            aria-label="Language selector"
+          >
+            <Globe size={18} />
+            <span id="langCur">{lang === "km" ? "KH" : "EN"}</span>
+            <ChevronUp size={14} className="lchev" />
+          </button>
+          <div className="lmenu" role="menu">
+            <button
+              role="menuitemradio"
+              aria-checked={lang === "en"}
+              className={`interactive ${lang === "en" ? "on" : ""}`}
+              onClick={() => toggleLanguage("en")}
+            >
+              <span className="lc">EN</span>English
+              {lang === "en" && <Check size={14} className="ml-auto" />}
+            </button>
+            <button
+              role="menuitemradio"
+              aria-checked={lang === "km"}
+              className={`interactive ${lang === "km" ? "on" : ""}`}
+              onClick={() => toggleLanguage("km")}
+            >
+              <span className="lc">KH</span>ខ្មែរ
+              {lang === "km" && <Check size={14} className="ml-auto" />}
+            </button>
+          </div>
+        </div>
 
-        {/* Theme Toggle (Dark / Light) */}
+        {/* Theme Toggle */}
         <button
+          className="nb interactive"
+          id="theme"
           onClick={toggleTheme}
-          title={
-            theme === "dark"
-              ? "ប្តូរទៅពណ៌ភ្លឺ (Light Mode) [ចុច T]"
-              : "ប្តូរទៅពណ៌ងងឹត (Dark Mode) [Press T]"
-          }
-          className="interactive p-2.5 rounded-xl hover:bg-[var(--panel2)] text-[var(--tx)] transition-colors"
+          aria-label="Toggle theme"
         >
-          {theme === "dark" ? (
-            <Sun className="w-4 h-4 text-amber-400" />
-          ) : (
-            <Moon className="w-4 h-4 text-[var(--pri)]" />
-          )}
+          {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          <span className="tx">{theme === "dark" ? "Light" : "Dark"}</span>
         </button>
 
-        {/* Slide Overview Grid Modal */}
+        {/* Print Button */}
         <button
-          onClick={() => setShowGrid((prev) => !prev)}
-          title={lang === "km" ? "មើលបញ្ជីស្លាយទាំងអស់ [ចុច G]" : "Slide Overview Grid [Press G]"}
-          className={`interactive p-2.5 rounded-xl text-[var(--tx)] transition-colors ${
-            showGrid ? "bg-[var(--pri)] text-white" : "hover:bg-[var(--panel2)]"
-          }`}
+          className="nb interactive"
+          id="printb"
+          onClick={() => window.print()}
+          aria-label="Print slides"
         >
-          <LayoutGrid className="w-4 h-4" />
+          <Printer size={18} />
+          <span className="tx">{lang === "km" ? "បោះពុម្ព" : "Print"}</span>
         </button>
 
         {/* Fullscreen Button */}
         <button
+          className="nb interactive"
+          id="fsb"
           onClick={toggleFullscreen}
-          title={lang === "km" ? "ពេញអេក្រង់ [ចុច F]" : "Toggle Fullscreen [Press F]"}
-          className="interactive p-2.5 rounded-xl hover:bg-[var(--panel2)] text-[var(--tx)] transition-colors"
+          aria-label="Fullscreen"
         >
-          {isFullscreen ? (
-            <Minimize className="w-4 h-4" />
-          ) : (
-            <Maximize className="w-4 h-4" />
-          )}
-        </button>
-
-        {/* Print / PDF Button */}
-        <button
-          onClick={() => window.print()}
-          title={lang === "km" ? "បោះពុម្ព ឬទាញយក PDF [ចុច P]" : "Print / PDF Export [Press P]"}
-          className="interactive p-2.5 rounded-xl hover:bg-[var(--panel2)] text-[var(--tx)] transition-colors"
-        >
-          <Printer className="w-4 h-4" />
+          {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+          <span className="tx">{isFullscreen ? "Exit" : "Full screen"}</span>
         </button>
       </div>
-
-      {/* Slide Overview Grid Modal */}
-      {showGrid && (
-        <div
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex flex-col p-12 overflow-y-auto animate-in fade-in duration-200"
-          onClick={() => setShowGrid(false)}
-        >
-          <div className="flex items-center justify-between mb-8 max-w-7xl mx-auto w-full">
-            <div>
-              <h3 className="text-2xl font-bold text-white">
-                {lang === "km" ? "បញ្ជីស្លាយទាំងអស់ (Slide Grid)" : "Slide Deck Overview"}
-              </h3>
-              <p className="text-sm text-zinc-400">
-                {lang === "km"
-                  ? "ចុចលើស្លាយណាមួយដើម្បីលោតទៅកាន់ស្លាយនោះភ្លាមៗ (ចុច Esc ដើម្បីបិទ)"
-                  : "Click any thumbnail to jump to that slide (Press Esc to close)"}
-              </p>
-            </div>
-            <button
-              onClick={() => setShowGrid(false)}
-              className="px-4 py-2 rounded-xl bg-zinc-800 text-white font-semibold text-sm hover:bg-zinc-700"
-            >
-              {lang === "km" ? "បិទ (Close)" : "Close"}
-            </button>
-          </div>
-
-          <div className="grid grid-cols-4 gap-6 max-w-7xl mx-auto w-full">
-            {slideTitles.map((title, idx) => (
-              <div
-                key={idx}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  goToSlide(idx);
-                  setShowGrid(false);
-                }}
-                className={`p-6 rounded-2xl border-2 transition-all cursor-pointer flex flex-col justify-between h-44 ${
-                  currentSlide === idx
-                    ? "border-[var(--pri)] bg-[var(--pri)]/20 shadow-lg shadow-[var(--pri)]/25"
-                    : "border-zinc-800 bg-zinc-900/90 hover:border-zinc-600 hover:scale-[1.02]"
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-sm font-bold text-[var(--pri)]">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  {currentSlide === idx && (
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--pri)] text-white font-bold">
-                      Current
-                    </span>
-                  )}
-                </div>
-
-                <div className="text-base font-bold text-white leading-snug">
-                  {lang === "km" ? title.km : title.en}
-                </div>
-
-                <div className="text-xs text-zinc-400">
-                  Slide {idx + 1} of {TOTAL_SLIDES}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
