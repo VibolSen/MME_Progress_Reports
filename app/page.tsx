@@ -20,7 +20,6 @@ import {
   AssetBudgetVisual,
   SecretariatVaultVisual,
   RoyalTransmissionVisual,
-  SlideFooter,
 } from "./slideVisuals";
 import {
   ChevronLeft,
@@ -58,9 +57,9 @@ export default function PresentationPage() {
     return 0;
   });
 
-  // LIGHT THEME IS NOW DEFAULT
+  // LIGHT THEME IS DEFAULT
   const [theme, setTheme] = useState<"dark" | "light">("light");
-  const [lang, setLang] = useState<Language>("km"); // Default to Khmer for Cambodian ministry
+  const [lang, setLang] = useState<Language>("km");
   const [isFullscreen, setIsFullscreen] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       return Boolean(document.fullscreenElement);
@@ -73,7 +72,7 @@ export default function PresentationPage() {
   const [scale, setScale] = useState<number>(() => {
     if (typeof window !== "undefined") {
       const w = window.innerWidth;
-      const h = window.innerHeight - 80;
+      const h = window.innerHeight - 76;
       const s = Math.min(w / 1920, h / 1080);
       return s > 0 ? s : 1;
     }
@@ -85,7 +84,7 @@ export default function PresentationPage() {
     const isFS = Boolean(document.fullscreenElement);
     setIsFullscreen(isFS);
     const w = window.innerWidth;
-    const h = window.innerHeight - 80;
+    const h = window.innerHeight - 76;
     const s = Math.min(w / 1920, h / 1080);
     setScale(s > 0 ? s : 1);
   }, []);
@@ -203,7 +202,11 @@ export default function PresentationPage() {
 
   // Click on left 25% or right 75% to navigate
   const handleViewportClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if ((e.target as HTMLElement).closest("button, a, input, select, .interactive, .card, .scope-card, .tlg-card")) {
+    if (
+      (e.target as HTMLElement).closest(
+        "button, a, input, select, .interactive, .card, .comp-box, .tlg-card"
+      )
+    ) {
       return;
     }
     const rect = e.currentTarget.getBoundingClientRect();
@@ -218,18 +221,18 @@ export default function PresentationPage() {
   // Slide navigation list
   const slideList = useMemo(
     () => [
-      { id: 1, labelEn: "Title", labelKm: "ចំណងជើង" },
-      { id: 2, labelEn: "Agenda", labelKm: "របៀបវារៈ" },
-      { id: 3, labelEn: "Scope", labelKm: "វិសាលភាព" },
-      { id: 4, labelEn: "Facilities", labelKm: "ប្រតិបត្តិការ & បន្ទប់ប្រជុំ" },
-      { id: 5, labelEn: "Missions", labelKm: "បេសកកម្ម & បៀវត្ស" },
-      { id: 6, labelEn: "Assets", labelKm: "ទ្រព្យសម្បត្តិ & ថវិកា" },
-      { id: 7, labelEn: "Documents", labelKm: "ឯកសារអគ្គលេខាធិការ" },
-      { id: 8, labelEn: "Pending", labelKm: "ការងារសេសសល់" },
-      { id: 9, labelEn: "Challenges", labelKm: "បញ្ហាប្រឈម" },
-      { id: 10, labelEn: "Timeline", labelKm: "កាលវិភាគ" },
-      { id: 11, labelEn: "Action Plan", labelKm: "ផែនការ ៣០ថ្ងៃ" },
-      { id: 12, labelEn: "Thanks", labelKm: "សូមអរគុណ" },
+      { id: 1 },
+      { id: 2 },
+      { id: 3 },
+      { id: 4 },
+      { id: 5 },
+      { id: 6 },
+      { id: 7 },
+      { id: 8 },
+      { id: 9 },
+      { id: 10 },
+      { id: 11 },
+      { id: 12 },
     ],
     []
   );
@@ -245,8 +248,7 @@ export default function PresentationPage() {
     >
       {/* Viewport wrapping the 1920x1080 stage */}
       <div className="viewport" id="vp" onClick={handleViewportClick}>
-        
-        {/* SLIDE 1: Title (ចំណងជើង) with 3D Digital Hub Visual */}
+        {/* SLIDE 1: Title (ចំណងជើង) */}
         <section
           className={`slide ${currentSlide === 0 ? "on" : ""}`}
           data-label="Title"
@@ -258,78 +260,100 @@ export default function PresentationPage() {
               <div className="blob b2" />
             </div>
 
-            <div className="t-left">
-              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
-                {lang === "km"
-                  ? "ក្រសួងរ៉ែ និងថាមពល · MME Progress Reports"
-                  : "Ministry of Mines and Energy · MME"}
-              </div>
-              <h1 className="t-title a" style={{ "--d": 1 } as React.CSSProperties}>
-                {lang === "km" ? (
-                  <>
-                    របាយការណ៍វឌ្ឍភាព <span className="grad">គម្រោងប្រព័ន្ធបច្ចេកវិទ្យា</span> MME
-                  </>
-                ) : (
-                  <>
-                    MME Digital <span className="grad">Transformation</span> Progress
-                  </>
-                )}
-              </h1>
-              <div className="t-badge a" style={{ "--d": 2 } as React.CSSProperties}>
-                <span className="ic soft">
+            <div className="hero-grid">
+              <div className="t-left">
+                <div
+                  className="eyebrow a"
+                  style={{ "--d": 0 } as React.CSSProperties}
+                >
+                  {lang === "km"
+                    ? "ក្រសួងរ៉ែ និងថាមពល · MME Progress Reports"
+                    : "Ministry of Mines and Energy · MME"}
+                </div>
+                <h1
+                  className="t-title a"
+                  style={{ "--d": 1 } as React.CSSProperties}
+                >
+                  {lang === "km" ? (
+                    <>
+                      របាយការណ៍វឌ្ឍភាព{" "}
+                      <span className="grad">គម្រោងប្រព័ន្ធបច្ចេកវិទ្យា</span> MME
+                    </>
+                  ) : (
+                    <>
+                      MME Digital <span className="grad">Transformation</span>{" "}
+                      Progress
+                    </>
+                  )}
+                </h1>
+                <div
+                  className="t-badge a"
+                  style={{ "--d": 2 } as React.CSSProperties}
+                >
                   <Image
                     src="/logo/logo tab.svg"
                     alt="Emblem"
-                    width={28}
-                    height={28}
+                    width={32}
+                    height={32}
                     priority
+                    className="object-contain"
                   />
-                </span>
-                <span>
+                  <span>
+                    {lang === "km"
+                      ? "របាយការណ៍បច្ចុប្បន្នភាពសម្រាប់ថ្នាក់ដឹកនាំក្រសួង"
+                      : "Executive Briefing for Ministry Leadership"}
+                  </span>
+                </div>
+                <p
+                  className="t-sub a"
+                  style={{ "--d": 3 } as React.CSSProperties}
+                >
                   {lang === "km"
-                    ? "របាយការណ៍បច្ចុប្បន្នភាពសម្រាប់ថ្នាក់ដឹកនាំក្រសួង"
-                    : "Executive Briefing for Ministry Leadership"}
-                </span>
-              </div>
-              <p className="t-sub a" style={{ "--d": 3 } as React.CSSProperties}>
-                {lang === "km"
-                  ? PRESENTATION_META.taglineKm
-                  : PRESENTATION_META.taglineEn}
-              </p>
-              <button
-                className="cta a interactive"
-                style={{ "--d": 4 } as React.CSSProperties}
-                onClick={() => goToSlide(1)}
-              >
-                <span>{lang === "km" ? "ចាប់ផ្តើមបទបង្ហាញ" : "Start the presentation"}</span>
-                <ArrowRight size={20} />
-              </button>
-              <div className="t-meta a" style={{ "--d": 5 } as React.CSSProperties}>
-                <Image
-                  src="/logo/Oone logo.svg"
-                  alt="OONE Power"
-                  width={140}
-                  height={40}
-                  priority
-                  className="object-contain"
-                />
-                <div>
-                  <small>{lang === "km" ? "រៀបចំ និងអនុវត្តដោយ" : "Prepared by"}</small>
-                  <b>{PRESENTATION_META.companyEn}</b>
+                    ? PRESENTATION_META.taglineKm
+                    : PRESENTATION_META.taglineEn}
+                </p>
+                <button
+                  className="cta a interactive"
+                  style={{ "--d": 4 } as React.CSSProperties}
+                  onClick={() => goToSlide(1)}
+                >
+                  <span>
+                    {lang === "km" ? "ចាប់ផ្តើមបទបង្ហាញ" : "Start the presentation"}
+                  </span>
+                  <ArrowRight size={20} />
+                </button>
+                <div
+                  className="t-meta a"
+                  style={{ "--d": 5 } as React.CSSProperties}
+                >
+                  <Image
+                    src="/logo/Oone logo.svg"
+                    alt="OONE Power"
+                    width={110}
+                    height={48}
+                    priority
+                    className="object-contain"
+                  />
+                  <div>
+                    <small>
+                      {lang === "km" ? "រៀបចំ និងអនុវត្តដោយ" : "Prepared by"}
+                    </small>
+                    <b>{PRESENTATION_META.companyEn}</b>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Right Hero Visual with Isometric Hub & Floating Cards */}
-            <div className="t-photo a-z" style={{ "--d": 2 } as React.CSSProperties}>
-              <HeroHubVisual lang={lang} theme={theme} />
+              <div
+                className="t-photo a-z"
+                style={{ "--d": 2 } as React.CSSProperties}
+              >
+                <HeroHubVisual lang={lang} theme={theme} />
+              </div>
             </div>
-
-            <SlideFooter lang={lang} slideNumber={1} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
-        {/* SLIDE 2: Agenda (របៀបវារៈ) with 3 Rich Pillars */}
+        {/* SLIDE 2: Agenda (របៀបវារៈ) */}
         <section
           className={`slide ${currentSlide === 1 ? "on" : ""}`}
           data-label="Agenda"
@@ -341,7 +365,10 @@ export default function PresentationPage() {
             </div>
 
             <div className="head">
-              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+              <div
+                className="eyebrow a"
+                style={{ "--d": 0 } as React.CSSProperties}
+              >
                 {lang === "km" ? "របៀបវារៈបទបង្ហាញ" : "Agenda"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
@@ -366,7 +393,7 @@ export default function PresentationPage() {
               {AGENDA_ITEMS.map((item, idx) => (
                 <button
                   key={item.key}
-                  className="a interactive group"
+                  className="a interactive"
                   style={{ "--d": idx + 2 } as React.CSSProperties}
                   onClick={() => {
                     if (idx === 0) goToSlide(2);
@@ -375,19 +402,17 @@ export default function PresentationPage() {
                   }}
                 >
                   <span className="n">{item.num}</span>
-                  <span className="ic soft group-hover:scale-110 transition-transform">
-                    {idx === 0 && <Layers size={32} className="text-indigo-600 dark:text-indigo-400" />}
-                    {idx === 1 && <AlertTriangle size={32} className="text-amber-500" />}
-                    {idx === 2 && <Clock size={32} className="text-emerald-500" />}
+                  <span className="ic soft">
+                    {idx === 0 && <Layers size={30} />}
+                    {idx === 1 && <AlertTriangle size={30} />}
+                    {idx === 2 && <Clock size={30} />}
                   </span>
                   <span className="t">
                     {lang === "km" ? item.titleKm : item.titleEn}
-                    <small>
-                      {lang === "km" ? item.descKm : item.descEn}
-                    </small>
+                    <small>{lang === "km" ? item.descKm : item.descEn}</small>
                   </span>
-                  <div className="mt-auto pt-6 flex items-center justify-between w-full border-t border-[var(--pb)]">
-                    <span className="text-xs font-mono font-bold text-[var(--pri)]">
+                  <div className="ag-footer">
+                    <span className="ag-tag">
                       {lang === "km" ? item.tagKm : item.tagEn}
                     </span>
                     <span className="go">
@@ -397,8 +422,6 @@ export default function PresentationPage() {
                 </button>
               ))}
             </div>
-
-            <SlideFooter lang={lang} slideNumber={2} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -414,8 +437,13 @@ export default function PresentationPage() {
             </div>
 
             <div className="head">
-              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
-                {lang === "km" ? "០១ · វិសាលភាពនាយកដ្ឋាន" : "01 · Department Scope"}
+              <div
+                className="eyebrow a"
+                style={{ "--d": 0 } as React.CSSProperties}
+              >
+                {lang === "km"
+                  ? "០១ · វិសាលភាពនាយកដ្ឋាន"
+                  : "01 · Department Scope"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
@@ -436,77 +464,124 @@ export default function PresentationPage() {
             </div>
 
             <div className="comp-split">
-              {/* Left Column: Department Focus Cards */}
-              <div className="comp-box a" style={{ "--d": 2 } as React.CSSProperties}>
+              <div
+                className="comp-box a"
+                style={{ "--d": 2 } as React.CSSProperties}
+              >
                 <div className="comp-box-header">
                   <div>
-                    <span className="chip grn text-xs mb-2">
-                      {lang === "km" ? "នាយកដ្ឋានទូទៅ · ១០០% ពេញលេញ" : "General Department · 100% Active"}
+                    <span className="chip grn">
+                      {lang === "km"
+                        ? "នាយកដ្ឋានទូទៅ · ១០០% ពេញលេញ"
+                        : "General Department · 100% Active"}
                     </span>
-                    <h3>{DEPARTMENTS[0].nameEn}</h3>
+                    <h3>
+                      {lang === "km"
+                        ? DEPARTMENTS[0].nameKm
+                        : DEPARTMENTS[0].nameEn}
+                    </h3>
                   </div>
                   <span className="ic grn">
-                    <Building2 size={26} />
+                    <Building2 size={24} />
                   </span>
                 </div>
-                <p className="text-sm text-[var(--mu)] mb-4">
-                  {lang === "km" ? DEPARTMENTS[0].descriptionKm : DEPARTMENTS[0].descriptionEn}
+                <p className="comp-box-sub">
+                  {lang === "km"
+                    ? DEPARTMENTS[0].descriptionKm
+                    : DEPARTMENTS[0].descriptionEn}
                 </p>
                 <div className="comp-list">
                   <div className="comp-list-item">
                     <span className="badge-num">01</span>
                     <div>
-                      <h4>{lang === "km" ? "១.១ ប្រតិបត្តិការ & បន្ទប់ប្រជុំ" : "1.1 Meeting Room Booking & Supplies"}</h4>
-                      <p>{lang === "km" ? "ដាក់ឱ្យដំណើរការជាផ្លូវការ (១០០% Live)" : "Officially launched and active in production"}</p>
+                      <h4>
+                        {lang === "km"
+                          ? "១.១ ប្រតិបត្តិការ & បន្ទប់ប្រជុំ"
+                          : "1.1 Meeting Room Booking & Supplies"}
+                      </h4>
+                      <p>
+                        {lang === "km"
+                          ? "ដាក់ឱ្យដំណើរការជាផ្លូវការ (១០០% Live)"
+                          : "Officially launched and active in production"}
+                      </p>
                     </div>
                   </div>
                   <div className="comp-list-item">
                     <span className="badge-num">02</span>
                     <div>
-                      <h4>{lang === "km" ? "១.២ បេសកកម្ម & ប្រាក់បៀវត្ស" : "1.2 Mission Workflow & Payroll"}</h4>
-                      <p>{lang === "km" ? "ការរៀបចំប្រព័ន្ធ ៦៥% & រង់ចាំ MEF" : "Setup 65% ready & pending MEF review"}</p>
+                      <h4>
+                        {lang === "km"
+                          ? "១.២ បេសកកម្ម & ប្រាក់បៀវត្ស"
+                          : "1.2 Mission Workflow & Payroll"}
+                      </h4>
+                      <p>
+                        {lang === "km"
+                          ? "ការរៀបចំប្រព័ន្ធ ៦៥% & រង់ចាំ MEF"
+                          : "Setup 65% ready & pending MEF review"}
+                      </p>
                     </div>
                   </div>
                   <div className="comp-list-item">
                     <span className="badge-num">03</span>
                     <div>
-                      <h4>{lang === "km" ? "១.៣ & ១.៤ ទ្រព្យសម្បត្តិ & ថវិកា" : "1.3 & 1.4 State Assets & Budgeting"}</h4>
-                      <p>{lang === "km" ? "បានសិក្សាតម្រូវការរួចរាល់ & ត្រៀម UAT" : "Requirements studied & preparing for UAT"}</p>
+                      <h4>
+                        {lang === "km"
+                          ? "១.៣ & ១.៤ ទ្រព្យសម្បត្តិ & ថវិកា"
+                          : "1.3 & 1.4 State Assets & Budgeting"}
+                      </h4>
+                      <p>
+                        {lang === "km"
+                          ? "បានសិក្សាតម្រូវការរួចរាល់ & ត្រៀម UAT"
+                          : "Requirements studied & preparing for UAT"}
+                      </p>
                     </div>
                   </div>
                   <div className="comp-list-item">
                     <span className="badge-num">04</span>
                     <div>
-                      <h4>{lang === "km" ? "១.៥ ឯកសារអគ្គលេខាធិការដ្ឋាន" : "1.5 Secretariat Document Vault"}</h4>
-                      <p>{lang === "km" ? "អភិវឌ្ឍរួចរាល់ ៦០% (លិខិតចូល-ចេញ & ផ្ទុកឯកសារ)" : "60% Dev Complete (Dispatch & Archiving)"}</p>
+                      <h4>
+                        {lang === "km"
+                          ? "១.៥ ឯកសារអគ្គលេខាធិការដ្ឋាន"
+                          : "1.5 Secretariat Document Vault"}
+                      </h4>
+                      <p>
+                        {lang === "km"
+                          ? "អភិវឌ្ឍរួចរាល់ ៦០% (លិខិតចូល-ចេញ & ផ្ទុកឯកសារ)"
+                          : "60% Dev Complete (Dispatch & Archiving)"}
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Right Column: Interactive Network Radar Map Visual */}
-              <div className="comp-box a flex flex-col justify-center items-center relative overflow-hidden" style={{ "--d": 3 } as React.CSSProperties}>
-                <div className="w-full h-full flex flex-col justify-between">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-[var(--pri)]">
-                      MME TOPOLOGY MAP
-                    </span>
-                    <span className="chip pri text-xs">
-                      INTER-DEPARTMENTAL
-                    </span>
+              <div
+                className="comp-box a"
+                style={{ "--d": 3 } as React.CSSProperties}
+              >
+                <div className="comp-box-header">
+                  <div>
+                    <span className="chip pri">MME TOPOLOGY MAP</span>
+                    <h3>
+                      {lang === "km"
+                        ? "បណ្តាញតភ្ជាប់នាយកដ្ឋានទាំង ៣"
+                        : "3-Department Architecture Map"}
+                    </h3>
                   </div>
-                  <div className="flex-1 flex items-center justify-center">
-                    <DepartmentNetworkMap lang={lang} theme={theme} />
-                  </div>
-                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs text-slate-600 dark:text-slate-300">
-                    <span>{lang === "km" ? "ស្ថាបត្យកម្មរួមត្រៀមសម្រាប់នាយកដ្ឋានទាំង ៣" : "Unified modular architecture for all 3 departments"}</span>
-                    <span className="font-bold text-emerald-600">MODULAR CORE</span>
-                  </div>
+                  <span className="ic soft">
+                    <Layers size={24} />
+                  </span>
+                </div>
+                <DepartmentNetworkMap lang={lang} theme={theme} />
+                <div className="vs-bottom-strip">
+                  <span className="vs-bottom-left">
+                    {lang === "km"
+                      ? "ស្ថាបត្យកម្មរួមត្រៀមសម្រាប់នាយកដ្ឋានទាំង ៣"
+                      : "Unified modular architecture ready for all 3 departments"}
+                  </span>
+                  <span className="vs-mono-badge grn">MODULAR CORE</span>
                 </div>
               </div>
             </div>
-
-            <SlideFooter lang={lang} slideNumber={3} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -522,40 +597,59 @@ export default function PresentationPage() {
             </div>
 
             <div className="head">
-              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
-                {lang === "km" ? "០២ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ" : "02 · General Department Progress"}
+              <div
+                className="eyebrow a"
+                style={{ "--d": 0 } as React.CSSProperties}
+              >
+                {lang === "km"
+                  ? "០២ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ"
+                  : "02 · General Department Progress"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    សមាសភាគទី១៖ <span className="g">ប្រតិបត្តិការ ការផ្គត់ផ្គង់ & សេវាបន្ទប់ប្រជុំ</span>
+                    សមាសភាគទី១៖{" "}
+                    <span className="g">
+                      ប្រតិបត្តិការ ការផ្គត់ផ្គង់ & សេវាបន្ទប់ប្រជុំ
+                    </span>
                   </>
                 ) : (
                   <>
-                    Component 1: <span className="g">Operations, Supply & Meeting Rooms</span>
+                    Component 1:{" "}
+                    <span className="g">
+                      Operations, Supply & Meeting Rooms
+                    </span>
                   </>
                 )}
               </h2>
             </div>
 
             <div className="comp-split">
-              {/* Left Column: Subtasks */}
-              <div className="comp-box a" style={{ "--d": 2 } as React.CSSProperties}>
+              <div
+                className="comp-box a"
+                style={{ "--d": 2 } as React.CSSProperties}
+              >
                 <div className="comp-box-header">
                   <div>
-                    <span className="chip grn text-xs mb-2">
-                      {lang === "km" ? "ស្ថានភាព៖ ដាក់ឱ្យប្រើប្រាស់ជាក់ស្តែង (Live)" : "Status: Live in Production"}
+                    <span className="chip grn">
+                      {lang === "km"
+                        ? "ស្ថានភាព៖ ដាក់ឱ្យប្រើប្រាស់ជាក់ស្តែង (Live)"
+                        : "Status: Live in Production"}
                     </span>
-                    <h3>{lang === "km" ? COMPONENTS_DATA[0].titleKm : COMPONENTS_DATA[0].titleEn}</h3>
+                    <h3>
+                      {lang === "km"
+                        ? COMPONENTS_DATA[0].titleKm
+                        : COMPONENTS_DATA[0].titleEn}
+                    </h3>
                   </div>
                   <span className="ic grn">
-                    <Check size={26} />
+                    <Check size={24} />
                   </span>
                 </div>
                 <div className="comp-list">
                   {COMPONENTS_DATA[0].subtasks.map((item, i) => (
                     <div key={item.id} className="comp-list-item">
-                      <span className="badge-num">{i + 1}</span>
+                      <span className="badge-num">0{i + 1}</span>
                       <div>
                         <h4>{lang === "km" ? item.titleKm : item.titleEn}</h4>
                         <p>{lang === "km" ? item.notesKm : item.notesEn}</p>
@@ -565,13 +659,13 @@ export default function PresentationPage() {
                 </div>
               </div>
 
-              {/* Right Column: Interactive UI Visual */}
-              <div className="comp-box a flex flex-col justify-center" style={{ "--d": 3 } as React.CSSProperties}>
+              <div
+                className="comp-box a"
+                style={{ "--d": 3 } as React.CSSProperties}
+              >
                 <MeetingRoomVisual lang={lang} theme={theme} />
               </div>
             </div>
-
-            <SlideFooter lang={lang} slideNumber={4} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -587,40 +681,59 @@ export default function PresentationPage() {
             </div>
 
             <div className="head">
-              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
-                {lang === "km" ? "០៣ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ" : "03 · General Department Progress"}
+              <div
+                className="eyebrow a"
+                style={{ "--d": 0 } as React.CSSProperties}
+              >
+                {lang === "km"
+                  ? "០៣ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ"
+                  : "03 · General Department Progress"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    សមាសភាគទី២៖ <span className="g">ការគ្រប់គ្រងបេសកកម្ម & ដំណើរការប្រាក់បៀវត្ស</span>
+                    សមាសភាគទី២៖{" "}
+                    <span className="g">
+                      ការគ្រប់គ្រងបេសកកម្ម & ដំណើរការប្រាក់បៀវត្ស
+                    </span>
                   </>
                 ) : (
                   <>
-                    Component 2: <span className="g">Mission Workflows & Payroll Operations</span>
+                    Component 2:{" "}
+                    <span className="g">
+                      Mission Workflows & Payroll Operations
+                    </span>
                   </>
                 )}
               </h2>
             </div>
 
             <div className="comp-split">
-              {/* Left Column: Subtasks */}
-              <div className="comp-box a" style={{ "--d": 2 } as React.CSSProperties}>
+              <div
+                className="comp-box a"
+                style={{ "--d": 2 } as React.CSSProperties}
+              >
                 <div className="comp-box-header">
                   <div>
-                    <span className="chip pri text-xs mb-2">
-                      {lang === "km" ? "ស្ថានភាព៖ សិក្សាចប់ & ត្រៀមអនុវត្ត" : "Status: Studied & Ready"}
+                    <span className="chip pri">
+                      {lang === "km"
+                        ? "ស្ថានភាព៖ សិក្សាចប់ & ត្រៀមអនុវត្ត"
+                        : "Status: Studied & Ready"}
                     </span>
-                    <h3>{lang === "km" ? COMPONENTS_DATA[1].titleKm : COMPONENTS_DATA[1].titleEn}</h3>
+                    <h3>
+                      {lang === "km"
+                        ? COMPONENTS_DATA[1].titleKm
+                        : COMPONENTS_DATA[1].titleEn}
+                    </h3>
                   </div>
                   <span className="ic soft">
-                    <Layers size={26} />
+                    <Layers size={24} />
                   </span>
                 </div>
                 <div className="comp-list">
                   {COMPONENTS_DATA[1].subtasks.map((item, i) => (
                     <div key={item.id} className="comp-list-item">
-                      <span className="badge-num">{i + 1}</span>
+                      <span className="badge-num">0{i + 1}</span>
                       <div>
                         <h4>{lang === "km" ? item.titleKm : item.titleEn}</h4>
                         <p>{lang === "km" ? item.notesKm : item.notesEn}</p>
@@ -630,13 +743,13 @@ export default function PresentationPage() {
                 </div>
               </div>
 
-              {/* Right Column: Workflow Flow Visual */}
-              <div className="comp-box a flex flex-col justify-center" style={{ "--d": 3 } as React.CSSProperties}>
+              <div
+                className="comp-box a"
+                style={{ "--d": 3 } as React.CSSProperties}
+              >
                 <MissionPayrollFlow lang={lang} theme={theme} />
               </div>
             </div>
-
-            <SlideFooter lang={lang} slideNumber={5} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -652,34 +765,51 @@ export default function PresentationPage() {
             </div>
 
             <div className="head">
-              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
-                {lang === "km" ? "០៤ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ" : "04 · General Department Progress"}
+              <div
+                className="eyebrow a"
+                style={{ "--d": 0 } as React.CSSProperties}
+              >
+                {lang === "km"
+                  ? "០៤ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ"
+                  : "04 · General Department Progress"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    សមាសភាគទី៣ & ៤៖ <span className="g">ទ្រព្យសម្បត្តិរដ្ឋ ផែនការ & ថវិកា</span>
+                    សមាសភាគទី៣ & ៤៖{" "}
+                    <span className="g">ទ្រព្យសម្បត្តិរដ្ឋ ផែនការ & ថវិកា</span>
                   </>
                 ) : (
                   <>
-                    Component 3 & 4: <span className="g">State Assets, Planning & Budgeting</span>
+                    Component 3 & 4:{" "}
+                    <span className="g">
+                      State Assets, Planning & Budgeting
+                    </span>
                   </>
                 )}
               </h2>
             </div>
 
             <div className="comp-split">
-              {/* Left Column: Combined 1.3 & 1.4 */}
-              <div className="comp-box a" style={{ "--d": 2 } as React.CSSProperties}>
+              <div
+                className="comp-box a"
+                style={{ "--d": 2 } as React.CSSProperties}
+              >
                 <div className="comp-box-header">
                   <div>
-                    <span className="chip amb text-xs mb-2">
-                      {lang === "km" ? "ស្ថានភាព៖ រៀបចំកូដ & ត្រៀម UAT" : "Status: Coding & UAT Prep"}
+                    <span className="chip amb">
+                      {lang === "km"
+                        ? "ស្ថានភាព៖ រៀបចំកូដ & ត្រៀម UAT"
+                        : "Status: Coding & UAT Prep"}
                     </span>
-                    <h3>{lang === "km" ? "ទ្រព្យសម្បត្តិរដ្ឋ & ថវិកាជាតិ" : "State Assets & Public Budget"}</h3>
+                    <h3>
+                      {lang === "km"
+                        ? "ទ្រព្យសម្បត្តិរដ្ឋ & ថវិកាជាតិ"
+                        : "State Assets & Public Budget"}
+                    </h3>
                   </div>
                   <span className="ic amb">
-                    <ShieldCheck size={26} />
+                    <ShieldCheck size={24} />
                   </span>
                 </div>
                 <div className="comp-list">
@@ -704,13 +834,13 @@ export default function PresentationPage() {
                 </div>
               </div>
 
-              {/* Right Column: Asset QR & Budget Visual */}
-              <div className="comp-box a flex flex-col justify-center" style={{ "--d": 3 } as React.CSSProperties}>
+              <div
+                className="comp-box a"
+                style={{ "--d": 3 } as React.CSSProperties}
+              >
                 <AssetBudgetVisual lang={lang} theme={theme} />
               </div>
             </div>
-
-            <SlideFooter lang={lang} slideNumber={6} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -726,39 +856,59 @@ export default function PresentationPage() {
             </div>
 
             <div className="head">
-              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
-                {lang === "km" ? "០៥ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ" : "05 · General Department Progress"}
+              <div
+                className="eyebrow a"
+                style={{ "--d": 0 } as React.CSSProperties}
+              >
+                {lang === "km"
+                  ? "០៥ · វឌ្ឍភាពនាយកដ្ឋានទូទៅ"
+                  : "05 · General Department Progress"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    សមាសភាគទី៥៖ <span className="g">ឯកសារអគ្គលេខាធិការដ្ឋាន (៦០% រួចរាល់)</span>
+                    សមាសភាគទី៥៖{" "}
+                    <span className="g">
+                      ឯកសារអគ្គលេខាធិការដ្ឋាន (៦០% រួចរាល់)
+                    </span>
                   </>
                 ) : (
                   <>
-                    Component 5: <span className="g">Secretariat Document Vault (60% Ready)</span>
+                    Component 5:{" "}
+                    <span className="g">
+                      Secretariat Document Vault (60% Ready)
+                    </span>
                   </>
                 )}
               </h2>
             </div>
 
             <div className="comp-split">
-              <div className="comp-box a" style={{ "--d": 2 } as React.CSSProperties}>
+              <div
+                className="comp-box a"
+                style={{ "--d": 2 } as React.CSSProperties}
+              >
                 <div className="comp-box-header">
                   <div>
-                    <span className="chip grn text-xs mb-2">
-                      {lang === "km" ? "ស្ថានភាព៖ អភិវឌ្ឍរួចរាល់ ៦០%" : "Status: 60% Developed"}
+                    <span className="chip grn">
+                      {lang === "km"
+                        ? "ស្ថានភាព៖ អភិវឌ្ឍរួចរាល់ ៦០%"
+                        : "Status: 60% Developed"}
                     </span>
-                    <h3>{lang === "km" ? COMPONENTS_DATA[4].titleKm : COMPONENTS_DATA[4].titleEn}</h3>
+                    <h3>
+                      {lang === "km"
+                        ? COMPONENTS_DATA[4].titleKm
+                        : COMPONENTS_DATA[4].titleEn}
+                    </h3>
                   </div>
                   <span className="ic soft">
-                    <Layers size={26} />
+                    <Layers size={24} />
                   </span>
                 </div>
                 <div className="comp-list">
                   {COMPONENTS_DATA[4].subtasks.map((item, i) => (
                     <div key={item.id} className="comp-list-item">
-                      <span className="badge-num">{i + 1}</span>
+                      <span className="badge-num">0{i + 1}</span>
                       <div>
                         <h4>{lang === "km" ? item.titleKm : item.titleEn}</h4>
                         <p>{lang === "km" ? item.notesKm : item.notesEn}</p>
@@ -768,13 +918,13 @@ export default function PresentationPage() {
                 </div>
               </div>
 
-              {/* Right Column: Vault Visual */}
-              <div className="comp-box a flex flex-col justify-center" style={{ "--d": 3 } as React.CSSProperties}>
+              <div
+                className="comp-box a"
+                style={{ "--d": 3 } as React.CSSProperties}
+              >
                 <SecretariatVaultVisual lang={lang} theme={theme} />
               </div>
             </div>
-
-            <SlideFooter lang={lang} slideNumber={7} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -790,24 +940,31 @@ export default function PresentationPage() {
             </div>
 
             <div className="head">
-              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
-                {lang === "km" ? "០៦ · ការងារដែលនៅសេសសល់" : "06 · Pending Items Review"}
+              <div
+                className="eyebrow a"
+                style={{ "--d": 0 } as React.CSSProperties}
+              >
+                {lang === "km"
+                  ? "០៦ · ការងារដែលនៅសេសសល់"
+                  : "06 · Pending Items Review"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    បញ្ជីការងាររង់ចាំការសម្រេច <span className="g">(Pending Items)</span>
+                    បញ្ជីការងាររង់ចាំការសម្រេច{" "}
+                    <span className="g">(Pending Items)</span>
                   </>
                 ) : (
                   <>
-                    Summary of <span className="g">Pending Items & Bottlenecks</span>
+                    Summary of{" "}
+                    <span className="g">Pending Items & Bottlenecks</span>
                   </>
                 )}
               </h2>
               <p className="lead a" style={{ "--d": 2 } as React.CSSProperties}>
                 {lang === "km"
-                  ? "ចំណុចគន្លឹះចំនួន ៥ ដែលទាមទារការសម្របសម្រួល និងការសម្រេចគោលការណ៍ជាមួយថ្នាក់ដឹកនាំក្រសួង"
-                  : "5 critical decision items requiring inter-ministerial coordination and policy sign-off"}
+                  ? "ចំណុចគន្លឹះដែលទាមទារការសម្របសម្រួល និងការសម្រេចគោលការណ៍ជាមួយថ្នាក់ដឹកនាំក្រសួង"
+                  : "Critical decision items requiring inter-ministerial coordination and policy sign-off"}
               </p>
             </div>
 
@@ -818,17 +975,19 @@ export default function PresentationPage() {
                   className="card a"
                   style={{ "--d": idx + 2 } as React.CSSProperties}
                 >
-                  <span className="num">0{idx + 1}</span>
-                  <span className="ic amb">
-                    <Clock size={26} className="text-amber-500" />
-                  </span>
-                  <h3>{lang === "km" ? item.titleKm : item.titleEn}</h3>
-                  <p>{lang === "km" ? item.detailKm : item.detailEn}</p>
-                  <div className="mt-auto pt-4 border-t border-[var(--pb)] flex items-center justify-between text-xs">
-                    <span className="font-mono font-bold text-[var(--pri)]">
-                      {item.component}
+                  <div className="ch-card-top">
+                    <span className="num">0{idx + 1}</span>
+                    <span className="ic amb">
+                      <Clock size={24} />
                     </span>
-                    <span className="chip amb text-xs py-1 px-3">
+                  </div>
+                  <h3>{lang === "km" ? item.titleKm : item.titleEn}</h3>
+                  <p className="ch-desc">
+                    {lang === "km" ? item.detailKm : item.detailEn}
+                  </p>
+                  <div className="ch-footer">
+                    <span className="ag-tag">{item.component}</span>
+                    <span className="chip amb">
                       {lang === "km" ? item.statusKm : item.statusEn}
                     </span>
                   </div>
@@ -836,11 +995,16 @@ export default function PresentationPage() {
               ))}
             </div>
 
-            <div className="shift a" style={{ "--d": 5 } as React.CSSProperties}>
+            <div
+              className="shift a"
+              style={{ "--d": 5 } as React.CSSProperties}
+            >
               <div className="s">
                 <span className="dot red" />
                 <div>
-                  <small>{lang === "km" ? "ស្ថានភាពបច្ចុប្បន្ន" : "Current Bottleneck"}</small>
+                  <small>
+                    {lang === "km" ? "ស្ថានភាពបច្ចុប្បន្ន" : "Current Bottleneck"}
+                  </small>
                   {lang === "km"
                     ? "ការងារមួយចំនួនរង់ចាំការឯកភាពលើទម្រង់កាតាបៀវត្ស និងកូដសម្បត្តិរដ្ឋពី MEF"
                     : "Workflows waiting on formal MEF payroll format & state asset code approvals"}
@@ -850,19 +1014,19 @@ export default function PresentationPage() {
               <div className="s">
                 <span className="dot grn" />
                 <div>
-                  <small>{lang === "km" ? "ដំណោះស្រាយស្នើឡើង" : "Proposed Solution"}</small>
+                  <small>
+                    {lang === "km" ? "ដំណោះស្រាយស្នើឡើង" : "Proposed Solution"}
+                  </small>
                   {lang === "km"
                     ? "បើកកិច្ចប្រជុំអន្តរក្រសួងរួមគ្នា ដើម្បីឯកភាពលើទម្រង់ស្តង់ដារ និងអនុវត្តភ្លាមៗ"
                     : "Joint inter-ministerial workshop to finalize data formats and unlock deployment"}
                 </div>
               </div>
             </div>
-
-            <SlideFooter lang={lang} slideNumber={8} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
-        {/* SLIDE 9: Challenges & Suggestions (Exact Slide 3 Template) */}
+        {/* SLIDE 9: Challenges & Suggestions */}
         <section
           className={`slide ${currentSlide === 8 ? "on" : ""}`}
           data-label="Challenges"
@@ -874,8 +1038,13 @@ export default function PresentationPage() {
             </div>
 
             <div className="head">
-              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
-                {lang === "km" ? "០៧ · បញ្ហាប្រឈម & សំណូមពរ" : "07 · Challenges & Suggestions"}
+              <div
+                className="eyebrow a"
+                style={{ "--d": 0 } as React.CSSProperties}
+              >
+                {lang === "km"
+                  ? "០៧ · បញ្ហាប្រឈម & សំណូមពរ"
+                  : "07 · Challenges & Suggestions"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
@@ -897,17 +1066,25 @@ export default function PresentationPage() {
                   className="card a"
                   style={{ "--d": idx + 2 } as React.CSSProperties}
                 >
-                  <span className="num">0{idx + 1}</span>
-                  <span className={`ic ${idx === 0 ? "red" : idx === 1 ? "amb" : "soft"}`}>
-                    <AlertTriangle size={26} className={idx === 0 ? "text-rose-500" : idx === 1 ? "text-amber-500" : "text-indigo-600 dark:text-indigo-400"} />
-                  </span>
+                  <div className="ch-card-top">
+                    <span className="num">0{idx + 1}</span>
+                    <span
+                      className={`ic ${
+                        idx === 0 ? "red" : idx === 1 ? "amb" : "soft"
+                      }`}
+                    >
+                      <AlertTriangle size={24} />
+                    </span>
+                  </div>
                   <h3>{lang === "km" ? ch.titleKm : ch.titleEn}</h3>
-                  <p>{lang === "km" ? ch.problemKm : ch.problemEn}</p>
-                  <div className="mt-auto pt-4 border-t border-[var(--pb)]">
-                    <span className="text-xs font-bold text-[var(--tx)] block mb-1">
+                  <p className="ch-desc">
+                    {lang === "km" ? ch.problemKm : ch.problemEn}
+                  </p>
+                  <div className="ch-solution-box">
+                    <span className="ch-solution-label">
                       {lang === "km" ? "សំណូមពរដោះស្រាយ៖" : "Suggested Action:"}
                     </span>
-                    <p className="text-xs font-semibold text-[var(--grn)] leading-relaxed">
+                    <p className="ch-solution-text">
                       {lang === "km" ? ch.solutionKm : ch.solutionEn}
                     </p>
                   </div>
@@ -915,29 +1092,40 @@ export default function PresentationPage() {
               ))}
             </div>
 
-            <div className="shift a" style={{ "--d": 5 } as React.CSSProperties}>
+            <div
+              className="shift a"
+              style={{ "--d": 5 } as React.CSSProperties}
+            >
               <div className="s">
                 <span className="dot red" />
                 <div>
-                  <small>{lang === "km" ? "ការអនុវត្តពីមុន" : "Legacy Workflow"}</small>
-                  {lang === "km" ? "ការងារឯកសារដោយដៃ យឺតយ៉ាវ និងមិនមានទិន្នន័យរួមតែមួយ" : "Manual, siloed paper documentation with disconnected tracking"}
+                  <small>
+                    {lang === "km" ? "ការអនុវត្តពីមុន" : "Legacy Workflow"}
+                  </small>
+                  {lang === "km"
+                    ? "ការងារឯកសារដោយដៃ យឺតយ៉ាវ និងមិនមានទិន្នន័យរួមតែមួយ"
+                    : "Manual, siloed paper documentation with disconnected tracking"}
                 </div>
               </div>
               <div className="track" />
               <div className="s">
                 <span className="dot grn" />
                 <div>
-                  <small>{lang === "km" ? "ប្រព័ន្ធឌីជីថលថ្មី" : "Digital Transformation"}</small>
-                  {lang === "km" ? "ស្វ័យប្រវត្តិកម្ម តម្លាភាព និងទិន្នន័យជាក់ស្តែងតាមពេលវេលាពិត" : "Automated, transparent, and near real-time ministerial reporting"}
+                  <small>
+                    {lang === "km"
+                      ? "ប្រព័ន្ធឌីជីថលថ្មី"
+                      : "Digital Transformation"}
+                  </small>
+                  {lang === "km"
+                    ? "ស្វ័យប្រវត្តិកម្ម តម្លាភាព និងទិន្នន័យជាក់ស្តែងតាមពេលវេលាពិត"
+                    : "Automated, transparent, and near real-time ministerial reporting"}
                 </div>
               </div>
             </div>
-
-            <SlideFooter lang={lang} slideNumber={9} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
-        {/* SLIDE 10: Expected Completion & Timeline (Exact Slide 16 Template) */}
+        {/* SLIDE 10: Expected Completion & Timeline */}
         <section
           className={`slide ${currentSlide === 9 ? "on" : ""}`}
           data-label="Timeline"
@@ -948,31 +1136,53 @@ export default function PresentationPage() {
               <div className="blob b1" />
             </div>
 
-            <div className="head">
-              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
-                {lang === "km" ? "០៨ · ការរំពឹងទុកនៃការបញ្ចប់គម្រោង" : "08 · Expected Completion"}
+            <div className="head head-row">
+              <div>
+                <div
+                  className="eyebrow a"
+                  style={{ "--d": 0 } as React.CSSProperties}
+                >
+                  {lang === "km"
+                    ? "០៨ · ការរំពឹងទុកនៃការបញ្ចប់គម្រោង"
+                    : "08 · Expected Completion"}
+                </div>
+                <h2
+                  className="h a"
+                  style={{ "--d": 1 } as React.CSSProperties}
+                >
+                  {lang === "km" ? (
+                    <>
+                      កាលវិភាគអនុវត្ត{" "}
+                      <span className="g">ពេញលេញ ៤ ដំណាក់កាល</span>
+                    </>
+                  ) : (
+                    <>
+                      Phased Delivery{" "}
+                      <span className="g">Across 4 Milestones</span>
+                    </>
+                  )}
+                </h2>
+                <p
+                  className="lead a"
+                  style={{ "--d": 2 } as React.CSSProperties}
+                >
+                  {lang === "km"
+                    ? "ផែនការប្រគល់ការងារជាជំហានៗ រួមទាំងការដាក់ឱ្យប្រើប្រាស់ និងការបណ្តុះបណ្តាលមន្ត្រី"
+                    : "Structured implementation roadmap with milestone verification at each stage"}
+                </p>
               </div>
-              <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
-                {lang === "km" ? (
-                  <>
-                    កាលវិភាគអនុវត្ត <span className="g">ពេញលេញ ៤ ដំណាក់កាល</span>
-                  </>
-                ) : (
-                  <>
-                    Phased Delivery <span className="g">Across 4 Milestones</span>
-                  </>
-                )}
-              </h2>
-              <p className="lead a" style={{ "--d": 2 } as React.CSSProperties}>
-                {lang === "km"
-                  ? "ផែនការប្រគល់ការងារជាជំហានៗ រួមទាំងការដាក់ឱ្យប្រើប្រាស់ និងការបណ្តុះបណ្តាលមន្ត្រី"
-                  : "Structured implementation roadmap with milestone verification at each milestone stage"}
-              </p>
-            </div>
 
-            <div className="ns-stat a-r" style={{ "--d": 2 } as React.CSSProperties}>
-              <b className="grad">4</b>
-              <small>{lang === "km" ? "ដំណាក់កាលអនុវត្ត" : "Phases to Completion"}</small>
+              <div
+                className="ns-stat a-r"
+                style={{ "--d": 2 } as React.CSSProperties}
+              >
+                <b className="grad">4</b>
+                <small>
+                  {lang === "km"
+                    ? "ដំណាក់កាលអនុវត្ត"
+                    : "Phases to Completion"}
+                </small>
+              </div>
             </div>
 
             <div className="tlg">
@@ -982,34 +1192,42 @@ export default function PresentationPage() {
                   className={`tlg-card ${idx === 0 ? "cur" : ""} a`}
                   style={{ "--d": idx + 2 } as React.CSSProperties}
                 >
-                  <div className="tlg-phase">{lang === "km" ? phase.phaseKm : phase.phase}</div>
+                  <div className="tlg-phase">
+                    {lang === "km" ? phase.phaseKm : phase.phase}
+                  </div>
                   <h3>{lang === "km" ? phase.titleKm : phase.titleEn}</h3>
                   <div className="tlg-date">
                     <Calendar size={14} />
-                    <span>{lang === "km" ? phase.timeframeKm : phase.timeframeEn}</span>
+                    <span>
+                      {lang === "km" ? phase.timeframeKm : phase.timeframeEn}
+                    </span>
                   </div>
 
                   <div className="tlg-points">
                     {phase.bulletsKm.map((item, i) => (
                       <div key={i} className="tlg-point">
                         <Check size={16} />
-                        <span>{lang === "km" ? item : phase.bulletsEn[i]}</span>
+                        <span>
+                          {lang === "km" ? item : phase.bulletsEn[i]}
+                        </span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-auto pt-6 border-t border-[var(--pb)]">
-                    <span className={`chip text-xs w-full justify-center ${idx === 0 ? "grn" : "pri"}`}>
+                  <div className="tlg-footer">
+                    <span className={`chip ${idx === 0 ? "grn" : "pri"}`}>
                       {idx === 0
-                        ? (lang === "km" ? "កំពុងអនុវត្ត (Active)" : "Currently Active")
-                        : (lang === "km" ? "តាមកាលវិភាគ" : "Scheduled")}
+                        ? lang === "km"
+                          ? "កំពុងអនុវត្ត (Active)"
+                          : "Currently Active"
+                        : lang === "km"
+                          ? "តាមកាលវិភាគ"
+                          : "Scheduled"}
                     </span>
                   </div>
                 </div>
               ))}
             </div>
-
-            <SlideFooter lang={lang} slideNumber={10} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -1025,7 +1243,10 @@ export default function PresentationPage() {
             </div>
 
             <div className="head">
-              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
+              <div
+                className="eyebrow a"
+                style={{ "--d": 0 } as React.CSSProperties}
+              >
                 {lang === "km" ? "០៩ · ជំហានបន្ទាប់" : "09 · Next Steps"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
@@ -1047,60 +1268,86 @@ export default function PresentationPage() {
             </div>
 
             <div className="tlg">
-              <div className="tlg-card a" style={{ "--d": 2 } as React.CSSProperties}>
+              <div
+                className="tlg-card cur a"
+                style={{ "--d": 2 } as React.CSSProperties}
+              >
                 <div className="tlg-phase">STEP 01</div>
-                <h3>{lang === "km" ? "សម្របសម្រួលទម្រង់កាតាបៀវត្ស" : "MEF Payroll Slip Alignment"}</h3>
-                <p className="text-sm text-[var(--mu)] mb-4 leading-relaxed">
+                <h3>
+                  {lang === "km"
+                    ? "សម្របសម្រួលទម្រង់កាតាបៀវត្ស"
+                    : "MEF Payroll Slip Alignment"}
+                </h3>
+                <p className="tlg-desc">
                   {lang === "km"
                     ? "រៀបចំកិច្ចប្រជុំបច្ចេកទេសជាមួយតំណាង MEF និងនាយកដ្ឋានទូទៅ ដើម្បីឯកភាពលើទម្រង់កាតាបៀវត្ស។"
                     : "Conduct technical coordination workshop to finalize the required salary slip layout."}
                 </p>
-                <div className="mt-auto pt-4 border-t border-[var(--pb)]">
-                  <span className="chip pri text-xs w-full justify-center">Week 1 - 2</span>
+                <div className="tlg-footer">
+                  <span className="chip pri">Week 1 - 2</span>
                 </div>
               </div>
 
-              <div className="tlg-card a" style={{ "--d": 3 } as React.CSSProperties}>
+              <div
+                className="tlg-card a"
+                style={{ "--d": 3 } as React.CSSProperties}
+              >
                 <div className="tlg-phase">STEP 02</div>
-                <h3>{lang === "km" ? "ធ្វើតេស្ត UAT ផែនការ & ថវិកា" : "Planning & Budget UAT"}</h3>
-                <p className="text-sm text-[var(--mu)] mb-4 leading-relaxed">
+                <h3>
+                  {lang === "km"
+                    ? "ធ្វើតេស្ត UAT ផែនការ & ថវិកា"
+                    : "Planning & Budget UAT"}
+                </h3>
+                <p className="tlg-desc">
                   {lang === "km"
                     ? "ដាក់ឱ្យមន្ត្រីជំនាញធ្វើតេស្តសាកល្បងម៉ូឌុលផែនការ និងថវិកា ព្រមទាំងប្រមូលមតិកែលម្អ។"
                     : "Deploy test environment for departmental officers to validate operational budgeting flows."}
                 </p>
-                <div className="mt-auto pt-4 border-t border-[var(--pb)]">
-                  <span className="chip pri text-xs w-full justify-center">Week 2 - 3</span>
+                <div className="tlg-footer">
+                  <span className="chip pri">Week 2 - 3</span>
                 </div>
               </div>
 
-              <div className="tlg-card a" style={{ "--d": 4 } as React.CSSProperties}>
+              <div
+                className="tlg-card a"
+                style={{ "--d": 4 } as React.CSSProperties}
+              >
                 <div className="tlg-phase">STEP 03</div>
-                <h3>{lang === "km" ? "ប្រមូលទិន្នន័យនាយកដ្ឋានទី ២" : "Department 2 Intake"}</h3>
-                <p className="text-sm text-[var(--mu)] mb-4 leading-relaxed">
+                <h3>
+                  {lang === "km"
+                    ? "ប្រមូលទិន្នន័យនាយកដ្ឋានទី ២"
+                    : "Department 2 Intake"}
+                </h3>
+                <p className="tlg-desc">
                   {lang === "km"
                     ? "ចាប់ផ្តើមកិច្ចសម្ភាសន៍ប្រមូលតម្រូវការ និងទម្រង់ការងារសម្រាប់នាយកដ្ឋានទី ២។"
                     : "Initiate workflow mapping and template collection with Department 2 task force."}
                 </p>
-                <div className="mt-auto pt-4 border-t border-[var(--pb)]">
-                  <span className="chip amb text-xs w-full justify-center">Week 3 - 4</span>
+                <div className="tlg-footer">
+                  <span className="chip amb">Week 3 - 4</span>
                 </div>
               </div>
 
-              <div className="tlg-card a" style={{ "--d": 5 } as React.CSSProperties}>
+              <div
+                className="tlg-card a"
+                style={{ "--d": 5 } as React.CSSProperties}
+              >
                 <div className="tlg-phase">STEP 04</div>
-                <h3>{lang === "km" ? "របាយការណ៍ជូនថ្នាក់ដឹកនាំ" : "Executive Debrief"}</h3>
-                <p className="text-sm text-[var(--mu)] mb-4 leading-relaxed">
+                <h3>
+                  {lang === "km"
+                    ? "របាយការណ៍ជូនថ្នាក់ដឹកនាំ"
+                    : "Executive Debrief"}
+                </h3>
+                <p className="tlg-desc">
                   {lang === "km"
                     ? "រៀបចំរបាយការណ៍បូកសរុបលទ្ធផល ៣០ថ្ងៃ និងស្នើសុំការសម្រេចលើជំហានបន្ត។"
                     : "Deliver progress metrics and request formal approvals for Q2 rollout phase."}
                 </p>
-                <div className="mt-auto pt-4 border-t border-[var(--pb)]">
-                  <span className="chip grn text-xs w-full justify-center">Week 4</span>
+                <div className="tlg-footer">
+                  <span className="chip grn">Week 4</span>
                 </div>
               </div>
             </div>
-
-            <SlideFooter lang={lang} slideNumber={11} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
 
@@ -1116,82 +1363,95 @@ export default function PresentationPage() {
               <div className="blob b2" />
             </div>
 
-            {/* Power transmission SVG waves */}
             <div className="pl">
               <RoyalTransmissionVisual />
             </div>
 
-            <div className="ty">
-              <div className="eyebrow a" style={{ "--d": 0 } as React.CSSProperties}>
-                {lang === "km" ? "សំណួរ & ចម្លើយ" : "Questions & Discussion"}
-              </div>
-              <h1 className="grad a" style={{ "--d": 1 } as React.CSSProperties}>
-                {lang === "km" ? "សូមអរគុណ" : "Thank You"}
-              </h1>
-              <p className="a" style={{ "--d": 2 } as React.CSSProperties}>
-                {lang === "km"
-                  ? "សូមគោរពថ្លែងអំណរគុណយ៉ាងជ្រាលជ្រៅចំពោះឯកឧត្តម លោកជំទាវ និងលោក-លោកស្រី ដែលបានចំណាយពេលវេលាដ៏មានតម្លៃចូលរួមក្នុងបទបង្ហាញនេះ។"
-                  : "Thank you for your valuable time and participation. We look forward to our continuous collaboration."}
-              </p>
+            <div className="ty-grid">
+              <div className="ty">
+                <div
+                  className="eyebrow a"
+                  style={{ "--d": 0 } as React.CSSProperties}
+                >
+                  {lang === "km" ? "សំណួរ & ចម្លើយ" : "Questions & Discussion"}
+                </div>
+                <h1
+                  className="grad a"
+                  style={{ "--d": 1 } as React.CSSProperties}
+                >
+                  {lang === "km" ? "សូមអរគុណ" : "Thank You"}
+                </h1>
+                <p className="a" style={{ "--d": 2 } as React.CSSProperties}>
+                  {lang === "km"
+                    ? "សូមគោរពថ្លែងអំណរគុណយ៉ាងជ្រាលជ្រៅចំពោះឯកឧត្តម លោកជំទាវ និងលោក-លោកស្រី ដែលបានចំណាយពេលវេលាដ៏មានតម្លៃចូលរួមក្នុងបទបង្ហាញនេះ។"
+                    : "Thank you for your valuable time and participation. We look forward to our continuous collaboration."}
+                </p>
 
-              <div className="ty-contact a" style={{ "--d": 3 } as React.CSSProperties}>
-                <div className="chip pri">
+                <div
+                  className="ty-contact a"
+                  style={{ "--d": 3 } as React.CSSProperties}
+                >
                   <Image
                     src="/logo/Oone logo.svg"
                     alt="OONE Logo"
-                    width={110}
-                    height={30}
+                    width={96}
+                    height={40}
+                    className="object-contain"
+                  />
+                  <div className="chip">
+                    <Phone size={16} className="vp-icon-pri" />
+                    <span>+855 23 888 999</span>
+                  </div>
+                  <div className="chip">
+                    <Mail size={16} className="vp-icon-pri" />
+                    <span>contact@oonepower.com</span>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className="qrc a-r"
+                style={{ "--d": 3 } as React.CSSProperties}
+              >
+                <div className="qrbox">
+                  <Image
+                    src="/logo/logo tab.svg"
+                    alt="QR Emblem"
+                    width={160}
+                    height={160}
                     className="object-contain"
                   />
                 </div>
-                <div className="chip">
-                  <Phone size={16} className="text-[var(--pri)]" />
-                  <span>+855 23 888 999</span>
-                </div>
-                <div className="chip">
-                  <Mail size={16} className="text-[var(--cy)]" />
-                  <span>contact@oonepower.com</span>
-                </div>
+                <span className="chip pri">MME DIGITAL PLATFORM</span>
               </div>
             </div>
-
-            <div className="qrc a-r" style={{ "--d": 3 } as React.CSSProperties}>
-              <div className="qrbox">
-                <Image
-                  src="/logo/logo tab.svg"
-                  alt="QR Emblem"
-                  width={150}
-                  height={150}
-                  className="object-contain"
-                />
-              </div>
-              <span className="chip pri text-xs font-bold">
-                MME DIGITAL PLATFORM
-              </span>
-            </div>
-
-            <SlideFooter lang={lang} slideNumber={12} totalSlides={TOTAL_SLIDES} />
           </div>
         </section>
-
       </div>
 
-      {/* Floating Modern Luxury Glass Dock */}
+      {/* Unified Bottom Footer Bar */}
       <div className="bar-dock" id="bar">
-        <div className="prog" id="prog" style={{ width: `${progressPercent}%` }} />
-        
+        <div
+          className="prog"
+          id="prog"
+          style={{ width: `${progressPercent}%` }}
+        />
+
         <div className="brand">
           <Image
             src="/logo/Oone logo.svg"
             alt="OONE Logo"
-            width={72}
-            height={26}
+            width={68}
+            height={30}
             className="brand-logo object-contain"
           />
           <div>
-            <b>{lang === "km" ? "MME Digital Platform" : "MME Digital Platform"}</b>
+            <b>MME Digital Platform</b>
             <span id="cnt">
-              {currentSlide + 1 < 10 ? `0${currentSlide + 1}` : currentSlide + 1} / {TOTAL_SLIDES}
+              {currentSlide + 1 < 10
+                ? `0${currentSlide + 1}`
+                : currentSlide + 1}{" "}
+              / {TOTAL_SLIDES}
             </span>
           </div>
         </div>
@@ -1228,14 +1488,19 @@ export default function PresentationPage() {
           onClick={nextSlide}
           disabled={currentSlide === TOTAL_SLIDES - 1}
         >
-          <span className="tx" id="nextTx">{lang === "km" ? "បន្ទាប់" : "Next"}</span>
+          <span className="tx" id="nextTx">
+            {lang === "km" ? "បន្ទាប់" : "Next"}
+          </span>
           <ChevronRight size={18} />
         </button>
 
         <span className="sep" />
 
         {/* Language Switcher */}
-        <div className={`langsw ${langDropdownOpen ? "open" : ""}`} id="langDD">
+        <div
+          className={`langsw ${langDropdownOpen ? "open" : ""}`}
+          id="langDD"
+        >
           <button
             className="lbtn interactive"
             id="langBtn"
@@ -1256,7 +1521,7 @@ export default function PresentationPage() {
               onClick={() => toggleLanguage("en")}
             >
               <span className="lc">EN</span>English
-              {lang === "en" && <Check size={14} className="ml-auto" />}
+              {lang === "en" && <Check size={14} />}
             </button>
             <button
               role="menuitemradio"
@@ -1265,7 +1530,7 @@ export default function PresentationPage() {
               onClick={() => toggleLanguage("km")}
             >
               <span className="lc">KH</span>ខ្មែរ
-              {lang === "km" && <Check size={14} className="ml-auto" />}
+              {lang === "km" && <Check size={14} />}
             </button>
           </div>
         </div>
