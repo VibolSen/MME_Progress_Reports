@@ -1437,133 +1437,135 @@ export default function PresentationPage() {
           style={{ width: `${progressPercent}%` }}
         />
 
-        <div className="brand">
-          <Image
-            src="/logo/Oone logo.svg"
-            alt="OONE Logo"
-            width={76}
-            height={34}
-            className="brand-logo object-contain"
-          />
-          <span id="cnt">
-            {currentSlide + 1 < 10
-              ? `0${currentSlide + 1}`
-              : currentSlide + 1}{" "}
-            / {TOTAL_SLIDES}
-          </span>
-        </div>
-
-        <span className="sep" />
-
-        <button
-          className="nb interactive"
-          id="prev"
-          onClick={prevSlide}
-          disabled={currentSlide === 0}
-          aria-label="Previous slide"
-        >
-          <ChevronLeft size={18} />
-          <span className="tx">{lang === "km" ? "ថយក្រោយ" : "Back"}</span>
-        </button>
-
-        <nav className="dots-nav" id="dn" aria-label="Slides">
-          {slideList.map((s, idx) => (
-            <button
-              key={s.id}
-              className={`interactive ${currentSlide === idx ? "cur" : ""}`}
-              onClick={() => goToSlide(idx)}
-              aria-label={`Go to slide ${idx + 1}`}
-            >
-              {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
-            </button>
-          ))}
-        </nav>
-
-        <button
-          className="nb pri interactive"
-          id="next"
-          onClick={nextSlide}
-          disabled={currentSlide === TOTAL_SLIDES - 1}
-        >
-          <span className="tx" id="nextTx">
-            {lang === "km" ? "បន្ទាប់" : "Next"}
-          </span>
-          <ChevronRight size={18} />
-        </button>
-
-        <span className="sep" />
-
-        {/* Language Switcher */}
-        <div
-          className={`langsw ${langDropdownOpen ? "open" : ""}`}
-          id="langDD"
-        >
-          <button
-            className="lbtn interactive"
-            id="langBtn"
-            onClick={() => setLangDropdownOpen((prev) => !prev)}
-            aria-haspopup="true"
-            aria-expanded={langDropdownOpen}
-            aria-label="Language selector"
-          >
-            <Globe size={18} />
-            <span id="langCur">{lang === "km" ? "KH" : "EN"}</span>
-            <ChevronUp size={14} className="lchev" />
-          </button>
-          <div className="lmenu" role="menu">
-            <button
-              role="menuitemradio"
-              aria-checked={lang === "en"}
-              className={`interactive ${lang === "en" ? "on" : ""}`}
-              onClick={() => toggleLanguage("en")}
-            >
-              <span className="lc">EN</span>English
-              {lang === "en" && <Check size={14} />}
-            </button>
-            <button
-              role="menuitemradio"
-              aria-checked={lang === "km"}
-              className={`interactive ${lang === "km" ? "on" : ""}`}
-              onClick={() => toggleLanguage("km")}
-            >
-              <span className="lc">KH</span>ខ្មែរ
-              {lang === "km" && <Check size={14} />}
-            </button>
+        <div className="bar-left">
+          <div className="brand">
+            <Image
+              src="/logo/Oone logo.svg"
+              alt="OONE Logo"
+              width={76}
+              height={34}
+              className="brand-logo object-contain"
+            />
+            <span id="cnt">
+              {currentSlide + 1 < 10
+                ? `0${currentSlide + 1}`
+                : currentSlide + 1}{" "}
+              / {TOTAL_SLIDES}
+            </span>
           </div>
         </div>
 
-        {/* Theme Switcher */}
-        <button
-          className="nb interactive"
-          id="theme"
-          onClick={toggleTheme}
-          aria-label="Toggle theme"
-        >
-          {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
-          <span className="tx">{theme === "light" ? "Dark" : "Light"}</span>
-        </button>
+        <div className="bar-center">
+          <button
+            className="nb interactive"
+            id="prev"
+            onClick={prevSlide}
+            disabled={currentSlide === 0}
+            aria-label="Previous slide"
+          >
+            <ChevronLeft size={18} />
+            <span className="tx">{lang === "km" ? "ថយក្រោយ" : "Back"}</span>
+          </button>
 
-        {/* Print Button */}
-        <button
-          className="nb interactive"
-          id="printb"
-          onClick={() => window.print()}
-          aria-label="Print slides"
-        >
-          <Printer size={18} />
-          <span className="tx">{lang === "km" ? "បោះពុម្ព" : "Print"}</span>
-        </button>
+          <nav className="dots-nav" id="dn" aria-label="Slides">
+            {slideList.map((s, idx) => (
+              <button
+                key={s.id}
+                className={`interactive ${currentSlide === idx ? "cur" : ""}`}
+                onClick={() => goToSlide(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+              >
+                {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
+              </button>
+            ))}
+          </nav>
 
-        {/* Fullscreen Button */}
-        <button
-          className="nb interactive"
-          id="fsb"
-          onClick={toggleFullscreen}
-          aria-label="Fullscreen"
-        >
-          {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
-          <span className="tx">{isFullscreen ? "Exit" : "Full screen"}</span>
-        </button>
+          <button
+            className="nb pri interactive"
+            id="next"
+            onClick={nextSlide}
+            disabled={currentSlide === TOTAL_SLIDES - 1}
+          >
+            <span className="tx" id="nextTx">
+              {lang === "km" ? "បន្ទាប់" : "Next"}
+            </span>
+            <ChevronRight size={18} />
+          </button>
+        </div>
+
+        <div className="bar-right">
+          {/* Language Switcher */}
+          <div
+            className={`langsw ${langDropdownOpen ? "open" : ""}`}
+            id="langDD"
+          >
+            <button
+              className="lbtn interactive"
+              id="langBtn"
+              onClick={() => setLangDropdownOpen((prev) => !prev)}
+              aria-haspopup="true"
+              aria-expanded={langDropdownOpen}
+              aria-label="Language selector"
+            >
+              <Globe size={18} />
+              <span id="langCur">{lang === "km" ? "KH" : "EN"}</span>
+              <ChevronUp size={14} className="lchev" />
+            </button>
+            <div className="lmenu" role="menu">
+              <button
+                role="menuitemradio"
+                aria-checked={lang === "en"}
+                className={`interactive ${lang === "en" ? "on" : ""}`}
+                onClick={() => toggleLanguage("en")}
+              >
+                <span className="lc">EN</span>English
+                {lang === "en" && <Check size={14} />}
+              </button>
+              <button
+                role="menuitemradio"
+                aria-checked={lang === "km"}
+                className={`interactive ${lang === "km" ? "on" : ""}`}
+                onClick={() => toggleLanguage("km")}
+              >
+                <span className="lc">KH</span>ខ្មែរ
+                {lang === "km" && <Check size={14} />}
+              </button>
+            </div>
+          </div>
+
+          {/* Theme Switcher */}
+          <button
+            className="nb interactive"
+            id="theme"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+            <span className="tx">{theme === "light" ? "Dark" : "Light"}</span>
+          </button>
+
+          {/* Print Button */}
+          <button
+            className="nb interactive"
+            id="printb"
+            onClick={() => window.print()}
+            aria-label="Print slides"
+          >
+            <Printer size={18} />
+            <span className="tx">{lang === "km" ? "បោះពុម្ព" : "Print"}</span>
+          </button>
+
+          {/* Fullscreen Button */}
+          <button
+            className="nb interactive"
+            id="fsb"
+            onClick={toggleFullscreen}
+            aria-label="Fullscreen"
+          >
+            {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+            <span className="tx">{isFullscreen ? "Exit" : "Full screen"}</span>
+          </button>
+        </div>
       </div>
     </div>
   );

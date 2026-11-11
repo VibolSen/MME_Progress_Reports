@@ -1668,52 +1668,69 @@ body {
 }
 
 /* ==========================================
-   Bottom Footer Dock (.bar-dock)
+   Bottom Footer Bar (.bar-dock)
    ========================================== */
 .bar-dock {
   position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 10px;
-  height: 58px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 64px;
   background: var(--bar);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--card-border);
-  border-radius: 20px;
+  border-top: 1px solid var(--card-border);
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 0 16px;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 28px;
   z-index: 100;
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.1);
-  max-width: 96vw;
+  box-shadow: 0 -8px 30px rgba(15, 23, 42, 0.06);
 }
 
 .prog {
   position: absolute;
-  left: 20px;
-  right: 20px;
+  left: 0;
   top: -1px;
   height: 3px;
-  border-radius: 3px;
   background: linear-gradient(90deg, var(--pri), var(--cy));
   transition: width 0.35s var(--ease);
+}
+
+.bar-left,
+.bar-center,
+.bar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.bar-center {
+  flex: 1;
+  justify-content: center;
+  gap: 14px;
+  min-width: 0;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-width: 0;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
 .brand #cnt {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--mu);
   white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--panel2);
+  border: 1px solid var(--pb);
 }
 
 .nb {
@@ -1723,10 +1740,10 @@ body {
   gap: 6px;
   height: 38px;
   min-width: 38px;
-  padding: 0 12px;
+  padding: 0 14px;
   border-radius: 11px;
   border: 1px solid var(--pb);
-  background: transparent;
+  background: var(--panel2);
   color: var(--tx);
   font-size: 13px;
   font-weight: 600;
@@ -1734,11 +1751,12 @@ body {
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .nb:hover {
   border-color: var(--pri);
-  background: var(--panel2);
+  background: var(--panel3);
 }
 
 .nb:disabled {
@@ -1755,18 +1773,26 @@ body {
 
 .dots-nav {
   display: flex;
-  justify-content: center;
-  gap: 4px;
-  min-width: 0;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px 4px;
+  max-width: 100%;
+}
+
+.dots-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .dots-nav button {
-  height: 34px;
-  min-width: 34px;
+  height: 36px;
+  min-width: 36px;
   padding: 0 8px;
-  border-radius: 9px;
+  border-radius: 10px;
   border: 1px solid var(--pb);
-  background: transparent;
+  background: var(--panel2);
   color: var(--mu);
   font-size: 12px;
   font-weight: 700;
@@ -1776,16 +1802,19 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
+  flex-shrink: 0;
 }
 
 .dots-nav button.cur {
-  background: rgba(79, 70, 229, 0.12);
+  background: var(--pri);
   border-color: var(--pri);
-  color: var(--pri);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px var(--glow);
 }
 
-.dots-nav button:hover {
+.dots-nav button:hover:not(.cur) {
   border-color: var(--pri);
+  color: var(--pri);
 }
 
 .sep {
