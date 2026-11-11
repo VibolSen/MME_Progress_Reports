@@ -42,8 +42,6 @@ import {
   Check,
   ArrowRight,
   Layers,
-  Phone,
-  Mail,
   Building2,
 } from "lucide-react";
 
@@ -1855,18 +1853,10 @@ export default function PresentationPage() {
                   <Image
                     src="/logo/Oone logo.svg"
                     alt="OONE Logo"
-                    width={96}
-                    height={40}
+                    width={110}
+                    height={46}
                     className="object-contain"
                   />
-                  <div className="chip">
-                    <Phone size={16} className="vp-icon-pri" />
-                    <span>+855 23 888 999</span>
-                  </div>
-                  <div className="chip">
-                    <Mail size={16} className="vp-icon-pri" />
-                    <span>contact@oonepower.com</span>
-                  </div>
                 </div>
               </div>
 
