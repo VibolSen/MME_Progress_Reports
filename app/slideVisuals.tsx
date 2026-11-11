@@ -551,13 +551,8 @@ export function SlideFooter({ lang, slideNumber, totalSlides }: SlideFooterProps
       </div>
 
       <div className="sf-right">
-        <span className="sf-meta">
-          {lang === "km" ? "វិច្ឆិកា ២០២៦ · ឯកសារផ្លូវការ" : "Nov 2026 · Official Briefing"}
-        </span>
         <span className="sf-page">
-          {lang === "km"
-            ? `ស្លាយ ${formattedNum} / ${formattedTotal}`
-            : `Slide ${formattedNum} / ${formattedTotal}`}
+          {formattedNum} / {formattedTotal}
         </span>
       </div>
     </footer>

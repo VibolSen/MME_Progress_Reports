@@ -1191,9 +1191,7 @@ export default function PresentationPage() {
           <div>
             <b>{lang === "km" ? "MME Digital Platform" : "MME Digital Platform"}</b>
             <span id="cnt">
-              {lang === "km"
-                ? `ស្លាយ ${currentSlide + 1} នៃ ${TOTAL_SLIDES}`
-                : `Slide ${currentSlide + 1} of ${TOTAL_SLIDES}`}
+              {currentSlide + 1 < 10 ? `0${currentSlide + 1}` : currentSlide + 1} / {TOTAL_SLIDES}
             </span>
           </div>
         </div>
@@ -1220,7 +1218,6 @@ export default function PresentationPage() {
               aria-label={`Go to slide ${idx + 1}`}
             >
               {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
-              <span>{lang === "km" ? s.labelKm : s.labelEn}</span>
             </button>
           ))}
         </nav>
