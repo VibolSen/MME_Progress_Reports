@@ -1,6 +1,17 @@
 import type { Metadata } from "next";
-import { Kantumruy_Pro, Plus_Jakarta_Sans } from "next/font/google";
+import {
+  Battambang,
+  Kantumruy_Pro,
+  Plus_Jakarta_Sans,
+} from "next/font/google";
 import "./globals.css";
+
+const battambang = Battambang({
+  variable: "--font-battambang",
+  subsets: ["khmer", "latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
 
 const kantumruyPro = Kantumruy_Pro({
   variable: "--font-khmer",
@@ -30,7 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${kantumruyPro.variable} ${plusJakartaSans.variable} h-full antialiased`}
+      className={`${battambang.variable} ${kantumruyPro.variable} ${plusJakartaSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>

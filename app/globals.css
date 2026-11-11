@@ -3,8 +3,10 @@
 
 :root {
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --font-khmer: var(--font-khmer, 'Kantumruy Pro', sans-serif);
-  --font-en: var(--font-en, 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif);
+  --font-stack-en: var(--font-en), var(--font-battambang), var(--font-khmer), 'Plus Jakarta Sans', 'Battambang', 'Kantumruy Pro', system-ui, -apple-system, sans-serif;
+  --font-stack-km: var(--font-battambang), var(--font-khmer), var(--font-en), 'Battambang', 'Kantumruy Pro', 'Plus Jakarta Sans', sans-serif;
+  --font-stack-km-heading: var(--font-khmer), var(--font-battambang), var(--font-en), 'Kantumruy Pro', 'Battambang', sans-serif;
+  --font-stack-mono: 'JetBrains Mono', var(--font-battambang), var(--font-khmer), 'Battambang', 'Kantumruy Pro', monospace;
 }
 
 /* LIGHT THEME (Default — Never follows OS dark mode) */
@@ -72,7 +74,7 @@ body {
   overflow: hidden;
   background: var(--bg);
   color: var(--tx);
-  font-family: var(--font-en);
+  font-family: var(--font-stack-en);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   user-select: none;
@@ -212,7 +214,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -502,7 +504,7 @@ body {
   color: var(--mu);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
 }
 
 .t-meta b {
@@ -575,7 +577,7 @@ body {
 }
 
 .ag .n {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-size: 36px;
   font-weight: 800;
   color: var(--pri);
@@ -616,7 +618,7 @@ body {
 }
 
 .ag-tag {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-size: 15px;
   font-weight: 700;
   color: var(--pri);
@@ -728,7 +730,7 @@ body {
 }
 
 .comp-list-item .badge-num {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-size: 14px;
   font-weight: 800;
   color: var(--pri);
@@ -798,7 +800,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
@@ -865,7 +867,7 @@ body {
 }
 
 .vp-dept-code {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-size: 13px;
   font-weight: 800;
   color: var(--mu);
@@ -923,7 +925,7 @@ body {
 }
 
 .vp-mono-tag {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-weight: 800;
   color: var(--pri);
 }
@@ -1039,7 +1041,7 @@ body {
 }
 
 .vs-code {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-size: 13px;
   font-weight: 800;
 }
@@ -1129,7 +1131,7 @@ body {
 }
 
 .vs-mono-badge {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-size: 13px;
   font-weight: 800;
   padding: 4px 10px;
@@ -1173,7 +1175,7 @@ body {
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-size: 14px;
   font-weight: 800;
   display: flex;
@@ -1273,7 +1275,7 @@ body {
 }
 
 .vs-progress-head b {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   color: var(--pri);
 }
 
@@ -1342,7 +1344,7 @@ body {
 }
 
 .ch .num {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-size: 28px;
   font-weight: 800;
   color: var(--pri);
@@ -1427,7 +1429,7 @@ body {
 .shift .s small {
   display: block;
   font-size: 13px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--mu);
@@ -1469,7 +1471,7 @@ body {
 .ns-stat b {
   font-size: 62px;
   line-height: 1;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-weight: 800;
   display: block;
 }
@@ -1479,7 +1481,7 @@ body {
   color: var(--mu);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
 }
 
 .tlg {
@@ -1520,7 +1522,7 @@ body {
 }
 
 .tlg-phase {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-size: 16px;
   font-weight: 800;
   color: var(--pri);
@@ -1546,7 +1548,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-size: 15px;
   color: var(--mu);
   margin-bottom: 18px;
@@ -1786,7 +1788,7 @@ body {
   color: var(--mu);
   font-size: 12px;
   font-weight: 700;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -1888,7 +1890,7 @@ body {
 }
 
 .lmenu .lc {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-stack-mono);
   font-size: 10px;
   font-weight: 800;
   padding: 2px 5px;
@@ -1897,27 +1899,73 @@ body {
   border: 1px solid var(--pb);
 }
 
-/* Khmer Typography Adjustments */
+/* Khmer Typography Adjustments (Battambang + Kantumruy Pro — No Synthetic 800 Smearing) */
 .deck[data-lang="km"] {
-  font-family: var(--font-khmer), sans-serif;
+  font-family: var(--font-stack-km);
 }
 
 .deck[data-lang="km"] * {
   letter-spacing: 0 !important;
 }
 
+.deck[data-lang="km"] .h,
+.deck[data-lang="km"] .t-title,
+.deck[data-lang="km"] .comp-box-header h3,
+.deck[data-lang="km"] .ty h1 {
+  font-family: var(--font-stack-km-heading);
+  font-weight: 700;
+}
+
 .deck[data-lang="km"] .h {
-  font-size: 48px;
-  line-height: 1.32;
+  font-size: 46px;
+  line-height: 1.45;
 }
 
 .deck[data-lang="km"] .t-title {
-  font-size: 62px;
-  line-height: 1.28;
+  font-size: 58px;
+  line-height: 1.42;
 }
 
-.deck[data-lang="km"] .eyebrow {
+.deck[data-lang="km"] .t-sub,
+.deck[data-lang="km"] .lead {
+  line-height: 1.7;
+}
+
+.deck[data-lang="km"] .comp-box-header h3 {
+  font-size: 25px;
+  line-height: 1.45;
+}
+
+.deck[data-lang="km"] .comp-list-item h4 {
+  font-family: var(--font-stack-km);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.deck[data-lang="km"] .comp-list-item p {
+  font-family: var(--font-stack-km);
+  font-size: 15px;
+  line-height: 1.62;
+}
+
+.deck[data-lang="km"] .eyebrow,
+.deck[data-lang="km"] .chip,
+.deck[data-lang="km"] .nb,
+.deck[data-lang="km"] .lbtn,
+.deck[data-lang="km"] .shift .s {
+  font-family: var(--font-stack-km);
+  font-weight: 700;
   text-transform: none;
+  line-height: 1.55;
+}
+
+.deck[data-lang="km"] .shift .s small,
+.deck[data-lang="km"] .t-meta small {
+  font-family: var(--font-stack-km);
+  font-weight: 700;
+  text-transform: none;
+  font-size: 13.5px;
 }
 
 /* Print Styles */
