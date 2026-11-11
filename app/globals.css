@@ -1,26 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300..700;1,300..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root, [data-theme="dark"] {
+  --bg: #0B0A1A;
+  --bg2: #100E26;
+  --panel: #15132E;
+  --panel2: #1B1840;
+  --pb: #2A2656;
+  --tx: #EFECFF;
+  --mu: #A39EC8;
+  --pri: #8B74FF;
+  --pri2: #6A4DF0;
+  --cy: #2DD4E6;
+  --amb: #F5B83D;
+  --red: #FF5C7A;
+  --grn: #34D399;
+  --glow: rgba(139, 116, 255, 0.28);
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  --bar: #0F0D22;
+  --font-khmer: 'Kantumruy Pro', sans-serif;
+  --font-en: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+[data-theme="light"] {
+  --bg: #F5F4FB;
+  --bg2: #ECEAF8;
+  --panel: #FFFFFF;
+  --panel2: #F3F1FC;
+  --pb: #E0DCF2;
+  --tx: #16123A;
+  --mu: #5D5880;
+  --pri: #5B3FD0;
+  --pri2: #4A2FC0;
+  --cy: #0B8DA1;
+  --amb: #B26B00;
+  --red: #D2335A;
+  --grn: #0F8F63;
+  --glow: rgba(91, 63, 208, 0.16);
+  --shadow: 0 20px 50px rgba(40, 30, 110, 0.14);
+  --bar: #FFFFFF;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg);
+  color: var(--tx);
+  font-family: var(--font-en);
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Khmer Typography optimization */
+[data-lang="km"] {
+  font-family: var(--font-khmer), var(--font-en);
+  line-height: 1.6;
+}
+
+[data-lang="km"] .kh-heading {
+  font-family: var(--font-khmer);
+  font-weight: 700;
+  letter-spacing: normal;
+}
+
+/* Slide Deck Core */
+.deck-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--bg);
+  transition: background-color 0.3s ease;
+}
+
+.slide-viewport {
+  width: 1920px;
+  height: 1080px;
+  position: absolute;
+  transform-origin: center center;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--bg);
+}
+
+/* Subtle Animated Background */
+.bg-ambient {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(139, 116, 255, 0.12) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.7;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.blob-1 {
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, var(--pri) 0%, transparent 70%);
+  top: -200px;
+  right: -100px;
+  animation: pulse-slow 14s infinite ease-in-out alternate;
+}
+
+.blob-2 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--cy) 0%, transparent 70%);
+  bottom: -200px;
+  left: -100px;
+  animation: pulse-slow 18s infinite ease-in-out alternate-reverse;
+}
+
+@keyframes pulse-slow {
+  0% { transform: scale(1) translate(0, 0); opacity: 0.25; }
+  50% { transform: scale(1.15) translate(40px, 30px); opacity: 0.4; }
+  100% { transform: scale(0.95) translate(-30px, -20px); opacity: 0.3; }
+}
+
+/* Glass Panels */
+.glass-panel {
+  background: var(--panel);
+  border: 1px solid var(--pb);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  transition: all 0.25s ease;
+}
+
+.glass-panel:hover {
+  border-color: rgba(139, 116, 255, 0.35);
+  box-shadow: 0 12px 40px rgba(139, 116, 255, 0.12);
+}
+
+.glass-panel-subtle {
+  background: var(--panel2);
+  border: 1px solid var(--pb);
+  border-radius: 12px;
+}
+
+/* Gradient Text */
+.text-gradient {
+  background: linear-gradient(135deg, #EFECFF 20%, var(--pri) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-purple {
+  background: linear-gradient(135deg, var(--pri) 0%, #B89CFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #2DD4E6 0%, #80F7FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--pb);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pri);
+}
+
+/* Slide Transition Animations */
+.slide-content {
+  animation: slideFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Print Stylesheet */
+@media print {
+  body {
+    overflow: visible !important;
+    background: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .slide-viewport {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    page-break-after: always;
+    transform: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
 }
