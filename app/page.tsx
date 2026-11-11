@@ -26,28 +26,36 @@ import {
   Clock,
   AlertTriangle,
   Building2,
-  Layers,
   Calendar,
-  Sparkles,
   ArrowRight,
   Check,
   ShieldCheck,
-  FileText,
-  Users,
-  Compass,
-  ArrowUpRight,
-  HelpCircle,
 } from "lucide-react";
 
+const TOTAL_SLIDES = 13;
+
 export default function PresentationPage() {
-  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const [currentSlide, setCurrentSlide] = useState<number>(() => {
+    if (typeof window !== "undefined") {
+      const hash = window.location.hash.replace("#", "");
+      const slideNum = parseInt(hash, 10);
+      if (!isNaN(slideNum) && slideNum >= 1 && slideNum <= TOTAL_SLIDES) {
+        return slideNum - 1;
+      }
+    }
+    return 0;
+  });
   const [lang, setLang] = useState<Language>("km"); // Default to Khmer as requested for Cambodian ministry
   const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const [scale, setScale] = useState<number>(1);
+  const [scale, setScale] = useState<number>(() => {
+    if (typeof window !== "undefined") {
+      const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+      return s > 0 ? s : 1;
+    }
+    return 1;
+  });
   const [showGrid, setShowGrid] = useState<boolean>(false);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-
-  const TOTAL_SLIDES = 13;
 
   // Auto-scale slide viewport to fit current window maintaining 16:9 ratio
   const handleResize = useCallback(() => {
@@ -64,21 +72,20 @@ export default function PresentationPage() {
   }, []);
 
   useEffect(() => {
-    handleResize();
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
-
-  // Read URL Hash on load
-  useEffect(() => {
-    if (typeof window !== "undefined") {
+    const handleHashChange = () => {
       const hash = window.location.hash.replace("#", "");
       const slideNum = parseInt(hash, 10);
       if (!isNaN(slideNum) && slideNum >= 1 && slideNum <= TOTAL_SLIDES) {
         setCurrentSlide(slideNum - 1);
       }
-    }
-  }, [TOTAL_SLIDES]);
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, [handleResize]);
 
   // Sync slide change to URL hash
   const goToSlide = useCallback((index: number) => {
@@ -88,13 +95,13 @@ export default function PresentationPage() {
         window.history.replaceState(null, "", `#${index + 1}`);
       }
     }
-  }, [TOTAL_SLIDES]);
+  }, []);
 
   const nextSlide = useCallback(() => {
     if (currentSlide < TOTAL_SLIDES - 1) {
       goToSlide(currentSlide + 1);
     }
-  }, [currentSlide, goToSlide, TOTAL_SLIDES]);
+  }, [currentSlide, goToSlide]);
 
   const prevSlide = useCallback(() => {
     if (currentSlide > 0) {
@@ -176,7 +183,7 @@ export default function PresentationPage() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [nextSlide, prevSlide, goToSlide, TOTAL_SLIDES]);
+  }, [nextSlide, prevSlide, goToSlide]);
 
   // Click side navigation (Canva style: left 25% prev, right 75% next)
   const handleViewportClick = (e: React.MouseEvent<HTMLDivElement>) => {
