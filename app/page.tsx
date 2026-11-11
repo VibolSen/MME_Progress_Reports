@@ -525,14 +525,14 @@ export default function PresentationPage() {
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    គម្រោងទី២៖{" "}
+                    អគ្គនាយកដ្ឋានធនធានរ៉ែ ·{" "}
                     <span className="g">
                       ការងាររៀបចំប្រព័ន្ធផ្ដល់សេវាសាធារណៈឌីជីថលលើវិស័យរ៉ែ
                     </span>
                   </>
                 ) : (
                   <>
-                    Project 2:{" "}
+                    General Dept. of Mineral Resources ·{" "}
                     <span className="g">
                       Digital Public Service System for the Mining Sector
                     </span>
