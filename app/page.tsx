@@ -369,6 +369,76 @@ export default function PresentationPage() {
               </h2>
             </div>
 
+            {/* Top KPI Metric Cards */}
+            <div
+              className="kpi-strip a"
+              style={{ "--d": 1.5 } as React.CSSProperties}
+            >
+              <div className="kpi-card grn">
+                <div className="kpi-val">100%</div>
+                <div className="kpi-info">
+                  <div className="kpi-label">
+                    {lang === "km"
+                      ? "1.1.3 សេវាបន្ទប់ប្រជុំ"
+                      : "1.1.3 Meeting Room Service"}
+                  </div>
+                  <div className="kpi-sub">
+                    {lang === "km"
+                      ? "បានដាក់ដំណើរការជាផ្លូវការ"
+                      : "Officially Launched (Live)"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="kpi-card">
+                <div className="kpi-val">65%</div>
+                <div className="kpi-info">
+                  <div className="kpi-label">
+                    {lang === "km"
+                      ? "1.2.1 ការស្នើសុំបេសកកម្ម"
+                      : "1.2.1 Mission Request"}
+                  </div>
+                  <div className="kpi-sub">
+                    {lang === "km"
+                      ? "ការរៀបចំប្រព័ន្ធរួចរាល់"
+                      : "System Setup Completed"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="kpi-card cy">
+                <div className="kpi-val">60%</div>
+                <div className="kpi-info">
+                  <div className="kpi-label">
+                    {lang === "km"
+                      ? "1.5 អគ្គលេខាធិការដ្ឋាន"
+                      : "1.5 General Secretariat"}
+                  </div>
+                  <div className="kpi-sub">
+                    {lang === "km"
+                      ? "មុខងារឯកសារទាំង ៣ រៀបចំរួចរាល់"
+                      : "3 Document Modules Ready"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="kpi-card amb">
+                <div className="kpi-val">10%</div>
+                <div className="kpi-info">
+                  <div className="kpi-label">
+                    {lang === "km"
+                      ? "សិក្សាតម្រូវការ (៤ មុខងារ)"
+                      : "Requirements Studied (4 Modules)"}
+                  </div>
+                  <div className="kpi-sub">
+                    {lang === "km"
+                      ? "ថែទាំ, ផ្គត់ផ្គង់, ទ្រព្យសម្បត្តិ, ផែនការថវិកា"
+                      : "Maintenance, Supply, Assets, Budget"}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="comp-split">
               {/* Left Column: Component 1 (1.1) & Component 2 (1.2) */}
               <div
@@ -384,8 +454,8 @@ export default function PresentationPage() {
                     </span>
                     <h3>
                       {lang === "km"
-                        ? "ប្រតិបត្តិការ បន្ទប់ប្រជុំ បេសកកម្ម & ប្រាក់បៀវត្ស"
-                        : "Operations, Meeting Room, Mission & Payroll"}
+                        ? "ថែទាំ ផ្គត់ផ្គង់ បន្ទប់ប្រជុំ បេសកកម្ម & ប្រាក់បៀវត្ស"
+                        : "Maintenance, Supply, Meeting Room, Mission & Payroll"}
                     </h3>
                   </div>
                   <span className="ic grn">
@@ -396,30 +466,48 @@ export default function PresentationPage() {
                   {[
                     ...COMPONENTS_DATA[0].subtasks,
                     ...COMPONENTS_DATA[1].subtasks,
-                  ].map((item) => (
-                    <div key={item.id} className="comp-list-item">
-                      <span className="badge-num">{item.id}</span>
-                      <div style={{ flex: 1 }}>
-                        <h4>{lang === "km" ? item.titleKm : item.titleEn}</h4>
-                        <p>{lang === "km" ? item.statusKm : item.statusEn}</p>
+                  ].map((item) => {
+                    const colorClass =
+                      item.progress === 100
+                        ? "grn"
+                        : item.progress >= 60
+                          ? "pri"
+                          : "amb";
+                    return (
+                      <div key={item.id} className="report-row">
+                        <div className="report-row-top">
+                          <div className="report-row-left">
+                            <span className="report-code">{item.id}</span>
+                            <div className="report-title-wrap">
+                              <h4>
+                                {lang === "km" ? item.titleKm : item.titleEn}
+                              </h4>
+                              <p>
+                                {lang === "km" ? item.statusKm : item.statusEn}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="report-metric">
+                            <span className={`report-pct ${colorClass}`}>
+                              {item.progress > 0
+                                ? `${item.progress}%`
+                                : lang === "km"
+                                  ? "រង់ចាំសិក្សា"
+                                  : "Pending"}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="report-bar-track">
+                          <div
+                            className={`report-bar-fill ${colorClass}`}
+                            style={{
+                              width: `${item.progress > 0 ? item.progress : 6}%`,
+                            }}
+                          />
+                        </div>
                       </div>
-                      <span
-                        className={`chip ${
-                          item.progress === 100
-                            ? "grn"
-                            : item.progress >= 60
-                              ? "pri"
-                              : "amb"
-                        }`}
-                      >
-                        {item.progress > 0
-                          ? `${item.progress}%`
-                          : lang === "km"
-                            ? "រង់ចាំសិក្សា"
-                            : "Pending"}
-                      </span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
@@ -446,52 +534,90 @@ export default function PresentationPage() {
                   </span>
                 </div>
                 <div className="comp-list">
-                  <div className="comp-list-item">
-                    <span className="badge-num">1.3</span>
-                    <div style={{ flex: 1 }}>
-                      <h4>
-                        {lang === "km"
-                          ? COMPONENTS_DATA[2].subtasks[0].titleKm
-                          : COMPONENTS_DATA[2].subtasks[0].titleEn}
-                      </h4>
-                      <p>
-                        {lang === "km"
-                          ? COMPONENTS_DATA[2].subtasks[0].statusKm
-                          : COMPONENTS_DATA[2].subtasks[0].statusEn}
-                      </p>
+                  <div className="report-row">
+                    <div className="report-row-top">
+                      <div className="report-row-left">
+                        <span className="report-code">1.3</span>
+                        <div className="report-title-wrap">
+                          <h4>
+                            {lang === "km"
+                              ? COMPONENTS_DATA[2].subtasks[0].titleKm
+                              : COMPONENTS_DATA[2].subtasks[0].titleEn}
+                          </h4>
+                          <p>
+                            {lang === "km"
+                              ? COMPONENTS_DATA[2].subtasks[0].statusKm
+                              : COMPONENTS_DATA[2].subtasks[0].statusEn}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="report-metric">
+                        <span className="report-pct amb">10%</span>
+                      </div>
                     </div>
-                    <span className="chip amb">10%</span>
+                    <div className="report-bar-track">
+                      <div
+                        className="report-bar-fill amb"
+                        style={{ width: "10%" }}
+                      />
+                    </div>
                   </div>
 
-                  <div className="comp-list-item">
-                    <span className="badge-num">1.4</span>
-                    <div style={{ flex: 1 }}>
-                      <h4>
-                        {lang === "km"
-                          ? COMPONENTS_DATA[3].subtasks[0].titleKm
-                          : COMPONENTS_DATA[3].subtasks[0].titleEn}
-                      </h4>
-                      <p>
-                        {lang === "km"
-                          ? COMPONENTS_DATA[3].subtasks[0].statusKm
-                          : COMPONENTS_DATA[3].subtasks[0].statusEn}
-                      </p>
+                  <div className="report-row">
+                    <div className="report-row-top">
+                      <div className="report-row-left">
+                        <span className="report-code">1.4</span>
+                        <div className="report-title-wrap">
+                          <h4>
+                            {lang === "km"
+                              ? COMPONENTS_DATA[3].subtasks[0].titleKm
+                              : COMPONENTS_DATA[3].subtasks[0].titleEn}
+                          </h4>
+                          <p>
+                            {lang === "km"
+                              ? COMPONENTS_DATA[3].subtasks[0].statusKm
+                              : COMPONENTS_DATA[3].subtasks[0].statusEn}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="report-metric">
+                        <span className="report-pct amb">10%</span>
+                      </div>
                     </div>
-                    <span className="chip amb">10%</span>
+                    <div className="report-bar-track">
+                      <div
+                        className="report-bar-fill amb"
+                        style={{ width: "10%" }}
+                      />
+                    </div>
                   </div>
 
                   {COMPONENTS_DATA[4].subtasks.map((item) => (
-                    <div key={item.id} className="comp-list-item">
-                      <span className="badge-num">{item.id}</span>
-                      <div style={{ flex: 1 }}>
-                        <h4>{lang === "km" ? item.titleKm : item.titleEn}</h4>
-                        <p>
-                          {lang === "km"
-                            ? "សម្រាប់អគ្គលេខាធិការដ្ឋាន · ការរៀបចំប្រព័ន្ធរួចរាល់"
-                            : "For General Secretariat · System Setup Ready"}
-                        </p>
+                    <div key={item.id} className="report-row">
+                      <div className="report-row-top">
+                        <div className="report-row-left">
+                          <span className="report-code">{item.id}</span>
+                          <div className="report-title-wrap">
+                            <h4>
+                              {lang === "km" ? item.titleKm : item.titleEn}
+                            </h4>
+                            <p>
+                              {lang === "km"
+                                ? "សម្រាប់អគ្គលេខាធិការដ្ឋាន · ការរៀបចំប្រព័ន្ធរួចរាល់"
+                                : "For General Secretariat · System Setup Ready"}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="report-metric">
+                          <span className="report-pct grn">60%</span>
+                        </div>
                       </div>
-                      <span className="chip grn">60% Ready</span>
+                      <div className="report-bar-track">
+                        <div
+                          className="report-bar-fill grn"
+                          style={{ width: "60%" }}
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -541,6 +667,76 @@ export default function PresentationPage() {
               </h2>
             </div>
 
+            {/* Top KPI Metric Cards */}
+            <div
+              className="kpi-strip a"
+              style={{ "--d": 1.5 } as React.CSSProperties}
+            >
+              <div className="kpi-card grn">
+                <div className="kpi-val">3 / 3</div>
+                <div className="kpi-info">
+                  <div className="kpi-label">
+                    {lang === "km"
+                      ? "I. Web Portal សម្រាប់អ្នកស្នើសុំ"
+                      : "I. Web Portal for Applicants"}
+                  </div>
+                  <div className="kpi-sub">
+                    {lang === "km"
+                      ? "បានរៀបចំរួចរាល់ទាំង ៣ សេវា"
+                      : "All 3 Services Setup Ready"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="kpi-card">
+                <div className="kpi-val">3 / 3</div>
+                <div className="kpi-info">
+                  <div className="kpi-label">
+                    {lang === "km"
+                      ? "II. Web Portal ការងារផ្ទៃក្នុង"
+                      : "II. Internal Operations Portal"}
+                  </div>
+                  <div className="kpi-sub">
+                    {lang === "km"
+                      ? "បានរៀបចំរួចរាល់ទាំង ៣ សេវា"
+                      : "All 3 Services Setup Ready"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="kpi-card cy">
+                <div className="kpi-val">≤ 10 Ha</div>
+                <div className="kpi-info">
+                  <div className="kpi-label">
+                    {lang === "km"
+                      ? "អណ្តូងរ៉ែបើក និងការដ្ឋានវាយថ្ម"
+                      : "Open-Pit Mines & Quarries"}
+                  </div>
+                  <div className="kpi-sub">
+                    {lang === "km"
+                      ? "ថ្មសំណង់, ម្នាងសិលា, អាចម៍ដី, ឡាតេរីត, ដីឥដ្ឋ"
+                      : "Stone, Gypsum, Earthfill, Laterite, Clay"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="kpi-card amb">
+                <div className="kpi-val">2 & 3</div>
+                <div className="kpi-info">
+                  <div className="kpi-label">
+                    {lang === "km"
+                      ? "III. ចំណាំសម្គាល់ (សេវាទី2 & ទី3)"
+                      : "III. Remark (Services 2 & 3)"}
+                  </div>
+                  <div className="kpi-sub">
+                    {lang === "km"
+                      ? "រៀបចំតាមលំនាំសេវាទី1 · រង់ចាំពិនិត្យបន្ថែម"
+                      : "Built on Service 1 · Pending Ministry Review"}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="comp-split">
               {/* Left Column: I. Web Portal សម្រាប់អ្នកស្នើសុំ */}
               <div
@@ -566,17 +762,33 @@ export default function PresentationPage() {
                 </div>
                 <div className="comp-list">
                   {MINERAL_RESOURCES_DATA.services.map((srv) => (
-                    <div key={`app-${srv.num}`} className="comp-list-item">
-                      <span className="badge-num">{srv.num}</span>
-                      <div style={{ flex: 1 }}>
-                        <h4>{lang === "km" ? srv.titleKm : srv.titleEn}</h4>
-                        <p>
-                          {lang === "km"
-                            ? "Web Portal សម្រាប់អ្នកស្នើសុំ៖ បានរៀបចំរួចរាល់"
-                            : "Applicant Web Portal: Setup Ready"}
-                        </p>
+                    <div key={`app-${srv.num}`} className="report-row">
+                      <div className="report-row-top">
+                        <div className="report-row-left">
+                          <span className="report-code">{srv.num}</span>
+                          <div className="report-title-wrap">
+                            <h4>
+                              {lang === "km" ? srv.titleKm : srv.titleEn}
+                            </h4>
+                            <p>
+                              {lang === "km"
+                                ? "Web Portal សម្រាប់អ្នកស្នើសុំ៖ បានរៀបចំរួចរាល់"
+                                : "Applicant Web Portal: Setup Ready"}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="report-metric">
+                          <span className="report-pct grn">
+                            {lang === "km" ? "រួចរាល់" : "Ready"}
+                          </span>
+                        </div>
                       </div>
-                      <span className="chip grn">Ready</span>
+                      <div className="report-bar-track">
+                        <div
+                          className="report-bar-fill grn"
+                          style={{ width: "100%" }}
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -606,13 +818,35 @@ export default function PresentationPage() {
                 </div>
                 <div className="comp-list">
                   {MINERAL_RESOURCES_DATA.services.map((srv) => (
-                    <div key={`int-${srv.num}`} className="comp-list-item">
-                      <span className="badge-num">{srv.num}</span>
-                      <div style={{ flex: 1 }}>
-                        <h4>{lang === "km" ? srv.titleKm : srv.titleEn}</h4>
-                        <p>{lang === "km" ? srv.statusKm : srv.statusEn}</p>
+                    <div key={`int-${srv.num}`} className="report-row">
+                      <div className="report-row-top">
+                        <div className="report-row-left">
+                          <span className="report-code">{srv.num}</span>
+                          <div className="report-title-wrap">
+                            <h4>
+                              {lang === "km" ? srv.titleKm : srv.titleEn}
+                            </h4>
+                            <p>{lang === "km" ? srv.statusKm : srv.statusEn}</p>
+                          </div>
+                        </div>
+                        <div className="report-metric">
+                          <span
+                            className={`report-pct ${
+                              srv.num === "01" ? "grn" : "pri"
+                            }`}
+                          >
+                            {lang === "km" ? "រួចរាល់" : "Ready"}
+                          </span>
+                        </div>
                       </div>
-                      <span className="chip pri">Ready</span>
+                      <div className="report-bar-track">
+                        <div
+                          className={`report-bar-fill ${
+                            srv.num === "01" ? "grn" : "pri"
+                          }`}
+                          style={{ width: "100%" }}
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -680,20 +914,90 @@ export default function PresentationPage() {
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
                   <>
-                    អគ្គនាយកដ្ឋានប្រេងកាត៖{" "}
+                    អគ្គនាយកដ្ឋានប្រេងកាត ·{" "}
                     <span className="g">
                       Web Portal អ្នកស្នើសុំ, ផ្ទៃក្នុងក្រសួង & ចំណុចប្រឈម
                     </span>
                   </>
                 ) : (
                   <>
-                    General Dept. of Petroleum:{" "}
+                    General Dept. of Petroleum ·{" "}
                     <span className="g">
                       Applicant Portal, Internal Portal & Challenges
                     </span>
                   </>
                 )}
               </h2>
+            </div>
+
+            {/* Top KPI Metric Cards */}
+            <div
+              className="kpi-strip a"
+              style={{ "--d": 1.5 } as React.CSSProperties}
+            >
+              <div className="kpi-card">
+                <div className="kpi-val">90%</div>
+                <div className="kpi-info">
+                  <div className="kpi-label">
+                    {lang === "km"
+                      ? "វិញ្ញាបនបត្រសុវត្ថិភាពស្ថានីយ"
+                      : "Station Safety Certificate"}
+                  </div>
+                  <div className="kpi-sub">
+                    {lang === "km"
+                      ? "អ្នកស្នើសុំ 90% · កែសម្រួលថ្ងៃទី១០ វិច្ឆិកា"
+                      : "Applicant Portal 90% · Nov 10 Refinement"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="kpi-card cy">
+                <div className="kpi-val">75%</div>
+                <div className="kpi-info">
+                  <div className="kpi-label">
+                    {lang === "km"
+                      ? "បន្តសុពលភាពស្ថានីយ (ផ្ទៃក្នុង)"
+                      : "Station Renewal (Internal)"}
+                  </div>
+                  <div className="kpi-sub">
+                    {lang === "km"
+                      ? "ស្ថានីយប្រេងឥន្ធនៈ ឬឧស្ម័នឥន្ធនៈ"
+                      : "Fuel or LPG Station Processing"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="kpi-card grn">
+                <div className="kpi-val">Ready</div>
+                <div className="kpi-info">
+                  <div className="kpi-label">
+                    {lang === "km"
+                      ? "សេវាវេចខ្ចប់ & បន្តសុពលភាព"
+                      : "Packaging & Station Portals"}
+                  </div>
+                  <div className="kpi-sub">
+                    {lang === "km"
+                      ? "រៀបចំរួចរាល់ · រង់ចាំក្រសួងពិនិត្យបន្ថែម"
+                      : "Setup Ready · Awaiting Ministry Review"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="kpi-card amb">
+                <div className="kpi-val">5%</div>
+                <div className="kpi-info">
+                  <div className="kpi-label">
+                    {lang === "km"
+                      ? "មុខងារ Offline Save Auto"
+                      : "Offline Auto-Save Mode"}
+                  </div>
+                  <div className="kpi-sub">
+                    {lang === "km"
+                      ? "Save ទិន្នន័យ Auto ករណីដាច់ Internet"
+                      : "Auto-saves data when offline"}
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="comp-split">
@@ -720,20 +1024,41 @@ export default function PresentationPage() {
                   </span>
                 </div>
                 <div className="comp-list">
-                  {PETROLEUM_DATA.applicantPortal.services.map((srv) => (
-                    <div key={`pet-app-${srv.num}`} className="comp-list-item">
-                      <span className="badge-num">{srv.num}</span>
-                      <div style={{ flex: 1 }}>
-                        <h4>{lang === "km" ? srv.titleKm : srv.titleEn}</h4>
-                        <p>{lang === "km" ? srv.notesKm : srv.notesEn}</p>
+                  {PETROLEUM_DATA.applicantPortal.services.map((srv) => {
+                    const is90 = srv.num === "03";
+                    return (
+                      <div key={`pet-app-${srv.num}`} className="report-row">
+                        <div className="report-row-top">
+                          <div className="report-row-left">
+                            <span className="report-code">{srv.num}</span>
+                            <div className="report-title-wrap">
+                              <h4>
+                                {lang === "km" ? srv.titleKm : srv.titleEn}
+                              </h4>
+                              <p>{lang === "km" ? srv.notesKm : srv.notesEn}</p>
+                            </div>
+                          </div>
+                          <div className="report-metric">
+                            <span
+                              className={`report-pct ${is90 ? "pri" : "grn"}`}
+                            >
+                              {is90
+                                ? "90%"
+                                : lang === "km"
+                                  ? "រួចរាល់"
+                                  : "Ready"}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="report-bar-track">
+                          <div
+                            className={`report-bar-fill ${is90 ? "pri" : "grn"}`}
+                            style={{ width: is90 ? "90%" : "100%" }}
+                          />
+                        </div>
                       </div>
-                      <span
-                        className={`chip ${srv.num === "03" ? "pri" : "grn"}`}
-                      >
-                        {lang === "km" ? srv.badgeKm : srv.badgeEn}
-                      </span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
@@ -760,26 +1085,60 @@ export default function PresentationPage() {
                   </span>
                 </div>
                 <div className="comp-list">
-                  {PETROLEUM_DATA.internalPortal.services.map((srv) => (
-                    <div key={`pet-int-${srv.num}`} className="comp-list-item">
-                      <span className="badge-num">{srv.num}</span>
-                      <div style={{ flex: 1 }}>
-                        <h4>{lang === "km" ? srv.titleKm : srv.titleEn}</h4>
-                        <p>{lang === "km" ? srv.notesKm : srv.notesEn}</p>
+                  {PETROLEUM_DATA.internalPortal.services.map((srv) => {
+                    const pctWidth =
+                      srv.num === "01"
+                        ? "75%"
+                        : srv.num === "02"
+                          ? "100%"
+                          : srv.num === "03"
+                            ? "85%"
+                            : "5%";
+                    const colorClass =
+                      srv.num === "01"
+                        ? "pri"
+                        : srv.num === "02"
+                          ? "grn"
+                          : "amb";
+                    const pctLabel =
+                      srv.num === "01"
+                        ? "75%"
+                        : srv.num === "02"
+                          ? lang === "km"
+                            ? "រួចរាល់"
+                            : "Ready"
+                          : srv.num === "03"
+                            ? lang === "km"
+                              ? "តេស្តមន្ទីរខេត្ត"
+                              : "Tested"
+                            : "5%";
+                    return (
+                      <div key={`pet-int-${srv.num}`} className="report-row">
+                        <div className="report-row-top">
+                          <div className="report-row-left">
+                            <span className="report-code">{srv.num}</span>
+                            <div className="report-title-wrap">
+                              <h4>
+                                {lang === "km" ? srv.titleKm : srv.titleEn}
+                              </h4>
+                              <p>{lang === "km" ? srv.notesKm : srv.notesEn}</p>
+                            </div>
+                          </div>
+                          <div className="report-metric">
+                            <span className={`report-pct ${colorClass}`}>
+                              {pctLabel}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="report-bar-track">
+                          <div
+                            className={`report-bar-fill ${colorClass}`}
+                            style={{ width: pctWidth }}
+                          />
+                        </div>
                       </div>
-                      <span
-                        className={`chip ${
-                          srv.num === "01"
-                            ? "pri"
-                            : srv.num === "02"
-                              ? "grn"
-                              : "amb"
-                        }`}
-                      >
-                        {lang === "km" ? srv.badgeKm : srv.badgeEn}
-                      </span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>

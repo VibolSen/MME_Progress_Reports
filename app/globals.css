@@ -116,11 +116,11 @@ body {
   flex: none;
   transform-origin: center center;
   overflow: hidden;
-  padding: 38px 64px 32px;
+  padding: 28px 56px 24px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 22px;
+  gap: 16px;
 }
 
 .slide {
@@ -663,15 +663,20 @@ body {
   background: var(--panel);
   backdrop-filter: blur(20px);
   border: 1px solid var(--card-border);
-  border-radius: 28px;
-  padding: 26px 30px;
+  border-radius: 26px;
+  padding: 20px 26px;
   box-shadow: var(--shadow);
   height: 100%;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
   transition: border-color 0.3s var(--ease);
+}
+
+.comp-box::-webkit-scrollbar {
+  display: none;
 }
 
 .comp-box:hover {
@@ -683,15 +688,15 @@ body {
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 14px;
-  padding-bottom: 14px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--pb);
   flex: none;
 }
 
 .comp-box-header h3 {
-  margin: 8px 0 0;
-  font-size: 27px;
+  margin: 6px 0 0;
+  font-size: 28px;
   font-weight: 800;
   line-height: 1.28;
   color: var(--tx);
@@ -701,17 +706,17 @@ body {
   font-size: 16.5px;
   color: var(--mu);
   line-height: 1.48;
-  margin: 0 0 12px;
+  margin: 0 0 10px;
   flex: none;
 }
 
 .comp-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
   flex: 1;
   min-height: 0;
-  justify-content: flex-start;
+  justify-content: space-between;
 }
 
 .comp-list-item {
@@ -1899,7 +1904,219 @@ body {
   border: 1px solid var(--pb);
 }
 
-/* Khmer Typography Adjustments (Battambang + Kantumruy Pro — No Synthetic 800 Smearing) */
+/* ==========================================
+   Executive Data Report Dashboard (Slides 2, 3, 4)
+   ========================================== */
+.kpi-strip {
+  position: relative;
+  z-index: 10;
+  flex: none;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.kpi-card {
+  background: var(--panel);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  border-radius: 22px;
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: var(--pri);
+}
+
+.kpi-card.grn::before {
+  background: var(--grn);
+}
+
+.kpi-card.amb::before {
+  background: var(--amb);
+}
+
+.kpi-card.cy::before {
+  background: var(--cy);
+}
+
+.kpi-val {
+  font-family: var(--font-stack-mono);
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--pri);
+  white-space: nowrap;
+}
+
+.kpi-card.grn .kpi-val {
+  color: var(--grn);
+}
+
+.kpi-card.amb .kpi-val {
+  color: var(--amb);
+}
+
+.kpi-card.cy .kpi-val {
+  color: var(--cy);
+}
+
+.kpi-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.kpi-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--tx);
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.kpi-sub {
+  font-size: 15px;
+  color: var(--mu);
+  line-height: 1.4;
+}
+
+.report-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 20px;
+  border-radius: 18px;
+  background: var(--panel2);
+  border: 1px solid var(--pb);
+  transition: border-color 0.25s;
+}
+
+.report-row:hover {
+  border-color: var(--pri);
+}
+
+.report-row-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.report-row-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+.report-code {
+  font-family: var(--font-stack-mono);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--pri);
+  background: rgba(79, 70, 229, 0.1);
+  padding: 5px 12px;
+  border-radius: 10px;
+  flex: none;
+  margin-top: 2px;
+}
+
+.report-title-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.report-title-wrap h4 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--tx);
+}
+
+.report-title-wrap p {
+  margin: 0;
+  font-size: 18px;
+  color: var(--mu);
+  line-height: 1.5;
+}
+
+.report-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex: none;
+}
+
+.report-pct {
+  font-family: var(--font-stack-mono);
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.report-pct.grn {
+  color: var(--grn);
+}
+
+.report-pct.pri {
+  color: var(--pri);
+}
+
+.report-pct.amb {
+  color: var(--amb);
+}
+
+.report-pct.cy {
+  color: var(--cy);
+}
+
+.report-bar-track {
+  width: 100%;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--pb);
+  overflow: hidden;
+}
+
+.report-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s var(--ease);
+}
+
+.report-bar-fill.grn {
+  background: linear-gradient(90deg, #10B981, var(--grn));
+}
+
+.report-bar-fill.pri {
+  background: linear-gradient(90deg, var(--pri), var(--cy));
+}
+
+.report-bar-fill.amb {
+  background: linear-gradient(90deg, #F59E0B, var(--amb));
+}
+
+.report-bar-fill.cy {
+  background: linear-gradient(90deg, #38BDF8, var(--cy));
+}
+
+/* Khmer Typography Adjustments (Battambang + Kantumruy Pro — Large Executive Sizing) */
 .deck[data-lang="km"] {
   font-family: var(--font-stack-km);
 }
@@ -1917,36 +2134,52 @@ body {
 }
 
 .deck[data-lang="km"] .h {
-  font-size: 46px;
-  line-height: 1.45;
+  font-size: 48px;
+  line-height: 1.42;
 }
 
 .deck[data-lang="km"] .t-title {
-  font-size: 58px;
-  line-height: 1.42;
+  font-size: 62px;
+  line-height: 1.4;
 }
 
 .deck[data-lang="km"] .t-sub,
 .deck[data-lang="km"] .lead {
-  line-height: 1.7;
+  font-size: 24px;
+  line-height: 1.68;
 }
 
 .deck[data-lang="km"] .comp-box-header h3 {
-  font-size: 25px;
+  font-size: 28px;
+  line-height: 1.42;
+}
+
+.deck[data-lang="km"] .comp-list-item h4,
+.deck[data-lang="km"] .report-title-wrap h4 {
+  font-family: var(--font-stack-km);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.52;
+}
+
+.deck[data-lang="km"] .comp-list-item p,
+.deck[data-lang="km"] .report-title-wrap p {
+  font-family: var(--font-stack-km);
+  font-size: 18.5px;
+  line-height: 1.58;
+}
+
+.deck[data-lang="km"] .kpi-label {
+  font-family: var(--font-stack-km);
+  font-weight: 700;
+  font-size: 19.5px;
   line-height: 1.45;
 }
 
-.deck[data-lang="km"] .comp-list-item h4 {
+.deck[data-lang="km"] .kpi-sub {
   font-family: var(--font-stack-km);
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 1.55;
-}
-
-.deck[data-lang="km"] .comp-list-item p {
-  font-family: var(--font-stack-km);
-  font-size: 15px;
-  line-height: 1.62;
+  font-size: 16.5px;
+  line-height: 1.48;
 }
 
 .deck[data-lang="km"] .eyebrow,
@@ -1957,6 +2190,7 @@ body {
   font-family: var(--font-stack-km);
   font-weight: 700;
   text-transform: none;
+  font-size: 18px;
   line-height: 1.55;
 }
 
@@ -1965,7 +2199,7 @@ body {
   font-family: var(--font-stack-km);
   font-weight: 700;
   text-transform: none;
-  font-size: 13.5px;
+  font-size: 16px;
 }
 
 /* Print Styles */
