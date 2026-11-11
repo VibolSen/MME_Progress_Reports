@@ -57,9 +57,9 @@ export default function PresentationPage() {
     return 0;
   });
 
-  // LIGHT THEME IS DEFAULT
+  // LIGHT THEME & ENGLISH LANGUAGE ARE DEFAULT
   const [theme, setTheme] = useState<"dark" | "light">("light");
-  const [lang, setLang] = useState<Language>("km");
+  const [lang, setLang] = useState<Language>("en");
   const [isFullscreen, setIsFullscreen] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       return Boolean(document.fullscreenElement);
