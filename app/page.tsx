@@ -34,7 +34,6 @@ import {
   Printer,
   Check,
   ArrowRight,
-  ShieldCheck,
   Layers,
   Phone,
   Mail,
@@ -352,7 +351,7 @@ export default function PresentationPage() {
               >
                 {lang === "km"
                   ? "០១ · អគ្គនាយកដ្ឋានកិច្ចការទូទៅ (I. វឌ្ឍភាពគម្រោងទី1)"
-                  : "01 · General Department of General Affairs (Project 1 Progress)"}
+                  : "01 · General Department of General Affairs (I. Project 1 Progress)"}
               </div>
               <h2 className="h a" style={{ "--d": 1 } as React.CSSProperties}>
                 {lang === "km" ? (
@@ -369,116 +368,321 @@ export default function PresentationPage() {
               </h2>
             </div>
 
-            {/* Top KPI Metric Cards */}
-            <div
-              className="kpi-strip a"
-              style={{ "--d": 1.5 } as React.CSSProperties}
-            >
-              <div className="kpi-card grn">
-                <div className="kpi-val">100%</div>
-                <div className="kpi-info">
-                  <div className="kpi-label">
-                    {lang === "km"
-                      ? "1.1.3 សេវាបន្ទប់ប្រជុំ"
-                      : "1.1.3 Meeting Room Service"}
-                  </div>
-                  <div className="kpi-sub">
-                    {lang === "km"
-                      ? "បានដាក់ដំណើរការជាផ្លូវការ"
-                      : "Officially Launched (Live)"}
-                  </div>
-                </div>
-              </div>
-
-              <div className="kpi-card">
-                <div className="kpi-val">65%</div>
-                <div className="kpi-info">
-                  <div className="kpi-label">
-                    {lang === "km"
-                      ? "1.2.1 ការស្នើសុំបេសកកម្ម"
-                      : "1.2.1 Mission Request"}
-                  </div>
-                  <div className="kpi-sub">
-                    {lang === "km"
-                      ? "ការរៀបចំប្រព័ន្ធរួចរាល់"
-                      : "System Setup Completed"}
-                  </div>
-                </div>
-              </div>
-
-              <div className="kpi-card cy">
-                <div className="kpi-val">60%</div>
-                <div className="kpi-info">
-                  <div className="kpi-label">
-                    {lang === "km"
-                      ? "1.5 អគ្គលេខាធិការដ្ឋាន"
-                      : "1.5 General Secretariat"}
-                  </div>
-                  <div className="kpi-sub">
-                    {lang === "km"
-                      ? "មុខងារឯកសារទាំង ៣ រៀបចំរួចរាល់"
-                      : "3 Document Modules Ready"}
-                  </div>
-                </div>
-              </div>
-
-              <div className="kpi-card amb">
-                <div className="kpi-val">10%</div>
-                <div className="kpi-info">
-                  <div className="kpi-label">
-                    {lang === "km"
-                      ? "សិក្សាតម្រូវការ (៤ មុខងារ)"
-                      : "Requirements Studied (4 Modules)"}
-                  </div>
-                  <div className="kpi-sub">
-                    {lang === "km"
-                      ? "ថែទាំ, ផ្គត់ផ្គង់, ទ្រព្យសម្បត្តិ, ផែនការថវិកា"
-                      : "Maintenance, Supply, Assets, Budget"}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="comp-split">
-              {/* Left Column: Component 1 (1.1) & Component 2 (1.2) */}
+            <div className="analytics-dashboard">
+              {/* LEFT ANALYTICS COLUMN: Donut Chart + Vertical Column Bar Chart */}
               <div
-                className="comp-box a"
-                style={{ "--d": 2 } as React.CSSProperties}
+                className="analytics-col a"
+                style={{ "--d": 1.5 } as React.CSSProperties}
               >
-                <div className="comp-box-header">
-                  <div>
-                    <span className="chip grn">
-                      {lang === "km"
-                        ? "1.1 សមាសភាគទី1 & 1.2 សមាសភាគទី2"
-                        : "1.1 Component 1 & 1.2 Component 2"}
-                    </span>
+                {/* Chart 1: SVG Donut Chart of 10 Sub-Modules */}
+                <div className="chart-card">
+                  <div className="chart-head">
                     <h3>
                       {lang === "km"
-                        ? "ថែទាំ ផ្គត់ផ្គង់ បន្ទប់ប្រជុំ បេសកកម្ម & ប្រាក់បៀវត្ស"
-                        : "Maintenance, Supply, Meeting Room, Mission & Payroll"}
+                        ? "ការវិភាគស្ថានភាពមុខងារទាំង ១០ (៥ សមាសភាគ)"
+                        : "Status Distribution (10 Modules · 5 Components)"}
                     </h3>
+                    <span className="chip grn">
+                      {lang === "km" ? "គម្រោងទី១" : "Project 1"}
+                    </span>
                   </div>
-                  <span className="ic grn">
-                    <Building2 size={24} />
-                  </span>
+
+                  <div className="donut-layout">
+                    <div className="donut-svg-wrap">
+                      {/* Circumference = 2 * pi * 68 ≈ 427.25 */}
+                      <svg
+                        width="196"
+                        height="196"
+                        viewBox="0 0 180 180"
+                        style={{ transform: "rotate(-90deg)" }}
+                      >
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="var(--pb)"
+                          strokeWidth="22"
+                        />
+                        {/* 10% Live (1/10) -> 42.7 */}
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="#059669"
+                          strokeWidth="22"
+                          strokeDasharray="42.7 427.3"
+                          strokeDashoffset="0"
+                        />
+                        {/* 40% System Ready 60-65% (4/10) -> 170.9 */}
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="#4F46E5"
+                          strokeWidth="22"
+                          strokeDasharray="170.9 427.3"
+                          strokeDashoffset="-42.7"
+                        />
+                        {/* 40% Requirements Studied 10% (4/10) -> 170.9 */}
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="#D97706"
+                          strokeWidth="22"
+                          strokeDasharray="170.9 427.3"
+                          strokeDashoffset="-213.6"
+                        />
+                        {/* 10% Pending Study (1/10) -> 42.7 */}
+                        <circle
+                          cx="90"
+                          cy="90"
+                          r="68"
+                          fill="none"
+                          stroke="#E11D48"
+                          strokeWidth="22"
+                          strokeDasharray="42.7 427.3"
+                          strokeDashoffset="-384.5"
+                        />
+                      </svg>
+                      <div className="donut-center">
+                        <span className="big">10</span>
+                        <span className="lbl">
+                          {lang === "km" ? "មុខងារសរុប" : "Sub-Modules"}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="donut-legend">
+                      <div className="legend-item">
+                        <div className="legend-left">
+                          <span
+                            className="legend-dot"
+                            style={{ background: "#059669" }}
+                          />
+                          <span className="legend-name">
+                            {lang === "km"
+                              ? "ដាក់ដំណើរការផ្លូវការ (100%)"
+                              : "Officially Launched (100%)"}
+                          </span>
+                        </div>
+                        <span
+                          className="legend-val"
+                          style={{ color: "var(--grn)" }}
+                        >
+                          {lang === "km" ? "1 មុខងារ" : "1 Module"}
+                        </span>
+                      </div>
+
+                      <div className="legend-item">
+                        <div className="legend-left">
+                          <span
+                            className="legend-dot"
+                            style={{ background: "#4F46E5" }}
+                          />
+                          <span className="legend-name">
+                            {lang === "km"
+                              ? "រៀបចំប្រព័ន្ធរួចរាល់ (60%–65%)"
+                              : "System Setup Ready (60%–65%)"}
+                          </span>
+                        </div>
+                        <span
+                          className="legend-val"
+                          style={{ color: "var(--pri)" }}
+                        >
+                          {lang === "km" ? "4 មុខងារ" : "4 Modules"}
+                        </span>
+                      </div>
+
+                      <div className="legend-item">
+                        <div className="legend-left">
+                          <span
+                            className="legend-dot"
+                            style={{ background: "#D97706" }}
+                          />
+                          <span className="legend-name">
+                            {lang === "km"
+                              ? "សិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)"
+                              : "Requirements Studied (10%)"}
+                          </span>
+                        </div>
+                        <span
+                          className="legend-val"
+                          style={{ color: "var(--amb)" }}
+                        >
+                          {lang === "km" ? "4 មុខងារ" : "4 Modules"}
+                        </span>
+                      </div>
+
+                      <div className="legend-item">
+                        <div className="legend-left">
+                          <span
+                            className="legend-dot"
+                            style={{ background: "#E11D48" }}
+                          />
+                          <span className="legend-name">
+                            {lang === "km"
+                              ? "រង់ចាំការសិក្សាជាមួយក្រសួងបន្ថែម"
+                              : "Awaiting Further Ministry Study"}
+                          </span>
+                        </div>
+                        <span
+                          className="legend-val"
+                          style={{ color: "var(--red)" }}
+                        >
+                          {lang === "km" ? "1 មុខងារ" : "1 Module"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="comp-list">
-                  {[
-                    ...COMPONENTS_DATA[0].subtasks,
-                    ...COMPONENTS_DATA[1].subtasks,
-                  ].map((item) => {
-                    const colorClass =
-                      item.progress === 100
-                        ? "grn"
-                        : item.progress >= 60
-                          ? "pri"
-                          : "amb";
-                    return (
-                      <div key={item.id} className="report-row">
-                        <div className="report-row-top">
-                          <div className="report-row-left">
-                            <span className="report-code">{item.id}</span>
-                            <div className="report-title-wrap">
+
+                {/* Chart 2: Vertical Column Bar Chart by Component */}
+                <div className="chart-card grow">
+                  <div className="chart-head">
+                    <h3>
+                      {lang === "km"
+                        ? "ក្រាហ្វប្រៀបធៀបភាគរយវឌ្ឍភាពតាមសមាសភាគ"
+                        : "Completion Percentage Chart by Component"}
+                    </h3>
+                    <span className="sub">0% – 100%</span>
+                  </div>
+
+                  <div className="vbar-chart">
+                    <div className="vbar-plot">
+                      <div className="vbar-col">
+                        <span
+                          className="vbar-num"
+                          style={{ color: "var(--grn)" }}
+                        >
+                          100%
+                        </span>
+                        <div
+                          className="vbar-bar grn"
+                          style={{ height: "100%" }}
+                        />
+                      </div>
+                      <div className="vbar-col">
+                        <span
+                          className="vbar-num"
+                          style={{ color: "var(--pri)" }}
+                        >
+                          65%
+                        </span>
+                        <div
+                          className="vbar-bar pri"
+                          style={{ height: "65%" }}
+                        />
+                      </div>
+                      <div className="vbar-col">
+                        <span
+                          className="vbar-num"
+                          style={{ color: "var(--cy)" }}
+                        >
+                          60%
+                        </span>
+                        <div
+                          className="vbar-bar cy"
+                          style={{ height: "60%" }}
+                        />
+                      </div>
+                      <div className="vbar-col">
+                        <span
+                          className="vbar-num"
+                          style={{ color: "var(--amb)" }}
+                        >
+                          10%
+                        </span>
+                        <div
+                          className="vbar-bar amb"
+                          style={{ height: "18%" }}
+                        />
+                      </div>
+                      <div className="vbar-col">
+                        <span
+                          className="vbar-num"
+                          style={{ color: "var(--amb)" }}
+                        >
+                          10%
+                        </span>
+                        <div
+                          className="vbar-bar amb"
+                          style={{ height: "18%" }}
+                        />
+                      </div>
+                      <div className="vbar-col">
+                        <span
+                          className="vbar-num"
+                          style={{ color: "var(--red)" }}
+                        >
+                          {lang === "km" ? "រង់ចាំ" : "Wait"}
+                        </span>
+                        <div
+                          className="vbar-bar red"
+                          style={{ height: "14%" }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="vbar-labels">
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "បន្ទប់ប្រជុំ" : "Meeting"}
+                        <small>1.1.3</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "បេសកកម្ម" : "Mission"}
+                        <small>1.2.1</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "អគ្គលេខាធិការ" : "Secretariat"}
+                        <small>1.5 (x3)</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "ថែទាំ/ផ្គត់ផ្គង់" : "Maint/Supply"}
+                        <small>1.1.1–2</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "ទ្រព្យ/ថវិកា" : "Asset/Budget"}
+                        <small>1.3 & 1.4</small>
+                      </div>
+                      <div className="vbar-lbl">
+                        {lang === "km" ? "ប្រាក់បៀវត្ស" : "Payroll"}
+                        <small>1.2.2</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT FULL-TEXT DATA COLUMN: Complete Components 1.1 to 1.5 (Zero Clipping) */}
+              <div
+                className="data-col a"
+                style={{ "--d": 2.5 } as React.CSSProperties}
+              >
+                <div className="comp-cards-grid">
+                  {/* 1.1 សមាសភាគទី1 */}
+                  <div className="comp-data-card">
+                    <div className="comp-data-head">
+                      <h3>
+                        {lang === "km"
+                          ? "1.1. សមាសភាគទី1"
+                          : "1.1. Component 1"}
+                      </h3>
+                      <span className="chip grn">
+                        <Building2 size={16} />
+                        {lang === "km" ? "៣ មុខងារ" : "3 Modules"}
+                      </span>
+                    </div>
+                    <div className="data-items-stack">
+                      {COMPONENTS_DATA[0].subtasks.map((item) => (
+                        <div key={item.id} className="data-item">
+                          <div className="data-item-left">
+                            <span className="data-code">{item.id}</span>
+                            <div className="data-text">
                               <h4>
                                 {lang === "km" ? item.titleKm : item.titleEn}
                               </h4>
@@ -487,139 +691,146 @@ export default function PresentationPage() {
                               </p>
                             </div>
                           </div>
-                          <div className="report-metric">
-                            <span className={`report-pct ${colorClass}`}>
-                              {item.progress > 0
-                                ? `${item.progress}%`
-                                : lang === "km"
-                                  ? "រង់ចាំសិក្សា"
-                                  : "Pending"}
-                            </span>
+                          <span
+                            className={`data-badge ${
+                              item.progress === 100 ? "grn" : "amb"
+                            }`}
+                          >
+                            {item.progress}%
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 1.2 សមាសភាគទី2 & 1.3 សមាសភាគទី3 */}
+                  <div className="comp-data-card">
+                    <div className="comp-data-head">
+                      <h3>
+                        {lang === "km"
+                          ? "1.2. សមាសភាគទី2 & 1.3. សមាសភាគទី3"
+                          : "1.2. Component 2 & 1.3. Component 3"}
+                      </h3>
+                      <span className="chip pri">
+                        <Layers size={16} />
+                        {lang === "km" ? "បេសកកម្ម, បៀវត្ស & ទ្រព្យរដ្ឋ" : "3 Modules"}
+                      </span>
+                    </div>
+                    <div className="data-items-stack">
+                      {COMPONENTS_DATA[1].subtasks.map((item) => (
+                        <div key={item.id} className="data-item">
+                          <div className="data-item-left">
+                            <span className="data-code">{item.id}</span>
+                            <div className="data-text">
+                              <h4>
+                                {lang === "km" ? item.titleKm : item.titleEn}
+                              </h4>
+                              <p>
+                                {lang === "km" ? item.statusKm : item.statusEn}
+                              </p>
+                            </div>
                           </div>
+                          <span
+                            className={`data-badge ${
+                              item.progress >= 60 ? "pri" : "red"
+                            }`}
+                          >
+                            {item.progress > 0
+                              ? `${item.progress}%`
+                              : lang === "km"
+                                ? "រង់ចាំសិក្សា"
+                                : "Pending"}
+                          </span>
                         </div>
-                        <div className="report-bar-track">
-                          <div
-                            className={`report-bar-fill ${colorClass}`}
-                            style={{
-                              width: `${item.progress > 0 ? item.progress : 6}%`,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Right Column: Component 3 (1.3), Component 4 (1.4), & Component 5 (1.5 · 60%) */}
-              <div
-                className="comp-box a"
-                style={{ "--d": 3 } as React.CSSProperties}
-              >
-                <div className="comp-box-header">
-                  <div>
-                    <span className="chip pri">
-                      {lang === "km"
-                        ? "1.3 សមាសភាគទី3 · 1.4 សមាសភាគទី4 · 1.5 សមាសភាគទី5 (60%)"
-                        : "1.3 Component 3 · 1.4 Component 4 · 1.5 Secretariat (60%)"}
-                    </span>
-                    <h3>
-                      {lang === "km"
-                        ? "ទ្រព្យសម្បត្តិរដ្ឋ ផែនការថវិកា & អគ្គលេខាធិការដ្ឋាន (60%)"
-                        : "State Assets, Budget/M&E & General Secretariat (60%)"}
-                    </h3>
-                  </div>
-                  <span className="ic soft">
-                    <Layers size={24} />
-                  </span>
-                </div>
-                <div className="comp-list">
-                  <div className="report-row">
-                    <div className="report-row-top">
-                      <div className="report-row-left">
-                        <span className="report-code">1.3</span>
-                        <div className="report-title-wrap">
-                          <h4>
-                            {lang === "km"
-                              ? COMPONENTS_DATA[2].subtasks[0].titleKm
-                              : COMPONENTS_DATA[2].subtasks[0].titleEn}
-                          </h4>
-                          <p>
-                            {lang === "km"
-                              ? COMPONENTS_DATA[2].subtasks[0].statusKm
-                              : COMPONENTS_DATA[2].subtasks[0].statusEn}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="report-metric">
-                        <span className="report-pct amb">10%</span>
-                      </div>
-                    </div>
-                    <div className="report-bar-track">
-                      <div
-                        className="report-bar-fill amb"
-                        style={{ width: "10%" }}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="report-row">
-                    <div className="report-row-top">
-                      <div className="report-row-left">
-                        <span className="report-code">1.4</span>
-                        <div className="report-title-wrap">
-                          <h4>
-                            {lang === "km"
-                              ? COMPONENTS_DATA[3].subtasks[0].titleKm
-                              : COMPONENTS_DATA[3].subtasks[0].titleEn}
-                          </h4>
-                          <p>
-                            {lang === "km"
-                              ? COMPONENTS_DATA[3].subtasks[0].statusKm
-                              : COMPONENTS_DATA[3].subtasks[0].statusEn}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="report-metric">
-                        <span className="report-pct amb">10%</span>
-                      </div>
-                    </div>
-                    <div className="report-bar-track">
-                      <div
-                        className="report-bar-fill amb"
-                        style={{ width: "10%" }}
-                      />
-                    </div>
-                  </div>
-
-                  {COMPONENTS_DATA[4].subtasks.map((item) => (
-                    <div key={item.id} className="report-row">
-                      <div className="report-row-top">
-                        <div className="report-row-left">
-                          <span className="report-code">{item.id}</span>
-                          <div className="report-title-wrap">
+                      ))}
+                      {/* 1.3 សមាសភាគទី3 */}
+                      <div className="data-item">
+                        <div className="data-item-left">
+                          <span className="data-code">1.3</span>
+                          <div className="data-text">
                             <h4>
-                              {lang === "km" ? item.titleKm : item.titleEn}
+                              {lang === "km"
+                                ? "1.3. សមាសភាគទី3៖ ប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ"
+                                : "1.3. Component 3: State Asset Management System"}
                             </h4>
                             <p>
                               {lang === "km"
-                                ? "សម្រាប់អគ្គលេខាធិការដ្ឋាន · ការរៀបចំប្រព័ន្ធរួចរាល់"
-                                : "For General Secretariat · System Setup Ready"}
+                                ? "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)"
+                                : "User Requirements Studied (10%)"}
                             </p>
                           </div>
                         </div>
-                        <div className="report-metric">
-                          <span className="report-pct grn">60%</span>
-                        </div>
-                      </div>
-                      <div className="report-bar-track">
-                        <div
-                          className="report-bar-fill grn"
-                          style={{ width: "60%" }}
-                        />
+                        <span className="data-badge amb">10%</span>
                       </div>
                     </div>
-                  ))}
+                  </div>
+
+                  {/* 1.4 សមាសភាគទី4 (Full Width Span) */}
+                  <div className="comp-data-card span-2">
+                    <div className="comp-data-head">
+                      <h3>
+                        {lang === "km"
+                          ? "1.4. សមាសភាគទី4"
+                          : "1.4. Component 4"}
+                      </h3>
+                      <span className="data-badge amb">10%</span>
+                    </div>
+                    <div className="data-item">
+                      <div className="data-item-left">
+                        <span className="data-code">1.4</span>
+                        <div className="data-text">
+                          <h4>
+                            {lang === "km"
+                              ? "ប្រព័ន្ធគ្រប់គ្រងផែនការ ថវិកា និងការអនុវត្ត ព្រមទាំងតាមដាន ត្រួតពិនិត្យ និងវាយតម្លៃ"
+                              : "Planning, Budget, Implementation, Monitoring & Evaluation System"}
+                          </h4>
+                          <p>
+                            {lang === "km"
+                              ? "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)"
+                              : "User Requirements Studied (10%)"}
+                          </p>
+                        </div>
+                      </div>
+                      <span className="data-badge amb">
+                        {lang === "km" ? "សិក្សាតម្រូវការ 10%" : "Studied 10%"}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 1.5 សមាសភាគទី5 (60%) សម្រាប់អគ្គលេខាធិការដ្ឋាន (Full Width Span, 3 Columns) */}
+                  <div className="comp-data-card span-2">
+                    <div className="comp-data-head">
+                      <h3>
+                        {lang === "km"
+                          ? "1.5. សមាសភាគទី5 (60%) សម្រាប់អគ្គលេខាធិការដ្ឋាន"
+                          : "1.5. Component 5 (60%) For General Secretariat"}
+                      </h3>
+                      <span className="data-badge grn">
+                        {lang === "km"
+                          ? "60% · ការរៀបចំប្រព័ន្ធរួចរាល់"
+                          : "60% · System Setup Ready"}
+                      </span>
+                    </div>
+                    <div className="data-items-grid-3">
+                      {COMPONENTS_DATA[4].subtasks.map((item) => (
+                        <div key={item.id} className="data-item">
+                          <div className="data-item-left">
+                            <span className="data-code">{item.id}</span>
+                            <div className="data-text">
+                              <h4>
+                                {lang === "km" ? item.titleKm : item.titleEn}
+                              </h4>
+                              <p>
+                                {lang === "km"
+                                  ? "ការរៀបចំប្រព័ន្ធរួចរាល់ (60%)"
+                                  : "System Setup Ready (60%)"}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -667,222 +878,319 @@ export default function PresentationPage() {
               </h2>
             </div>
 
-            {/* Top KPI Metric Cards */}
-            <div
-              className="kpi-strip a"
-              style={{ "--d": 1.5 } as React.CSSProperties}
-            >
-              <div className="kpi-card grn">
-                <div className="kpi-val">3 / 3</div>
-                <div className="kpi-info">
-                  <div className="kpi-label">
-                    {lang === "km"
-                      ? "I. Web Portal សម្រាប់អ្នកស្នើសុំ"
-                      : "I. Web Portal for Applicants"}
-                  </div>
-                  <div className="kpi-sub">
-                    {lang === "km"
-                      ? "បានរៀបចំរួចរាល់ទាំង ៣ សេវា"
-                      : "All 3 Services Setup Ready"}
-                  </div>
-                </div>
-              </div>
-
-              <div className="kpi-card">
-                <div className="kpi-val">3 / 3</div>
-                <div className="kpi-info">
-                  <div className="kpi-label">
-                    {lang === "km"
-                      ? "II. Web Portal ការងារផ្ទៃក្នុង"
-                      : "II. Internal Operations Portal"}
-                  </div>
-                  <div className="kpi-sub">
-                    {lang === "km"
-                      ? "បានរៀបចំរួចរាល់ទាំង ៣ សេវា"
-                      : "All 3 Services Setup Ready"}
-                  </div>
-                </div>
-              </div>
-
-              <div className="kpi-card cy">
-                <div className="kpi-val">≤ 10 Ha</div>
-                <div className="kpi-info">
-                  <div className="kpi-label">
-                    {lang === "km"
-                      ? "អណ្តូងរ៉ែបើក និងការដ្ឋានវាយថ្ម"
-                      : "Open-Pit Mines & Quarries"}
-                  </div>
-                  <div className="kpi-sub">
-                    {lang === "km"
-                      ? "ថ្មសំណង់, ម្នាងសិលា, អាចម៍ដី, ឡាតេរីត, ដីឥដ្ឋ"
-                      : "Stone, Gypsum, Earthfill, Laterite, Clay"}
-                  </div>
-                </div>
-              </div>
-
-              <div className="kpi-card amb">
-                <div className="kpi-val">2 & 3</div>
-                <div className="kpi-info">
-                  <div className="kpi-label">
-                    {lang === "km"
-                      ? "III. ចំណាំសម្គាល់ (សេវាទី2 & ទី3)"
-                      : "III. Remark (Services 2 & 3)"}
-                  </div>
-                  <div className="kpi-sub">
-                    {lang === "km"
-                      ? "រៀបចំតាមលំនាំសេវាទី1 · រង់ចាំពិនិត្យបន្ថែម"
-                      : "Built on Service 1 · Pending Ministry Review"}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="comp-split">
-              {/* Left Column: I. Web Portal សម្រាប់អ្នកស្នើសុំ */}
+            <div className="analytics-dashboard">
+              {/* LEFT ANALYTICS COLUMN: Dual Radial Gauges + Grouped Bar Chart + III. ចំណាំសម្គាល់ */}
               <div
-                className="comp-box a"
-                style={{ "--d": 2 } as React.CSSProperties}
+                className="analytics-col a"
+                style={{ "--d": 1.5 } as React.CSSProperties}
               >
-                <div className="comp-box-header">
-                  <div>
-                    <span className="chip grn">
-                      {lang === "km"
-                        ? "បានរៀបចំរួចរាល់ · ៣ សេវា"
-                        : "Setup Ready · 3 Services"}
-                    </span>
+                {/* Chart 1: Dual Radial Ring Gauges */}
+                <div className="chart-card">
+                  <div className="chart-head">
                     <h3>
                       {lang === "km"
-                        ? MINERAL_RESOURCES_DATA.applicantPortalTitleKm
-                        : MINERAL_RESOURCES_DATA.applicantPortalTitleEn}
+                        ? "ការវិភាគវឌ្ឍភាព Web Portal ទាំង ២"
+                        : "Dual Web Portal Readiness Analysis"}
                     </h3>
+                    <span className="chip grn">100% Ready</span>
                   </div>
-                  <span className="ic grn">
-                    <Globe size={24} />
-                  </span>
-                </div>
-                <div className="comp-list">
-                  {MINERAL_RESOURCES_DATA.services.map((srv) => (
-                    <div key={`app-${srv.num}`} className="report-row">
-                      <div className="report-row-top">
-                        <div className="report-row-left">
-                          <span className="report-code">{srv.num}</span>
-                          <div className="report-title-wrap">
-                            <h4>
-                              {lang === "km" ? srv.titleKm : srv.titleEn}
-                            </h4>
-                            <p>
-                              {lang === "km"
-                                ? "Web Portal សម្រាប់អ្នកស្នើសុំ៖ បានរៀបចំរួចរាល់"
-                                : "Applicant Web Portal: Setup Ready"}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="report-metric">
-                          <span className="report-pct grn">
-                            {lang === "km" ? "រួចរាល់" : "Ready"}
+
+                  <div className="gauge-pair">
+                    <div className="gauge-box">
+                      <div className="gauge-ring">
+                        <svg
+                          width="132"
+                          height="132"
+                          viewBox="0 0 132 132"
+                          style={{ transform: "rotate(-90deg)" }}
+                        >
+                          <circle
+                            cx="66"
+                            cy="66"
+                            r="52"
+                            fill="none"
+                            stroke="var(--pb)"
+                            strokeWidth="14"
+                          />
+                          <circle
+                            cx="66"
+                            cy="66"
+                            r="52"
+                            fill="none"
+                            stroke="#059669"
+                            strokeWidth="14"
+                            strokeDasharray="326.7 326.7"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                        <div className="donut-center">
+                          <span
+                            className="big"
+                            style={{ fontSize: "28px", color: "var(--grn)" }}
+                          >
+                            3 / 3
+                          </span>
+                          <span className="lbl">
+                            {lang === "km" ? "សេវា" : "Services"}
                           </span>
                         </div>
                       </div>
-                      <div className="report-bar-track">
-                        <div
-                          className="report-bar-fill grn"
-                          style={{ width: "100%" }}
-                        />
+                      <div className="gauge-title">
+                        {lang === "km"
+                          ? "I. Web Portal អ្នកស្នើសុំ"
+                          : "I. Applicant Web Portal"}
+                      </div>
+                      <div className="gauge-sub">
+                        {lang === "km"
+                          ? "បានរៀបចំរួចរាល់ (100%)"
+                          : "Setup Completed (100%)"}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
 
-              {/* Right Column: II. Web Portal សម្រាប់ការងារផ្ទៃក្នុង */}
-              <div
-                className="comp-box a"
-                style={{ "--d": 3 } as React.CSSProperties}
-              >
-                <div className="comp-box-header">
-                  <div>
-                    <span className="chip pri">
-                      {lang === "km"
-                        ? "បានរៀបចំរួចរាល់ · ៣ សេវា"
-                        : "Setup Ready · 3 Services"}
-                    </span>
-                    <h3>
-                      {lang === "km"
-                        ? MINERAL_RESOURCES_DATA.internalPortalTitleKm
-                        : MINERAL_RESOURCES_DATA.internalPortalTitleEn}
-                    </h3>
-                  </div>
-                  <span className="ic soft">
-                    <Check size={24} />
-                  </span>
-                </div>
-                <div className="comp-list">
-                  {MINERAL_RESOURCES_DATA.services.map((srv) => (
-                    <div key={`int-${srv.num}`} className="report-row">
-                      <div className="report-row-top">
-                        <div className="report-row-left">
-                          <span className="report-code">{srv.num}</span>
-                          <div className="report-title-wrap">
-                            <h4>
-                              {lang === "km" ? srv.titleKm : srv.titleEn}
-                            </h4>
-                            <p>{lang === "km" ? srv.statusKm : srv.statusEn}</p>
-                          </div>
-                        </div>
-                        <div className="report-metric">
+                    <div className="gauge-box">
+                      <div className="gauge-ring">
+                        <svg
+                          width="132"
+                          height="132"
+                          viewBox="0 0 132 132"
+                          style={{ transform: "rotate(-90deg)" }}
+                        >
+                          <circle
+                            cx="66"
+                            cy="66"
+                            r="52"
+                            fill="none"
+                            stroke="var(--pb)"
+                            strokeWidth="14"
+                          />
+                          <circle
+                            cx="66"
+                            cy="66"
+                            r="52"
+                            fill="none"
+                            stroke="#4F46E5"
+                            strokeWidth="14"
+                            strokeDasharray="326.7 326.7"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                        <div className="donut-center">
                           <span
-                            className={`report-pct ${
-                              srv.num === "01" ? "grn" : "pri"
-                            }`}
+                            className="big"
+                            style={{ fontSize: "28px", color: "var(--pri)" }}
                           >
-                            {lang === "km" ? "រួចរាល់" : "Ready"}
+                            3 / 3
+                          </span>
+                          <span className="lbl">
+                            {lang === "km" ? "សេវា" : "Services"}
                           </span>
                         </div>
                       </div>
-                      <div className="report-bar-track">
-                        <div
-                          className={`report-bar-fill ${
+                      <div className="gauge-title">
+                        {lang === "km"
+                          ? "II. Web Portal ការងារផ្ទៃក្នុង"
+                          : "II. Internal Web Portal"}
+                      </div>
+                      <div
+                        className="gauge-sub"
+                        style={{ color: "var(--pri)" }}
+                      >
+                        {lang === "km"
+                          ? "បានរៀបចំរួចរាល់ (100%)"
+                          : "Setup Completed (100%)"}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Chart 2: Grouped Bar Chart by Service */}
+                <div className="chart-card grow">
+                  <div className="chart-head">
+                    <h3>
+                      {lang === "km"
+                        ? "ក្រាហ្វប្រៀបធៀបតាមសេវាទាំង ៣ (អ្នកស្នើសុំ vs ផ្ទៃក្នុង)"
+                        : "Service Readiness Chart (Applicant vs. Internal)"}
+                    </h3>
+                  </div>
+
+                  <div className="gbar-list">
+                    <div className="gbar-group">
+                      <div className="gbar-group-head">
+                        <span className="gbar-group-title">
+                          {lang === "km"
+                            ? "១. អាជីវកម្មថ្មសំណង់ ម្នាងសិលា និងធនធានរ៉ែប្រហាក់ប្រហែល (≤ ១០ហិកតា)"
+                            : "1. Construction Stone, Gypsum & Similar Extraction (≤ 10 Ha)"}
+                        </span>
+                      </div>
+                      <div className="gbar-row">
+                        <span className="gbar-tag">
+                          {lang === "km" ? "I & II. ទាំង ២ ប្រព័ន្ធ" : "I & II. Portals"}
+                        </span>
+                        <div className="gbar-track">
+                          <div
+                            className="gbar-fill grn"
+                            style={{ width: "100%" }}
+                          />
+                        </div>
+                        <span
+                          className="gbar-val"
+                          style={{ color: "var(--grn)" }}
+                        >
+                          100%
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="gbar-group">
+                      <div className="gbar-group-head">
+                        <span className="gbar-group-title">
+                          {lang === "km"
+                            ? "២. ការងារស្វែងរុករកថ្មសំណង់ ម្នាងសិលា និងធនធានរ៉ែប្រហាក់ប្រហែល"
+                            : "2. Exploration of Construction Stone, Gypsum & Similar"}
+                        </span>
+                      </div>
+                      <div className="gbar-row">
+                        <span className="gbar-tag">
+                          {lang === "km" ? "តាមលំនាំសេវាទី១" : "Service 1 Pattern"}
+                        </span>
+                        <div className="gbar-track">
+                          <div
+                            className="gbar-fill pri"
+                            style={{ width: "100%" }}
+                          />
+                        </div>
+                        <span
+                          className="gbar-val"
+                          style={{ color: "var(--pri)" }}
+                        >
+                          {lang === "km" ? "រួចរាល់" : "Ready"}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="gbar-group">
+                      <div className="gbar-group-head">
+                        <span className="gbar-group-title">
+                          {lang === "km"
+                            ? "៣. អាជីវកម្មអាចម៍ដី ឡាតេរីត ដីឥដ្ឋ (≤ ១០ហិកតា)"
+                            : "3. Earthfill, Laterite & Clay Extraction (≤ 10 Ha)"}
+                        </span>
+                      </div>
+                      <div className="gbar-row">
+                        <span className="gbar-tag">
+                          {lang === "km" ? "តាមលំនាំសេវាទី១" : "Service 1 Pattern"}
+                        </span>
+                        <div className="gbar-track">
+                          <div
+                            className="gbar-fill pri"
+                            style={{ width: "100%" }}
+                          />
+                        </div>
+                        <span
+                          className="gbar-val"
+                          style={{ color: "var(--pri)" }}
+                        >
+                          {lang === "km" ? "រួចរាល់" : "Ready"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* III. ចំណាំសម្គាល់ */}
+                <div className="alert-note-card">
+                  <div className="alert-note-head">
+                    <span>
+                      {lang === "km"
+                        ? "III. ចំណាំសម្គាល់៖"
+                        : "III. Important Note / Remark:"}
+                    </span>
+                  </div>
+                  <div className="alert-note-body">
+                    {lang === "km"
+                      ? "- សម្រាប់ការរៀបចំសេវាទី2 និងទី3 ក្រុមការងារបានរៀបចំតាមលំនាំសេវាទី1 រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមដើម្បីកែសម្រួលតាមការអនុវត្តជាក់ស្ដែង។"
+                      : "- For Services 2 and 3, the working team configured the system following the template of Service 1, awaiting further review from the Ministry working group to refine according to actual practice."}
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT FULL-TEXT DATA COLUMN: Complete I & II Portal Services (Zero Clipping) */}
+              <div
+                className="data-col a"
+                style={{ "--d": 2.5 } as React.CSSProperties}
+              >
+                {/* I. Web Portal សម្រាប់អ្នកស្នើសុំ */}
+                <div className="comp-data-card" style={{ flex: 1 }}>
+                  <div className="comp-data-head">
+                    <h3>
+                      {lang === "km"
+                        ? "I. Web Portal សម្រាប់អ្នកស្នើសុំ បានរៀបចំរួចរាល់ ដែលមានចំនួន 3 សេវា ៖"
+                        : "I. Web Portal for Applicants — Setup Ready (3 Services):"}
+                    </h3>
+                    <span className="data-badge grn">
+                      <Globe size={15} style={{ display: "inline", marginRight: 6 }} />
+                      {lang === "km" ? "រួចរាល់ 3 / 3" : "Ready 3 / 3"}
+                    </span>
+                  </div>
+                  <div className="data-items-stack">
+                    {MINERAL_RESOURCES_DATA.services.map((srv) => (
+                      <div key={`app-full-${srv.num}`} className="data-item">
+                        <div className="data-item-left">
+                          <span className="data-code">{srv.num}</span>
+                          <div className="data-text">
+                            <h4>
+                              {lang === "km" ? srv.titleKm : srv.titleEn}
+                            </h4>
+                          </div>
+                        </div>
+                        <span className="data-badge grn">
+                          {lang === "km" ? "រួចរាល់" : "Ready"}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* II. Web Portal សម្រាប់ការងារផ្ទៃក្នុង */}
+                <div className="comp-data-card" style={{ flex: 1 }}>
+                  <div className="comp-data-head">
+                    <h3>
+                      {lang === "km"
+                        ? "II. Web Portal សម្រាប់ការងារផ្ទៃក្នុងបានរៀបចំរួចរាល់ ដែលមានចំនួន 3 សេវា៖"
+                        : "II. Web Portal for Internal Operations — Setup Ready (3 Services):"}
+                    </h3>
+                    <span className="data-badge pri">
+                      <Check size={15} style={{ display: "inline", marginRight: 6 }} />
+                      {lang === "km" ? "រួចរាល់ 3 / 3" : "Ready 3 / 3"}
+                    </span>
+                  </div>
+                  <div className="data-items-stack">
+                    {MINERAL_RESOURCES_DATA.services.map((srv) => (
+                      <div key={`int-full-${srv.num}`} className="data-item">
+                        <div className="data-item-left">
+                          <span className="data-code">{srv.num}</span>
+                          <div className="data-text">
+                            <h4>
+                              {lang === "km" ? srv.titleKm : srv.titleEn}
+                            </h4>
+                          </div>
+                        </div>
+                        <span
+                          className={`data-badge ${
                             srv.num === "01" ? "grn" : "pri"
                           }`}
-                          style={{ width: "100%" }}
-                        />
+                        >
+                          {srv.num === "01"
+                            ? lang === "km"
+                              ? "រួចរាល់"
+                              : "Ready"
+                            : lang === "km"
+                              ? "តាមលំនាំសេវាទី1"
+                              : "Pattern 1"}
+                        </span>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Banner: III. ចំណាំសម្គាល់ */}
-            <div
-              className="shift a"
-              style={{ "--d": 4 } as React.CSSProperties}
-            >
-              <div className="s">
-                <span className="dot grn" />
-                <div>
-                  <small>
-                    {lang === "km"
-                      ? "I & II. ស្ថានភាព Web Portal ទាំង ២"
-                      : "I & II. Dual Web Portal Status"}
-                  </small>
-                  {lang === "km"
-                    ? "Web Portal សម្រាប់អ្នកស្នើសុំ និងការងារផ្ទៃក្នុង បានរៀបចំរួចរាល់ទាំង ៣ សេវា"
-                    : "Both Applicant and Internal Web Portals are completed for all 3 Mining Services"}
-                </div>
-              </div>
-              <div className="track" />
-              <div className="s">
-                <span className="dot red" />
-                <div>
-                  <small>
-                    {lang === "km"
-                      ? MINERAL_RESOURCES_DATA.noteTitleKm
-                      : MINERAL_RESOURCES_DATA.noteTitleEn}
-                  </small>
-                  {lang === "km"
-                    ? MINERAL_RESOURCES_DATA.noteTextKm
-                    : MINERAL_RESOURCES_DATA.noteTextEn}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -930,249 +1238,305 @@ export default function PresentationPage() {
               </h2>
             </div>
 
-            {/* Top KPI Metric Cards */}
-            <div
-              className="kpi-strip a"
-              style={{ "--d": 1.5 } as React.CSSProperties}
-            >
-              <div className="kpi-card">
-                <div className="kpi-val">90%</div>
-                <div className="kpi-info">
-                  <div className="kpi-label">
-                    {lang === "km"
-                      ? "វិញ្ញាបនបត្រសុវត្ថិភាពស្ថានីយ"
-                      : "Station Safety Certificate"}
-                  </div>
-                  <div className="kpi-sub">
-                    {lang === "km"
-                      ? "អ្នកស្នើសុំ 90% · កែសម្រួលថ្ងៃទី១០ វិច្ឆិកា"
-                      : "Applicant Portal 90% · Nov 10 Refinement"}
-                  </div>
-                </div>
-              </div>
-
-              <div className="kpi-card cy">
-                <div className="kpi-val">75%</div>
-                <div className="kpi-info">
-                  <div className="kpi-label">
-                    {lang === "km"
-                      ? "បន្តសុពលភាពស្ថានីយ (ផ្ទៃក្នុង)"
-                      : "Station Renewal (Internal)"}
-                  </div>
-                  <div className="kpi-sub">
-                    {lang === "km"
-                      ? "ស្ថានីយប្រេងឥន្ធនៈ ឬឧស្ម័នឥន្ធនៈ"
-                      : "Fuel or LPG Station Processing"}
-                  </div>
-                </div>
-              </div>
-
-              <div className="kpi-card grn">
-                <div className="kpi-val">Ready</div>
-                <div className="kpi-info">
-                  <div className="kpi-label">
-                    {lang === "km"
-                      ? "សេវាវេចខ្ចប់ & បន្តសុពលភាព"
-                      : "Packaging & Station Portals"}
-                  </div>
-                  <div className="kpi-sub">
-                    {lang === "km"
-                      ? "រៀបចំរួចរាល់ · រង់ចាំក្រសួងពិនិត្យបន្ថែម"
-                      : "Setup Ready · Awaiting Ministry Review"}
-                  </div>
-                </div>
-              </div>
-
-              <div className="kpi-card amb">
-                <div className="kpi-val">5%</div>
-                <div className="kpi-info">
-                  <div className="kpi-label">
-                    {lang === "km"
-                      ? "មុខងារ Offline Save Auto"
-                      : "Offline Auto-Save Mode"}
-                  </div>
-                  <div className="kpi-sub">
-                    {lang === "km"
-                      ? "Save ទិន្នន័យ Auto ករណីដាច់ Internet"
-                      : "Auto-saves data when offline"}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="comp-split">
-              {/* Left Column: I. Web Portal សម្រាប់អ្នកស្នើសុំ */}
+            <div className="analytics-dashboard">
+              {/* LEFT ANALYTICS COLUMN: Grouped Comparison Chart + III. ចំណុចប្រឈម */}
               <div
-                className="comp-box a"
-                style={{ "--d": 2 } as React.CSSProperties}
+                className="analytics-col a"
+                style={{ "--d": 1.5 } as React.CSSProperties}
               >
-                <div className="comp-box-header">
-                  <div>
-                    <span className="chip grn">
-                      {lang === "km"
-                        ? "រួចរាល់ ២ សេវា · សម្រេចបាន 90% ១ សេវា"
-                        : "2 Services Ready · 1 Service at 90%"}
-                    </span>
+                <div className="chart-card grow">
+                  <div className="chart-head">
                     <h3>
                       {lang === "km"
-                        ? PETROLEUM_DATA.applicantPortal.titleKm
-                        : PETROLEUM_DATA.applicantPortal.titleEn}
+                        ? "ក្រាហ្វវិភាគវឌ្ឍភាព (អ្នកស្នើសុំ vs ផ្ទៃក្នុងក្រសួង)"
+                        : "Progress Comparison Chart (Applicant vs. Internal)"}
                     </h3>
+                    <span className="sub">0% – 100%</span>
                   </div>
-                  <span className="ic grn">
-                    <Globe size={24} />
-                  </span>
-                </div>
-                <div className="comp-list">
-                  {PETROLEUM_DATA.applicantPortal.services.map((srv) => {
-                    const is90 = srv.num === "03";
-                    return (
-                      <div key={`pet-app-${srv.num}`} className="report-row">
-                        <div className="report-row-top">
-                          <div className="report-row-left">
-                            <span className="report-code">{srv.num}</span>
-                            <div className="report-title-wrap">
-                              <h4>
-                                {lang === "km" ? srv.titleKm : srv.titleEn}
-                              </h4>
-                              <p>{lang === "km" ? srv.notesKm : srv.notesEn}</p>
-                            </div>
-                          </div>
-                          <div className="report-metric">
-                            <span
-                              className={`report-pct ${is90 ? "pri" : "grn"}`}
-                            >
-                              {is90
-                                ? "90%"
-                                : lang === "km"
-                                  ? "រួចរាល់"
-                                  : "Ready"}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="report-bar-track">
+
+                  <div className="gbar-list">
+                    {/* Service 1 */}
+                    <div className="gbar-group">
+                      <div className="gbar-group-head">
+                        <span className="gbar-group-title">
+                          {lang === "km"
+                            ? "១. ពិនិត្យ ទទួល & បន្តសុពលភាពស្ថានីយប្រេង/ឧស្ម័នឥន្ធនៈ"
+                            : "1. Fuel / LPG Station Certificate Application & Renewal"}
+                        </span>
+                      </div>
+                      <div className="gbar-row">
+                        <span className="gbar-tag">
+                          {lang === "km" ? "I. អ្នកស្នើសុំ" : "I. Applicant"}
+                        </span>
+                        <div className="gbar-track">
                           <div
-                            className={`report-bar-fill ${is90 ? "pri" : "grn"}`}
-                            style={{ width: is90 ? "90%" : "100%" }}
+                            className="gbar-fill grn"
+                            style={{ width: "100%" }}
                           />
                         </div>
+                        <span
+                          className="gbar-val"
+                          style={{ color: "var(--grn)" }}
+                        >
+                          {lang === "km" ? "រួចរាល់" : "Ready"}
+                        </span>
                       </div>
-                    );
-                  })}
+                      <div className="gbar-row">
+                        <span className="gbar-tag">
+                          {lang === "km" ? "II. ផ្ទៃក្នុងក្រសួង" : "II. Internal"}
+                        </span>
+                        <div className="gbar-track">
+                          <div
+                            className="gbar-fill pri"
+                            style={{ width: "75%" }}
+                          />
+                        </div>
+                        <span
+                          className="gbar-val"
+                          style={{ color: "var(--pri)" }}
+                        >
+                          75%
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Service 2 */}
+                    <div className="gbar-group">
+                      <div className="gbar-group-head">
+                        <span className="gbar-group-title">
+                          {lang === "km"
+                            ? "២. សកម្មភាពវេចខ្ចប់ផលិតផលប្រេងកាត និងឬឧស្ម័នឥន្ធនៈ"
+                            : "2. Petroleum / LPG Packaging Safety & Commercial License"}
+                        </span>
+                      </div>
+                      <div className="gbar-row">
+                        <span className="gbar-tag">
+                          {lang === "km" ? "I & II. ទាំង ២ ប្រព័ន្ធ" : "I & II. Portals"}
+                        </span>
+                        <div className="gbar-track">
+                          <div
+                            className="gbar-fill grn"
+                            style={{ width: "100%" }}
+                          />
+                        </div>
+                        <span
+                          className="gbar-val"
+                          style={{ color: "var(--grn)" }}
+                        >
+                          {lang === "km" ? "រួចរាល់" : "Ready"}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Service 3 */}
+                    <div className="gbar-group">
+                      <div className="gbar-group-head">
+                        <span className="gbar-group-title">
+                          {lang === "km"
+                            ? "៣. ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ"
+                            : "3. Technical Safety Certificate for Stations"}
+                        </span>
+                      </div>
+                      <div className="gbar-row">
+                        <span className="gbar-tag">
+                          {lang === "km" ? "I. អ្នកស្នើសុំ" : "I. Applicant"}
+                        </span>
+                        <div className="gbar-track">
+                          <div
+                            className="gbar-fill pri"
+                            style={{ width: "90%" }}
+                          />
+                        </div>
+                        <span
+                          className="gbar-val"
+                          style={{ color: "var(--pri)" }}
+                        >
+                          90%
+                        </span>
+                      </div>
+                      <div className="gbar-row">
+                        <span className="gbar-tag">
+                          {lang === "km" ? "II. ផ្ទៃក្នុងក្រសួង" : "II. Internal"}
+                        </span>
+                        <div className="gbar-track">
+                          <div
+                            className="gbar-fill amb"
+                            style={{ width: "85%" }}
+                          />
+                        </div>
+                        <span
+                          className="gbar-val"
+                          style={{ color: "var(--amb)" }}
+                        >
+                          {lang === "km" ? "តេស្តខេត្ត" : "Tested"}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Service 4 */}
+                    <div className="gbar-group">
+                      <div className="gbar-group-head">
+                        <span className="gbar-group-title">
+                          {lang === "km"
+                            ? "៤. មុខងារ Offline (Save ទិន្នន័យ Auto ករណីដាច់ Internet)"
+                            : "4. Offline Mode (Auto-Save Data When Internet Drops)"}
+                        </span>
+                      </div>
+                      <div className="gbar-row">
+                        <span className="gbar-tag">
+                          {lang === "km" ? "II. ផ្ទៃក្នុងក្រសួង" : "II. Internal"}
+                        </span>
+                        <div className="gbar-track">
+                          <div
+                            className="gbar-fill amb"
+                            style={{ width: "8%" }}
+                          />
+                        </div>
+                        <span
+                          className="gbar-val"
+                          style={{ color: "var(--amb)" }}
+                        >
+                          5%
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* III. ចំណុចប្រឈម (Complete Text from data.md) */}
+                <div className="alert-note-card red">
+                  <div className="alert-note-head">
+                    <span>
+                      {lang === "km"
+                        ? "III. ចំណុចប្រឈម ៖"
+                        : "III. Key Challenges:"}
+                    </span>
+                  </div>
+                  <div className="alert-note-body">
+                    {lang === "km" ? (
+                      <>
+                        <div>
+                          <b>1.</b> ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ
+                        </div>
+                        <div>
+                          <b>2.</b> ស្នើសុំពិនិត្យ ទទួល និងដំណើរការឯកសារស្នើសុំនិងការបន្តសុពលភាពវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាព សម្រាប់ស្ថានីយប្រេងឥន្ធនៈ ឬស្ថានីយឧស្ម័នឥន្ធនៈ
+                        </div>
+                        <div style={{ marginTop: 4, color: "var(--red)", fontWeight: 700 }}>
+                          - ផ្ទាំងបញ្ចូលព័ត៌មាននៅជំហាន មន្ទីរចុះពិនិត្យទីតាំង ស្នើសុំឱ្យបង្ហាញដូចកំណត់ហេតុ។
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div>
+                          <b>1.</b> Technical Safety Certificate for Stations
+                        </div>
+                        <div>
+                          <b>2.</b> Application & Renewal of Technical Safety Certificate for Fuel or LPG Stations
+                        </div>
+                        <div style={{ marginTop: 4, color: "var(--red)", fontWeight: 700 }}>
+                          - Data entry form at the Provincial On-Site Inspection step is requested to match the official inspection minutes.
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              {/* Right Column: II. Web Portal សម្រាប់ប្រើប្រាស់ផ្ទៃក្នុងក្រសួង */}
+              {/* RIGHT FULL-TEXT DATA COLUMN: Complete I & II Portal Details (Zero Clipping) */}
               <div
-                className="comp-box a"
-                style={{ "--d": 3 } as React.CSSProperties}
+                className="data-col a"
+                style={{ "--d": 2.5 } as React.CSSProperties}
               >
-                <div className="comp-box-header">
-                  <div>
-                    <span className="chip amb">
-                      {lang === "km"
-                        ? "75% · រួចរាល់ · តេស្តមន្ទីរខេត្ត (១០ វិច្ឆិកា) · Offline 5%"
-                        : "75% · Ready · Provincial Test (Nov 10) · Offline 5%"}
-                    </span>
+                {/* I. Web Portal សម្រាប់អ្នកស្នើសុំ */}
+                <div className="comp-data-card">
+                  <div className="comp-data-head">
                     <h3>
                       {lang === "km"
-                        ? PETROLEUM_DATA.internalPortal.titleKm
-                        : PETROLEUM_DATA.internalPortal.titleEn}
+                        ? "I. Web Portal សម្រាប់អ្នកស្នើសុំ"
+                        : "I. Web Portal for Applicants"}
                     </h3>
+                    <span className="data-badge grn">
+                      {lang === "km" ? "រួចរាល់ 2 · 90% 1" : "2 Ready · 1 at 90%"}
+                    </span>
                   </div>
-                  <span className="ic amb">
-                    <ShieldCheck size={24} />
-                  </span>
+                  <div className="data-items-stack">
+                    {PETROLEUM_DATA.applicantPortal.services.map((srv) => (
+                      <div key={`pet-app-${srv.num}`} className="data-item">
+                        <div className="data-item-left">
+                          <span className="data-code">{srv.num}</span>
+                          <div className="data-text">
+                            <h4>
+                              {lang === "km" ? srv.titleKm : srv.titleEn}
+                            </h4>
+                            <p>{lang === "km" ? srv.notesKm : srv.notesEn}</p>
+                          </div>
+                        </div>
+                        <span
+                          className={`data-badge ${
+                            srv.num === "03" ? "pri" : "grn"
+                          }`}
+                        >
+                          {srv.num === "03"
+                            ? "90%"
+                            : lang === "km"
+                              ? "បានរៀបចំរួចរាល់"
+                              : "Ready"}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="comp-list">
-                  {PETROLEUM_DATA.internalPortal.services.map((srv) => {
-                    const pctWidth =
-                      srv.num === "01"
-                        ? "75%"
-                        : srv.num === "02"
-                          ? "100%"
-                          : srv.num === "03"
-                            ? "85%"
-                            : "5%";
-                    const colorClass =
-                      srv.num === "01"
-                        ? "pri"
-                        : srv.num === "02"
-                          ? "grn"
-                          : "amb";
-                    const pctLabel =
-                      srv.num === "01"
-                        ? "75%"
-                        : srv.num === "02"
-                          ? lang === "km"
-                            ? "រួចរាល់"
-                            : "Ready"
-                          : srv.num === "03"
+
+                {/* II. Web Portal សម្រាប់ប្រើប្រាស់ផ្ទៃក្នុងក្រសួង */}
+                <div className="comp-data-card" style={{ flex: 1 }}>
+                  <div className="comp-data-head">
+                    <h3>
+                      {lang === "km"
+                        ? "II. Web Portal សម្រាប់ប្រើប្រាស់ផ្ទៃក្នុងក្រសួង"
+                        : "II. Web Portal for Internal Ministry Use"}
+                    </h3>
+                    <span className="data-badge pri">
+                      {lang === "km" ? "៤ មុខងារ" : "4 Items"}
+                    </span>
+                  </div>
+                  <div className="data-items-stack">
+                    {PETROLEUM_DATA.internalPortal.services.map((srv) => {
+                      const badgeClass =
+                        srv.num === "01"
+                          ? "pri"
+                          : srv.num === "02"
+                            ? "grn"
+                            : "amb";
+                      const badgeText =
+                        srv.num === "01"
+                          ? "75%"
+                          : srv.num === "02"
                             ? lang === "km"
-                              ? "តេស្តមន្ទីរខេត្ត"
-                              : "Tested"
-                            : "5%";
-                    return (
-                      <div key={`pet-int-${srv.num}`} className="report-row">
-                        <div className="report-row-top">
-                          <div className="report-row-left">
-                            <span className="report-code">{srv.num}</span>
-                            <div className="report-title-wrap">
+                              ? "បានរៀបចំរួចរាល់"
+                              : "Ready"
+                            : srv.num === "03"
+                              ? lang === "km"
+                                ? "១០ វិច្ឆិកា ២០២៦"
+                                : "Nov 10 Test"
+                              : "5%";
+                      return (
+                        <div key={`pet-int-${srv.num}`} className="data-item">
+                          <div className="data-item-left">
+                            <span className="data-code">{srv.num}</span>
+                            <div className="data-text">
                               <h4>
                                 {lang === "km" ? srv.titleKm : srv.titleEn}
                               </h4>
                               <p>{lang === "km" ? srv.notesKm : srv.notesEn}</p>
                             </div>
                           </div>
-                          <div className="report-metric">
-                            <span className={`report-pct ${colorClass}`}>
-                              {pctLabel}
-                            </span>
-                          </div>
+                          <span className={`data-badge ${badgeClass}`}>
+                            {badgeText}
+                          </span>
                         </div>
-                        <div className="report-bar-track">
-                          <div
-                            className={`report-bar-fill ${colorClass}`}
-                            style={{ width: pctWidth }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Banner: III. ចំណុចប្រឈម (Challenges) */}
-            <div
-              className="shift a"
-              style={{ "--d": 4 } as React.CSSProperties}
-            >
-              <div className="s">
-                <span className="dot red" />
-                <div>
-                  <small>
-                    {lang === "km"
-                      ? "III. ចំណុចប្រឈម (សេវាទី១ និងទី៣)"
-                      : "III. Challenges (Services 1 & 3)"}
-                  </small>
-                  {lang === "km"
-                    ? "១. ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ & ២. ស្នើសុំពិនិត្យ ទទួល និងដំណើរការបន្តសុពលភាពសម្រាប់ស្ថានីយប្រេង/ឧស្ម័នឥន្ធនៈ"
-                    : "1. Station Technical Safety Certificate & 2. Application/Renewal of Technical Safety Certificate for Fuel or LPG Stations"}
-                </div>
-              </div>
-              <div className="track" />
-              <div className="s">
-                <span className="dot grn" />
-                <div>
-                  <small>
-                    {lang === "km"
-                      ? "សំណើកែសម្រួលក្នុងជំហានមន្ទីរចុះពិនិត្យទីតាំង"
-                      : "Requested Refinement at Provincial Inspection Step"}
-                  </small>
-                  {lang === "km"
-                    ? "ផ្ទាំងបញ្ចូលព័ត៌មាននៅជំហាន មន្ទីរចុះពិនិត្យទីតាំង ស្នើសុំឱ្យបង្ហាញដូចកំណត់ហេតុ។"
-                    : "At the Provincial Department On-Site Inspection step, the data entry screen is requested to match the official inspection minutes."}
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
