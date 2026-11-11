@@ -511,17 +511,29 @@ body {
 }
 
 .t-photo {
+  width: 100%;
   height: 100%;
-  max-height: 860px;
-  border-radius: 32px;
-  overflow: hidden;
-  border: 1px solid var(--card-border);
-  background: var(--panel);
-  backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-lg);
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.hero-img-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-img-direct {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg);
+  object-fit: contain;
 }
 
 /* ==========================================

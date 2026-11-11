@@ -347,7 +347,7 @@ export default function PresentationPage() {
                 className="t-photo a-z"
                 style={{ "--d": 2 } as React.CSSProperties}
               >
-                <HeroHubVisual lang={lang} theme={theme} />
+                <HeroHubVisual />
               </div>
             </div>
           </div>

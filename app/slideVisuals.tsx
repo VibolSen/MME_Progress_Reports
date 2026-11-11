@@ -17,7 +17,6 @@ import {
   QrCode,
   Lock,
   Workflow,
-  Sparkles,
   Check,
   ArrowUpRight,
 } from "lucide-react";
@@ -28,100 +27,19 @@ interface VisualProps {
 }
 
 /**
- * Slide 1 Visual: Hero 3D Digital Transformation Hub + MME Portal Showcase
+ * Slide 1 Visual: Direct MME Public Service Portal Image (No Back Card)
  */
-export function HeroHubVisual({ lang }: VisualProps) {
+export function HeroHubVisual() {
   return (
-    <div className="visual-panel">
-      {/* Top Header Strip */}
-      <div className="vp-header">
-        <div className="vp-header-left">
-          <div className="vp-logo-badge">
-            <Image
-              src="/logo/logo tab.svg"
-              alt="MME Emblem"
-              width={40}
-              height={40}
-              priority
-              className="object-contain"
-            />
-          </div>
-          <div>
-            <div className="vp-live-tag">
-              <span className="vp-pulse-dot" />
-              <span>
-                {lang === "km"
-                  ? "ប្រព័ន្ធឌីជីថលស្ថាប័នស្នូល"
-                  : "Core Enterprise Platform"}
-              </span>
-            </div>
-            <h3 className="vp-title">
-              {lang === "km"
-                ? "ក្រសួងរ៉ែ និងថាមពល (MME)"
-                : "Ministry of Mines & Energy"}
-            </h3>
-          </div>
-        </div>
-        <span className="chip grn">
-          <Sparkles size={14} />
-          {lang === "km" ? "ដំណើរការបន្តផ្ទាល់" : "Live Portal"}
-        </span>
-      </div>
-
-      {/* Portal Preview Image Card (/1.png) */}
-      <div className="vp-preview-frame">
-        <Image
-          src="/1.png"
-          alt="MME Public Service Portal"
-          width={680}
-          height={380}
-          priority
-          className="vp-preview-img"
-        />
-      </div>
-
-      {/* 3-Department Status Strip */}
-      <div className="vp-dept-grid">
-        <div className="vp-dept-card active">
-          <div className="vp-dept-top">
-            <span className="vp-dept-code">DEP-01</span>
-            <span className="vp-status-pill grn">100% Ready</span>
-          </div>
-          <h4>{lang === "km" ? "នាយកដ្ឋានទូទៅ" : "General Dept"}</h4>
-          <p>{lang === "km" ? "៥ សមាសភាគស្នូល" : "5 Core Modules"}</p>
-        </div>
-
-        <div className="vp-dept-card">
-          <div className="vp-dept-top">
-            <span className="vp-dept-code">DEP-02</span>
-            <span className="vp-status-pill amb">Pipeline</span>
-          </div>
-          <h4>{lang === "km" ? "នាយកដ្ឋានទី ២" : "Department 2"}</h4>
-          <p>{lang === "km" ? "កំពុងប្រមូលទិន្នន័យ" : "Data Intake"}</p>
-        </div>
-
-        <div className="vp-dept-card">
-          <div className="vp-dept-top">
-            <span className="vp-dept-code">DEP-03</span>
-            <span className="vp-status-pill cy">Pipeline</span>
-          </div>
-          <h4>{lang === "km" ? "នាយកដ្ឋានទី ៣" : "Department 3"}</h4>
-          <p>{lang === "km" ? "ផែនការបន្ទាប់" : "Next Stage"}</p>
-        </div>
-      </div>
-
-      {/* Bottom Security Footer inside card */}
-      <div className="vp-footer">
-        <div className="vp-footer-item">
-          <ShieldCheck size={16} className="vp-icon-pri" />
-          <span>
-            {lang === "km"
-              ? "ស្ថាបត្យកម្មឌីជីថលសុវត្ថិភាពខ្ពស់ · ស្តង់ដារក្រសួង"
-              : "Enterprise Role-Based Security · Ministerial Standard"}
-          </span>
-        </div>
-        <span className="vp-mono-tag">MME · 2026</span>
-      </div>
+    <div className="hero-img-wrap">
+      <Image
+        src="/1.png"
+        alt="Ministry of Mines and Energy Public Service Portal"
+        width={960}
+        height={540}
+        priority
+        className="hero-img-direct"
+      />
     </div>
   );
 }
