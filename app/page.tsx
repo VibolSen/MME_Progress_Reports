@@ -128,7 +128,7 @@ export default function PresentationPage() {
           ? window.location.origin
           : "https://mme-progress-reports.vercel.app";
 
-      const target = `${origin}/Progress-report.pdf`;
+      const target = `${origin}/${encodeURIComponent("MME Progress Reports _ OONE Power.pdf")}`;
 
       QRCode.toDataURL(target, {
         width: 560,
@@ -386,8 +386,8 @@ export default function PresentationPage() {
                     </p>
 
                     <a
-                      href="/Progress-report.pdf"
-                      download="MME-Progress-Report-2026.pdf"
+                      href="/MME%20Progress%20Reports%20_%20OONE%20Power.pdf"
+                      download="MME Progress Reports _ OONE Power.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="qr-download-btn"
@@ -400,8 +400,8 @@ export default function PresentationPage() {
                       <Download className="w-4 h-4" />
                       <span>
                         {lang === "km"
-                          ? "ទាញយកឯកសារ PDF (657 KB)"
-                          : "Download PDF (657 KB)"}
+                          ? "ទាញយកឯកសារ PDF"
+                          : "Download PDF"}
                       </span>
                     </a>
                   </div>

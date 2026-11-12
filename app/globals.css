@@ -4044,9 +4044,22 @@ body {
     overflow: hidden !important;
   }
 
+  .slide[data-label="QR Code"] {
+    display: none !important;
+  }
+
   .slide:last-child {
     page-break-after: auto !important;
     break-after: auto !important;
+  }
+
+  .grad,
+  .g {
+    background: none !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+    -webkit-text-fill-color: #2563eb !important;
+    color: #2563eb !important;
   }
 
   .slide:not(.on) .a,
