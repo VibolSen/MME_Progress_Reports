@@ -45,10 +45,15 @@ import {
   Download,
   FileText,
   QrCode,
+  LayoutGrid,
+  Code2,
+  ClipboardCheck,
+  Rocket,
+  Calendar,
 } from "lucide-react";
 import QRCode from "qrcode";
 
-const TOTAL_SLIDES = 6;
+const TOTAL_SLIDES = 9;
 
 export default function PresentationPage() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
@@ -126,7 +131,7 @@ export default function PresentationPage() {
       const target = `${origin}/Progress-report.pdf`;
 
       QRCode.toDataURL(target, {
-        width: 280,
+        width: 560,
         margin: 1,
         color: {
           dark: "#0F172A",
@@ -255,7 +260,7 @@ export default function PresentationPage() {
   };
 
   const slideList = useMemo(
-    () => [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }],
+    () => Array.from({ length: TOTAL_SLIDES }, (_, idx) => ({ id: idx + 1 })),
     []
   );
 
@@ -278,10 +283,139 @@ export default function PresentationPage() {
       {/* Viewport wrapping the 1920x1080 stage */}
       <div className="viewport" id="vp" onClick={handleViewportClick}>
         {/* ============================================================
-            SLIDE 1: Title / Cover UI (First Slide Kept Intact)
+            SLIDE 1: QR Code Download (Before Cover Slide)
            ============================================================ */}
         <section
           className={`slide ${currentSlide === 0 ? "on" : ""}`}
+          data-label="QR Code"
+        >
+          <div className="pl">
+            <DigitalGridWaveVisual />
+          </div>
+
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="hero-grid">
+              <div className="t-left">
+                <div
+                  className="eyebrow a"
+                  style={{ "--d": 0 } as React.CSSProperties}
+                >
+                  {lang === "km"
+                    ? "ឯកសាររបាយការណ៍ · PDF"
+                    : "Progress Report Document · PDF"}
+                </div>
+                <h1
+                  className="t-title a"
+                  style={{ "--d": 1 } as React.CSSProperties}
+                >
+                  {lang === "km" ? (
+                    <>
+                      ស្កេន QR Code
+                      <br />
+                      <span className="grad">
+                        ដើម្បីទាញយករបាយការណ៍វឌ្ឍនភាពគម្រោង
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      Scan QR Code
+                      <br />
+                      <span className="grad">
+                        to Download the Project Progress Report
+                      </span>
+                    </>
+                  )}
+                </h1>
+                <p
+                  className="t-sub a"
+                  style={{ "--d": 2 } as React.CSSProperties}
+                >
+                  {lang === "km"
+                    ? "សូមប្រើកាមេរ៉ាទូរស័ព្ទស្កេន QR Code ឬចុចប៊ូតុងទាញយក ដើម្បីបើក និងទាញយកឯកសារ PDF របាយការណ៍វឌ្ឍនភាព។"
+                    : "Scan the QR code with your mobile camera or click the download button to open and save the full PDF progress report."}
+                </p>
+                <button
+                  className="cta a interactive"
+                  style={{ "--d": 3 } as React.CSSProperties}
+                  onClick={() => goToSlide(1)}
+                >
+                  <span>
+                    {lang === "km"
+                      ? "បន្តទៅទំព័រដើម"
+                      : "Continue to Cover"}
+                  </span>
+                  <ArrowRight size={20} />
+                </button>
+              </div>
+
+              <div
+                className="qrc a-r"
+                style={{ "--d": 2 } as React.CSSProperties}
+              >
+                <div className="qr-card">
+                  <div className="qr-header">
+                    <div className="qr-badge">
+                      <FileText className="w-4 h-4 text-emerald-500 shrink-0" />
+                      <span className="qr-badge-text">
+                        {lang === "km"
+                          ? "របាយការណ៍វឌ្ឍនភាព"
+                          : "Progress Report"}
+                      </span>
+                      <span className="qr-tag">PDF</span>
+                    </div>
+                  </div>
+
+                  <div className="qr-frame">
+                    <Image
+                      src={qrDataUrl}
+                      alt="Scan QR Code to Download MME Progress Report"
+                      width={480}
+                      height={480}
+                      className="qr-image"
+                      unoptimized
+                      priority
+                    />
+                  </div>
+
+                  <div className="qr-footer">
+                    <p className="qr-scan-label">
+                      <QrCode className="w-3.5 h-3.5 inline-block mr-1.5 opacity-70" />
+                      {lang === "km"
+                        ? "ស្កេនទូរស័ព្ទដើម្បីបើក/ទាញយក"
+                        : "Scan with camera to view / download"}
+                    </p>
+
+                    <a
+                      href="/Progress-report.pdf"
+                      download="MME-Progress-Report-2026.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="qr-download-btn"
+                      title={
+                        lang === "km"
+                          ? "ទាញយកឯកសារ PDF"
+                          : "Download PDF file"
+                      }
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>
+                        {lang === "km"
+                          ? "ទាញយកឯកសារ PDF (657 KB)"
+                          : "Download PDF (657 KB)"}
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
+            SLIDE 2: Title / Cover UI (First Slide Kept Intact)
+           ============================================================ */}
+        <section
+          className={`slide ${currentSlide === 1 ? "on" : ""}`}
           data-label="Title"
         >
           <div className="pl">
@@ -296,9 +430,7 @@ export default function PresentationPage() {
                   className="eyebrow a"
                   style={{ "--d": 0 } as React.CSSProperties}
                 >
-                  {lang === "km"
-                    ? "ក្រសួងរ៉ែ និងថាមពល · MME Progress Reports"
-                    : "Ministry of Mines and Energy · MME"}
+                  MME Progress Report
                 </div>
                 <h1
                   className="t-title a"
@@ -306,13 +438,21 @@ export default function PresentationPage() {
                 >
                   {lang === "km" ? (
                     <>
-                      របាយការណ៍វឌ្ឍភាព{" "}
-                      <span className="grad">គម្រោងប្រព័ន្ធបច្ចេកវិទ្យា</span> MME
+                      គម្រោង
+                      <br />
+                      <span className="grad">
+                        ការងាររៀបចំប្រព័ន្ធគ្រប់គ្រងប្រតិបត្តិការផ្ទៃក្នុង
+                        និងប្រព័ន្ធផ្ដល់សេវាសាធារណៈឌីជីថលលើវិស័យរ៉ែ
+                        និងវិស័យប្រេងកាត
+                      </span>
                     </>
                   ) : (
                     <>
-                      MME Digital <span className="grad">Transformation</span>{" "}
-                      Progress
+                      Project:{" "}
+                      <span className="grad">
+                        Internal Operations Management &amp; Digital Public
+                        Service Systems for Mining and Petroleum
+                      </span>
                     </>
                   )}
                 </h1>
@@ -322,8 +462,8 @@ export default function PresentationPage() {
                 >
                   <span>
                     {lang === "km"
-                      ? "អគ្គលេខាធិការដ្ឋាន · ធនធានរ៉ែ · ប្រេងកាត"
-                      : "General Secretariat · Mineral Resources · Petroleum"}
+                      ? "អគ្គលេខាធិការដ្ឋាន, វិស័យរ៉ែ, វិស័យប្រេងកាត"
+                      : "General Secretariat, Mining Sector, Petroleum Sector"}
                   </span>
                 </div>
                 <p
@@ -337,7 +477,7 @@ export default function PresentationPage() {
                 <button
                   className="cta a interactive"
                   style={{ "--d": 4 } as React.CSSProperties}
-                  onClick={() => goToSlide(1)}
+                  onClick={() => goToSlide(2)}
                 >
                   <span>
                     {lang === "km"
@@ -392,528 +532,6 @@ export default function PresentationPage() {
         </section>
 
         {/* ============================================================
-            SLIDE 2: សេចក្តីសង្ខេបរួម (Executive Summary of All 3 Projects)
-           ============================================================ */}
-        <section
-          className={`slide ${currentSlide === 1 ? "on" : ""}`}
-          data-label="Executive Summary"
-        >
-          <div className="pl">
-            <DigitalGridWaveVisual />
-          </div>
-
-          <div className="stage" style={{ transform: `scale(${scale})` }}>
-
-            <div className="head">
-              <h2 className="h a" style={{ "--d": 0 } as React.CSSProperties}>
-                {lang === "km" ? (
-                  <>
-                    សេចក្តីសង្ខេបរួម ·{" "}
-                    <span className="g">វឌ្ឍភាពគម្រោងទាំង ៣</span>
-                  </>
-                ) : (
-                  <>
-                    Executive Summary ·{" "}
-                    <span className="g">All 3 Projects Progress</span>
-                  </>
-                )}
-              </h2>
-            </div>
-
-            <div className="analytics-dashboard">
-              {/* LEFT ANALYTICS COLUMN: Portfolio Donut + Comparative 3-Project Stacked Progress */}
-              <div
-                className="analytics-col a"
-                style={{ "--d": 1.5 } as React.CSSProperties}
-              >
-                {/* Chart 1: Portfolio Donut Chart across 23 Total Modules & Services */}
-                <div className="chart-card">
-                  <div className="chart-head">
-                    <h3>
-                      {lang === "km"
-                        ? "សមាមាត្រស្ថានភាពគម្រោងទាំង ៣ (២៣ មុខងារ)"
-                        : "Portfolio Status Breakdown (23 Modules & Services)"}
-                    </h3>
-                    <span className="chip grn">
-                      {lang === "km" ? "គម្រោងទាំង ៣" : "All 3 Projects"}
-                    </span>
-                  </div>
-
-                  <div className="donut-layout">
-                    <div className="donut-svg-wrap">
-                      {/* Circumference = 2 * pi * 68 ≈ 427.25 */}
-                      <svg
-                        width="196"
-                        height="196"
-                        viewBox="0 0 180 180"
-                        style={{ transform: "rotate(-90deg)" }}
-                      >
-                        <circle
-                          cx="90"
-                          cy="90"
-                          r="68"
-                          fill="none"
-                          stroke="var(--pb)"
-                          strokeWidth="22"
-                        />
-                        {/* 10 / 23 Live / 100% Setup Ready -> 185.8 */}
-                        <circle
-                          cx="90"
-                          cy="90"
-                          r="68"
-                          fill="none"
-                          stroke="#059669"
-                          strokeWidth="22"
-                          strokeDasharray="185.8 427.3"
-                          strokeDashoffset="0"
-                        />
-                        {/* 7 / 23 60%-90% / Tested -> 130.0 */}
-                        <circle
-                          cx="90"
-                          cy="90"
-                          r="68"
-                          fill="none"
-                          stroke="#4F46E5"
-                          strokeWidth="22"
-                          strokeDasharray="130.0 427.3"
-                          strokeDashoffset="-185.8"
-                        />
-                        {/* 5 / 23 5%-10% Studied / Early Dev -> 92.9 */}
-                        <circle
-                          cx="90"
-                          cy="90"
-                          r="68"
-                          fill="none"
-                          stroke="#D97706"
-                          strokeWidth="22"
-                          strokeDasharray="92.9 427.3"
-                          strokeDashoffset="-315.8"
-                        />
-                        {/* 1 / 23 Pending Further Study -> 18.6 */}
-                        <circle
-                          cx="90"
-                          cy="90"
-                          r="68"
-                          fill="none"
-                          stroke="#E11D48"
-                          strokeWidth="22"
-                          strokeDasharray="18.6 427.3"
-                          strokeDashoffset="-408.7"
-                        />
-                      </svg>
-                      <div className="donut-center">
-                        <span className="big">23</span>
-                        <span className="lbl">
-                          {lang === "km" ? "សរុបរួម" : "Total"}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="donut-legend">
-                      <div className="legend-item">
-                        <div className="legend-left">
-                          <span
-                            className="legend-dot"
-                            style={{ background: "#059669" }}
-                          />
-                          <span className="legend-name">
-                            {lang === "km"
-                              ? "ប្រើប្រាស់ / រៀបចំរួច ១០០%"
-                              : "Live / 100% Setup Ready"}
-                          </span>
-                        </div>
-                        <span className="legend-val" style={{ color: "var(--grn)" }}>
-                          10 / 23
-                        </span>
-                      </div>
-
-                      <div className="legend-item">
-                        <div className="legend-left">
-                          <span
-                            className="legend-dot"
-                            style={{ background: "#4F46E5" }}
-                          />
-                          <span className="legend-name">
-                            {lang === "km"
-                              ? "សម្រេច ៦០%–៩០% / សាកល្បង"
-                              : "Setup 60%–90% / Tested"}
-                          </span>
-                        </div>
-                        <span className="legend-val" style={{ color: "var(--pri)" }}>
-                          7 / 23
-                        </span>
-                      </div>
-
-                      <div className="legend-item">
-                        <div className="legend-left">
-                          <span
-                            className="legend-dot"
-                            style={{ background: "#D97706" }}
-                          />
-                          <span className="legend-name">
-                            {lang === "km"
-                              ? "សិក្សាតម្រូវការ ៥%–១០%"
-                              : "Studied / Early Dev 5%–10%"}
-                          </span>
-                        </div>
-                        <span className="legend-val" style={{ color: "var(--amb)" }}>
-                          5 / 23
-                        </span>
-                      </div>
-
-                      <div className="legend-item">
-                        <div className="legend-left">
-                          <span
-                            className="legend-dot"
-                            style={{ background: "#E11D48" }}
-                          />
-                          <span className="legend-name">
-                            {lang === "km"
-                              ? "រង់ចាំការសិក្សាបន្ថែម"
-                              : "Pending Further Study"}
-                          </span>
-                        </div>
-                        <span className="legend-val" style={{ color: "#E11D48" }}>
-                          1 / 23
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Chart 2: Comparative Stacked Bar Chart by Project */}
-                <div className="chart-card grow">
-                  <div className="chart-head">
-                    <h3>
-                      {lang === "km"
-                        ? "ប្រៀបធៀបវឌ្ឍភាពតាមគម្រោងនីមួយៗ"
-                        : "Comparative Breakdown by Project"}
-                    </h3>
-                    <span className="sub">
-                      {lang === "km"
-                        ? "៣ គម្រោង · ២៣ មុខងារ"
-                        : "3 Projects · 23 Items"}
-                    </span>
-                  </div>
-
-                  <div className="stack-chart-list">
-                    {/* Project I */}
-                    <div className="stack-project-row">
-                      <div className="stack-row-head">
-                        <span className="stack-row-title">
-                          {lang === "km"
-                            ? "I. អគ្គលេខាធិការដ្ឋាន (៥ សមាសភាគ)"
-                            : "I. General Secretariat (5 Components)"}
-                        </span>
-                        <span className="data-badge pri">
-                          {lang === "km" ? "១០ មុខងារ" : "10 Modules"}
-                        </span>
-                      </div>
-                      <div
-                        className="stack-track"
-                        aria-label="Project I progress breakdown"
-                      >
-                        <div className="stack-seg grn" style={{ width: "10%" }} />
-                        <div className="stack-seg pri" style={{ width: "40%" }} />
-                        <div className="stack-seg amb" style={{ width: "40%" }} />
-                        <div className="stack-seg ros" style={{ width: "10%" }} />
-                      </div>
-                      <div className="stack-meta">
-                        <span className="stack-meta-item">
-                          <span
-                            className="stack-meta-dot"
-                            style={{ background: "#059669" }}
-                          />
-                          {lang === "km" ? "1 ប្រើប្រាស់ (100%)" : "1 Live"}
-                        </span>
-                        <span className="stack-meta-item">
-                          <span
-                            className="stack-meta-dot"
-                            style={{ background: "#4F46E5" }}
-                          />
-                          {lang === "km"
-                            ? "4 រួចរាល់ 60–65%"
-                            : "4 Setup 60–65%"}
-                        </span>
-                        <span className="stack-meta-item">
-                          <span
-                            className="stack-meta-dot"
-                            style={{ background: "#D97706" }}
-                          />
-                          {lang === "km"
-                            ? "4 សិក្សា 10%"
-                            : "4 Studied 10%"}
-                        </span>
-                        <span className="stack-meta-item">
-                          <span
-                            className="stack-meta-dot"
-                            style={{ background: "#E11D48" }}
-                          />
-                          {lang === "km" ? "1 រង់ចាំសិក្សា" : "1 Pending"}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Project II */}
-                    <div className="stack-project-row">
-                      <div className="stack-row-head">
-                        <span className="stack-row-title">
-                          {lang === "km"
-                            ? "II. អគ្គនាយកដ្ឋានធនធានរ៉ែ (២ វិបផតថល)"
-                            : "II. Mineral Resources (2 Portals)"}
-                        </span>
-                        <span className="data-badge grn">
-                          {lang === "km" ? "៦ សេវា (១០០%)" : "6 Services (100%)"}
-                        </span>
-                      </div>
-                      <div
-                        className="stack-track"
-                        aria-label="Project II progress breakdown"
-                      >
-                        <div className="stack-seg grn" style={{ width: "100%" }} />
-                      </div>
-                      <div className="stack-meta">
-                        <span className="stack-meta-item">
-                          <span
-                            className="stack-meta-dot"
-                            style={{ background: "#059669" }}
-                          />
-                          {lang === "km"
-                            ? "6 / 6 សេវារៀបចំប្រព័ន្ធរួចរាល់ · រង់ចាំក្រុមការងារក្រសួងត្រួតពិនិត្យ"
-                            : "6 / 6 System Setup Ready · Awaiting Ministry Review"}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Project III */}
-                    <div className="stack-project-row">
-                      <div className="stack-row-head">
-                        <span className="stack-row-title">
-                          {lang === "km"
-                            ? "III. អគ្គនាយកដ្ឋានប្រេងកាត (២ វិបផតថល)"
-                            : "III. Petroleum (2 Portals)"}
-                        </span>
-                        <span className="data-badge pri">
-                          {lang === "km" ? "៧ មុខងារ" : "7 Modules"}
-                        </span>
-                      </div>
-                      <div
-                        className="stack-track"
-                        aria-label="Project III progress breakdown"
-                      >
-                        <div
-                          className="stack-seg grn"
-                          style={{ width: "42.86%" }}
-                        />
-                        <div
-                          className="stack-seg pri"
-                          style={{ width: "42.86%" }}
-                        />
-                        <div
-                          className="stack-seg amb"
-                          style={{ width: "14.28%" }}
-                        />
-                      </div>
-                      <div className="stack-meta">
-                        <span className="stack-meta-item">
-                          <span
-                            className="stack-meta-dot"
-                            style={{ background: "#059669" }}
-                          />
-                          {lang === "km" ? "3 រួចរាល់ (100%)" : "3 Ready"}
-                        </span>
-                        <span className="stack-meta-item">
-                          <span
-                            className="stack-meta-dot"
-                            style={{ background: "#4F46E5" }}
-                          />
-                          {lang === "km"
-                            ? "3 75%–90% & សាកល្បង"
-                            : "3 75%–90% & Tested"}
-                        </span>
-                        <span className="stack-meta-item">
-                          <span
-                            className="stack-meta-dot"
-                            style={{ background: "#D97706" }}
-                          />
-                          {lang === "km" ? "1 កំពុងអភិវឌ្ឍ (5%)" : "1 Dev (5%)"}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* RIGHT DATA COLUMN: 3 Project Summary Cards (Clickable to Drill Down) */}
-              <div
-                className="data-col a"
-                style={{ "--d": 2.2 } as React.CSSProperties}
-              >
-                <div className="summary-cards-stack">
-                  {/* Summary Card I: General Secretariat */}
-                  <button
-                    type="button"
-                    className="comp-data-card summary-project-card interactive"
-                    onClick={() => goToSlide(2)}
-                  >
-                    <div className="comp-data-head">
-                      <h3>
-                        {lang === "km"
-                          ? "I. អគ្គលេខាធិការដ្ឋាន"
-                          : "I. General Secretariat"}
-                      </h3>
-                      <div className="summary-card-actions">
-                        <span className="chip grn">
-                          {lang === "km" ? "១០ មុខងារ" : "10 Modules"}
-                        </span>
-                        <span className="summary-nav-hint">
-                          {lang === "km" ? "លម្អិត" : "Details"}{" "}
-                          <ArrowRight size={15} />
-                        </span>
-                      </div>
-                    </div>
-                    <div className="data-items-stack">
-                      <div className="data-item">
-                        <div className="data-item-left">
-                          <span className="data-code">1.1</span>
-                          <div className="data-text">
-                            <h4>
-                              {lang === "km"
-                                ? "កក់បន្ទប់ប្រជុំ (100% Live) · បញ្ជាបេសកកម្ម (65%) · ការិយាល័យកណ្តាល ៣ មុខងារ (60%)"
-                                : "Meeting Room (100% Live) · Mission (65%) · Secretariat 3 Modules (60%)"}
-                            </h4>
-                          </div>
-                        </div>
-                        <span className="data-badge grn">5 / 10</span>
-                      </div>
-                      <div className="data-item">
-                        <div className="data-item-left">
-                          <span className="data-code">1.2</span>
-                          <div className="data-text">
-                            <h4>
-                              {lang === "km"
-                                ? "សិក្សាតម្រូវការ 10% (4 មុខងារ៖ ជួសជុល, ផ្គត់ផ្គង់, ទ្រព្យសម្បត្តិរដ្ឋ, ផែនការថវិកា) · ប្រាក់បៀវត្សរង់ចាំសិក្សា"
-                                : "Studied 10% (4 modules: Maintenance, Supply, State Assets, Planning) · Payroll pending study"}
-                            </h4>
-                          </div>
-                        </div>
-                        <span className="data-badge amb">4 + 1</span>
-                      </div>
-                    </div>
-                  </button>
-
-                  {/* Summary Card II: Mineral Resources */}
-                  <button
-                    type="button"
-                    className="comp-data-card summary-project-card interactive"
-                    onClick={() => goToSlide(3)}
-                  >
-                    <div className="comp-data-head">
-                      <h3>
-                        {lang === "km"
-                          ? "II. អគ្គនាយកដ្ឋានធនធានរ៉ែ"
-                          : "II. General Dept. of Mineral Resources"}
-                      </h3>
-                      <div className="summary-card-actions">
-                        <span className="chip grn">
-                          {lang === "km" ? "៦ សេវា (១០០%)" : "6 Services (100%)"}
-                        </span>
-                        <span className="summary-nav-hint">
-                          {lang === "km" ? "លម្អិត" : "Details"}{" "}
-                          <ArrowRight size={15} />
-                        </span>
-                      </div>
-                    </div>
-                    <div className="data-items-stack">
-                      <div className="data-item">
-                        <div className="data-item-left">
-                          <span className="data-code">2.1</span>
-                          <div className="data-text">
-                            <h4>
-                              {lang === "km"
-                                ? "វិបផតថលអ្នកស្នើសុំ (សេវាទី១–៣) និង វិបផតថលផ្ទៃក្នុង (សេវាទី១–៣) រៀបចំប្រព័ន្ធរួចរាល់"
-                                : "Applicant Web Portal (Services 1–3) & Internal Web Portal (Services 1–3) configured"}
-                            </h4>
-                          </div>
-                        </div>
-                        <span className="data-badge grn">6 / 6</span>
-                      </div>
-                      <div className="data-item">
-                        <div className="data-item-left">
-                          <span className="data-code">2.2</span>
-                          <div className="data-text">
-                            <h4>
-                              {lang === "km"
-                                ? "សេវាទី២ និងទី៣ យកគំរូតាមសេវាទី១ រង់ចាំក្រុមការងារក្រសួងត្រួតពិនិត្យ និងផ្តល់ធាតុចូល"
-                                : "Services 2 & 3 modeled on Service 1; awaiting Ministry working group review"}
-                            </h4>
-                          </div>
-                        </div>
-                        <span className="data-badge pri">
-                          {lang === "km" ? "រង់ចាំពិនិត្យ" : "Review"}
-                        </span>
-                      </div>
-                    </div>
-                  </button>
-
-                  {/* Summary Card III: Petroleum */}
-                  <button
-                    type="button"
-                    className="comp-data-card summary-project-card interactive"
-                    onClick={() => goToSlide(4)}
-                  >
-                    <div className="comp-data-head">
-                      <h3>
-                        {lang === "km"
-                          ? "III. អគ្គនាយកដ្ឋានប្រេងកាត"
-                          : "III. General Dept. of Petroleum"}
-                      </h3>
-                      <div className="summary-card-actions">
-                        <span className="chip pri">
-                          {lang === "km" ? "៧ មុខងារ" : "7 Modules"}
-                        </span>
-                        <span className="summary-nav-hint">
-                          {lang === "km" ? "លម្អិត" : "Details"}{" "}
-                          <ArrowRight size={15} />
-                        </span>
-                      </div>
-                    </div>
-                    <div className="data-items-stack">
-                      <div className="data-item">
-                        <div className="data-item-left">
-                          <span className="data-code">3.1</span>
-                          <div className="data-text">
-                            <h4>
-                              {lang === "km"
-                                ? "រួចរាល់ 3 មុខងារ (ផ្គត់ផ្គង់, បន្តសុពលភាព, របាយការណ៍) · សុវត្ថិភាព (90%) · បន្តសុពលភាពផ្ទៃក្នុង (75%)"
-                                : "3 Ready Modules · Station Safety (90%) · Fuel/LPG Renewal Internal (75%)"}
-                            </h4>
-                          </div>
-                        </div>
-                        <span className="data-badge pri">5 / 7</span>
-                      </div>
-                      <div className="data-item">
-                        <div className="data-item-left">
-                          <span className="data-code">3.2</span>
-                          <div className="data-text">
-                            <h4>
-                              {lang === "km"
-                                ? "សាកល្បងចុះមូលដ្ឋានខេត្ត (10 វិច្ឆិកា) · Auto-Save (5%) · ចំណុចប្រឈម៖ ទម្រង់កំណត់ហេតុតាមខេត្ត"
-                                : "Provincial Field Test (Nov 10) · Offline Auto-Save (5%) · Challenge: On-site inspection minutes"}
-                            </h4>
-                          </div>
-                        </div>
-                        <span className="data-badge amb">2 + 1 Note</span>
-                      </div>
-                    </div>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ============================================================
             SLIDE 3: អគ្គលេខាធិការដ្ឋាន (General Secretariat)
            ============================================================ */}
         <section
@@ -931,7 +549,7 @@ export default function PresentationPage() {
                 {lang === "km" ? (
                   <>
                     I. អគ្គលេខាធិការដ្ឋាន ·{" "}
-                    <span className="g">វឌ្ឍភាពគម្រោងទី១ (សមាសភាគទី១ ដល់ទី៥)</span>
+                    <span className="g">វឌ្ឍនភាពគម្រោងទី១ (សមាសភាគទី១ ដល់ទី៥)</span>
                   </>
                 ) : (
                   <>
@@ -989,7 +607,7 @@ export default function PresentationPage() {
                           strokeDasharray="42.7 427.3"
                           strokeDashoffset="0"
                         />
-                        {/* 40% System Ready 60-65% (4/10) -> 170.9 */}
+                        {/* 40% System Ready 60-70% (4/10) -> 170.9 */}
                         <circle
                           cx="90"
                           cy="90"
@@ -1040,8 +658,8 @@ export default function PresentationPage() {
                           />
                           <span className="legend-name">
                             {lang === "km"
-                              ? "ដាក់ដំណើរការផ្លូវការ (100%)"
-                              : "Officially Launched (100%)"}
+                              ? "ដាក់ដំណើរការផ្លូវការ (1.3 · 100%)"
+                              : "Officially Launched (1.3 · 100%)"}
                           </span>
                         </div>
                         <span
@@ -1060,8 +678,8 @@ export default function PresentationPage() {
                           />
                           <span className="legend-name">
                             {lang === "km"
-                              ? "រៀបចំប្រព័ន្ធរួចរាល់ (60%–65%)"
-                              : "System Setup Ready (60%–65%)"}
+                              ? "រៀបចំប្រព័ន្ធរួចរាល់ (2.1, 5.1–5.3 · 60%–70%)"
+                              : "System Setup Ready (2.1, 5.1–5.3 · 60%–70%)"}
                           </span>
                         </div>
                         <span
@@ -1080,8 +698,8 @@ export default function PresentationPage() {
                           />
                           <span className="legend-name">
                             {lang === "km"
-                              ? "សិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%)"
-                              : "Requirements Studied (10%)"}
+                              ? "សិក្សាតម្រូវការ (1.1, 1.2, 3, 4 · 10%)"
+                              : "Requirements Studied (1.1, 1.2, 3, 4 · 10%)"}
                           </span>
                         </div>
                         <span
@@ -1100,8 +718,8 @@ export default function PresentationPage() {
                           />
                           <span className="legend-name">
                             {lang === "km"
-                              ? "រង់ចាំការសិក្សាជាមួយក្រសួងបន្ថែម"
-                              : "Awaiting Further Ministry Study"}
+                              ? "រង់ចាំសិក្សាបន្ថែម (2.2)"
+                              : "Awaiting Further Study (2.2)"}
                           </span>
                         </div>
                         <span
@@ -1120,7 +738,7 @@ export default function PresentationPage() {
                   <div className="chart-head">
                     <h3>
                       {lang === "km"
-                        ? "ក្រាហ្វប្រៀបធៀបភាគរយវឌ្ឍភាពតាមសមាសភាគ"
+                        ? "ក្រាហ្វប្រៀបធៀបភាគរយវឌ្ឍនភាពតាមសមាសភាគ"
                         : "Completion Percentage Chart by Component"}
                     </h3>
                     <span className="sub">0% – 100%</span>
@@ -1145,11 +763,11 @@ export default function PresentationPage() {
                           className="vbar-num"
                           style={{ color: "var(--pri)" }}
                         >
-                          65%
+                          70%
                         </span>
                         <div
                           className="vbar-bar pri"
-                          style={{ height: "65%" }}
+                          style={{ height: "70%" }}
                         />
                       </div>
                       <div className="vbar-col">
@@ -1203,30 +821,12 @@ export default function PresentationPage() {
                     </div>
 
                     <div className="vbar-labels">
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "បន្ទប់ប្រជុំ" : "Meeting"}
-                        <small>1.3</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "បេសកកម្ម" : "Mission"}
-                        <small>2.1</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "អគ្គលេខាធិការ" : "Secretariat"}
-                        <small>5.1–5.3</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "ថែទាំ/ផ្គត់ផ្គង់" : "Maint/Supply"}
-                        <small>1.1–1.2</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "ទ្រព្យ/ថវិកា" : "Asset/Budget"}
-                        <small>3 & 4</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "ប្រាក់បៀវត្ស" : "Payroll"}
-                        <small>2.2</small>
-                      </div>
+                      <div className="vbar-lbl">1.3</div>
+                      <div className="vbar-lbl">2.1</div>
+                      <div className="vbar-lbl">5.1–5.3</div>
+                      <div className="vbar-lbl">1.1–1.2</div>
+                      <div className="vbar-lbl">3 &amp; 4</div>
+                      <div className="vbar-lbl">2.2</div>
                     </div>
                   </div>
                 </div>
@@ -1375,7 +975,7 @@ export default function PresentationPage() {
                           ? "5. សមាសភាគទី5 (60%) សម្រាប់អគ្គលេខាធិការដ្ឋាន"
                           : "5. Component 5 (60%) For General Secretariat"}
                       </h3>
-                      <span className="data-badge grn">
+                      <span className="data-badge pri">
                         {lang === "km"
                           ? "60% · ការរៀបចំប្រព័ន្ធរួចរាល់"
                           : "60% · System Setup Ready"}
@@ -1408,10 +1008,392 @@ export default function PresentationPage() {
         </section>
 
         {/* ============================================================
-            SLIDE 4: អគ្គនាយកដ្ឋានធនធានរ៉ែ (General Dept. of Mineral Resources)
+            SLIDE 4: Project 1 - GS Timeline (Nov 2026 – Feb 2027)
            ============================================================ */}
         <section
           className={`slide ${currentSlide === 3 ? "on" : ""}`}
+          data-label="GS Timeline"
+        >
+          <div className="pl">
+            <GeneralAffairsBgVisual />
+          </div>
+
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="head">
+              <h2 className="h a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    I. អគ្គលេខាធិការដ្ឋាន ·{" "}
+                    <span className="g">
+                      កាលវិភាគគម្រោងទី១ (វិច្ឆិកា ២០២៦ – មីនា ២០២៧)
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    I. General Secretariat ·{" "}
+                    <span className="g">
+                      Project 1 Timeline (Nov 2026 – Mar 2027)
+                    </span>
+                  </>
+                )}
+              </h2>
+            </div>
+
+            <div className="timeline-stack">
+              <div
+                className="chart-card gantt-card gs-v2-card a"
+                style={{ "--d": 1.2 } as React.CSSProperties}
+              >
+                <div className="chart-head">
+                  <h3>
+                    {lang === "km"
+                      ? "ផែនការកាលវិភាគអនុវត្តគម្រោងទី១"
+                      : "Implementation Timeline"}
+                  </h3>
+                  <div className="gs-v2-legend">
+                    <span className="gs-v2-leg-item">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#6366F1" }}
+                      />
+                      {lang === "km" ? "សិក្សា និងវិភាគ" : "Study & Analyze"}
+                    </span>
+                    <span className="gs-v2-leg-item">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#0891B2" }}
+                      />
+                      {lang === "km" ? "អភិវឌ្ឍប្រព័ន្ធ" : "Development"}
+                    </span>
+                    <span className="gs-v2-leg-item">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#D97706" }}
+                      />
+                      {lang === "km" ? "បណ្តុះបណ្តាល & UAT" : "Training & UAT"}
+                    </span>
+                    <span className="gs-v2-leg-item">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#059669" }}
+                      />
+                      {lang === "km" ? "ដាក់ឱ្យដំណើរការ" : "Go-Live"}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="gdp-gantt-table">
+                  <div className="gdp-gantt-head">
+                    <div className="gdp-gantt-head-label">
+                      {lang === "km"
+                        ? "ប្រព័ន្ធ / ការងារ"
+                        : "Module / Workstream"}
+                    </div>
+                    {[
+                      { km: "វិច្ឆិកា ២០២៦", en: "Nov 2026" },
+                      { km: "ធ្នូ ២០២៦", en: "Dec 2026" },
+                      { km: "មករា ២០២៧", en: "Jan 2027" },
+                      { km: "កុម្ភៈ ២០២៧", en: "Feb 2027" },
+                      { km: "មីនា ២០២៧", en: "Mar 2027" },
+                    ].map((month) => (
+                      <div key={month.en} className="gdp-gantt-head-cell">
+                        <span>{lang === "km" ? month.km : month.en}</span>
+                        <div className="gs-v2-weeks">
+                          <span>W1</span>
+                          <span>W2</span>
+                          <span>W3</span>
+                          <span>W4</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* 1. ប្រព័ន្ធគ្រប់គ្រងឯកសារ */}
+                  <div className="gdp-gantt-row">
+                    <div className="gdp-gantt-phase">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#0891B2" }}
+                      />
+                      {lang === "km"
+                        ? "1. ប្រព័ន្ធគ្រប់គ្រងឯកសារ"
+                        : "1. Document Management System"}
+                    </div>
+                    <div className="gs-v2-track-wrap">
+                      <div className="gdp-gantt-track">
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div
+                          className="gdp-gantt-pill tel"
+                          style={{ left: "0%", width: "40%" }}
+                          title="Estimate Finish Development: 31-Dec-2026"
+                        >
+                          {lang === "km"
+                            ? "បញ្ចប់ប៉ាន់ស្មាន ៣១ ធ្នូ ២០២៦"
+                            : "Est. Finish Dev: 31-Dec-2026"}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 2. ការស្នើសុំបេសកកម្ម */}
+                  <div className="gdp-gantt-row">
+                    <div className="gdp-gantt-phase">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#0891B2" }}
+                      />
+                      {lang === "km"
+                        ? "2. ការស្នើសុំបេសកកម្ម"
+                        : "2. Mission Request"}
+                    </div>
+                    <div className="gs-v2-track-wrap">
+                      <div className="gdp-gantt-track">
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div
+                          className="gdp-gantt-pill tel"
+                          style={{ left: "0%", width: "40%" }}
+                          title="Estimate Finish Development: 31-Dec-2026"
+                        >
+                          {lang === "km"
+                            ? "បញ្ចប់ប៉ាន់ស្មាន ៣១ ធ្នូ ២០២៦"
+                            : "Est. Finish Dev: 31-Dec-2026"}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 3. ផែនការថវិកា និងតាមដានត្រួតពិនិត្យ */}
+                  <div className="gdp-gantt-row">
+                    <div className="gdp-gantt-phase">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#6366F1" }}
+                      />
+                      {lang === "km"
+                        ? "3. ផែនការថវិកា និងតាមដានត្រួតពិនិត្យ"
+                        : "3. Planning, Budget & M&E System"}
+                    </div>
+                    <div className="gs-v2-track-wrap">
+                      <div className="gdp-gantt-track">
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div
+                          className="gdp-gantt-pill ind sm"
+                          style={{ left: "20%", width: "5%" }}
+                          title="Study: Week 1 Dec-2026"
+                        >
+                          <span className="gs-v2-pill-lbl left">
+                            {lang === "km" ? "សិក្សា" : "Study"}
+                          </span>
+                        </div>
+                        <div
+                          className="gdp-gantt-pill tel"
+                          style={{ left: "25%", width: "45%" }}
+                          title="Development: Week 2 Dec-2026 to Week 2 Feb-2027"
+                        >
+                          {lang === "km" ? "អភិវឌ្ឍប្រព័ន្ធ" : "Development"}
+                        </div>
+                        <div
+                          className="gdp-gantt-pill amb sm"
+                          style={{ left: "70%", width: "5%" }}
+                          title="UAT: Week 3 Feb-2027"
+                        >
+                          UAT
+                        </div>
+                        <div
+                          className="gdp-gantt-pill grn sm"
+                          style={{ left: "75%", width: "5%" }}
+                          title="Go-Live: Week 4 Feb-2027"
+                        >
+                          <span className="gs-v2-pill-lbl right">
+                            {lang === "km" ? "ដំណើរការ" : "Go-Live"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 4. ប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ */}
+                  <div className="gdp-gantt-row">
+                    <div className="gdp-gantt-phase">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#6366F1" }}
+                      />
+                      {lang === "km"
+                        ? "4. ប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ"
+                        : "4. State Asset Management System"}
+                    </div>
+                    <div className="gs-v2-track-wrap">
+                      <div className="gdp-gantt-track">
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div
+                          className="gdp-gantt-pill ind sm"
+                          style={{ left: "25%", width: "5%" }}
+                          title="Study: Week 2 Dec-2026"
+                        >
+                          <span className="gs-v2-pill-lbl left">
+                            {lang === "km" ? "សិក្សា" : "Study"}
+                          </span>
+                        </div>
+                        <div
+                          className="gdp-gantt-pill tel"
+                          style={{ left: "30%", width: "45%" }}
+                          title="Development: Week 3 Dec-2026 to Week 3 Feb-2027"
+                        >
+                          {lang === "km" ? "អភិវឌ្ឍប្រព័ន្ធ" : "Development"}
+                        </div>
+                        <div
+                          className="gdp-gantt-pill amb sm"
+                          style={{ left: "75%", width: "5%" }}
+                          title="UAT: Week 4 Feb-2027"
+                        >
+                          UAT
+                        </div>
+                        <div
+                          className="gdp-gantt-pill grn sm"
+                          style={{ left: "80%", width: "5%" }}
+                          title="Go-Live: Week 1 Mar-2027"
+                        >
+                          <span className="gs-v2-pill-lbl right">
+                            {lang === "km" ? "ដំណើរការ" : "Go-Live"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 5. ការងារផ្គត់ផ្គង់ */}
+                  <div className="gdp-gantt-row">
+                    <div className="gdp-gantt-phase">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#6366F1" }}
+                      />
+                      {lang === "km" ? "5. ការងារផ្គត់ផ្គង់" : "5. Supply Work"}
+                    </div>
+                    <div className="gs-v2-track-wrap">
+                      <div className="gdp-gantt-track">
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div
+                          className="gdp-gantt-pill ind sm"
+                          style={{ left: "30%", width: "5%" }}
+                          title="Study: Week 3 Dec-2026"
+                        >
+                          <span className="gs-v2-pill-lbl left">
+                            {lang === "km" ? "សិក្សា" : "Study"}
+                          </span>
+                        </div>
+                        <div
+                          className="gdp-gantt-pill tel"
+                          style={{ left: "35%", width: "45%" }}
+                          title="Development: Week 4 Dec-2026 to Week 4 Feb-2027"
+                        >
+                          {lang === "km" ? "អភិវឌ្ឍប្រព័ន្ធ" : "Development"}
+                        </div>
+                        <div
+                          className="gdp-gantt-pill amb sm"
+                          style={{ left: "80%", width: "5%" }}
+                          title="UAT: Week 1 Mar-2027"
+                        >
+                          UAT
+                        </div>
+                        <div
+                          className="gdp-gantt-pill grn sm"
+                          style={{ left: "85%", width: "5%" }}
+                          title="Go-Live: Week 2 Mar-2027"
+                        >
+                          <span className="gs-v2-pill-lbl right">
+                            {lang === "km" ? "ដំណើរការ" : "Go-Live"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 6. ការងារថែទាំ និងជួសជុល */}
+                  <div className="gdp-gantt-row">
+                    <div className="gdp-gantt-phase">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#6366F1" }}
+                      />
+                      {lang === "km"
+                        ? "6. ការងារថែទាំ និងជួសជុល"
+                        : "6. Maintenance & Repair Work"}
+                    </div>
+                    <div className="gs-v2-track-wrap">
+                      <div className="gdp-gantt-track">
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div className="gdp-gantt-col-line" />
+                        <div
+                          className="gdp-gantt-pill ind sm"
+                          style={{ left: "35%", width: "5%" }}
+                          title="Study: Week 4 Dec-2026"
+                        >
+                          <span className="gs-v2-pill-lbl left">
+                            {lang === "km" ? "សិក្សា" : "Study"}
+                          </span>
+                        </div>
+                        <div
+                          className="gdp-gantt-pill tel"
+                          style={{ left: "40%", width: "45%" }}
+                          title="Development: Week 1 Jan-2027 to Week 1 Mar-2027"
+                        >
+                          {lang === "km" ? "អភិវឌ្ឍប្រព័ន្ធ" : "Development"}
+                        </div>
+                        <div
+                          className="gdp-gantt-pill amb sm"
+                          style={{ left: "85%", width: "5%" }}
+                          title="UAT: Week 2 Mar-2027"
+                        >
+                          UAT
+                        </div>
+                        <div
+                          className="gdp-gantt-pill grn sm"
+                          style={{ left: "90%", width: "5%" }}
+                          title="Go-Live: Week 3 Mar-2027"
+                        >
+                          <span className="gs-v2-pill-lbl right">
+                            {lang === "km" ? "ដំណើរការ" : "Go-Live"}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
+            SLIDE 5: អគ្គនាយកដ្ឋានធនធានរ៉ែ (General Dept. of Mineral Resources)
+           ============================================================ */}
+        <section
+          className={`slide ${currentSlide === 4 ? "on" : ""}`}
           data-label="Mineral Resources"
         >
           <div className="pl">
@@ -1451,8 +1433,8 @@ export default function PresentationPage() {
                   <div className="chart-head">
                     <h3>
                       {lang === "km"
-                        ? "ការវិភាគស្ថានភាពសេវាទាំង ៦ (២ Web Portal)"
-                        : "Status Distribution (6 Portal Modules · 2 Portals)"}
+                        ? "ការវិភាគស្ថានភាពសេវាទាំង ៣ (២ Web Portal)"
+                        : "Status Distribution (3 Portal Services · 2 Portals)"}
                     </h3>
                     <span className="chip grn">
                       {lang === "km" ? "គម្រោងទី២" : "Project 2"}
@@ -1511,7 +1493,7 @@ export default function PresentationPage() {
                         />
                       </svg>
                       <div className="donut-center">
-                        <span className="big">6</span>
+                        <span className="big">3</span>
                         <span className="lbl">
                           {lang === "km" ? "សេវាសរុប" : "Portal Services"}
                         </span>
@@ -1567,8 +1549,8 @@ export default function PresentationPage() {
                           />
                           <span className="legend-name">
                             {lang === "km"
-                              ? "2. រៀបចំតាមលំនាំសេវាទី១ (សេវាទី២ & ទី៣)"
-                              : "2. Configured via Service 1 (2 & 3)"}
+                              ? "2. រៀបចំតាមលំនាំ 2.1 (2.2 & 2.3)"
+                              : "2. Configured via 2.1 (2.2 & 2.3)"}
                           </span>
                         </div>
                         <span
@@ -1595,7 +1577,7 @@ export default function PresentationPage() {
                           className="legend-val"
                           style={{ color: "var(--amb)" }}
                         >
-                          {lang === "km" ? "សេវា 2 & 3" : "Srv 2 & 3"}
+                          2.2 &amp; 2.3
                         </span>
                       </div>
                     </div>
@@ -1607,7 +1589,7 @@ export default function PresentationPage() {
                   <div className="chart-head">
                     <h3>
                       {lang === "km"
-                        ? "ក្រាហ្វប្រៀបធៀបភាគរយវឌ្ឍភាពតាមសេវាទាំង ៦"
+                        ? "ក្រាហ្វប្រៀបធៀបភាគរយវឌ្ឍនភាពតាមសេវាទាំង ៦"
                         : "Completion Percentage Chart Across All 6 Services"}
                     </h3>
                     <span className="sub">0% – 100%</span>
@@ -1668,11 +1650,11 @@ export default function PresentationPage() {
                           className="vbar-num"
                           style={{ color: "var(--cy)" }}
                         >
-                          100%
+                          80%
                         </span>
                         <div
                           className="vbar-bar cy"
-                          style={{ height: "100%" }}
+                          style={{ height: "80%" }}
                         />
                       </div>
                       <div className="vbar-col">
@@ -1680,40 +1662,22 @@ export default function PresentationPage() {
                           className="vbar-num"
                           style={{ color: "var(--cy)" }}
                         >
-                          100%
+                          80%
                         </span>
                         <div
                           className="vbar-bar cy"
-                          style={{ height: "100%" }}
+                          style={{ height: "80%" }}
                         />
                       </div>
                     </div>
 
                     <div className="vbar-labels">
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "អ្នកស្នើសុំ ១" : "Applicant 1"}
-                        <small>≤ 10 Ha</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "អ្នកស្នើសុំ ២" : "Applicant 2"}
-                        <small>{lang === "km" ? "ស្វែងរុករក" : "Explore"}</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "អ្នកស្នើសុំ ៣" : "Applicant 3"}
-                        <small>≤ 10 Ha</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "ផ្ទៃក្នុង ១" : "Internal 1"}
-                        <small>{lang === "km" ? "លំនាំដើម" : "Base"}</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "ផ្ទៃក្នុង ២" : "Internal 2"}
-                        <small>{lang === "km" ? "តាមលំនាំទី១" : "Pattern 1"}</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "ផ្ទៃក្នុង ៣" : "Internal 3"}
-                        <small>{lang === "km" ? "តាមលំនាំទី១" : "Pattern 1"}</small>
-                      </div>
+                      <div className="vbar-lbl">1.1</div>
+                      <div className="vbar-lbl">1.2</div>
+                      <div className="vbar-lbl">1.3</div>
+                      <div className="vbar-lbl">2.1</div>
+                      <div className="vbar-lbl">2.2</div>
+                      <div className="vbar-lbl">2.3</div>
                     </div>
                   </div>
                 </div>
@@ -1792,7 +1756,7 @@ export default function PresentationPage() {
                               srv.num === "01" ? "grn" : "pri"
                             }`}
                           >
-                            100%
+                            {srv.num === "01" ? "100%" : "80%"}
                           </span>
                         </div>
                       ))}
@@ -1841,10 +1805,361 @@ export default function PresentationPage() {
         </section>
 
         {/* ============================================================
-            SLIDE 5: អគ្គនាយកដ្ឋានប្រេងកាត (General Dept. of Petroleum)
+            SLIDE 6: Project 2 - GDMR Timeline (13 Nov 2026 – 31 Mar 2027)
            ============================================================ */}
         <section
-          className={`slide ${currentSlide === 4 ? "on" : ""}`}
+          className={`slide ${currentSlide === 5 ? "on" : ""}`}
+          data-label="GDMR Timeline"
+        >
+          <div className="pl">
+            <MineralResourcesBgVisual />
+          </div>
+
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="head">
+              <h2 className="h a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    II. អគ្គនាយកដ្ឋានធនធានរ៉ែ ·{" "}
+                    <span className="g">
+                      កាលវិភាគគម្រោងទី២ (១៣ វិច្ឆិកា ២០២៦ – ៣១ មីនា ២០២៧)
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    II. General Department of Mineral Resources ·{" "}
+                    <span className="g">
+                      Project 2 Timeline (13 Nov 2026 – 31 Mar 2027)
+                    </span>
+                  </>
+                )}
+              </h2>
+            </div>
+
+            <div className="timeline-stack">
+              <div
+                className="chart-card gantt-card a"
+                style={{ "--d": 1.2 } as React.CSSProperties}
+              >
+                <div className="chart-head">
+                  <h3>
+                    {lang === "km"
+                      ? "ផែនការកាលវិភាគអនុវត្តគម្រោងទី២ (Project 2 – GDMR)"
+                      : "Project 2 – GDMR Monthly Gantt Timeline"}
+                  </h3>
+                  <div className="gantt-head-right">
+                    <span className="chip pri">
+                      <Calendar size={16} />
+                      {lang === "km"
+                        ? "១៣ វិច្ឆិកា ២០២៦ – ៣១ មីនា ២០២៧"
+                        : "13 Nov 2026 – 31 Mar 2027"}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="gantt-grid">
+                  <div className="gantt-corner">
+                    {lang === "km" ? "ដំណាក់កាលការងារ" : "Project Phases"}
+                  </div>
+                  <div className="gantt-month">
+                    {lang === "km" ? "វិច្ឆិកា ២០២៦" : "Nov 2026"}
+                  </div>
+                  <div className="gantt-month">
+                    {lang === "km" ? "ធ្នូ ២០២៦" : "Dec 2026"}
+                  </div>
+                  <div className="gantt-month">
+                    {lang === "km" ? "មករា ២០២៧" : "Jan 2027"}
+                  </div>
+                  <div className="gantt-month">
+                    {lang === "km" ? "កុម្ភៈ ២០២៧" : "Feb 2027"}
+                  </div>
+                  <div className="gantt-month">
+                    {lang === "km" ? "មីនា ២០២៧" : "Mar 2027"}
+                  </div>
+
+                  {/* Row 1: Design & Analyze */}
+                  <div className="gantt-label">
+                    <span
+                      className="gantt-dot"
+                      style={{ background: "#4b9b74" }}
+                    />
+                    {lang === "km"
+                      ? "1. ការរចនា និងវិភាគ"
+                      : "1. Design & Analyze"}
+                  </div>
+                  <div className="gantt-bar grn">
+                    {lang === "km"
+                      ? "១៣ វិច្ឆិកា – ០៤ ធ្នូ"
+                      : "13 Nov – 04 Dec"}
+                  </div>
+                  <div className="gantt-cell" />
+                  <div className="gantt-cell" />
+                  <div className="gantt-cell" />
+                  <div className="gantt-cell" />
+
+                  {/* Row 2: Development */}
+                  <div className="gantt-label">
+                    <span
+                      className="gantt-dot"
+                      style={{ background: "#5282d6" }}
+                    />
+                    {lang === "km" ? "2. ការអភិវឌ្ឍប្រព័ន្ធ" : "2. Development"}
+                  </div>
+                  <div className="gantt-cell" />
+                  <div
+                    className="gantt-bar blu"
+                    style={{ gridColumn: "span 2" }}
+                  >
+                    {lang === "km"
+                      ? "០៧ ធ្នូ ២០២៦ – ០៥ កុម្ភៈ ២០២៧"
+                      : "07 Dec 2026 – 05 Feb 2027"}
+                  </div>
+                  <div className="gantt-cell" />
+                  <div className="gantt-cell" />
+
+                  {/* Row 3: UAT */}
+                  <div className="gantt-label">
+                    <span
+                      className="gantt-dot"
+                      style={{ background: "#8b6fd1" }}
+                    />
+                    {lang === "km" ? "3. ការធ្វើតេស្ត (UAT)" : "3. UAT"}
+                  </div>
+                  <div className="gantt-cell" />
+                  <div className="gantt-cell" />
+                  <div className="gantt-cell" />
+                  <div className="gantt-bar pur">
+                    {lang === "km"
+                      ? "០៨ កុម្ភៈ – ១២ មីនា"
+                      : "08 Feb – 12 Mar"}
+                  </div>
+                  <div className="gantt-cell" />
+
+                  {/* Row 4: Launch */}
+                  <div className="gantt-label">
+                    <span
+                      className="gantt-dot"
+                      style={{ background: "#c89c49" }}
+                    />
+                    {lang === "km" ? "4. ដាក់ឱ្យដំណើរការ" : "4. Launch"}
+                  </div>
+                  <div className="gantt-cell" />
+                  <div className="gantt-cell" />
+                  <div className="gantt-cell" />
+                  <div className="gantt-cell" />
+                  <div className="gantt-bar gld">
+                    {lang === "km"
+                      ? "១៥ មីនា – ៣១ មីនា"
+                      : "15 Mar – 31 Mar"}
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className="phase-cards-grid a"
+                style={{ "--d": 2.0 } as React.CSSProperties}
+              >
+                <div className="phase-card grn">
+                  <div className="phase-top">
+                    <div className="phase-head-row">
+                      <span className="phase-icon">
+                        <LayoutGrid size={24} />
+                      </span>
+                      <span className="phase-step-badge">
+                        {lang === "km" ? "ដំណាក់កាល ១" : "Phase 1"}
+                      </span>
+                    </div>
+                    <h3 className="phase-title">
+                      {lang === "km"
+                        ? "1. ការរចនា និងវិភាគ"
+                        : "1. Designing & Analyzing"}
+                    </h3>
+                    <div className="phase-dates">
+                      {lang === "km"
+                        ? "១៣ វិច្ឆិកា – ០៤ ធ្នូ ២០២៦"
+                        : "13 Nov – 04 Dec 2026"}
+                    </div>
+                  </div>
+                  <ul className="phase-bullets">
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "ការវិភាគតម្រូវការប្រព័ន្ធ"
+                        : "Requirements analysis"}
+                    </li>
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "លំហូរការងារ និង SOP"
+                        : "Workflow & SOP"}
+                    </li>
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "ការរចនាផ្ទាំង UI/UX"
+                        : "UI/UX design"}
+                    </li>
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "ការអនុម័តលើការរចនា"
+                        : "Design approval"}
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="phase-card blu">
+                  <div className="phase-top">
+                    <div className="phase-head-row">
+                      <span className="phase-icon">
+                        <Code2 size={24} />
+                      </span>
+                      <span className="phase-step-badge">
+                        {lang === "km" ? "ដំណាក់កាល ២" : "Phase 2"}
+                      </span>
+                    </div>
+                    <h3 className="phase-title">
+                      {lang === "km" ? "2. ការអភិវឌ្ឍប្រព័ន្ធ" : "2. Development"}
+                    </h3>
+                    <div className="phase-dates">
+                      {lang === "km"
+                        ? "០៧ ធ្នូ ២០២៦ – ០៥ កុម្ភៈ ២០២៧"
+                        : "07 Dec – 05 Feb 2027"}
+                    </div>
+                  </div>
+                  <ul className="phase-bullets">
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "បង្កើតទម្រង់ដាក់ពាក្យស្នើសុំ"
+                        : "Application forms"}
+                    </li>
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "ការអភិវឌ្ឍលំហូរការងារ"
+                        : "Workflow development"}
+                    </li>
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "របាយការណ៍ និងការតភ្ជាប់ប្រព័ន្ធ"
+                        : "Reports & integration"}
+                    </li>
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "ការធ្វើតេស្តសាកល្បងផ្ទៃក្នុង"
+                        : "Internal testing"}
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="phase-card pur">
+                  <div className="phase-top">
+                    <div className="phase-head-row">
+                      <span className="phase-icon">
+                        <ClipboardCheck size={24} />
+                      </span>
+                      <span className="phase-step-badge">
+                        {lang === "km" ? "ដំណាក់កាល ៣" : "Phase 3"}
+                      </span>
+                    </div>
+                    <h3 className="phase-title">
+                      {lang === "km" ? "3. ការធ្វើតេស្ត (UAT)" : "3. UAT"}
+                    </h3>
+                    <div className="phase-dates">
+                      {lang === "km"
+                        ? "០៨ កុម្ភៈ – ១២ មីនា ២០២៧"
+                        : "08 Feb – 12 Mar 2027"}
+                    </div>
+                  </div>
+                  <ul className="phase-bullets">
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "បទបង្ហាញប្រព័ន្ធជូនក្រសួង"
+                        : "System demonstration"}
+                    </li>
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "ការដាក់ដំណើរការសាកល្បង"
+                        : "Trial deployment"}
+                    </li>
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "ការបណ្តុះបណ្តាលអ្នកប្រើប្រាស់"
+                        : "User training"}
+                    </li>
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "ការធ្វើតេស្ត UAT និងចុះហត្ថលេខា"
+                        : "UAT & sign-off"}
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="phase-card gld">
+                  <div className="phase-top">
+                    <div className="phase-head-row">
+                      <span className="phase-icon">
+                        <Rocket size={24} />
+                      </span>
+                      <span className="phase-step-badge">
+                        {lang === "km" ? "ដំណាក់កាល ៤" : "Phase 4"}
+                      </span>
+                    </div>
+                    <h3 className="phase-title">
+                      {lang === "km"
+                        ? "4. ដាក់ឱ្យដំណើរការជាផ្លូវការ"
+                        : "4. Launch"}
+                    </h3>
+                    <div className="phase-dates">
+                      {lang === "km"
+                        ? "១៥ មីនា – ៣១ មីនា ២០២៧"
+                        : "15 Mar – 31 Mar 2027"}
+                    </div>
+                  </div>
+                  <ul className="phase-bullets">
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "ការរៀបចំប្រព័ន្ធផលិតកម្ម"
+                        : "Production preparation"}
+                    </li>
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "ការដំឡើងប្រព័ន្ធជាផ្លូវការ"
+                        : "System deployment"}
+                    </li>
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "ការផ្ទៀងផ្ទាត់ប្រព័ន្ធជាក់ស្តែង"
+                        : "Production verification"}
+                    </li>
+                    <li>
+                      <span className="phase-bullet-dot" />
+                      {lang === "km"
+                        ? "ដាក់ឱ្យប្រើប្រាស់ជាផ្លូវការ"
+                        : "Official Go-Live"}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
+            SLIDE 7: អគ្គនាយកដ្ឋានប្រេងកាត (General Dept. of Petroleum)
+           ============================================================ */}
+        <section
+          className={`slide ${currentSlide === 6 ? "on" : ""}`}
           data-label="Petroleum"
         >
           <div className="pl">
@@ -1859,14 +2174,14 @@ export default function PresentationPage() {
                   <>
                     III. អគ្គនាយកដ្ឋានប្រេងកាត ·{" "}
                     <span className="g">
-                      Web Portal អ្នកស្នើសុំ, ផ្ទៃក្នុងក្រសួង & ចំណុចប្រឈម
+                      Web Portal អ្នកស្នើសុំ &amp; ផ្ទៃក្នុងក្រសួង
                     </span>
                   </>
                 ) : (
                   <>
                     III. General Dept. of Petroleum ·{" "}
                     <span className="g">
-                      Applicant Portal, Internal Portal & Challenges
+                      Applicant Portal &amp; Internal Portal
                     </span>
                   </>
                 )}
@@ -1884,8 +2199,8 @@ export default function PresentationPage() {
                   <div className="chart-head">
                     <h3>
                       {lang === "km"
-                        ? "ការវិភាគស្ថានភាពមុខងារទាំង ៧ (២ Web Portal)"
-                        : "Status Distribution (7 Portal Modules · 2 Portals)"}
+                        ? "ការវិភាគស្ថានភាព (២ Web Portal)"
+                        : "Status Distribution (2 Web Portals)"}
                     </h3>
                     <span className="chip grn">
                       {lang === "km" ? "គម្រោងទី៣" : "Project 3"}
@@ -1909,7 +2224,7 @@ export default function PresentationPage() {
                           stroke="var(--pb)"
                           strokeWidth="22"
                         />
-                        {/* 3/7 Ready (100%) -> 183.1 */}
+                        {/* 2/6 Ready (100%) -> 142.4 */}
                         <circle
                           cx="90"
                           cy="90"
@@ -1917,10 +2232,10 @@ export default function PresentationPage() {
                           fill="none"
                           stroke="#059669"
                           strokeWidth="22"
-                          strokeDasharray="183.1 427.3"
+                          strokeDasharray="142.4 427.3"
                           strokeDashoffset="0"
                         />
-                        {/* 2/7 High Progress (75% & 90%) -> 122.1 */}
+                        {/* 3/6 High Progress (75%–90%) -> 213.7 */}
                         <circle
                           cx="90"
                           cy="90"
@@ -1928,10 +2243,10 @@ export default function PresentationPage() {
                           fill="none"
                           stroke="#4F46E5"
                           strokeWidth="22"
-                          strokeDasharray="122.1 427.3"
-                          strokeDashoffset="-183.1"
+                          strokeDasharray="213.7 427.3"
+                          strokeDashoffset="-142.4"
                         />
-                        {/* 1/7 Provincial Inspection Tested -> 61.0 */}
+                        {/* 1/6 Provincial Inspection Tested -> 71.2 */}
                         <circle
                           cx="90"
                           cy="90"
@@ -1939,25 +2254,14 @@ export default function PresentationPage() {
                           fill="none"
                           stroke="#0284C7"
                           strokeWidth="22"
-                          strokeDasharray="61.0 427.3"
-                          strokeDashoffset="-305.2"
-                        />
-                        {/* 1/7 Offline Mode (5%) -> 61.0 */}
-                        <circle
-                          cx="90"
-                          cy="90"
-                          r="68"
-                          fill="none"
-                          stroke="#D97706"
-                          strokeWidth="22"
-                          strokeDasharray="61.0 427.3"
-                          strokeDashoffset="-366.2"
+                          strokeDasharray="71.2 427.3"
+                          strokeDashoffset="-356.1"
                         />
                       </svg>
                       <div className="donut-center">
-                        <span className="big">7</span>
+                        <span className="big">3</span>
                         <span className="lbl">
-                          {lang === "km" ? "មុខងារសរុប" : "Total Modules"}
+                          {lang === "km" ? "សេវាសរុប" : "Portal Services"}
                         </span>
                       </div>
                     </div>
@@ -1971,15 +2275,15 @@ export default function PresentationPage() {
                           />
                           <span className="legend-name">
                             {lang === "km"
-                              ? "បានរៀបចំរួចរាល់ (1.1, 1.2, 2.2)"
-                              : "Setup Ready (1.1, 1.2, 2.2)"}
+                              ? "បានរៀបចំរួចរាល់ (1.1, 1.2)"
+                              : "Setup Ready (1.1, 1.2)"}
                           </span>
                         </div>
                         <span
                           className="legend-val"
                           style={{ color: "var(--grn)" }}
                         >
-                          {lang === "km" ? "3 សេវា" : "3 Services"}
+                          {lang === "km" ? "2 សេវា" : "2 Services"}
                         </span>
                       </div>
 
@@ -1991,15 +2295,15 @@ export default function PresentationPage() {
                           />
                           <span className="legend-name">
                             {lang === "km"
-                              ? "សម្រេចបាន 75%–90% (1.3 & 2.1)"
-                              : "75%–90% Complete (1.3 & 2.1)"}
+                              ? "សម្រេចបាន 75%–90% (1.3, 2.1, 2.2)"
+                              : "75%–90% Complete (1.3, 2.1, 2.2)"}
                           </span>
                         </div>
                         <span
                           className="legend-val"
                           style={{ color: "var(--pri)" }}
                         >
-                          {lang === "km" ? "2 សេវា" : "2 Services"}
+                          {lang === "km" ? "3 សេវា" : "3 Services"}
                         </span>
                       </div>
 
@@ -2011,8 +2315,8 @@ export default function PresentationPage() {
                           />
                           <span className="legend-name">
                             {lang === "km"
-                              ? "តេស្តដល់ជំហានមន្ទីរខេត្ត (១០ វិច្ឆិកា)"
-                              : "Provincial Test (Nov 10 · 2.3)"}
+                              ? "តេស្តដល់ជំហានមន្ទីរខេត្ត (2.3)"
+                              : "Provincial Test (2.3)"}
                           </span>
                         </div>
                         <span
@@ -2020,26 +2324,6 @@ export default function PresentationPage() {
                           style={{ color: "var(--cy)" }}
                         >
                           {lang === "km" ? "1 សេវា" : "1 Service"}
-                        </span>
-                      </div>
-
-                      <div className="legend-item">
-                        <div className="legend-left">
-                          <span
-                            className="legend-dot"
-                            style={{ background: "#D97706" }}
-                          />
-                          <span className="legend-name">
-                            {lang === "km"
-                              ? "មុខងារ Offline Save Auto (5%)"
-                              : "Offline Auto-Save Mode (5%)"}
-                          </span>
-                        </div>
-                        <span
-                          className="legend-val"
-                          style={{ color: "var(--amb)" }}
-                        >
-                          {lang === "km" ? "1 មុខងារ" : "1 Module"}
                         </span>
                       </div>
                     </div>
@@ -2051,14 +2335,14 @@ export default function PresentationPage() {
                   <div className="chart-head">
                     <h3>
                       {lang === "km"
-                        ? "ក្រាហ្វប្រៀបធៀបភាគរយវឌ្ឍភាពតាមមុខងារ"
-                        : "Completion Percentage Chart by Portal Module"}
+                        ? "ក្រាហ្វប្រៀបធៀបភាគរយវឌ្ឍនភាព"
+                        : "Completion Percentage Chart"}
                     </h3>
                     <span className="sub">0% – 100%</span>
                   </div>
 
                   <div className="vbar-chart">
-                    <div className="vbar-plot">
+                    <div className="vbar-plot cols-6">
                       <div className="vbar-col">
                         <span
                           className="vbar-num"
@@ -2098,18 +2382,6 @@ export default function PresentationPage() {
                       <div className="vbar-col">
                         <span
                           className="vbar-num"
-                          style={{ color: "var(--cy)" }}
-                        >
-                          {lang === "km" ? "តេស្ត" : "Test"}
-                        </span>
-                        <div
-                          className="vbar-bar cy"
-                          style={{ height: "85%" }}
-                        />
-                      </div>
-                      <div className="vbar-col">
-                        <span
-                          className="vbar-num"
                           style={{ color: "var(--pri)" }}
                         >
                           75%
@@ -2122,42 +2394,36 @@ export default function PresentationPage() {
                       <div className="vbar-col">
                         <span
                           className="vbar-num"
-                          style={{ color: "var(--amb)" }}
+                          style={{ color: "var(--pri)" }}
                         >
-                          5%
+                          80%
                         </span>
                         <div
-                          className="vbar-bar amb"
-                          style={{ height: "14%" }}
+                          className="vbar-bar pri"
+                          style={{ height: "80%" }}
+                        />
+                      </div>
+                      <div className="vbar-col">
+                        <span
+                          className="vbar-num"
+                          style={{ color: "var(--pri)" }}
+                        >
+                          90%
+                        </span>
+                        <div
+                          className="vbar-bar pri"
+                          style={{ height: "90%" }}
                         />
                       </div>
                     </div>
 
-                    <div className="vbar-labels">
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "អ្នកស្នើសុំ ១" : "Applicant 1"}
-                        <small>{lang === "km" ? "រួចរាល់" : "Ready"}</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "វេចខ្ចប់ ២" : "Packaging 2"}
-                        <small>1.2 & 2.2</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "អ្នកស្នើសុំ ៣" : "Applicant 3"}
-                        <small>90%</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "ផ្ទៃក្នុង ៣" : "Internal 3"}
-                        <small>{lang === "km" ? "១០ វិច្ឆិកា" : "Nov 10"}</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "ផ្ទៃក្នុង ១" : "Internal 1"}
-                        <small>75%</small>
-                      </div>
-                      <div className="vbar-lbl">
-                        {lang === "km" ? "Offline" : "Offline"}
-                        <small>2.4 (5%)</small>
-                      </div>
+                    <div className="vbar-labels cols-6">
+                      <div className="vbar-lbl">1.1</div>
+                      <div className="vbar-lbl">1.2</div>
+                      <div className="vbar-lbl">1.3</div>
+                      <div className="vbar-lbl">2.1</div>
+                      <div className="vbar-lbl">2.2</div>
+                      <div className="vbar-lbl">2.3</div>
                     </div>
                   </div>
                 </div>
@@ -2206,11 +2472,7 @@ export default function PresentationPage() {
                                   srv.num === "03" ? "pri" : "grn"
                                 }`}
                               >
-                                {srv.num === "03"
-                                  ? "90%"
-                                  : lang === "km"
-                                    ? "រួចរាល់"
-                                    : "Ready"}
+                                {srv.num === "03" ? "90%" : "100%"}
                               </span>
                             </div>
                           );
@@ -2227,31 +2489,23 @@ export default function PresentationPage() {
                           ? "2. Web Portal សម្រាប់ប្រើប្រាស់ផ្ទៃក្នុងក្រសួង"
                           : "2. Web Portal for Internal Ministry Use"}
                       </h3>
-                      <span className="chip pri">
-                        <Layers size={16} />
-                        {lang === "km" ? "៤ មុខងារ" : "4 Modules"}
-                      </span>
                     </div>
                     <div className="data-items-stack">
                       {PETROLEUM_DATA.internalPortal.services.map(
                         (srv, idx) => {
                           const badgeClass =
-                            srv.num === "01"
+                            srv.num === "01" ||
+                            srv.num === "02" ||
+                            srv.num === "03"
                               ? "pri"
-                              : srv.num === "02"
-                                ? "grn"
-                                : "amb";
+                              : "amb";
                           const badgeText =
                             srv.num === "01"
                               ? "75%"
                               : srv.num === "02"
-                                ? lang === "km"
-                                  ? "រួចរាល់"
-                                  : "Ready"
+                                ? "80%"
                                 : srv.num === "03"
-                                  ? lang === "km"
-                                    ? "តេស្តខេត្ត"
-                                    : "Tested"
+                                  ? "90%"
                                   : "5%";
                           const noteText =
                             lang === "km" ? srv.notesKm : srv.notesEn;
@@ -2279,13 +2533,11 @@ export default function PresentationPage() {
                     </div>
                   </div>
 
-                  {/* Bottom Full-Width Span-2 Card: 4. ចំណុចប្រឈម */}
+                  {/* Bottom Full-Width Span-2 Card: 3. ចំណាំ */}
                   <div className="comp-data-card span-2">
                     <div className="comp-data-head">
-                      <h3>
-                        {lang === "km"
-                          ? "4. ចំណុចប្រឈម ៖"
-                          : "4. Key Challenges:"}
+                      <h3 style={{ color: "var(--red)" }}>
+                        {lang === "km" ? "3. ចំណាំ" : "3. Note"}
                       </h3>
                       <span className="data-badge red">
                         {lang === "km"
@@ -2293,52 +2545,31 @@ export default function PresentationPage() {
                           : "Form Alignment Requested"}
                       </span>
                     </div>
-                    <div className="data-items-grid-3">
-                      <div className="data-item">
-                        <div className="data-item-left">
-                          <span className="data-code">4.1</span>
-                          <div className="data-text">
-                            <h4>
+                    <div className="challenge-note-box">
+                      <div className="challenge-note-body">
+                        <p className="challenge-note-text">
+                          {lang === "km"
+                            ? "ការរៀបចំផ្ទាំងបញ្ចូលព័ត៌មាននៅជំហានមន្ទីរចុះពិនិត្យទីតាំង ពុំអាចរៀបចំដូចកំណត់ហេតុទាំងស្រុង ដោយការរៀបចំក្នុងប្រព័ន្ធ Field ខ្លះជាលក្ខណៈ Select ជ្រើសរើសទិន្នន័យ ហើយ Field ខ្លះជាតារាងជាលក្ខណៈ Popup form បញ្ចូលទិន្នន័យ។"
+                            : "The data entry screen at the Provincial On-Site Inspection step cannot fully mirror the paper inspection minutes, as some system fields use Select dropdowns while table sections use Popup forms for data entry."}
+                        </p>
+                        <ul className="challenge-list">
+                          <li className="challenge-list-item">
+                            <span className="data-code">3.1</span>
+                            <span>
                               {lang === "km"
                                 ? "ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាពសម្រាប់ស្ថានីយ"
                                 : "Technical Safety Certificate Application for Stations"}
-                            </h4>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="data-item">
-                        <div className="data-item-left">
-                          <span className="data-code">4.2</span>
-                          <div className="data-text">
-                            <h4>
+                            </span>
+                          </li>
+                          <li className="challenge-list-item">
+                            <span className="data-code">3.2</span>
+                            <span>
                               {lang === "km"
                                 ? "ស្នើសុំពិនិត្យ ទទួល និងដំណើរការឯកសារស្នើសុំនិងការបន្តសុពលភាពវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាព សម្រាប់ស្ថានីយប្រេងឥន្ធនៈ ឬស្ថានីយឧស្ម័នឥន្ធនៈ"
                                 : "Review, Reception & Processing of Application and Renewal for Fuel or LPG Stations"}
-                            </h4>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="data-item">
-                        <div className="data-item-left">
-                          <span
-                            className="data-code"
-                            style={{
-                              color: "var(--red)",
-                              background: "rgba(225, 29, 72, 0.1)",
-                            }}
-                          >
-                            !
-                          </span>
-                          <div className="data-text">
-                            <h4>
-                              {lang === "km"
-                                ? "ផ្ទាំងបញ្ចូលព័ត៌មាននៅជំហាន មន្ទីរចុះពិនិត្យទីតាំង ស្នើសុំឱ្យបង្ហាញដូចកំណត់ហេតុ។"
-                                : "Data entry screen at the Provincial On-Site Inspection step is requested to match the official inspection minutes."}
-                            </h4>
-                          </div>
-                        </div>
+                            </span>
+                          </li>
+                        </ul>
                       </div>
                     </div>
                   </div>
@@ -2349,10 +2580,269 @@ export default function PresentationPage() {
         </section>
 
         {/* ============================================================
-            SLIDE 6: Executive Conclusion & Thank You (Last Slide Kept Intact)
+            SLIDE 8: Project 3 - GDP Timeline (Nov 2026 – Mar 2027)
            ============================================================ */}
         <section
-          className={`slide ${currentSlide === 5 ? "on" : ""}`}
+          className={`slide ${currentSlide === 7 ? "on" : ""}`}
+          data-label="GDP Timeline"
+        >
+          <div className="pl">
+            <PetroleumBgVisual />
+          </div>
+
+          <div className="stage" style={{ transform: `scale(${scale})` }}>
+            <div className="head">
+              <h2 className="h a" style={{ "--d": 0 } as React.CSSProperties}>
+                {lang === "km" ? (
+                  <>
+                    III. អគ្គនាយកដ្ឋានប្រេងកាត ·{" "}
+                    <span className="g">
+                      កាលវិភាគគម្រោងទី៣ (វិច្ឆិកា ២០២៦ – មីនា ២០២៧)
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    III. General Department of Petroleum ·{" "}
+                    <span className="g">
+                      Project 3 Timeline (Nov 2026 – Mar 2027)
+                    </span>
+                  </>
+                )}
+              </h2>
+            </div>
+
+            <div className="gdp-timeline-wrap">
+              <div
+                className="gdp-gantt-card gdp-weeks-grid a"
+                style={{ "--d": 1.2 } as React.CSSProperties}
+              >
+                <div className="chart-head">
+                  <h3>
+                    {lang === "km"
+                      ? "ផែនការកាលវិភាគអនុវត្តគម្រោងទី៣ (Project 3 – GDP)"
+                      : "Project 3 – GDP Implementation Timeline"}
+                  </h3>
+                  <span className="chip pri">
+                    <Calendar size={16} />
+                    {lang === "km"
+                      ? "វិច្ឆិកា ២០២៦ – មីនា ២០២៧"
+                      : "Nov 2026 – Mar 2027"}
+                  </span>
+                </div>
+
+                <div className="gdp-gantt-table">
+                  {/* Column Headers */}
+                  <div className="gdp-gantt-head">
+                    <div className="gdp-gantt-head-label">
+                      {lang === "km" ? "ដំណាក់កាលការងារ" : "Phase"}
+                    </div>
+                    {[
+                      { km: "វិច្ឆិកា ២០២៦", en: "Nov 2026" },
+                      { km: "ធ្នូ ២០២៦", en: "Dec 2026" },
+                      { km: "មករា ២០២៧", en: "Jan 2027" },
+                      { km: "កុម្ភៈ ២០២៧", en: "Feb 2027" },
+                      { km: "មីនា ២០២៧", en: "Mar 2027" },
+                    ].map((month) => (
+                      <div key={month.en} className="gdp-gantt-head-cell">
+                        <span>{lang === "km" ? month.km : month.en}</span>
+                        <div className="gs-v2-weeks">
+                          <span>W1</span>
+                          <span>W2</span>
+                          <span>W3</span>
+                          <span>W4</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Row 1: Design & Analyze */}
+                  <div className="gdp-gantt-row">
+                    <div className="gdp-gantt-phase">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#6366F1" }}
+                      />
+                      {lang === "km"
+                        ? "1. ការរចនា និងវិភាគ"
+                        : "1. Design & Analyze"}
+                    </div>
+                    <div className="gdp-gantt-track">
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div
+                        className="gdp-gantt-pill ind"
+                        style={{ left: "10%", width: "30%" }}
+                        title="Start: Week 3 Nov-2026 · Finish: Week 4 Dec-2026"
+                      >
+                        {lang === "km"
+                          ? "ស.ទី៣ វិច្ឆិកា – ស.ទី៤ ធ្នូ ២០២៦"
+                          : "W3 Nov – W4 Dec 2026"}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Row 2: Development */}
+                  <div className="gdp-gantt-row">
+                    <div className="gdp-gantt-phase">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#0891B2" }}
+                      />
+                      {lang === "km" ? "2. ការអភិវឌ្ឍប្រព័ន្ធ" : "2. Development"}
+                    </div>
+                    <div className="gdp-gantt-track">
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div
+                        className="gdp-gantt-pill tel"
+                        style={{ left: "25%", width: "55%" }}
+                        title="Start: Week 2 Dec-2026 · Finish: Week 4 Feb-2027"
+                      >
+                        {lang === "km"
+                          ? "សប្តាហ៍ទី២ ធ្នូ ២០២៦ – សប្តាហ៍ទី៤ កុម្ភៈ ២០២៧"
+                          : "W2 Dec 2026 – W4 Feb 2027"}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Row 3: UAT */}
+                  <div className="gdp-gantt-row">
+                    <div className="gdp-gantt-phase">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#D97706" }}
+                      />
+                      {lang === "km" ? "3. ការធ្វើតេស្ត (UAT)" : "3. UAT"}
+                    </div>
+                    <div className="gdp-gantt-track">
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div
+                        className="gdp-gantt-pill amb"
+                        style={{ left: "80%", width: "15%" }}
+                        title="Start: Week 1 Mar-2027 · Finish: Week 3 Mar-2027"
+                      >
+                        {lang === "km" ? "ស.ទី១–៣ មីនា" : "W1–W3 Mar"}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Row 4: Launch */}
+                  <div className="gdp-gantt-row">
+                    <div className="gdp-gantt-phase">
+                      <span
+                        className="gdp-gantt-dot"
+                        style={{ background: "#059669" }}
+                      />
+                      {lang === "km" ? "4. ដាក់ឱ្យដំណើរការ" : "4. Launch"}
+                    </div>
+                    <div className="gdp-gantt-track">
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div className="gdp-gantt-col-line" />
+                      <div
+                        className="gdp-gantt-pill grn sm"
+                        style={{ left: "95%", width: "5%" }}
+                        title="Start: Week 4 Mar-2027"
+                      >
+                        <span className="gs-v2-pill-lbl left">
+                          {lang === "km"
+                            ? "សប្តាហ៍ទី៤ មីនា ២០២៧"
+                            : "W4 Mar 2027"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom 4 Start/Finish Summary Cards */}
+              <div
+                className="gdp-summary-row a"
+                style={{ "--d": 2.0 } as React.CSSProperties}
+              >
+                <div className="gdp-summary-card">
+                  <div className="gdp-summary-title">
+                    <span
+                      className="gdp-gantt-dot"
+                      style={{ background: "#6366F1" }}
+                    />
+                    {lang === "km"
+                      ? "1. ការរចនា និងវិភាគ"
+                      : "1. Design & Analyze"}
+                  </div>
+                  <div className="gdp-summary-dates">
+                    {lang === "km"
+                      ? "ចាប់ផ្តើម៖ សប្តាហ៍ទី៣ វិច្ឆិកា ២០២៦ · បញ្ចប់៖ សប្តាហ៍ទី៤ ធ្នូ ២០២៦"
+                      : "Start: Week 3 Nov-2026 · Finish: Week 4 Dec-2026"}
+                  </div>
+                </div>
+
+                <div className="gdp-summary-card">
+                  <div className="gdp-summary-title">
+                    <span
+                      className="gdp-gantt-dot"
+                      style={{ background: "#0891B2" }}
+                    />
+                    {lang === "km" ? "2. ការអភិវឌ្ឍប្រព័ន្ធ" : "2. Development"}
+                  </div>
+                  <div className="gdp-summary-dates">
+                    {lang === "km"
+                      ? "ចាប់ផ្តើម៖ សប្តាហ៍ទី២ ធ្នូ ២០២៦ · បញ្ចប់៖ សប្តាហ៍ទី៤ កុម្ភៈ ២០២៧"
+                      : "Start: Week 2 Dec-2026 · Finish: Week 4 Feb-2027"}
+                  </div>
+                </div>
+
+                <div className="gdp-summary-card">
+                  <div className="gdp-summary-title">
+                    <span
+                      className="gdp-gantt-dot"
+                      style={{ background: "#D97706" }}
+                    />
+                    {lang === "km" ? "3. ការធ្វើតេស្ត (UAT)" : "3. UAT"}
+                  </div>
+                  <div className="gdp-summary-dates">
+                    {lang === "km"
+                      ? "ចាប់ផ្តើម៖ សប្តាហ៍ទី១ មីនា ២០២៧ · បញ្ចប់៖ សប្តាហ៍ទី៣ មីនា ២០២៧"
+                      : "Start: Week 1 Mar-2027 · Finish: Week 3 Mar-2027"}
+                  </div>
+                </div>
+
+                <div className="gdp-summary-card">
+                  <div className="gdp-summary-title">
+                    <span
+                      className="gdp-gantt-dot"
+                      style={{ background: "#059669" }}
+                    />
+                    {lang === "km" ? "4. ដាក់ឱ្យដំណើរការ" : "4. Launch"}
+                  </div>
+                  <div className="gdp-summary-dates">
+                    {lang === "km"
+                      ? "ចាប់ផ្តើម៖ សប្តាហ៍ទី៤ មីនា ២០២៧"
+                      : "Start: Week 4 Mar-2027"}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
+            SLIDE 9: Executive Conclusion & Thank You (Last Slide Kept Intact)
+           ============================================================ */}
+        <section
+          className={`slide ${currentSlide === 8 ? "on" : ""}`}
           data-label="Thanks"
         >
           <div className="pl">
@@ -2385,30 +2875,6 @@ export default function PresentationPage() {
                   className="ty-contact a"
                   style={{ "--d": 3 } as React.CSSProperties}
                 >
-                  <div className="ty-org-badge">
-                    <Image
-                      src="/logo/mme-logo.png"
-                      alt="Ministry of Mines and Energy (MME) Logo"
-                      width={68}
-                      height={66}
-                      className="object-contain"
-                    />
-                    <div className="ty-org-info">
-                      <span className="ty-org-name">
-                        {lang === "km"
-                          ? "ក្រសួងរ៉ែ និងថាមពល"
-                          : "Ministry of Mines and Energy"}
-                      </span>
-                      <span className="ty-org-sub">
-                        {lang === "km"
-                          ? "ព្រះរាជាណាចក្រកម្ពុជា"
-                          : "Kingdom of Cambodia"}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="ty-divider" />
-
                   <div className="ty-tech-partner">
                     <span className="ty-partner-label">
                       {lang === "km" ? "ដៃគូបច្ចេកវិទ្យា" : "Technology Partner"}
@@ -2422,72 +2888,6 @@ export default function PresentationPage() {
                     />
                   </div>
                 </div>
-              </div>
-
-              <div
-                className="qrc a-r"
-                style={{ "--d": 3 } as React.CSSProperties}
-              >
-                <div className="qr-card">
-                  <div className="qr-header">
-                    <div className="qr-badge">
-                      <FileText className="w-4 h-4 text-emerald-500 shrink-0" />
-                      <span className="qr-badge-text">
-                        {lang === "km"
-                          ? "របាយការណ៍វឌ្ឍនភាព"
-                          : "Progress Report"}
-                      </span>
-                      <span className="qr-tag">PDF</span>
-                    </div>
-                  </div>
-
-                  <div className="qr-frame">
-                    <Image
-                      src={qrDataUrl}
-                      alt="Scan QR Code to Download MME Progress Report"
-                      width={220}
-                      height={220}
-                      className="qr-image"
-                      unoptimized
-                      priority
-                    />
-                  </div>
-
-                  <div className="qr-footer">
-                    <p className="qr-scan-label">
-                      <QrCode className="w-3.5 h-3.5 inline-block mr-1.5 opacity-70" />
-                      {lang === "km"
-                        ? "ស្កេនទូរស័ព្ទដើម្បីបើក/ទាញយក"
-                        : "Scan with camera to view / download"}
-                    </p>
-
-                    <a
-                      href="/Progress-report.pdf"
-                      download="MME-Progress-Report-2026.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="qr-download-btn"
-                      title={
-                        lang === "km"
-                          ? "ទាញយកឯកសារ PDF"
-                          : "Download PDF file"
-                      }
-                    >
-                      <Download className="w-4 h-4" />
-                      <span>
-                        {lang === "km"
-                          ? "ទាញយកឯកសារ PDF (657 KB)"
-                          : "Download PDF (657 KB)"}
-                      </span>
-                    </a>
-                  </div>
-                </div>
-
-                <span className="chip pri">
-                  {lang === "km"
-                    ? "ក្រសួងរ៉ែ និងថាមពល · MME DIGITAL"
-                    : "MME DIGITAL PLATFORM"}
-                </span>
               </div>
             </div>
           </div>

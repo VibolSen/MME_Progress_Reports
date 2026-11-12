@@ -20,7 +20,7 @@ export interface SlideItem {
 
 export const PRESENTATION_META = {
   projectTitleEn: "MME Progress Reports",
-  projectTitleKm: "របាយការណ៍វឌ្ឍភាពការងារ MME",
+  projectTitleKm: "របាយការណ៍វឌ្ឍនភាពការងារ MME",
   clientEn: "Ministry of Mines and Energy (MME)",
   clientKm: "ក្រសួងរ៉ែ និងថាមពល (MME)",
   companyEn: "OONE Power Technology Co., Ltd",
@@ -28,9 +28,9 @@ export const PRESENTATION_META = {
   dateEn: "November 2026",
   dateKm: "ខែវិច្ឆិកា ឆ្នាំ២០២៦",
   taglineEn:
-    "Comprehensive progress report across the General Secretariat, General Department of Mineral Resources, and General Department of Petroleum.",
+    "System development progress report for the General Secretariat, General Department of Mineral Resources, and General Department of Petroleum.",
   taglineKm:
-    "របាយការណ៍វឌ្ឍភាពការងារនៃអគ្គលេខាធិការដ្ឋាន អគ្គនាយកដ្ឋានធនធានរ៉ែ និងអគ្គនាយកដ្ឋានប្រេងកាត។",
+    "របាយការណ៍វឌ្ឍនភាពការងាររៀបចំប្រព័ន្ធសម្រាប់ អគ្គលេខាធិការដ្ឋាន, អគ្គនាយកដ្ឋានធនធានរ៉ែ និងអគ្គនាយកដ្ឋានប្រេងកាត",
 };
 
 export const AGENDA_ITEMS = [
@@ -40,9 +40,9 @@ export const AGENDA_ITEMS = [
     titleEn: "General Secretariat",
     titleKm: "អគ្គលេខាធិការដ្ឋាន (គម្រោងទី១)",
     descEn:
-      "Progress across 5 core components: Meeting Room (100% Live), Mission Request (65%), Secretariat Documents (60%), Maintenance/Supply/Assets/Budget (10% studied), and Payroll (Pending study).",
+      "Progress across 5 core components: Meeting Room (100% Live), Mission Request (70%), Secretariat Documents (60%), Maintenance/Supply/Assets/Budget (10% studied), and Payroll (Pending study).",
     descKm:
-      "វឌ្ឍភាពគម្រោងទី១ លើសមាសភាគទាំង ៥៖ សេវាបន្ទប់ប្រជុំ (100%) ស្នើសុំបេសកកម្ម (65%) ឯកសារអគ្គលេខាធិការដ្ឋាន (60%) ថែទាំ/ផ្គត់ផ្គង់/ទ្រព្យសម្បត្តិ/ផែនការថវិកា (10%) និងប្រាក់បៀវត្ស។",
+      "វឌ្ឍនភាពគម្រោងទី១ លើសមាសភាគទាំង ៥៖ សេវាបន្ទប់ប្រជុំ (100%) ស្នើសុំបេសកកម្ម (70%) ឯកសារអគ្គលេខាធិការដ្ឋាន (60%) ថែទាំ/ផ្គត់ផ្គង់/ទ្រព្យសម្បត្តិ/ផែនការថវិកា (10%) និងប្រាក់បៀវត្ស។",
     tagEn: "Project 1 · 5 Components",
     tagKm: "គម្រោងទី១ · សមាសភាគទាំង ៥",
   },
@@ -66,7 +66,7 @@ export const AGENDA_ITEMS = [
     descEn:
       "Applicant Portal (2 ready, 1 at 90%), Internal Portal (75%, Ready, Provincial Inspection testing on Nov 10 2026, & Offline Auto-Save 5%), plus key challenges & timeline.",
     descKm:
-      "វឌ្ឍភាពគម្រោងទី៣៖ Web Portal អ្នកស្នើសុំ (រួចរាល់ ២ និង 90% ១) Web Portal ផ្ទៃក្នុងក្រសួង (75%, រួចរាល់, តេស្តជំហានមន្ទីរចុះពិនិត្យទីតាំង ១០ វិច្ឆិកា ២០២៦, Offline 5%) និងចំណុចប្រឈម។",
+      "វឌ្ឍនភាពគម្រោងទី៣៖ Web Portal អ្នកស្នើសុំ (រួចរាល់ ២ និង 90% ១) Web Portal ផ្ទៃក្នុងក្រសួង (75%, រួចរាល់, តេស្តជំហានមន្ទីរចុះពិនិត្យទីតាំង ១០ វិច្ឆិកា ២០២៦, Offline 5%) និងចំណុចប្រឈម។",
     tagEn: "Project 3 · Portals & Challenges",
     tagKm: "គម្រោងទី៣ · វិស័យប្រេងកាត និងចំណុចប្រឈម",
   },
@@ -86,9 +86,9 @@ export const DEPARTMENTS = [
     liveServicesCount: 1,
     inProgressCount: 4,
     descriptionEn:
-      "Component 1 (Maintenance 10%, Supply 10%, Meeting Room 100%), Component 2 (Mission 65%, Payroll Pending), Component 3 (State Assets 10%), Component 4 (Planning & Budget 10%), and Component 5 (Secretariat 60%).",
+      "Component 1 (Maintenance 10%, Supply 10%, Meeting Room 100%), Component 2 (Mission 70%, Payroll Pending), Component 3 (State Assets 10%), Component 4 (Planning & Budget 10%), and Component 5 (Secretariat 60%).",
     descriptionKm:
-      "សមាសភាគទី១ (ថែទាំ 10%, ផ្គត់ផ្គង់ 10%, បន្ទប់ប្រជុំ 100%), សមាសភាគទី២ (បេសកកម្ម 65%, ប្រាក់បៀវត្ស រង់ចាំសិក្សាបន្ថែម), សមាសភាគទី៣ (ទ្រព្យសម្បត្តិរដ្ឋ 10%), សមាសភាគទី៤ (ផែនការ និងថវិកា 10%), និងសមាសភាគទី៥ (អគ្គលេខាធិការដ្ឋាន 60%)។",
+      "សមាសភាគទី១ (ថែទាំ 10%, ផ្គត់ផ្គង់ 10%, បន្ទប់ប្រជុំ 100%), សមាសភាគទី២ (បេសកកម្ម 70%, ប្រាក់បៀវត្ស រង់ចាំសិក្សាបន្ថែម), សមាសភាគទី៣ (ទ្រព្យសម្បត្តិរដ្ឋ 10%), សមាសភាគទី៤ (ផែនការ និងថវិកា 10%), និងសមាសភាគទី៥ (អគ្គលេខាធិការដ្ឋាន 60%)។",
   },
   {
     id: "dep2",
@@ -177,19 +177,19 @@ export const COMPONENTS_DATA = [
     num: "2",
     titleEn: "Component 2: Mission Request & Payroll Processing",
     titleKm: "សមាសភាគទី២៖ ការស្នើសុំបេសកកម្ម និងដំណើរការប្រាក់បៀវត្ស",
-    overallProgress: 65,
+    overallProgress: 70,
     subtasks: [
       {
         id: "2.1",
-        titleEn: "Mission Request (65%)",
-        titleKm: "ការស្នើសុំបេសកកម្ម (65%)",
+        titleEn: "Mission Request (70%)",
+        titleKm: "ការស្នើសុំបេសកកម្ម (70%)",
         status: "ready",
-        progress: 65,
-        statusEn: "System Setup Ready (65%)",
-        statusKm: "ការរៀបចំប្រព័ន្ធរួចរាល់ (65%)",
+        progress: 70,
+        statusEn: "System Setup Ready (70%)",
+        statusKm: "ការរៀបចំប្រព័ន្ធរួចរាល់ (70%)",
         notesEn:
-          "System setup is completed and ready at 65% for digital mission request workflows.",
-        notesKm: "ការរៀបចំប្រព័ន្ធរួចរាល់ (65%) សម្រាប់ការស្នើសុំបេសកកម្ម។",
+          "System setup is completed and ready at 70% for digital mission request workflows.",
+        notesKm: "ការរៀបចំប្រព័ន្ធរួចរាល់ (70%) សម្រាប់ការស្នើសុំបេសកកម្ម។",
       },
       {
         id: "2.2",
@@ -419,15 +419,13 @@ export const PETROLEUM_DATA = {
       {
         num: "02",
         titleEn:
-          "Technical Safety Certificate & Commercial License for Petroleum and/or LPG Packaging Operations (by Annual Capacity)",
+          "Technical Safety Certificate & Commercial License for Petroleum and/or LPG Packaging Operations (by Annual Capacity) (80%)",
         titleKm:
-          "ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាព និងអាជ្ញាបណ្ណពាណិជ្ជកម្ម សម្រាប់សកម្មភាពវេចខ្ចប់ផលិតផលប្រេងកាត និងឬឧស្ម័នឥន្ធនៈ ដែលមានសមត្ថភាពវេចខ្ចប់សរុបក្នុងមួយឆ្នាំ",
-        badgeEn: "Ready · Pending Review",
-        badgeKm: "បានរៀបចំរួចរាល់",
-        notesEn:
-          "Setup completed (awaiting further review by the Ministry working group for refinement).",
-        notesKm:
-          "បានរៀបចំរួចរាល់ (រង់ចាំក្រុមការងារក្រសួងពិនិត្យបន្ថែមដើម្បីកែសម្រួល)។",
+          "ស្នើសុំវិញ្ញាបនបត្របញ្ជាក់បច្ចេកទេសសុវត្ថិភាព និងអាជ្ញាបណ្ណពាណិជ្ជកម្ម សម្រាប់សកម្មភាពវេចខ្ចប់ផលិតផលប្រេងកាត និងឬឧស្ម័នឥន្ធនៈ ដែលមានសមត្ថភាពវេចខ្ចប់សរុបក្នុងមួយឆ្នាំ (80%)",
+        badgeEn: "80% · Pending Review",
+        badgeKm: "80%",
+        notesEn: "Awaiting further testing with the Ministry working group.",
+        notesKm: "រង់ចាំតេស្តបន្ថែមជាមួយក្រុមការងារក្រសួង។",
       },
       {
         num: "03",
@@ -437,9 +435,9 @@ export const PETROLEUM_DATA = {
         badgeEn: "Nov 10, 2026 · 2:30 PM",
         badgeKm: "១០ វិច្ឆិកា ២០២៦ · 2:30 PM",
         notesEn:
-          "(On Nov 10, 2026 at 2:30 PM, continued pilot testing with the Department and Provincial Department up to the Provincial On-Site Inspection step, and requested refinements on several items in the data entry screen.)",
+          "2026/Nov/10 Continued pilot testing with the Department and Provincial Department up to the Provincial On-Site Inspection step.",
         notesKm:
-          "(កាលពីថ្ងៃទី១០ ខែវិច្ឆិកា ឆ្នាំ២០២៦ ម៉ោង 2:30 PM បានបន្តតេស្តសាកល្បងជាមួយនាយកដ្ឋាន និងមន្ទីរខេត្ត ដល់ជំហានមន្ទីរចុះពិនិត្យទីតាំង ហើយបានស្នើសុំកែសម្រួលលើចំណុចមួយចំនួនក្នុងផ្ទាំងបញ្ចូលព័ត៌មាន)",
+          "2026/Nov/10 បានបន្តតេស្តសាកល្បងជាមួយនាយកដ្ឋាន និងមន្ទីរខេត្ត ដល់ជំហានមន្ទីរចុះពិនិត្យទីតាំង",
       },
       {
         num: "04",
@@ -547,9 +545,9 @@ export const CHALLENGES_DATA = [
     problemKm:
       "ដំណើរការប្រាក់បៀវត្ស (1.2.2) រង់ចាំការសិក្សាជាមួយក្រសួងបន្ថែម ខណៈការងារថែទាំ (1.1.1) ផ្គត់ផ្គង់ (1.1.2) ទ្រព្យសម្បត្តិរដ្ឋ (1.3) និងផែនការថវិកា (1.4) ស្ថិតនៅ 10%។",
     solutionEn:
-      "Conduct further study sessions with the Ministry for Payroll (1.2.2) and finalize requirement sign-offs to advance the 10% modules alongside Mission (65%) and Secretariat (60%).",
+      "Conduct further study sessions with the Ministry for Payroll (1.2.2) and finalize requirement sign-offs to advance the 10% modules alongside Mission (70%) and Secretariat (60%).",
     solutionKm:
-      "រៀបចំកិច្ចប្រជុំសិក្សាបន្ថែមជាមួយក្រសួងលើប្រព័ន្ធប្រាក់បៀវត្ស និងជំរុញការអភិវឌ្ឍម៉ូឌុលដែលបានសិក្សាតម្រូវការ 10% រួមជាមួយបេសកកម្ម (65%) និងអគ្គលេខាធិការដ្ឋាន (60%)។",
+      "រៀបចំកិច្ចប្រជុំសិក្សាបន្ថែមជាមួយក្រសួងលើប្រព័ន្ធប្រាក់បៀវត្ស និងជំរុញការអភិវឌ្ឍម៉ូឌុលដែលបានសិក្សាតម្រូវការ 10% រួមជាមួយបេសកកម្ម (70%) និងអគ្គលេខាធិការដ្ឋាន (60%)។",
   },
 ];
 
@@ -583,12 +581,12 @@ export const TIMELINE_MILESTONES = [
     titleKm: "ការកែសម្រួលតាមមន្ទីរខេត្ត និងម៉ូឌុលសម្រេចបាន 60%–90%",
     bulletsEn: [
       "GDP: Refine Station Certificate (90% / 75%) Provincial Inspection form per Nov 10 meeting",
-      "GS: Complete Mission Request (65%) and General Secretariat Document System (60%)",
+      "GS: Complete Mission Request (70%) and General Secretariat Document System (60%)",
       "GDMR: Ministry working group review of Mining Services 2 & 3",
     ],
     bulletsKm: [
       "ប្រេងកាត៖ កែសម្រួលផ្ទាំងជំហានមន្ទីរចុះពិនិត្យទីតាំងឱ្យដូចកំណត់ហេតុ (សេវា 90% & 75%)",
-      "អគ្គលេខាធិការដ្ឋាន៖ បញ្ចប់ការស្នើសុំបេសកកម្ម (65%) និងឯកសារអគ្គលេខាធិការដ្ឋាន (60%)",
+      "អគ្គលេខាធិការដ្ឋាន៖ បញ្ចប់ការស្នើសុំបេសកកម្ម (70%) និងឯកសារអគ្គលេខាធិការដ្ឋាន (60%)",
       "ធនធានរ៉ែ៖ ក្រុមការងារក្រសួងពិនិត្យបន្ថែមលើសេវាទី២ និងទី៣",
     ],
   },
