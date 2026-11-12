@@ -35,7 +35,7 @@ Task: Project Harness Initialization
      ```
 
 5. **Mandatory File Header:**
-   * Every file created in `team/`, `tasks/`, or newly authored source documents MUST start with:
+   * Newly authored source or documentation documents should start with:
      ```markdown
      **Author:** [Role / Agent / Name]  
      **Date:** YYYY-MM-DD  
@@ -44,33 +44,4 @@ Task: Project Harness Initialization
 
 6. **Ask When Uncertain:**
    * If any requirement, architectural choice, or data point is unclear, **always ask the user first** before making assumptions.
-
----
-
-## 🏢 Team Desks (`team/`)
-
-* [**team/dev/**](./team/dev/README.md) — Feature implementation, component engineering, Next.js / Tailwind logic.
-* [**team/qa/**](./team/qa/README.md) — Test verification, linting, build checks, Khmer/English bilingual validation.
-* [**team/review/**](./team/review/README.md) — Code review, architectural audits, security and performance inspection.
-* [**team/advisor/**](./team/advisor/README.md) — MME strategic alignment, stakeholder roadmap, inter-ministerial advisory.
-* [**team/docs/**](./team/docs/README.md) — Technical documentation, slide deck content, presentation manuals.
-
----
-
-## 📋 Tasks Workflow (`tasks/`)
-
-* Tasks template: [**tasks/template.md**](./tasks/template.md)
-* Standardized task creation for all new features, bug fixes, and data ingestion.
-
----
-
-## ⚡ Slash Commands
-
-Use the following slash commands for specialized workflows:
-* `/task` — Create, inspect, or manage project tasks
-* `/dev` — Activate the Dev desk for software implementation
-* `/qa` — Activate the QA desk for verification, linting, and bilingual review
-* `/review` — Activate the Review desk for code audits and diff reviews
-* `/advisor` — Activate the Advisor desk for strategic guidance and MME stakeholder coordination
-* `/doc` — Activate the Docs desk for updating documentation and slide deck content
 

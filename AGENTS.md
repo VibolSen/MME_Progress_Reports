@@ -87,7 +87,7 @@ npm run build
      ```
 
 5. **Mandatory File Header:**
-   * Every file created in `team/`, `tasks/`, or newly authored source files MUST begin with the standardized metadata header:
+   * Newly authored source or documentation files should begin with the metadata header:
      ```markdown
      **Author:** [Role / Agent / Name]  
      **Date:** YYYY-MM-DD  
@@ -97,38 +97,3 @@ npm run build
 
 6. **Ask When Unsure:**
    * If there is any ambiguity, missing requirement, or breaking architectural decision, **always stop and ask the user** before proceeding.
-
----
-
-## 5. Team Structure & Workspaces (`team/`)
-
-The repository features dedicated role desks under `team/` to coordinate work across specialties:
-
-* [`team/dev/`](./team/dev/README.md) — Software engineering, component development, Next.js architecture.
-* [`team/qa/`](./team/qa/README.md) — Quality assurance, test coverage, bilingual copy validation, regression testing.
-* [`team/review/`](./team/review/README.md) — Code reviews, diff auditing, performance analysis, security standards.
-* [`team/advisor/`](./team/advisor/README.md) — Project strategy, MME stakeholder alignment, inter-ministerial policy coordination.
-* [`team/docs/`](./team/docs/README.md) — Documentation, presentation notes, release briefs, bilingual dictionaries.
-
----
-
-## 6. Tasks Workflow (`tasks/`)
-
-* All project initiatives, features, and bug fixes must be tracked under `tasks/`.
-* New tasks must be created using the standardized template: [`tasks/template.md`](./tasks/template.md).
-* Every task document must start with the required **Author**, **Date**, and **Task** header.
-
----
-
-## 7. Slash Commands Quick Reference
-
-Agents and users can leverage the following standardized commands:
-
-| Command | Role / Target | Purpose |
-| :--- | :--- | :--- |
-| `/task` | Tasks Manager | Create, inspect, or update task definitions using `tasks/template.md` |
-| `/dev` | Dev Desk | Implement features, build components, and resolve code defects |
-| `/qa` | QA Desk | Verify builds, linting, responsiveness, and bilingual translation accuracy |
-| `/review` | Review Desk | Perform code reviews, security checks, and rule compliance audits |
-| `/advisor` | Advisor Desk | Provide strategic advice on MME stakeholder alignment & roadmap planning |
-| `/doc` | Docs Desk | Update documentation, technical guides, and presentation decks |
