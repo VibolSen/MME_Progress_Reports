@@ -28,17 +28,17 @@ export const PRESENTATION_META = {
   dateEn: "November 2026",
   dateKm: "ខែវិច្ឆិកា ឆ្នាំ២០២៦",
   taglineEn:
-    "Comprehensive progress report across the General Department of General Affairs, General Department of Mineral Resources, and General Department of Petroleum.",
+    "Comprehensive progress report across the General Secretariat, General Department of Mineral Resources, and General Department of Petroleum.",
   taglineKm:
-    "របាយការណ៍វឌ្ឍភាពការងារនៃអគ្គនាយកដ្ឋានកិច្ចការទូទៅ អគ្គនាយកដ្ឋានធនធានរ៉ែ និងអគ្គនាយកដ្ឋានប្រេងកាត។",
+    "របាយការណ៍វឌ្ឍភាពការងារនៃអគ្គលេខាធិការដ្ឋាន អគ្គនាយកដ្ឋានធនធានរ៉ែ និងអគ្គនាយកដ្ឋានប្រេងកាត។",
 };
 
 export const AGENDA_ITEMS = [
   {
     num: "01",
     key: "gdga",
-    titleEn: "General Dept. of General Affairs",
-    titleKm: "អគ្គនាយកដ្ឋានកិច្ចការទូទៅ (គម្រោងទី១)",
+    titleEn: "General Secretariat",
+    titleKm: "អគ្គលេខាធិការដ្ឋាន (គម្រោងទី១)",
     descEn:
       "Progress across 5 core components: Meeting Room (100% Live), Mission Request (65%), Secretariat Documents (60%), Maintenance/Supply/Assets/Budget (10% studied), and Payroll (Pending study).",
     descKm:
@@ -61,22 +61,22 @@ export const AGENDA_ITEMS = [
   {
     num: "03",
     key: "gdp",
-    titleEn: "General Dept. of Petroleum & Challenges",
-    titleKm: "អគ្គនាយកដ្ឋានប្រេងកាត និងចំណុចប្រឈម",
+    titleEn: "General Dept. of Petroleum (Project 3)",
+    titleKm: "អគ្គនាយកដ្ឋានប្រេងកាត (គម្រោងទី៣)",
     descEn:
       "Applicant Portal (2 ready, 1 at 90%), Internal Portal (75%, Ready, Provincial Inspection testing on Nov 10 2026, & Offline Auto-Save 5%), plus key challenges & timeline.",
     descKm:
-      "Web Portal អ្នកស្នើសុំ (រួចរាល់ ២ និង 90% ១) Web Portal ផ្ទៃក្នុងក្រសួង (75%, រួចរាល់, តេស្តជំហានមន្ទីរចុះពិនិត្យទីតាំង ១០ វិច្ឆិកា ២០២៦, Offline 5%) និងចំណុចប្រឈម។",
-    tagEn: "Petroleum Portals · Challenges",
-    tagKm: "វិស័យប្រេងកាត · ចំណុចប្រឈម",
+      "វឌ្ឍភាពគម្រោងទី៣៖ Web Portal អ្នកស្នើសុំ (រួចរាល់ ២ និង 90% ១) Web Portal ផ្ទៃក្នុងក្រសួង (75%, រួចរាល់, តេស្តជំហានមន្ទីរចុះពិនិត្យទីតាំង ១០ វិច្ឆិកា ២០២៦, Offline 5%) និងចំណុចប្រឈម។",
+    tagEn: "Project 3 · Portals & Challenges",
+    tagKm: "គម្រោងទី៣ · វិស័យប្រេងកាត និងចំណុចប្រឈម",
   },
 ];
 
 export const DEPARTMENTS = [
   {
     id: "dep1",
-    nameEn: "General Department of General Affairs",
-    nameKm: "អគ្គនាយកដ្ឋានកិច្ចការទូទៅ",
+    nameEn: "General Secretariat",
+    nameKm: "អគ្គលេខាធិការដ្ឋាន",
     status: "active",
     statusEn: "Project 1 · 5 Components",
     statusKm: "គម្រោងទី១ · ៥ សមាសភាគ",
@@ -112,8 +112,8 @@ export const DEPARTMENTS = [
     nameEn: "General Department of Petroleum",
     nameKm: "អគ្គនាយកដ្ឋានប្រេងកាត",
     status: "active",
-    statusEn: "Applicant & Internal Portals",
-    statusKm: "Web Portal អ្នកស្នើសុំ និងផ្ទៃក្នុង",
+    statusEn: "Project 3 · Applicant & Internal Portals",
+    statusKm: "គម្រោងទី៣ · Web Portal អ្នកស្នើសុំ និងផ្ទៃក្នុង",
     badgeEn: "Up to 90% & Joint Provincial Testing",
     badgeKm: "រហូតដល់ 90% និងតេស្តជាមួយមន្ទីរខេត្ត",
     componentsCount: 2,
@@ -129,15 +129,15 @@ export const DEPARTMENTS = [
 export const COMPONENTS_DATA = [
   {
     id: "c1",
-    num: "1.1",
+    num: "1",
     titleEn: "Component 1: Maintenance, Supply & Meeting Room",
     titleKm: "សមាសភាគទី១៖ ការងារថែទាំ ផ្គត់ផ្គង់ និងសេវាបន្ទប់ប្រជុំ",
     overallProgress: 40,
     subtasks: [
       {
-        id: "1.1.1",
-        titleEn: "1.1.1 Maintenance & Repair Work (10%)",
-        titleKm: "1.1.1 ការងារថែទាំ និងជួសជុល (10%)",
+        id: "1.1",
+        titleEn: "Maintenance & Repair Work (10%)",
+        titleKm: "ការងារថែទាំ និងជួសជុល (10%)",
         status: "study",
         progress: 10,
         statusEn: "User Requirements Studied (10%)",
@@ -147,9 +147,9 @@ export const COMPONENTS_DATA = [
         notesKm: "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%) សម្រាប់ការងារថែទាំ និងជួសជុល។",
       },
       {
-        id: "1.1.2",
-        titleEn: "1.1.2 Supply Work (10%)",
-        titleKm: "1.1.2 ការងារផ្គត់ផ្គង់ (10%)",
+        id: "1.2",
+        titleEn: "Supply Work (10%)",
+        titleKm: "ការងារផ្គត់ផ្គង់ (10%)",
         status: "study",
         progress: 10,
         statusEn: "User Requirements Studied (10%)",
@@ -159,9 +159,9 @@ export const COMPONENTS_DATA = [
         notesKm: "បានសិក្សាតម្រូវការអ្នកប្រើប្រាស់ (10%) សម្រាប់ការងារផ្គត់ផ្គង់។",
       },
       {
-        id: "1.1.3",
-        titleEn: "1.1.3 Meeting Room Service (100%)",
-        titleKm: "1.1.3 សេវាបន្ទប់ប្រជុំ (100%)",
+        id: "1.3",
+        titleEn: "Meeting Room Service (100%)",
+        titleKm: "សេវាបន្ទប់ប្រជុំ (100%)",
         status: "live",
         progress: 100,
         statusEn: "Officially Launched (100%)",
@@ -174,15 +174,15 @@ export const COMPONENTS_DATA = [
   },
   {
     id: "c2",
-    num: "1.2",
+    num: "2",
     titleEn: "Component 2: Mission Request & Payroll Processing",
     titleKm: "សមាសភាគទី២៖ ការស្នើសុំបេសកកម្ម និងដំណើរការប្រាក់បៀវត្ស",
     overallProgress: 65,
     subtasks: [
       {
-        id: "1.2.1",
-        titleEn: "1.2.1 Mission Request (65%)",
-        titleKm: "1.2.1 ការស្នើសុំបេសកកម្ម (65%)",
+        id: "2.1",
+        titleEn: "Mission Request (65%)",
+        titleKm: "ការស្នើសុំបេសកកម្ម (65%)",
         status: "ready",
         progress: 65,
         statusEn: "System Setup Ready (65%)",
@@ -192,9 +192,9 @@ export const COMPONENTS_DATA = [
         notesKm: "ការរៀបចំប្រព័ន្ធរួចរាល់ (65%) សម្រាប់ការស្នើសុំបេសកកម្ម។",
       },
       {
-        id: "1.2.2",
-        titleEn: "1.2.2 Payroll Processing (Pending Study)",
-        titleKm: "1.2.2 ដំណើរការប្រាក់បៀវត្ស (រង់ចាំការសិក្សាបន្ថែម)",
+        id: "2.2",
+        titleEn: "Payroll Processing (Pending Study)",
+        titleKm: "ដំណើរការប្រាក់បៀវត្ស (រង់ចាំការសិក្សាបន្ថែម)",
         status: "pending",
         progress: 0,
         statusEn: "Awaiting Further Study with Ministry",
@@ -207,13 +207,13 @@ export const COMPONENTS_DATA = [
   },
   {
     id: "c3",
-    num: "1.3",
+    num: "3",
     titleEn: "Component 3: State Asset Management System",
     titleKm: "សមាសភាគទី៣៖ ប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ",
     overallProgress: 10,
     subtasks: [
       {
-        id: "1.3.1",
+        id: "3",
         titleEn: "State Asset Management System (10%)",
         titleKm: "ប្រព័ន្ធគ្រប់គ្រងទ្រព្យសម្បត្តិរដ្ឋ (10%)",
         status: "study",
@@ -229,7 +229,7 @@ export const COMPONENTS_DATA = [
   },
   {
     id: "c4",
-    num: "1.4",
+    num: "4",
     titleEn:
       "Component 4: Planning, Budget, Implementation, Monitoring & Evaluation",
     titleKm:
@@ -237,7 +237,7 @@ export const COMPONENTS_DATA = [
     overallProgress: 10,
     subtasks: [
       {
-        id: "1.4.1",
+        id: "4",
         titleEn:
           "Planning, Budget, Implementation, Monitoring & Evaluation System (10%)",
         titleKm:
@@ -255,15 +255,15 @@ export const COMPONENTS_DATA = [
   },
   {
     id: "c5",
-    num: "1.5",
+    num: "5",
     titleEn: "Component 5 (60%): For General Secretariat",
     titleKm: "សមាសភាគទី៥ (60%) សម្រាប់អគ្គលេខាធិការដ្ឋាន",
     overallProgress: 60,
     subtasks: [
       {
-        id: "1.5.1",
-        titleEn: "1.5.1 Inbound/Outbound & Chronological Documents",
-        titleKm: "1.5.1 ការគ្រប់គ្រងឯកសារចូល/ចេញ និងឯកសារកាលប្បវត្តិ",
+        id: "5.1",
+        titleEn: "Inbound/Outbound & Chronological Documents",
+        titleKm: "ការគ្រប់គ្រងឯកសារចូល/ចេញ និងឯកសារកាលប្បវត្តិ",
         status: "ready",
         progress: 60,
         statusEn: "System Setup Ready",
@@ -274,10 +274,10 @@ export const COMPONENTS_DATA = [
           "ការគ្រប់គ្រងឯកសារចូល/ចេញ និងឯកសារកាលប្បវត្តិ៖ ការរៀបចំប្រព័ន្ធរួចរាល់។",
       },
       {
-        id: "1.5.2",
-        titleEn: "1.5.2 Upload and Manage Internal Documents",
+        id: "5.2",
+        titleEn: "Upload and Manage Internal Documents",
         titleKm:
-          "1.5.2 ការផ្ទុក និងគ្រប់គ្រងឯកសារផ្ទៃក្នុង (Upload and Manage Internal Documents)",
+          "ការផ្ទុក និងគ្រប់គ្រងឯកសារផ្ទៃក្នុង (Upload and Manage Internal Documents)",
         status: "ready",
         progress: 60,
         statusEn: "System Setup Ready",
@@ -288,9 +288,9 @@ export const COMPONENTS_DATA = [
           "ការផ្ទុក និងគ្រប់គ្រងឯកសារផ្ទៃក្នុង (Upload and Manage Internal Documents)៖ ការរៀបចំប្រព័ន្ធរួចរាល់។",
       },
       {
-        id: "1.5.3",
-        titleEn: "1.5.3 Document Verification",
-        titleKm: "1.5.3 ការផ្ទៀងផ្ទាត់ឯកសារ",
+        id: "5.3",
+        titleEn: "Document Verification",
+        titleKm: "ការផ្ទៀងផ្ទាត់ឯកសារ",
         status: "ready",
         progress: 60,
         statusEn: "System Setup Ready",
@@ -310,13 +310,13 @@ export const MINERAL_RESOURCES_DATA = {
     "Project 2: Digital Public Service System for the Mining Sector",
   projectTitleKm:
     "គម្រោងទី២៖ ការងាររៀបចំប្រព័ន្ធផ្ដល់សេវាសាធារណៈឌីជីថលលើវិស័យរ៉ែ",
-  applicantPortalTitleEn: "I. Web Portal for Applicants — Ready (3 Services)",
+  applicantPortalTitleEn: "1. Web Portal for Applicants — Ready (3 Services)",
   applicantPortalTitleKm:
-    "I. Web Portal សម្រាប់អ្នកស្នើសុំ បានរៀបចំរួចរាល់ ដែលមានចំនួន 3 សេវា",
+    "1. Web Portal សម្រាប់អ្នកស្នើសុំ បានរៀបចំរួចរាល់ ដែលមានចំនួន 3 សេវា",
   internalPortalTitleEn:
-    "II. Web Portal for Internal Operations — Ready (3 Services)",
+    "2. Web Portal for Internal Operations — Ready (3 Services)",
   internalPortalTitleKm:
-    "II. Web Portal សម្រាប់ការងារផ្ទៃក្នុង បានរៀបចំរួចរាល់ ដែលមានចំនួន 3 សេវា",
+    "2. Web Portal សម្រាប់ការងារផ្ទៃក្នុង បានរៀបចំរួចរាល់ ដែលមានចំនួន 3 សេវា",
   services: [
     {
       num: "01",
@@ -346,8 +346,8 @@ export const MINERAL_RESOURCES_DATA = {
       statusKm: "រៀបចំតាមលំនាំសេវាទី១ · រង់ចាំក្រសួងពិនិត្យបន្ថែម",
     },
   ],
-  noteTitleEn: "III. Important Note / Remark",
-  noteTitleKm: "III. ចំណាំសម្គាល់",
+  noteTitleEn: "3. Important Note / Remark",
+  noteTitleKm: "3. ចំណាំសម្គាល់",
   noteTextEn:
     "For Services 2 and 3, the working team configured the system following the template of Service 1, awaiting further review from the Ministry working group to refine according to actual practice.",
   noteTextKm:
@@ -358,8 +358,8 @@ export const PETROLEUM_DATA = {
   deptTitleEn: "General Department of Petroleum",
   deptTitleKm: "អគ្គនាយកដ្ឋានប្រេងកាត",
   applicantPortal: {
-    titleEn: "I. Web Portal for Applicants",
-    titleKm: "I. Web Portal សម្រាប់អ្នកស្នើសុំ",
+    titleEn: "1. Web Portal for Applicants",
+    titleKm: "1. Web Portal សម្រាប់អ្នកស្នើសុំ",
     services: [
       {
         num: "01",
@@ -402,8 +402,8 @@ export const PETROLEUM_DATA = {
     ],
   },
   internalPortal: {
-    titleEn: "II. Web Portal for Internal Ministry Use",
-    titleKm: "II. Web Portal សម្រាប់ប្រើប្រាស់ផ្ទៃក្នុងក្រសួង",
+    titleEn: "2. Web Portal for Internal Ministry Use",
+    titleKm: "2. Web Portal សម្រាប់ប្រើប្រាស់ផ្ទៃក្នុងក្រសួង",
     services: [
       {
         num: "01",
@@ -487,7 +487,7 @@ export const PENDING_ITEMS_SUMMARY = [
   },
   {
     id: "p3",
-    component: "GDGA · General Affairs",
+    component: "GS · General Secretariat",
     titleEn: "Payroll Joint Study & 10% Requirement Modules",
     titleKm: "ការសិក្សាប្រាក់បៀវត្សបន្ថែម និងម៉ូឌុលសិក្សា 10%",
     impactEn: "Ministry Coordination",
@@ -538,8 +538,8 @@ export const CHALLENGES_DATA = [
   {
     id: "ch3",
     num: "03",
-    categoryEn: "General Dept. of General Affairs (សំណូមពរ)",
-    categoryKm: "អគ្គនាយកដ្ឋានកិច្ចការទូទៅ (សំណូមពរ)",
+    categoryEn: "General Secretariat (សំណូមពរ)",
+    categoryKm: "អគ្គលេខាធិការដ្ឋាន (សំណូមពរ)",
     titleEn: "Payroll Study & Requirement Sign-offs (10% Modules)",
     titleKm: "ការសិក្សាប្រព័ន្ធប្រាក់បៀវត្សបន្ថែម និងការពន្លឿនម៉ូឌុល 10%",
     problemEn:
@@ -563,12 +563,12 @@ export const TIMELINE_MILESTONES = [
     titleEn: "Launched Services & Portal Readiness",
     titleKm: "សេវាដាក់ដំណើរការផ្លូវការ និងការរៀបចំ Web Portal",
     bulletsEn: [
-      "GDGA: Meeting Room Service officially launched (100% Live)",
+      "GS: Meeting Room Service officially launched (100% Live)",
       "GDMR: Applicant & Internal Web Portals ready for all 3 Mining Services",
       "GDP: Applicant & Internal Portals ready for Services 1 & 2 (Packaging & Renewals)",
     ],
     bulletsKm: [
-      "កិច្ចការទូទៅ៖ សេវាបន្ទប់ប្រជុំបានដាក់ដំណើរការជាផ្លូវការ (100%)",
+      "អគ្គលេខាធិការដ្ឋាន៖ សេវាបន្ទប់ប្រជុំបានដាក់ដំណើរការជាផ្លូវការ (100%)",
       "ធនធានរ៉ែ៖ Web Portal អ្នកស្នើសុំ និងផ្ទៃក្នុង រៀបចំរួចរាល់ទាំង ៣ សេវា",
       "ប្រេងកាត៖ Web Portal សេវាទី១ និងទី២ បានរៀបចំរួចរាល់",
     ],
@@ -583,12 +583,12 @@ export const TIMELINE_MILESTONES = [
     titleKm: "ការកែសម្រួលតាមមន្ទីរខេត្ត និងម៉ូឌុលសម្រេចបាន 60%–90%",
     bulletsEn: [
       "GDP: Refine Station Certificate (90% / 75%) Provincial Inspection form per Nov 10 meeting",
-      "GDGA: Complete Mission Request (65%) and General Secretariat Document System (60%)",
+      "GS: Complete Mission Request (65%) and General Secretariat Document System (60%)",
       "GDMR: Ministry working group review of Mining Services 2 & 3",
     ],
     bulletsKm: [
       "ប្រេងកាត៖ កែសម្រួលផ្ទាំងជំហានមន្ទីរចុះពិនិត្យទីតាំងឱ្យដូចកំណត់ហេតុ (សេវា 90% & 75%)",
-      "កិច្ចការទូទៅ៖ បញ្ចប់ការស្នើសុំបេសកកម្ម (65%) និងឯកសារអគ្គលេខាធិការដ្ឋាន (60%)",
+      "អគ្គលេខាធិការដ្ឋាន៖ បញ្ចប់ការស្នើសុំបេសកកម្ម (65%) និងឯកសារអគ្គលេខាធិការដ្ឋាន (60%)",
       "ធនធានរ៉ែ៖ ក្រុមការងារក្រសួងពិនិត្យបន្ថែមលើសេវាទី២ និងទី៣",
     ],
   },
@@ -602,13 +602,13 @@ export const TIMELINE_MILESTONES = [
     titleKm: "មុខងារ Offline Auto-Save និងម៉ូឌុលរដ្ឋបាល",
     bulletsEn: [
       "GDP: Develop Offline Auto-Save functionality (currently 5%) for field inspections",
-      "GDGA: Build Maintenance (10%), Supply (10%), State Assets (10%) & Planning/Budget (10%)",
-      "GDGA: Conduct further Payroll Processing (1.2.2) study with the Ministry",
+      "GS: Build Maintenance (10%), Supply (10%), State Assets (10%) & Planning/Budget (10%)",
+      "GS: Conduct further Payroll Processing (1.2.2) study with the Ministry",
     ],
     bulletsKm: [
       "ប្រេងកាត៖ អភិវឌ្ឍមុខងារ Offline Save ទិន្នន័យ Auto ករណីដាច់ Internet (5%)",
-      "កិច្ចការទូទៅ៖ អភិវឌ្ឍការងារថែទាំ (10%) ផ្គត់ផ្គង់ (10%) ទ្រព្យសម្បត្តិរដ្ឋ (10%) និងផែនការថវិកា (10%)",
-      "កិច្ចការទូទៅ៖ សិក្សាបន្ថែមជាមួយក្រសួងលើដំណើរការប្រាក់បៀវត្ស (1.2.2)",
+      "អគ្គលេខាធិការដ្ឋាន៖ អភិវឌ្ឍការងារថែទាំ (10%) ផ្គត់ផ្គង់ (10%) ទ្រព្យសម្បត្តិរដ្ឋ (10%) និងផែនការថវិកា (10%)",
+      "អគ្គលេខាធិការដ្ឋាន៖ សិក្សាបន្ថែមជាមួយក្រសួងលើដំណើរការប្រាក់បៀវត្ស (1.2.2)",
     ],
   },
   {
@@ -620,7 +620,7 @@ export const TIMELINE_MILESTONES = [
     titleEn: "Full MME Digital Commissioning",
     titleKm: "ការដាក់ឱ្យប្រើប្រាស់ផ្លូវការនៅគ្រប់អគ្គនាយកដ្ឋានទាំង ៣",
     bulletsEn: [
-      "Official launch of all GDGA, GDMR, and GDP digital public & internal portals",
+      "Official launch of all GS, GDMR, and GDP digital public & internal portals",
       "End-to-end training for Ministry and Provincial Department officers",
       "Ongoing technical support, SLA monitoring, and system handover",
     ],

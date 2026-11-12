@@ -92,7 +92,7 @@ body {
   flex-direction: column;
 }
 
-/* Viewport stage container */
+/* Viewport stage container — strictly stops above .bar-dock so footer never conflicts */
 .viewport {
   position: absolute;
   inset: 0;
@@ -102,6 +102,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: default;
+  z-index: 1;
 }
 
 .deck.fs .viewport {
@@ -121,6 +122,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   gap: 16px;
+  z-index: 2;
 }
 
 .slide {
@@ -142,13 +144,23 @@ body {
   transition: opacity 0.45s var(--ease);
 }
 
-/* Ambient Background VFX */
+/* Full-Screen Ambient Background VFX */
 .bgfx {
-  position: absolute;
+  position: fixed;
   inset: 0;
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
+  background: radial-gradient(
+      ellipse 85% 65% at 78% 12%,
+      var(--glow),
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 70% 60% at 14% 92%,
+      rgba(2, 132, 199, 0.1),
+      transparent 65%
+    );
 }
 
 .bgfx .dots {
@@ -157,32 +169,36 @@ body {
   background-image: radial-gradient(var(--pb-strong) 1.25px, transparent 1.25px);
   background-size: 32px 32px;
   opacity: 0.55;
-  mask-image: radial-gradient(ellipse at 65% 45%, #000 0%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at 65% 45%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 65% 45%, #000 0%, transparent 82%);
+  -webkit-mask-image: radial-gradient(
+    ellipse at 65% 45%,
+    #000 0%,
+    transparent 82%
+  );
 }
 
 .bgfx .blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.45;
+  filter: blur(110px);
+  opacity: 0.55;
 }
 
 .bgfx .b1 {
-  width: 720px;
-  height: 720px;
+  width: clamp(560px, 44vw, 900px);
+  height: clamp(560px, 44vw, 900px);
   background: var(--glow);
-  right: -120px;
-  top: -180px;
+  right: -10vw;
+  top: -16vh;
   animation: drift 20s ease-in-out infinite alternate;
 }
 
 .bgfx .b2 {
-  width: 560px;
-  height: 560px;
+  width: clamp(480px, 38vw, 760px);
+  height: clamp(480px, 38vw, 760px);
   background: rgba(2, 132, 199, 0.14);
-  left: -140px;
-  bottom: -160px;
+  left: -10vw;
+  bottom: -14vh;
   animation: drift 24s ease-in-out infinite alternate-reverse;
 }
 
@@ -473,8 +489,8 @@ body {
   min-height: 0;
   width: 100%;
   display: grid;
-  grid-template-columns: 1.06fr 0.94fr;
-  gap: 44px;
+  grid-template-columns: 0.98fr 1.02fr;
+  gap: 36px;
   align-items: center;
 }
 
@@ -578,7 +594,8 @@ body {
 }
 
 .hero-img-wrap {
-  width: 100%;
+  width: 106%;
+  margin-top: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -587,9 +604,8 @@ body {
 .hero-img-direct {
   width: 100%;
   height: auto;
-  border-radius: 24px;
-  box-shadow: var(--shadow-lg);
   object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 /* ==========================================
@@ -1738,7 +1754,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 360px;
+  height: clamp(240px, 34vh, 380px);
   z-index: 1;
   pointer-events: none;
 }
@@ -2521,6 +2537,126 @@ body {
   font-weight: 800;
   text-align: right;
   white-space: nowrap;
+}
+
+/* Comparative 3-Project Stacked Progress Bars (Executive Summary Slide) */
+.stack-chart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.stack-project-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: var(--panel2);
+  border: 1px solid var(--pb);
+}
+
+.stack-row-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.stack-row-title {
+  font-size: 17.5px;
+  font-weight: 800;
+  color: var(--tx);
+  line-height: 1.35;
+}
+
+.stack-track {
+  width: 100%;
+  height: 16px;
+  border-radius: 999px;
+  background: var(--pb);
+  overflow: hidden;
+  display: flex;
+  gap: 2px;
+}
+
+.stack-seg {
+  height: 100%;
+}
+
+.stack-seg.grn {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.stack-seg.pri {
+  background: linear-gradient(90deg, #6366f1, #4f46e5);
+}
+
+.stack-seg.amb {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.stack-seg.ros {
+  background: linear-gradient(90deg, #f43f5e, #e11d48);
+}
+
+.stack-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--mu);
+}
+
+.stack-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stack-meta-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  flex: none;
+}
+
+.summary-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+  justify-content: space-between;
+}
+
+.comp-data-card.summary-project-card {
+  width: 100%;
+  flex: 1;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  justify-content: space-between;
+}
+
+.summary-card-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.summary-nav-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--pri);
 }
 
 /* Complete Unclipped Full-Text Data Cards (Right Zone) */
