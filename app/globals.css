@@ -3989,7 +3989,7 @@ body {
 /* Print Styles */
 @media print {
   @page {
-    size: 1920px 1080px landscape;
+    size: A4 landscape;
     margin: 0;
   }
 
@@ -4001,7 +4001,7 @@ body {
   html,
   body {
     height: auto !important;
-    width: 1920px !important;
+    width: 297mm !important;
     overflow: visible !important;
     background: #fff !important;
     color: #0F172A !important;
@@ -4012,7 +4012,7 @@ body {
     inset: auto !important;
     display: block !important;
     height: auto !important;
-    width: 1920px !important;
+    width: 297mm !important;
     overflow: visible !important;
     background: #fff !important;
   }
@@ -4023,7 +4023,7 @@ body {
     bottom: auto !important;
     display: block !important;
     height: auto !important;
-    width: 1920px !important;
+    width: 297mm !important;
     overflow: visible !important;
   }
 
@@ -4037,8 +4037,10 @@ body {
     opacity: 1 !important;
     page-break-after: always !important;
     break-after: page !important;
-    width: 1920px !important;
-    height: 1080px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    width: 297mm !important;
+    height: 210mm !important;
     overflow: hidden !important;
   }
 
@@ -4063,7 +4065,9 @@ body {
   }
 
   .stage {
-    transform: none !important;
+    transform: scale(0.584) !important;
+    transform-origin: center center !important;
+    flex: none !important;
   }
 
   .bar-dock,
