@@ -3065,7 +3065,12 @@ export default function PresentationPage() {
         <button
           className="nb interactive"
           id="printb"
-          onClick={() => window.print()}
+          onClick={async () => {
+            if (document.fullscreenElement) {
+              await document.exitFullscreen().catch(() => {});
+            }
+            window.print();
+          }}
           aria-label="Print slides"
           style={{ flexShrink: 0 }}
         >
