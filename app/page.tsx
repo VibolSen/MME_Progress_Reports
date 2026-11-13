@@ -233,6 +233,9 @@ export default function PresentationPage() {
           break;
         case "Escape":
           setLangDropdownOpen(false);
+          if (document.fullscreenElement) {
+            document.exitFullscreen().catch(() => {});
+          }
           break;
       }
     };
