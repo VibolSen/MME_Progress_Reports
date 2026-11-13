@@ -51,7 +51,6 @@ import {
   Rocket,
   Calendar,
 } from "lucide-react";
-import QRCode from "qrcode";
 
 const TOTAL_SLIDES = 9;
 
@@ -63,8 +62,10 @@ export default function PresentationPage() {
   const [lang, setLang] = useState<Language>("km");
   const [langDropdownOpen, setLangDropdownOpen] = useState<boolean>(false);
 
-  // QR Code for Progress Report PDF on Slide 5
-  const [qrDataUrl, setQrDataUrl] = useState<string>("/qr-progress-report.svg");
+  // QR Code for Progress Report PDF
+  const GOOGLE_DRIVE_PDF_URL =
+    "https://drive.google.com/file/d/1KYoMmhzlSKPQJ8ejeRorPacbSYuRJM0d/view?usp=sharing";
+  const qrDataUrl = "/qr-progress-report.png";
 
   // Hydration-safe fullscreen state via useSyncExternalStore
   const isFullscreen = useSyncExternalStore(
@@ -111,43 +112,6 @@ export default function PresentationPage() {
       window.clearTimeout(timer);
       window.removeEventListener("hashchange", syncFromHash);
     };
-  }, []);
-
-  // Dynamically resolve target URL for QR code (defaults to production Vercel URL when running locally)
-  useEffect(() => {
-    try {
-      const isLocal =
-        typeof window !== "undefined" &&
-        window.location.hostname &&
-        (window.location.hostname.includes("localhost") ||
-          window.location.hostname.includes("127.0.0.1") ||
-          window.location.hostname.startsWith("192.168."));
-
-      const origin =
-        !isLocal && typeof window !== "undefined" && window.location.origin
-          ? window.location.origin
-          : "https://mme-progress-reports.vercel.app";
-
-      const target = `${origin}/${encodeURIComponent("MME Progress Reports _ OONE Power.pdf")}`;
-
-      QRCode.toDataURL(target, {
-        width: 560,
-        margin: 1,
-        color: {
-          dark: "#0F172A",
-          light: "#FFFFFF",
-        },
-        errorCorrectionLevel: "M",
-      })
-        .then((url) => {
-          if (url) setQrDataUrl(url);
-        })
-        .catch((err) => {
-          console.warn("Could not generate dynamic QR code:", err);
-        });
-    } catch {
-      // Fallback remains /qr-progress-report.svg
-    }
   }, []);
 
   const goToSlide = useCallback((index: number) => {
@@ -389,22 +353,21 @@ export default function PresentationPage() {
                     </p>
 
                     <a
-                      href="/MME%20Progress%20Reports%20_%20OONE%20Power.pdf"
-                      download="MME Progress Reports _ OONE Power.pdf"
+                      href={GOOGLE_DRIVE_PDF_URL}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="qr-download-btn"
                       title={
                         lang === "km"
-                          ? "ទាញយកឯកសារ PDF"
-                          : "Download PDF file"
+                          ? "បើក ឬទាញយកឯកសារ PDF"
+                          : "Open or Download PDF"
                       }
                     >
                       <Download className="w-4 h-4" />
                       <span>
                         {lang === "km"
-                          ? "ទាញយកឯកសារ PDF"
-                          : "Download PDF"}
+                          ? "បើក/ទាញយកឯកសារ PDF"
+                          : "Open / Download PDF"}
                       </span>
                     </a>
                   </div>
